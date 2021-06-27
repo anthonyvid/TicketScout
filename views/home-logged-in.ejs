@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+		/>
+		<link rel="stylesheet" href="/home-logged-in/home-logged-in.css" />
+		<script defer src="/home-logged-in/home-logged-in.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="sidebar">
+			<div class="sidebar-brand">
+				<div class="brand-flex">
+					<img
+						src="/assets/ticketScoutLogo.svg"
+						width="30px"
+						alt=""
+					/>
+
+					<div class="brand-icons">
+						<span class="las la-bell"></span>
+						<span class="las la-user-circle"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="sidebar-main">
+				<div class="sidebar-user">
+					<img src="/assets/user.svg" alt="" />
+					<h3>Anthony Vidovic</h3>
+					<span>anthonyvidovic@gmail.com</span>
+				</div>
+			</div>
+
+			<div class="sidebar-menu">
+				<div class="menu-head">
+					<span>Dashboard</span>
+				</div>
+				<ul>
+					<li>
+						<a href="">
+							<span class="las la-sticky-note"></span>
+							Overview
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-tools"></span>
+							Tickets
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-toolbox"></span>
+							Parts
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-file-invoice-dollar"></span>
+							Invoices
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-money-bill"></span>
+							Estimates
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-tasks"></span>
+							Tasks
+						</a>
+					</li>
+				</ul>
+				<div class="menu-head">
+					<span>Admin</span>
+				</div>
+				<ul>
+					<li>
+						<a href="#">
+							<span class="las la-comment-dollar"></span>
+							Finance
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-chart-bar"></span>
+							Reports
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span class="las la-cog"></span>
+							Settings
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="main-content">
+			<header>
+				<div class="menu-toggle">
+					<label for="">
+						<span class="las la-bars"></span>
+					</label>
+				</div>
+
+				<input type="search" placeholder="Search for..." />
+			</header>
+
+			<main>
+				<div class="page-header">
+					<div>
+						<h1>June 18th, daily overview</h1>
+						<small
+							>Monitor Key Metrics. Check reporting and review
+							insights</small
+						>
+					</div>
+
+					<div class="header-actions">
+						<button>
+							New Ticket
+							<span class="las la-plus"></span>
+						</button>
+					</div>
+				</div>
+
+				<div class="cards">
+					<div class="card-single">
+						<div class="card-flex">
+							<div class="card-info">
+								<div class="card-head">
+									<span>attention needed</span>
+									<small
+										>Number of attention needed
+										tickets</small
+									>
+								</div>
+
+								<h2>42</h2>
+							</div>
+							<div class="card-chart">
+								<span class="las la-exclamation-circle"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-single">
+						<div class="card-flex">
+							<div class="card-info">
+								<div class="card-head">
+									<span>need to order</span>
+									<small
+										>Number of parts needed to be
+										ordered</small
+									>
+								</div>
+
+								<h2>2</h2>
+							</div>
+							<div class="card-chart">
+								<span class="las la-cart-plus"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-single">
+						<div class="card-flex">
+							<div class="card-info">
+								<div class="card-head">
+									<span>customer replies</span>
+									<small>Number of customer replies</small>
+								</div>
+
+								<h2>5</h2>
+							</div>
+							<div class="card-chart">
+								<span class="lab la-rocketchat"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-single recent-ticket-card">
+						<div class="card-head">
+							<h3>Recent Tickets</h3>
+							<button>
+								See all <span class="las la-arrow-right"></span>
+							</button>
+						</div>
+						<div class="card-scroll-box">
+							<table>
+								<thead>
+									<tr>
+										<td>Ticket #</td>
+										<td>Customer</td>
+										<td>Subject</td>
+										<td>Status</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>20653</td>
+										<td>John Smith</td>
+										<td>iPhone Xr Screen replacement</td>
+										<td>
+											<span class="status"></span>
+											In Progress
+										</td>
+									</tr>
+									<tr>
+										<td>20653</td>
+										<td>John Smith</td>
+										<td>iPhone Xr Screen replacement</td>
+										<td>
+											<span class="status"></span>
+											In Progress
+										</td>
+									</tr>
+									<tr>
+										<td>20653</td>
+										<td>John Smith</td>
+										<td>iPhone Xr Screen replacement</td>
+										<td>
+											<span class="status"></span>
+											In Progress
+										</td>
+									</tr>
+									<tr>
+										<td>20653</td>
+										<td>John Smith</td>
+										<td>iPhone Xr Screen replacement</td>
+										<td>
+											<span class="status"></span>
+											In Progress
+										</td>
+									</tr>
+									<tr>
+										<td>20653</td>
+										<td>John Smith</td>
+										<td>iPhone Xr Screen replacement</td>
+										<td>
+											<span class="status"></span>
+											In Progress
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="card-single task-card">
+						<div class="card-flex">
+							<div class="card-info">
+								<div class="card-head">
+									<h3>Tasks</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-single extra-card">
+						<div class="card-flex">
+							<div class="card-info">
+								<div class="card-head">
+									<h3>Extra card</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

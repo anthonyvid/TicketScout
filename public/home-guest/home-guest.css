@@ -1,0 +1,493 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
+input:hover,
+button:hover {
+  cursor: pointer;
+}
+
+input:focus {
+  cursor: text;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: #3f3539;
+}
+
+a:hover {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 0 0 1px rgba(61, 53, 75, 0.7);
+}
+
+body {
+  margin: 0;
+  font-family: "montserrat", sans-serif;
+  background-image: url(/assets/mainBg.svg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body.superCenter {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 80vw;
+  height: 75%;
+  background-color: #fafafb;
+  margin-bottom: 40px;
+  border-width: 0px;
+  border-radius: 0px;
+  border-style: solid;
+  z-index: 999;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+          box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+@media (min-width: 1200px) {
+  .login-box,
+  .sign-up-box,
+  .forgot-psw-box {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-right: 20px;
+    -webkit-box-flex: 3.5;
+        -ms-flex: 3.5;
+            flex: 3.5;
+    overflow: hidden;
+  }
+  .login-box h1,
+  .login-box #sign-up-link-mobile,
+  .login-box .subheading,
+  .login-box #sign-in-btn-mobile,
+  .sign-up-box h1,
+  .sign-up-box #sign-up-link-mobile,
+  .sign-up-box .subheading,
+  .sign-up-box #sign-in-btn-mobile,
+  .forgot-psw-box h1,
+  .forgot-psw-box #sign-up-link-mobile,
+  .forgot-psw-box .subheading,
+  .forgot-psw-box #sign-in-btn-mobile {
+    display: none;
+  }
+  .login-box header #logo-img,
+  .sign-up-box header #logo-img,
+  .forgot-psw-box header #logo-img {
+    background-color: transparent;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: 0;
+  }
+  .login-box a,
+  .sign-up-box a,
+  .forgot-psw-box a {
+    text-decoration: none;
+    color: #3d354b;
+  }
+  .login-box form,
+  .sign-up-box form,
+  .forgot-psw-box form {
+    width: 80%;
+  }
+  .login-box form label,
+  .sign-up-box form label,
+  .forgot-psw-box form label {
+    margin: 0;
+    color: #3d354b;
+    font-family: "exo 2", sans-serif;
+    font-size: 13px;
+  }
+  .login-box form .input-wrap,
+  .sign-up-box form .input-wrap,
+  .forgot-psw-box form .input-wrap {
+    position: relative;
+  }
+  .login-box form .input-wrap i,
+  .sign-up-box form .input-wrap i,
+  .forgot-psw-box form .input-wrap i {
+    position: absolute;
+    left: 1em;
+    top: 33%;
+    color: #b1aec2;
+  }
+  .login-box form .input-wrap input,
+  .sign-up-box form .input-wrap input,
+  .forgot-psw-box form .input-wrap input {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1em 0.5em;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    border-bottom: 1px solid #b1aec2;
+    font-size: 1em;
+    color: #3d354b;
+    text-indent: 33px;
+    font-family: "exo 2", sans-serif;
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+  }
+  .login-box form .input-wrap input:focus,
+  .login-box form .input-wrap input:focus::-webkit-input-placeholder,
+  .login-box form .input-wrap input:focus + .fa,
+  .sign-up-box form .input-wrap input:focus,
+  .sign-up-box form .input-wrap input:focus::-webkit-input-placeholder,
+  .sign-up-box form .input-wrap input:focus + .fa,
+  .forgot-psw-box form .input-wrap input:focus,
+  .forgot-psw-box form .input-wrap input:focus::-webkit-input-placeholder,
+  .forgot-psw-box form .input-wrap input:focus + .fa {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .input-wrap input:focus,
+  .login-box form .input-wrap input:focus:-ms-input-placeholder,
+  .login-box form .input-wrap input:focus + .fa,
+  .sign-up-box form .input-wrap input:focus,
+  .sign-up-box form .input-wrap input:focus:-ms-input-placeholder,
+  .sign-up-box form .input-wrap input:focus + .fa,
+  .forgot-psw-box form .input-wrap input:focus,
+  .forgot-psw-box form .input-wrap input:focus:-ms-input-placeholder,
+  .forgot-psw-box form .input-wrap input:focus + .fa {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .input-wrap input:focus,
+  .login-box form .input-wrap input:focus::-ms-input-placeholder,
+  .login-box form .input-wrap input:focus + .fa,
+  .sign-up-box form .input-wrap input:focus,
+  .sign-up-box form .input-wrap input:focus::-ms-input-placeholder,
+  .sign-up-box form .input-wrap input:focus + .fa,
+  .forgot-psw-box form .input-wrap input:focus,
+  .forgot-psw-box form .input-wrap input:focus::-ms-input-placeholder,
+  .forgot-psw-box form .input-wrap input:focus + .fa {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .input-wrap input:focus,
+  .login-box form .input-wrap input:focus::placeholder,
+  .login-box form .input-wrap input:focus + .fa,
+  .sign-up-box form .input-wrap input:focus,
+  .sign-up-box form .input-wrap input:focus::placeholder,
+  .sign-up-box form .input-wrap input:focus + .fa,
+  .forgot-psw-box form .input-wrap input:focus,
+  .forgot-psw-box form .input-wrap input:focus::placeholder,
+  .forgot-psw-box form .input-wrap input:focus + .fa {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .input-wrap input:valid + .fa,
+  .login-box form .input-wrap input:valid,
+  .sign-up-box form .input-wrap input:valid + .fa,
+  .sign-up-box form .input-wrap input:valid,
+  .forgot-psw-box form .input-wrap input:valid + .fa,
+  .forgot-psw-box form .input-wrap input:valid {
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box .link-wrap,
+  .sign-up-box .link-wrap,
+  .forgot-psw-box .link-wrap {
+    margin-top: 50px;
+    font-size: clamp(8px, 1vw, 16px);
+    width: 100%;
+  }
+  .login-box .link-wrap .forgot-psw-link:hover,
+  .sign-up-box .link-wrap .forgot-psw-link:hover,
+  .forgot-psw-box .link-wrap .forgot-psw-link:hover {
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 0 0 1px rgba(61, 53, 75, 0.7);
+  }
+  .login-box button,
+  .sign-up-box button,
+  .forgot-psw-box button {
+    width: 120px;
+    height: 40px;
+    border-radius: 5em;
+    border-width: 0;
+    color: #edf5fc;
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    background-color: #3d354b;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    float: right;
+    margin-top: -15px;
+    margin-right: -20px;
+  }
+  .login-box button:active,
+  .login-box button:focus,
+  .sign-up-box button:active,
+  .sign-up-box button:focus,
+  .forgot-psw-box button:active,
+  .forgot-psw-box button:focus {
+    outline: none;
+  }
+  .login-box button:hover,
+  .sign-up-box button:hover,
+  .forgot-psw-box button:hover {
+    background-color: rgba(61, 53, 75, 0.8);
+    -webkit-transform: scale(1.01);
+            transform: scale(1.01);
+    cursor: pointer;
+  }
+  .login-box .sign-up-wrap,
+  .sign-up-box .sign-up-wrap,
+  .forgot-psw-box .sign-up-wrap {
+    position: absolute;
+    bottom: 0;
+    font-size: clamp(8px, 1vw, 16px);
+    color: #3d354b;
+  }
+  .login-box .sign-up-wrap p,
+  .sign-up-box .sign-up-wrap p,
+  .forgot-psw-box .sign-up-wrap p {
+    color: rgba(61, 53, 75, 0.8);
+  }
+  .graphic-box {
+    -webkit-box-flex: 6;
+        -ms-flex: 6;
+            flex: 6;
+    background-image: url(/assets/graphicBoxBackground.svg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .graphic-box .text-wrap {
+    margin-top: 100px;
+    margin-left: 85px;
+    font-family: "exo 2", sans-serif;
+  }
+  .graphic-box h1 {
+    color: #edf5fc;
+    font-size: clamp(40px, 3vw, 56px);
+    font-weight: 500;
+  }
+  .graphic-box h2 {
+    color: white;
+    font-weight: 300;
+    margin-top: -15px;
+  }
+  .graphic-box h1 .first {
+    color: #3f3539;
+    font-size: clamp(40px, 3vw, 56px);
+    font-weight: 600;
+  }
+  .graphic-box h1 .second {
+    color: #3f3539;
+    font-size: clamp(40px, 3vw, 56px);
+    font-weight: 600;
+  }
+  .sign-up-box {
+    display: none;
+  }
+  .forgot-psw-box {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  body {
+    background: #7470fb;
+  }
+  .container > img,
+  #logo-img,
+  .login-box .sign-up-wrap,
+  .graphic-box,
+  .login-box label,
+  #sign-in-btn-desktop,
+  .sign-up-box,
+  .forgot-psw-box,
+  .forgot-psw-link1 {
+    display: none;
+  }
+  .container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-bottom: 0px;
+    background-color: #7470fb;
+    border: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .login-box header h1 {
+    margin: 0;
+    font-size: clamp(36px, 3.5vw, 60px);
+    font-family: "exo 2", sans-serif;
+    text-align: center;
+    color: #3f3539;
+  }
+  .login-box header span {
+    color: #edf5fc;
+  }
+  .login-box header h2 {
+    color: #edf5fc;
+    font-family: "Alegreya sans", sans-serif;
+    font-size: clamp(16px, 1.5vw, 32px);
+    text-transform: lowercase;
+    word-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 2em;
+  }
+  .login-box form {
+    display: -ms-grid;
+    display: grid;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    grid-gap: 1.5em 1em;
+  }
+  .login-box form label {
+    margin: 0;
+    color: #3d354b;
+    font-family: "exo 2", sans-serif;
+    font-size: clamp(1em);
+  }
+  .login-box form .input-wrap {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-column: 1 / span 2;
+    position: relative;
+    margin-bottom: -50px;
+  }
+  .login-box form .input-wrap i {
+    position: absolute;
+    left: 1em;
+    top: 33%;
+    color: #3d354b;
+  }
+  .login-box form .input-wrap input {
+    width: 330px;
+    padding: 1em 0.5em;
+    border-radius: 25px;
+    border: 0.125em #3d354b solid;
+    background-color: transparent;
+    font-size: 0.9em;
+    color: #edf5fc;
+    text-indent: 33px;
+    font-family: "exo 2", sans-serif;
+  }
+  .login-box form .input-wrap input::-webkit-input-placeholder {
+    color: #3d354b;
+    opacity: 0.7;
+  }
+  .login-box form .input-wrap input:-ms-input-placeholder {
+    color: #3d354b;
+    opacity: 0.7;
+  }
+  .login-box form .input-wrap input::-ms-input-placeholder {
+    color: #3d354b;
+    opacity: 0.7;
+  }
+  .login-box form .input-wrap input::placeholder {
+    color: #3d354b;
+    opacity: 0.7;
+  }
+  .login-box .link-wrap {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-column: 1 / span 2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: clamp(15px, 2vw, 16px);
+  }
+  .login-box .link-wrap #sign-up-link-mobile {
+    color: #edf5fc;
+  }
+  .login-box button {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-column: 1 / span 2;
+    width: 250px;
+    padding: 1.25em 0;
+    border-radius: 1em;
+    border-width: 0;
+    color: #3d354b;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    background-color: #edf5fc;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    margin: auto;
+    display: block;
+  }
+  .login-box button:hover {
+    background-color: rgba(237, 245, 252, 0.7);
+    -webkit-transform: scale(1.01);
+            transform: scale(1.01);
+  }
+  .login-box #sign-in-btn-mobile {
+    margin-top: -25px;
+  }
+}
+
+@media (max-width: 1200px) and (max-width: 399px) {
+  .login-box input,
+  .login-box button,
+  .login-box #sign-up-link-mobile,
+  .login-box .forgot-psw-link {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  .login-box i {
+    margin-left: 30px;
+  }
+}
+/*# sourceMappingURL=home-guest.css.map */

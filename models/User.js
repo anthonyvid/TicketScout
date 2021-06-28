@@ -65,13 +65,15 @@ class User {
 		this.cleanUp();
 		this.validate();
 
+		console.log(this.data.fullname);
+
 		//add valid registered user to database
 		if (!this.errors.length) {
 			//hash user passwords
 			let salt = bcrypt.genSaltSync(10);
 			this.data.password = bcrypt.hashSync(this.data.password, salt);
 			this.data.passwordConfirm = this.data.password;
-			usersCollection.insertOne(this.data, this.data.userType);
+			usersCollection.insertOne(this.data);
 		} else {
 			console.log("errors", this.errors);
 		}

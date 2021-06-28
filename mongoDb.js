@@ -1,22 +1,23 @@
-// const dotenv = require("dotenv");
-// dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+	const dotenv = require("dotenv");
+	dotenv.config();
+}
+
 const mongoose = require("mongoose");
 const db = mongoose.connection;
 
-mongoose.connect(process.env.CONNECTIONSTRING, {
-	useNewUrlParser: true,
-});
+mongoose
+	.connect(process.env.CONNECTIONSTRING, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then((response) => {
+		console.log("Connected to Mongoose");
+		const app = require("./app");
+		app.listen(process.env.PORT);
+	})
+	.catch((err) => {
+		console.log("Mongodb is not connected: ", err);
+	});
 
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Connected to Mongoose"));
-
-// //open connection to databse
-// const dbConnect = function (url = process.env.CONNECTIONSTRING) {
-// 	mongoose
-// 		.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-// 		.catch((err) => {
-// 			console.error(err);
-// 		});
-// };
-
-// module.exports = dbConnect;
+module.exports = db;

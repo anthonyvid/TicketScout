@@ -19,8 +19,8 @@
 		"nodemon": "^2.0.7"
 	},
 	"scripts": {
-		"start": "node app.js",
-		"devStart": "nodemon app.js",
+		"start": "node mongoDb.js",
+		"devStart": "nodemon mongoDb.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],

@@ -324,12 +324,6 @@ body.superCenter {
     font-size: clamp(40px, 3vw, 56px);
     font-weight: 600;
   }
-  .sign-up-box {
-    display: none;
-  }
-  .forgot-psw-box {
-    display: none;
-  }
 }
 
 @media (max-width: 1200px) {

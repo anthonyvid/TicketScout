@@ -1,28 +1,27 @@
 const User = require("../models/User");
 
-exports.home = function (req, res) {
-	res.send("test")
+exports.renderLogin = function (req, res) {
+	res.render("login");
 };
 
-// exports.login = function (req, res) {
-// 	let user = new User(req.body);
-// 	user.login()
-// 		.then(function (result) {
-// 			req.session.user = { email: user.body.email };
-// 			res.send(result);
-// 		})
-// 		.catch(function (err) {
-// 			res.send(err);
-// 		});
-// 	// res.render("home-logged-in");
-// };
+exports.renderRegister = function (req, res) {
+	res.render("register");
+};
 
-// exports.register = function (req, res) {
-// 	let user = new User(req.body);
-// 	user.register();
-// 	if (user.errors.length) {
-// 		res.send(user.errors);
-// 	} else {
-// 		res.send("No errors");
-// 	}
-// };
+exports.renderRecovery = function (req, res) {
+	res.render("recovery");
+};
+
+exports.login = function (req, res) {
+	let user = new User(req.body);
+	user.login().then((result) => {
+		res.render("home");
+		res.send(result);
+	});
+};
+
+exports.register = function (req, res) {
+	console.log(req.body);
+	let user = new User(req.body);
+	user.register();
+};

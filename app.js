@@ -7,7 +7,6 @@ const app = express();
 
 console.log("in app.js");
 
-// app.use(sessionOptions);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));

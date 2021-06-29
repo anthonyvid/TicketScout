@@ -1,125 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-		<script defer src="/home-guest/home-guest.js"></script>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
-		<link rel="stylesheet" href="/home-guest/home-guest.css" />
-		<title>Ticket Scout</title>
-	</head>
-	<body class="superCenter">
-		<div class="container">
-			<section class="sign-up-box">
-				<header>
-					<a href="login_page.html">
-						<h1>ticket<span>Scout</span></h1>
-						<img
-							id="logo-img"
-							src="/assets/ticketScoutLogo.svg"
-							alt=""
-						/>
-					</a>
-				</header>
-				<form action="/register" method="POST">
-					<label for="sign-up-fullname">Full name</label>
-					<div class="input-wrap">
-						<input
-							autocomplete="no"
-							id="sign-up-fullname"
-							type="fullname"
-							name="fullname"
-							placeholder="John Smith"
-							required
-						/>
-						<i class="fa fa-user"></i>
-					</div>
-					<br />
-					<label for="sign-up-email">Email</label>
-					<div class="input-wrap">
-						<input
-							autocomplete="no"
-							id="sign-up-email"
-							type="email"
-							name="email"
-							placeholder="hello@example.com"
-							required
-						/>
-						<i class="fa fa-mail-forward"></i>
-					</div>
-					<br />
-					<label for="sign-up-psw">Password</label>
-					<div class="input-wrap">
-						<input
-							id="sign-up-psw"
-							type="password"
-							name="password"
-							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-							required
-						/>
-						<i class="fa fa-lock"></i>
-					</div>
-					<br />
-					<label for="sign-up-psw-confirm">Confirm password</label>
-					<div class="input-wrap">
-						<input
-							id="sign-up-psw-confirm"
-							type="password"
-							name="passwordConfirm"
-							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-							required
-						/>
-						<i class="fa fa-check-circle"></i>
-					</div>
-					<br />
-					<div class="selection-box">
-						<label for="userType">Admin</label>
-						<input
-							id="sign-up-employee"
-							type="radio"
-							name="userType"
-							value="admin"
-							required
-						/>
-						<label for="userType">Employee</label>
-						<input
-							id="sign-up-admin"
-							type="radio"
-							name="userType"
-							value="employee"
-							required
-						/>
-					</div>
-					<div class="link-wrap">
-						<a href="/recovery" class="forgot-psw-link2"
-							>Forgot Password?</a
-						>
-						<button id="sign-up-btn" type="submit">Sign Up</button>
-					</div>
-				</form>
-
-				<div class="sign-up-wrap">
-					<p>
-						Have an account?<a href="/" class="sign-in-link1">
-							Sign In</a
-						>
-					</p>
-				</div>
-			</section>
-			<section class="graphic-box">
-				<div class="text-wrap">
-					<h1>
-						Welcome to <span class="first">ticket</span
-						><span class="second">Scout</span>
-					</h1>
-					<h2 id="graphic-box-text">Sign in to start your day!</h2>
-				</div>
-			</section>
+<section class="sign-up-box">
+	<header>
+		<a href="login_page.html">
+			<h1>ticket<span>Scout</span></h1>
+			<img id="logo-img" src="/assets/ticketScoutLogo.svg" alt="" />
+		</a>
+	</header>
+	<form action="/register" method="POST">
+		<label for="sign-up-fullname">Full name</label>
+		<div class="input-wrap">
+			<input
+				autocomplete="no"
+				id="sign-up-fullname"
+				type="fullname"
+				name="fullname"
+				placeholder="John Smith"
+				required
+			/>
+			<i class="fa fa-user"></i>
 		</div>
-	</body>
-</html>
+		<br />
+		<label for="sign-up-email">Email</label>
+		<div class="input-wrap">
+			<input
+				autocomplete="no"
+				id="sign-up-email"
+				type="email"
+				name="email"
+				placeholder="hello@example.com"
+				required
+			/>
+			<i class="fa fa-mail-forward"></i>
+		</div>
+		<br />
+		<label for="sign-up-psw">Password</label>
+		<div class="input-wrap">
+			<input
+				id="sign-up-psw"
+				type="password"
+				name="password"
+				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+				required
+			/>
+			<i class="fa fa-lock"></i>
+		</div>
+		<br />
+		<label for="sign-up-psw-confirm">Confirm password</label>
+		<div class="input-wrap">
+			<input
+				id="sign-up-psw-confirm"
+				type="password"
+				name="passwordConfirm"
+				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+				required
+			/>
+			<i class="fa fa-check-circle"></i>
+		</div>
+		<br />
+		<div class="selection-box">
+			<label for="usertype">Admin</label>
+			<input
+				id="sign-up-employee"
+				type="radio"
+				name="usertype"
+				value="admin"
+				required
+			/>
+			<label for="usertype">Employee</label>
+			<input
+				id="sign-up-admin"
+				type="radio"
+				name="usertype"
+				value="employee"
+				required
+			/>
+		</div>
+		<div class="link-wrap">
+			<a href="/recovery" class="forgot-psw-link2">Forgot Password?</a>
+			<button id="sign-up-btn" type="submit">Sign Up</button>
+		</div>
+	</form>
+
+	<div class="sign-up-wrap">
+		<p>Have an account?<a href="/" class="sign-in-link1"> Sign In</a></p>
+	</div>
+</section>
+<section class="graphic-box">
+	<div class="text-wrap">
+		<h1>
+			Welcome to <span class="first">ticket</span
+			><span class="second">Scout</span>
+		</h1>
+		<h2 id="graphic-box-text">Sign in to start your day!</h2>
+	</div>
+</section>

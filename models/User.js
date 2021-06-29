@@ -61,11 +61,10 @@ class User {
 
 	register() {
 		console.log("in register");
+		console.log(this.data);
 		//validate registration data
 		this.cleanUp();
 		this.validate();
-
-		console.log(this.data.fullname);
 
 		//add valid registered user to database
 		if (!this.errors.length) {

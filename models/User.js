@@ -61,7 +61,7 @@ class User {
 
 	register() {
 		console.log("in register");
-		console.log(this.data);
+		console.log(this.data.usertype);
 		//validate registration data
 		this.cleanUp();
 		this.validate();
@@ -72,7 +72,23 @@ class User {
 			let salt = bcrypt.genSaltSync(10);
 			this.data.password = bcrypt.hashSync(this.data.password, salt);
 			this.data.passwordConfirm = this.data.password;
-			usersCollection.insertOne(this.data);
+			// usersCollection.insertOne(addDb);
+			usersCollection.insertOne(
+				{
+					fullname: this.data.fullname,
+					email: this.data.email,
+					password: this.data.password,
+					passwordConfirm: this.data.passwordConfirm,
+					usertype: this.data.usertype,
+				},
+				(err, resuly) => {
+					if (err) {
+						console.log("Error adding to database", err);
+					} else {
+						console.log("Successfully added to MongoDB");
+					}
+				}
+			);
 		} else {
 			console.log("errors", this.errors);
 		}

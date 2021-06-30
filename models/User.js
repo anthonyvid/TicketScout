@@ -32,6 +32,7 @@ class User {
 			email: this.data.email.trim().toLowerCase(),
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
+			usertype: this.data.usertype,
 		};
 	}
 

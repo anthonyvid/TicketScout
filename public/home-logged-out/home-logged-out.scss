@@ -35,6 +35,14 @@ input:focus {
 	outline: none;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	box-shadow: 0 0 0 30px $white-2 inset !important;
+	-webkit-box-shadow: 0 0 0 30px $white-2 inset !important;
+}
+
 button:focus {
 	outline: none;
 }
@@ -166,6 +174,48 @@ body.superCenter {
 				input:valid {
 					border-color: $primary-purple;
 					color: $primary-purple;
+				}
+
+				input:-webkit-autofill:valid {
+					color: $primary-purple;
+					border-color: $primary-purple;
+				}
+			}
+
+			.selection-box {
+				margin-bottom: 1em;
+
+				#storename {
+					// display: none;
+					transition: 0.3s ease-in;
+					border: 0;
+					outline: 0;
+					background-color: transparent;
+					border-bottom: 1px solid $light-grey;
+					font-size: 1em;
+					color: $dark-purple;
+					text-indent: 10px;
+					font-family: "exo 2", sans-serif;
+					float: right;
+				}
+
+				input:focus,
+				input:focus::placeholder,
+				input:focus {
+					transition: 0.3s ease-in;
+					border-color: $primary-purple;
+					color: $primary-purple;
+				}
+
+				input:valid,
+				input:valid {
+					border-color: $primary-purple;
+					color: $primary-purple;
+				}
+
+				i {
+					float: right;
+					padding-right: -140px;
 				}
 			}
 		}

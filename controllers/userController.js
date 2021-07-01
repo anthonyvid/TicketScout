@@ -16,7 +16,6 @@ exports.login = function (req, res) {
 	let user = new User(req.body);
 	user.login().then((result) => {
 		res.render("home");
-		res.send(result);
 	});
 };
 

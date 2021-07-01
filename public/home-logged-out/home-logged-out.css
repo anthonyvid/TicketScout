@@ -12,6 +12,14 @@ input:focus {
   outline: none;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px #fafafb inset !important;
+  -webkit-box-shadow: 0 0 0 30px #fafafb inset !important;
+}
+
 button:focus {
   outline: none;
 }
@@ -229,6 +237,103 @@ body.superCenter {
   .forgot-psw-box form .input-wrap input:valid {
     border-color: #7470fb;
     color: #7470fb;
+  }
+  .login-box form .input-wrap input:-webkit-autofill:valid,
+  .sign-up-box form .input-wrap input:-webkit-autofill:valid,
+  .forgot-psw-box form .input-wrap input:-webkit-autofill:valid {
+    color: #7470fb;
+    border-color: #7470fb;
+  }
+  .login-box form .selection-box,
+  .sign-up-box form .selection-box,
+  .forgot-psw-box form .selection-box {
+    margin-bottom: 1em;
+  }
+  .login-box form .selection-box #storename,
+  .sign-up-box form .selection-box #storename,
+  .forgot-psw-box form .selection-box #storename {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    border-bottom: 1px solid #b1aec2;
+    font-size: 1em;
+    color: #3d354b;
+    text-indent: 10px;
+    font-family: "exo 2", sans-serif;
+    float: right;
+  }
+  .login-box form .selection-box input:focus,
+  .login-box form .selection-box input:focus::-webkit-input-placeholder,
+  .login-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus::-webkit-input-placeholder,
+  .sign-up-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus::-webkit-input-placeholder,
+  .forgot-psw-box form .selection-box input:focus {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .selection-box input:focus,
+  .login-box form .selection-box input:focus:-ms-input-placeholder,
+  .login-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus:-ms-input-placeholder,
+  .sign-up-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus:-ms-input-placeholder,
+  .forgot-psw-box form .selection-box input:focus {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .selection-box input:focus,
+  .login-box form .selection-box input:focus::-ms-input-placeholder,
+  .login-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus::-ms-input-placeholder,
+  .sign-up-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus::-ms-input-placeholder,
+  .forgot-psw-box form .selection-box input:focus {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .selection-box input:focus,
+  .login-box form .selection-box input:focus::placeholder,
+  .login-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus,
+  .sign-up-box form .selection-box input:focus::placeholder,
+  .sign-up-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus,
+  .forgot-psw-box form .selection-box input:focus::placeholder,
+  .forgot-psw-box form .selection-box input:focus {
+    -webkit-transition: 0.3s ease-in;
+    transition: 0.3s ease-in;
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .selection-box input:valid,
+  .login-box form .selection-box input:valid,
+  .sign-up-box form .selection-box input:valid,
+  .sign-up-box form .selection-box input:valid,
+  .forgot-psw-box form .selection-box input:valid,
+  .forgot-psw-box form .selection-box input:valid {
+    border-color: #7470fb;
+    color: #7470fb;
+  }
+  .login-box form .selection-box i,
+  .sign-up-box form .selection-box i,
+  .forgot-psw-box form .selection-box i {
+    float: right;
+    padding-right: -140px;
   }
   .login-box .link-wrap,
   .sign-up-box .link-wrap,
@@ -484,4 +589,4 @@ body.superCenter {
     margin-left: 30px;
   }
 }
-/*# sourceMappingURL=home-guest.css.map */
+/*# sourceMappingURL=home-logged-out.css.map */

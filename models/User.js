@@ -33,21 +33,19 @@ class User {
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
 			usertype: this.data.usertype,
+			storename: this.data.storename,
 		};
 	}
 
 	validate() {
-		//check if email exists already
-		//FIXME// if (!usersCollection.findOne({ email: this.data.email }))
-		// 	this.errors.push("Email is already registered");
-
-		if (!/\s/g.test(this.data.fullname))
-			//validate full name
-			this.errors.push("Not a valid name");
-
 		//validate email
+
 		if (!validator.isEmail(this.data.email))
 			this.errors.push("Not a valid email");
+
+		//validate full name
+		if (!/\s/g.test(this.data.fullname))
+			this.errors.push("Not a valid name");
 
 		//validate password
 		if (this.data.password.length < 8)
@@ -61,11 +59,15 @@ class User {
 	}
 
 	register() {
-		console.log("in register");
-		console.log(this.data.usertype);
+		console.log(this.data);
+
 		//validate registration data
 		this.cleanUp();
 		this.validate();
+
+		//FIXME____NOT WORKING BELOW @ LINES
+		if (usersCollection.findOne({ email: this.data.email }))
+			this.errors.push("Email already registered");
 
 		//add valid registered user to database
 		if (!this.errors.length) {
@@ -73,7 +75,10 @@ class User {
 			let salt = bcrypt.genSaltSync(10);
 			this.data.password = bcrypt.hashSync(this.data.password, salt);
 			this.data.passwordConfirm = this.data.password;
-			// usersCollection.insertOne(addDb);
+
+			//check if they are admin or employee
+			//if user admin: check if stoername avaialbel, then add to db
+
 			usersCollection.insertOne(
 				{
 					fullname: this.data.fullname,
@@ -81,6 +86,7 @@ class User {
 					password: this.data.password,
 					passwordConfirm: this.data.passwordConfirm,
 					usertype: this.data.usertype,
+					storename: this.data.storename,
 				},
 				(err, resuly) => {
 					if (err) {
@@ -109,9 +115,9 @@ class User {
 						)
 					)
 						resolve("congrats");
-					else reject("didnt find user");
+					else reject(Error("didnt find user"));
 				})
-				.catch(function () {
+				.catch(() => {
 					reject("Please try again later.");
 				});
 		});

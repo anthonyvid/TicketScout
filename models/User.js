@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const usersCollection = require("../mongoDb").collection("users");
+const storesCollection = require("../mongoDb").collection("stores");
 // const mongoose = require("mongoose");
 // const Schema = mongoose.Schema;
 
@@ -38,8 +39,9 @@ class User {
 	}
 
 	validate() {
-		//validate email
+		//check if email exists
 
+		//validate email
 		if (!validator.isEmail(this.data.email))
 			this.errors.push("Not a valid email");
 
@@ -66,8 +68,8 @@ class User {
 		this.validate();
 
 		//FIXME____NOT WORKING BELOW @ LINES
-		if (usersCollection.findOne({ email: this.data.email }))
-			this.errors.push("Email already registered");
+		// if (usersCollection.findOne({ email: this.data.email }))
+		// 	this.errors.push("Email already registered");
 
 		//add valid registered user to database
 		if (!this.errors.length) {
@@ -78,6 +80,27 @@ class User {
 
 			//check if they are admin or employee
 			//if user admin: check if stoername avaialbel, then add to db
+			if (this.data.usertype === "admin") {
+				//check if storename exsts, if it does then enter in a unique one
+				//
+				storesCollection.insertOne({
+					store: this.data.storename,
+					admin: {
+						fullname: this.data.fullname,
+						email: this.data.email,
+						password: this.data.password,
+						passwordConfirm: this.data.passwordConfirm,
+						usertype: this.data.usertype,
+						storename: this.data.storename,
+					},
+					employees: {},
+				});
+			}
+			if (this.data.usertype === "employee") {
+				//check if storename exists, if not then retry for valid store
+				//
+				//add employee into stores collection, at store document, into employee object for that store document
+			}
 
 			usersCollection.insertOne(
 				{

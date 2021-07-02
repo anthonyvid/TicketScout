@@ -23,6 +23,10 @@ const signUpFullname = document.getElementById("sign-up-fullname");
 const signUpEmail = document.getElementById("sign-up-email");
 const signUpPsw = document.getElementById("sign-up-psw");
 const signUpPswConfirm = document.getElementById("sign-up-psw-confirm");
+const signUpStorename = document.getElementById("storename");
+const signUpRadioAdmin = document.getElementById("sign-up-admin");
+const signUpRadioEmployee = document.getElementById("sign-up-employee");
+const rbs = document.querySelectorAll('input[name="usertype"]');
 
 //forgot password page elements//
 const forgotPswEmail = document.getElementById("forgot-psw-email");
@@ -40,3 +44,10 @@ const signUpBox = document.querySelector(".sign-up-box");
 const forgotPswBox = document.querySelector(".forgot-psw-box");
 
 const graphicBoxText = document.getElementById("graphic-box-text");
+
+for (const radio of rbs) {
+	if (!radio.checked) {
+		signUpStorename.style.display = "flex";
+		console.log("test");
+	}
+}

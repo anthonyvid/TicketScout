@@ -252,6 +252,7 @@ body.superCenter {
   .login-box form .selection-box #storename,
   .sign-up-box form .selection-box #storename,
   .forgot-psw-box form .selection-box #storename {
+    display: none;
     -webkit-transition: 0.3s ease-in;
     transition: 0.3s ease-in;
     border: 0;

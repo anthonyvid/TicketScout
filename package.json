@@ -13,6 +13,7 @@
 		"express-session": "^1.17.2",
 		"mongodb": "^3.6.9",
 		"mongoose": "^5.12.15",
+		"nodemailer": "^6.6.2",
 		"validator": "^13.6.0"
 	},
 	"devDependencies": {

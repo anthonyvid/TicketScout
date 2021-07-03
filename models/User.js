@@ -2,23 +2,22 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const usersCollection = require("../mongoDb").collection("users");
 const storesCollection = require("../mongoDb").collection("stores");
-// const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
-
-// const userSchema = new Schema({
-// 	_id: mongoose.Schema.Types.ObjectId,
-// 	fullname: String,
-// 	email: String,
-// 	password: String,
-// 	passwordConfirm: String,
-// });
-
-// module.exports = mongoose.model("User", userSchema, "users");
 
 class User {
 	constructor(data) {
 		this.data = data;
 		this.errors = [];
+	}
+
+	async findExistingDocument(collection, key, value, message) {
+		try {
+			const result = await collection.findOne({
+				[key]: { $eq: value },
+			});
+			if (result != null) this.errors.push(message);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	cleanUp() {
@@ -31,15 +30,20 @@ class User {
 		this.data = {
 			fullname: this.data.fullname.toLowerCase(),
 			email: this.data.email.trim().toLowerCase(),
+			storename: this.data.storename,
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
-			usertype: this.data.usertype,
-			storename: this.data.storename,
 		};
 	}
 
-	validate() {
-		//check if email exists
+	async validate() {
+		//validate if email exists
+		await this.findExistingDocument(
+			usersCollection,
+			"email",
+			this.data.email,
+			"Email already registered"
+		);
 
 		//validate email
 		if (!validator.isEmail(this.data.email))
@@ -58,69 +62,47 @@ class User {
 		//validate passwordConfirm
 		if (this.data.passwordConfirm !== this.data.password)
 			this.errors.push("Passwords do not match");
+
+		//validate if storename exists
+		await this.findExistingDocument(
+			storesCollection,
+			"storename",
+			this.data.storename,
+			"Store already registered"
+		);
 	}
 
-	register() {
-		console.log(this.data);
-
-		//validate registration data
+	async register(registryType) {
+		//validate and clean up registration data
 		this.cleanUp();
-		this.validate();
+		await this.validate();
 
-		//FIXME____NOT WORKING BELOW @ LINES
-		// if (usersCollection.findOne({ email: this.data.email }))
-		// 	this.errors.push("Email already registered");
-
-		//add valid registered user to database
-		if (!this.errors.length) {
-			//hash user passwords
-			let salt = bcrypt.genSaltSync(10);
-			this.data.password = bcrypt.hashSync(this.data.password, salt);
-			this.data.passwordConfirm = this.data.password;
-
-			//check if they are admin or employee
-			//if user admin: check if stoername avaialbel, then add to db
-			if (this.data.usertype === "admin") {
-				//check if storename exsts, if it does then enter in a unique one
-				//
-				storesCollection.insertOne({
-					store: this.data.storename,
-					admin: {
-						fullname: this.data.fullname,
-						email: this.data.email,
-						password: this.data.password,
-						passwordConfirm: this.data.passwordConfirm,
-						usertype: this.data.usertype,
-						storename: this.data.storename,
-					},
-					employees: {},
-				});
-			}
-			if (this.data.usertype === "employee") {
-				//check if storename exists, if not then retry for valid store
-				//
-				//add employee into stores collection, at store document, into employee object for that store document
-			}
-
-			usersCollection.insertOne(
-				{
-					fullname: this.data.fullname,
-					email: this.data.email,
-					password: this.data.password,
-					passwordConfirm: this.data.passwordConfirm,
-					usertype: this.data.usertype,
-					storename: this.data.storename,
-				},
-				(err, resuly) => {
-					if (err) {
-						console.log("Error adding to database", err);
-					} else {
-						console.log("Successfully added to MongoDB");
-					}
-				}
-			);
-		} else {
+		//if there are any errors then stop and print errors
+		if (this.errors.length) {
 			console.log("errors", this.errors);
+			return;
+		}
+
+		//hash user passwords
+		let salt = bcrypt.genSaltSync(10);
+		this.data.password = bcrypt.hashSync(this.data.password, salt);
+		this.data.passwordConfirm = this.data.password;
+
+		//add user into users collection
+		usersCollection.insertOne(this.data);
+
+		//if admin call register store, if employee call then add employee to store
+		if (registryType === "admin") {
+			//add store into stores collection
+			storesCollection.insertOne({
+				storename: this.data.storename,
+				admin: this.data,
+				employees: [],
+			});
+		}
+		if(registryType === 'employee') {
+			//add employee into store
+			storesCollection.insertOne({})
 		}
 	}
 
@@ -138,12 +120,19 @@ class User {
 						)
 					)
 						resolve("congrats");
+					//check if its admin or employee, this detemines the permissions you should give before rendering home page
 					else reject(Error("didnt find user"));
 				})
 				.catch(() => {
 					reject("Please try again later.");
 				});
 		});
+	}
+
+	async joinStore() {
+		this.cleanUp();
+		await this.validate();
+		await this.register("employee");
 	}
 }
 

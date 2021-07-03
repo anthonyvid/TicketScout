@@ -44,10 +44,3 @@ const signUpBox = document.querySelector(".sign-up-box");
 const forgotPswBox = document.querySelector(".forgot-psw-box");
 
 const graphicBoxText = document.getElementById("graphic-box-text");
-
-for (const radio of rbs) {
-	if (!radio.checked) {
-		signUpStorename.style.display = "flex";
-		console.log("test");
-	}
-}

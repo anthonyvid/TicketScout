@@ -432,6 +432,12 @@ body.superCenter {
   }
 }
 
+@media (max-width: 915px) {
+  .sign-up-box form input {
+    background-color: #3d354b;
+  }
+}
+
 @media (max-width: 1200px) {
   body {
     background: #7470fb;

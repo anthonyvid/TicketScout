@@ -307,6 +307,11 @@ body.superCenter {
 		}
 	}
 }
+@media (max-width: 915px) {
+	.sign-up-box form input {
+		background-color: #3d354b;
+	}
+}
 
 // Mobile Styling
 @media (max-width: 1200px) {

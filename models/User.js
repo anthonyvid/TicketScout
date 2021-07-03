@@ -94,15 +94,20 @@ class User {
 		//if admin call register store, if employee call then add employee to store
 		if (registryType === "admin") {
 			//add store into stores collection
-			storesCollection.insertOne({
-				storename: this.data.storename,
-				admin: this.data,
-				employees: [],
-			});
+			try {
+				storesCollection.insertOne({
+					storename: this.data.storename,
+					admin: this.data,
+					employees: [],
+				});
+				console.log("Successfully registered store");
+			} catch (err) {
+				console.log(`error registering store: ${err}`);
+			}
 		}
-		if(registryType === 'employee') {
+		if (registryType === "employee") {
 			//add employee into store
-			storesCollection.insertOne({})
+			storesCollection.insertOne({});
 		}
 	}
 

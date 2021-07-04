@@ -8,6 +8,10 @@ exports.renderRegister = function (req, res) {
 	res.render("register");
 };
 
+exports.renderEmployeeRegister = function (req, res) {
+	res.render("employeeRegister");
+};
+
 exports.renderRecovery = function (req, res) {
 	res.render("recovery");
 };

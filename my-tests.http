@@ -1,0 +1,7 @@
+post http://localhost:3000/invite-employee
+Content-Type: application/json
+
+{
+    "email": "Anthonyvidovic@gmail.com"
+}
+

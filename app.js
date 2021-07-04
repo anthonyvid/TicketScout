@@ -2,7 +2,6 @@ const express = require("express");
 const router = require("./router");
 const dbConnect = require("./mongoDb");
 const expressLayouts = require("express-ejs-layouts");
-const nodemailer = require("nodemailer");
 
 const app = express();
 

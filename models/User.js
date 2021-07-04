@@ -9,6 +9,9 @@ class User {
 		this.errors = [];
 	}
 
+
+	//need function to get current user to see if they are admin or employee 
+
 	async findExistingDocument(collection, key, value, message) {
 		try {
 			const result = await collection.findOne({

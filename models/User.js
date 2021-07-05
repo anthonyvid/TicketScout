@@ -9,15 +9,18 @@ class User {
 		this.errors = [];
 	}
 
+	hashPrivateInfo(info) {
+		let salt = bcrypt.genSaltSync(10);
+		const hashedData = bcrypt.hashSync(info, salt);
+		return hashedData;
+	}
 
-	//need function to get current user to see if they are admin or employee 
-
-	async findExistingDocument(collection, key, value, message) {
+	async findExistingDocument(collection, key, value, errMessage) {
 		try {
 			const result = await collection.findOne({
 				[key]: { $eq: value },
 			});
-			if (result != null) this.errors.push(message);
+			if (result != null) this.errors.push(errMessage);
 		} catch (error) {
 			console.log(error);
 		}
@@ -30,13 +33,23 @@ class User {
 		if (typeof this.data.passwordConfirm != "string")
 			this.data.passwordConfirm = "";
 
-		this.data = {
-			fullname: this.data.fullname.toLowerCase(),
-			email: this.data.email.trim().toLowerCase(),
-			storename: this.data.storename,
-			password: this.data.password,
-			passwordConfirm: this.data.passwordConfirm,
-		};
+		if ("storename" in this.data) {
+			this.data = {
+				fullname: this.data.fullname.toLowerCase(),
+				email: this.data.email.trim().toLowerCase(),
+				storename: this.data.storename.toLowerCase(),
+				password: this.data.password,
+				passwordConfirm: this.data.passwordConfirm,
+			};
+		} else {
+			this.data = {
+				fullname: this.data.fullname.toLowerCase(),
+				email: this.data.email.trim().toLowerCase(),
+				password: this.data.password,
+				passwordConfirm: this.data.passwordConfirm,
+				signUpCode: this.data.signUpCode,
+			};
+		}
 	}
 
 	async validate() {
@@ -66,13 +79,15 @@ class User {
 		if (this.data.passwordConfirm !== this.data.password)
 			this.errors.push("Passwords do not match");
 
-		//validate if storename exists
-		await this.findExistingDocument(
-			storesCollection,
-			"storename",
-			this.data.storename,
-			"Store already registered"
-		);
+		if ("storename" in this.data) {
+			//validate if storename exists
+			await this.findExistingDocument(
+				storesCollection,
+				"storename",
+				this.data.storename,
+				"Store already registered"
+			);
+		}
 	}
 
 	async register(registryType) {
@@ -87,12 +102,8 @@ class User {
 		}
 
 		//hash user passwords
-		let salt = bcrypt.genSaltSync(10);
-		this.data.password = bcrypt.hashSync(this.data.password, salt);
+		this.data.password = this.hashPrivateInfo(this.data.password);
 		this.data.passwordConfirm = this.data.password;
-
-		//add user into users collection
-		usersCollection.insertOne(this.data);
 
 		//if admin call register store, if employee call then add employee to store
 		if (registryType === "admin") {
@@ -101,6 +112,7 @@ class User {
 				storesCollection.insertOne({
 					storename: this.data.storename,
 					admin: this.data,
+					signUpCode: 12345,
 					employees: [],
 				});
 				console.log("Successfully registered store");
@@ -110,8 +122,12 @@ class User {
 		}
 		if (registryType === "employee") {
 			//add employee into store
-			storesCollection.insertOne({});
+			//add employee to documents employee array, but need to find document by signUpCode
 		}
+
+		//add user into users collection
+		usersCollection.insertOne(this.data);
+		//NEED TO UPDATE THIS TO ADD USER BUT NOT ADD THE SIGNUPKEY KEY:VALUE PAIR IN IT
 	}
 
 	login() {
@@ -138,8 +154,6 @@ class User {
 	}
 
 	async joinStore() {
-		this.cleanUp();
-		await this.validate();
 		await this.register("employee");
 	}
 }

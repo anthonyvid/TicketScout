@@ -17,6 +17,7 @@ class Admin extends User {
         */
 		// create reusable transporter object using the default SMTP transport
 		const email = data.email;
+		const signUpCode = data.signUpCode;
 
 		let transporter = nodemailer.createTransport({
 			// host: "smtp.ethereal.email",
@@ -31,10 +32,12 @@ class Admin extends User {
 
 		// send mail with defined transport object
 		const msg = {
-			from: process.env.GMAILUSER, // sender address
+			// from: process.env.GMAILUSER, // sender address
 			to: `${email}`, // list of receivers
-			subject: "Register Your Account", // Subject line
-			html: { path: "./views/employeeRegisterEmailTemplate.html" },
+			subject: `Register Your Account`, // Subject line
+			text: `Copy ${signUpCode}`,
+			// html: { path: "./views/employeeRegisterEmailTemplate.html" },
+			store: store,
 		};
 
 		const info = await transporter.sendMail(msg, (err, data) => {

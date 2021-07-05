@@ -9,6 +9,7 @@ exports.renderRegister = function (req, res) {
 };
 
 exports.renderEmployeeRegister = function (req, res) {
+	console.log("made it!");
 	res.render("employeeRegister");
 };
 
@@ -24,6 +25,7 @@ exports.login = function (req, res) {
 };
 
 exports.joinStore = async function (req, res) {
+	console.log(req.body);
 	let user = new User(req.body);
 	await user.joinStore();
 };

@@ -3,5 +3,5 @@ Content-Type: application/json
 
 {
     "email": "anthonyvidovic@gmail.com",
-    "signUpKey": 12345
+    "signUpCode": "12345"
 }

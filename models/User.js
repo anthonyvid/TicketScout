@@ -21,7 +21,6 @@ class User {
 				[key]: { $eq: value },
 			});
 			if (result != null) this.errors.push(errMessage);
-			else return true; //true means found document
 		} catch (error) {
 			console.log(error);
 		}
@@ -91,16 +90,12 @@ class User {
 		}
 
 		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
-		// if (
-		// 	!(await this.findExistingDocument(
-		// 		storesCollection,
-		// 		"storename",
-		// 		this.data.signUpCode,
-		// 		"Store doesnt exist"
-		// 	))
-		// ) {
-		// 	this.errors.push("store doesnt exist");
-		// }
+		if (!("storename" in this.data)) {
+			const result = await storesCollection.findOne({
+				signUpCode: this.data.signUpCode,
+			});
+			if (result == null) this.errors.push("Store not found");
+		}
 	}
 
 	async register(registryType) {
@@ -124,7 +119,7 @@ class User {
 			try {
 				storesCollection.insertOne({
 					storename: this.data.storename,
-					signUpCode: 12345,
+					signUpCode: "12345", //need to auto generate this
 					admin: this.data,
 					employees: [],
 				});
@@ -138,29 +133,27 @@ class User {
 			//add employee into store
 
 			const store = await storesCollection.findOne({
-				signUpCode: parseInt(this.data.signUpCode),
+				signUpCode: this.data.signUpCode,
 			});
-			console.log(store.storename);
 
-			//add employee to documents employee array, but need to find document by signUpCode
-			//FIX_ME: THIS ISNT WORKING BELOW, NOT ADDING INTO ARRAY
+			const employee = {
+				fullname: this.data.fullname,
+				email: this.data.email,
+				storename: store.storename,
+				password: this.data.password,
+				passwordConfirm: this.data.passwordConfirm,
+			};
+
 			storesCollection.updateOne(
 				{ signUpCode: this.data.signUpCode },
 				{
 					$push: {
-						employees: {
-							fullname: this.data.fullname,
-							email: this.data.email,
-							storename: store.storename,
-							password: this.data.password,
-							passwordConfirm: this.data.passwordConfirm,
-						},
+						employees: employee,
 					},
 				}
 			);
 
 			//add user into users collection
-
 			usersCollection.insertOne({
 				fullname: this.data.fullname,
 				email: this.data.email,
@@ -168,9 +161,9 @@ class User {
 				password: this.data.password,
 				passwordConfirm: this.data.passwordConfirm,
 			});
-		}
 
-		//NEED TO UPDATE THIS TO ADD USER BUT NOT ADD THE SIGNUPKEY KEY:VALUE PAIR IN IT
+			console.log("employee successfully joined store");
+		}
 	}
 
 	login() {

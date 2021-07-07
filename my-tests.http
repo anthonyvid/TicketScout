@@ -2,6 +2,6 @@ post http://localhost:3000/invite-employee
 Content-Type: application/json
 
 {
-    "store": "compumobile",
-    "signUpKey": 12345,
+    "email": "anthonyvidovic@gmail.com",
+    "signUpKey": 12345
 }

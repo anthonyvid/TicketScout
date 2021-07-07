@@ -25,7 +25,6 @@ exports.login = function (req, res) {
 };
 
 exports.joinStore = async function (req, res) {
-	console.log(req.body);
 	let user = new User(req.body);
 	await user.joinStore();
 };

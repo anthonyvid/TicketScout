@@ -21,6 +21,7 @@ class User {
 				[key]: { $eq: value },
 			});
 			if (result != null) this.errors.push(errMessage);
+			else return true; //true means found document
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,6 +54,10 @@ class User {
 	}
 
 	async validate() {
+		//validate email
+		if (!validator.isEmail(this.data.email))
+			this.errors.push("Not a valid email");
+
 		//validate if email exists
 		await this.findExistingDocument(
 			usersCollection,
@@ -60,10 +65,6 @@ class User {
 			this.data.email,
 			"Email already registered"
 		);
-
-		//validate email
-		if (!validator.isEmail(this.data.email))
-			this.errors.push("Not a valid email");
 
 		//validate full name
 		if (!/\s/g.test(this.data.fullname))
@@ -79,8 +80,8 @@ class User {
 		if (this.data.passwordConfirm !== this.data.password)
 			this.errors.push("Passwords do not match");
 
+		//validate if store exists already
 		if ("storename" in this.data) {
-			//validate if storename exists
 			await this.findExistingDocument(
 				storesCollection,
 				"storename",
@@ -88,6 +89,18 @@ class User {
 				"Store already registered"
 			);
 		}
+
+		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
+		// if (
+		// 	!(await this.findExistingDocument(
+		// 		storesCollection,
+		// 		"storename",
+		// 		this.data.signUpCode,
+		// 		"Store doesnt exist"
+		// 	))
+		// ) {
+		// 	this.errors.push("store doesnt exist");
+		// }
 	}
 
 	async register(registryType) {
@@ -111,10 +124,11 @@ class User {
 			try {
 				storesCollection.insertOne({
 					storename: this.data.storename,
-					admin: this.data,
 					signUpCode: 12345,
+					admin: this.data,
 					employees: [],
 				});
+				usersCollection.insertOne(this.data);
 				console.log("Successfully registered store");
 			} catch (err) {
 				console.log(`error registering store: ${err}`);
@@ -122,11 +136,40 @@ class User {
 		}
 		if (registryType === "employee") {
 			//add employee into store
+
+			const store = await storesCollection.findOne({
+				signUpCode: parseInt(this.data.signUpCode),
+			});
+			console.log(store.storename);
+
 			//add employee to documents employee array, but need to find document by signUpCode
+			//FIX_ME: THIS ISNT WORKING BELOW, NOT ADDING INTO ARRAY
+			storesCollection.updateOne(
+				{ signUpCode: this.data.signUpCode },
+				{
+					$push: {
+						employees: {
+							fullname: this.data.fullname,
+							email: this.data.email,
+							storename: store.storename,
+							password: this.data.password,
+							passwordConfirm: this.data.passwordConfirm,
+						},
+					},
+				}
+			);
+
+			//add user into users collection
+
+			usersCollection.insertOne({
+				fullname: this.data.fullname,
+				email: this.data.email,
+				storename: store.storename,
+				password: this.data.password,
+				passwordConfirm: this.data.passwordConfirm,
+			});
 		}
 
-		//add user into users collection
-		usersCollection.insertOne(this.data);
 		//NEED TO UPDATE THIS TO ADD USER BUT NOT ADD THE SIGNUPKEY KEY:VALUE PAIR IN IT
 	}
 

@@ -37,12 +37,11 @@ class Admin extends User {
 			subject: `Register Your Account`, // Subject line
 			text: `Copy ${signUpCode}`,
 			// html: { path: "./views/employeeRegisterEmailTemplate.html" },
-			store: store,
 		};
 
 		const info = await transporter.sendMail(msg, (err, data) => {
 			if (err) {
-				console.log("error occured");
+				console.log("error occured: ", err);
 			} else {
 				console.log("Email sent");
 			}

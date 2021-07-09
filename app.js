@@ -1,7 +1,9 @@
 const express = require("express");
-const router = require("./router");
-const dbConnect = require("./mongoDb");
+const userRouter = require("./routes/userRouter");
+const adminRouter = require("./routes/adminRouter");
 const expressLayouts = require("express-ejs-layouts");
+var LocalStorage = require("node-localstorage").LocalStorage;
+localStorage = new LocalStorage("./scratch");
 
 const app = express();
 
@@ -17,6 +19,7 @@ app.set("view engine", "ejs");
 app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 
-app.use("/", router);
+app.use(userRouter);
+app.use(adminRouter);
 
 module.exports = app;

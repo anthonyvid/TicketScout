@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const usersCollection = require("../mongoDb").collection("users");
 const storesCollection = require("../mongoDb").collection("stores");
+const JWT = require("jsonwebtoken");
 
 class User {
 	constructor(data) {
@@ -26,82 +27,123 @@ class User {
 		}
 	}
 
-	cleanUp() {
-		if (typeof this.data.fullname != "string") this.data.fullname = "";
-		if (typeof this.data.email != "string") this.data.email = "";
-		if (typeof this.data.password != "string") this.data.password = "";
-		if (typeof this.data.passwordConfirm != "string")
-			this.data.passwordConfirm = "";
+	clearDatabase() {
+		usersCollection.deleteMany({});
+		storesCollection.deleteMany({});
+	}
 
-		if ("storename" in this.data) {
-			this.data = {
-				fullname: this.data.fullname.toLowerCase(),
-				email: this.data.email.trim().toLowerCase(),
-				storename: this.data.storename.toLowerCase(),
-				password: this.data.password,
-				passwordConfirm: this.data.passwordConfirm,
+	cleanUp(data) {
+		if (typeof data.fullname != "string") data.fullname = "";
+		if (typeof data.email != "string") data.email = "";
+		if (typeof data.password != "string") data.password = "";
+		if (typeof data.passwordConfirm != "string") data.passwordConfirm = "";
+
+		//If they are admin cleanup data like below
+		if ("storename" in data) {
+			data = {
+				fullname: data.fullname.toLowerCase(),
+				email: data.email.trim().toLowerCase(),
+				storename: data.storename.toLowerCase(),
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
 			};
-		} else {
-			this.data = {
-				fullname: this.data.fullname.toLowerCase(),
-				email: this.data.email.trim().toLowerCase(),
-				password: this.data.password,
-				passwordConfirm: this.data.passwordConfirm,
-				signUpCode: this.data.signUpCode,
+		}
+		//If they are employee cleanup data like below
+		else {
+			data = {
+				fullname: data.fullname.toLowerCase(),
+				email: data.email.trim().toLowerCase(),
+				password: data.password,
+				passwordConfirm: data.passwordConfirm,
+				signUpCode: data.signUpCode,
 			};
 		}
 	}
 
-	async validate() {
+	async validate(data) {
 		//validate email
-		if (!validator.isEmail(this.data.email))
+		if (!validator.isEmail(data.email))
 			this.errors.push("Not a valid email");
 
 		//validate if email exists
 		await this.findExistingDocument(
 			usersCollection,
 			"email",
-			this.data.email,
+			data.email,
 			"Email already registered"
 		);
 
 		//validate full name
-		if (!/\s/g.test(this.data.fullname))
-			this.errors.push("Not a valid name");
+		if (!/\s/g.test(data.fullname)) this.errors.push("Not a valid name");
 
 		//validate password
-		if (this.data.password.length < 8)
+		if (data.password.length < 8)
 			this.errors.push("Password must be at least 8 characters");
-		if (this.data.password.length > 50)
+		if (data.password.length > 50)
 			this.errors.push("Password cannot exceed 50 characters");
 
 		//validate passwordConfirm
-		if (this.data.passwordConfirm !== this.data.password)
+		if (data.passwordConfirm !== data.password) {
 			this.errors.push("Passwords do not match");
+		}
 
 		//validate if store exists already
-		if ("storename" in this.data) {
+		if ("storename" in data) {
 			await this.findExistingDocument(
 				storesCollection,
 				"storename",
-				this.data.storename,
+				data.storename,
 				"Store already registered"
 			);
 		}
 
 		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
-		if (!("storename" in this.data)) {
+		if (!("storename" in data)) {
 			const result = await storesCollection.findOne({
-				signUpCode: this.data.signUpCode,
+				signUpCode: data.signUpCode,
 			});
 			if (result == null) this.errors.push("Store not found");
 		}
 	}
 
-	async register(registryType) {
-		//validate and clean up registration data
-		this.cleanUp();
-		await this.validate();
+	async login() {
+		try {
+			const result = await usersCollection
+				.findOne({ email: this.data.email })
+				.then((userAttempt) => {
+					if (
+						userAttempt &&
+						bcrypt.compareSync(
+							this.data.password,
+							userAttempt.password
+						)
+					) {
+						console.log("valid login info");
+
+						const token = JWT.sign(
+							{
+								email: this.data.email,
+							},
+							process.env.JWT_SECRET,
+							{
+								expiresIn: 360000,
+							}
+						);
+						return token;
+					} else {
+						console.log("invalid login info");
+						return;
+					}
+				});
+			return result;
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async employeeRegister() {
+		this.cleanUp(this.data);
+		await this.validate(this.data);
 
 		//if there are any errors then stop and print errors
 		if (this.errors.length) {
@@ -113,84 +155,37 @@ class User {
 		this.data.password = this.hashPrivateInfo(this.data.password);
 		this.data.passwordConfirm = this.data.password;
 
-		//if admin call register store, if employee call then add employee to store
-		if (registryType === "admin") {
-			//add store into stores collection
-			try {
-				storesCollection.insertOne({
-					storename: this.data.storename,
-					signUpCode: "12345", //need to auto generate this
-					admin: this.data,
-					employees: [],
-				});
-				usersCollection.insertOne(this.data);
-				console.log("Successfully registered store");
-			} catch (err) {
-				console.log(`error registering store: ${err}`);
-			}
-		}
-		if (registryType === "employee") {
-			//add employee into store
-
-			const store = await storesCollection.findOne({
-				signUpCode: this.data.signUpCode,
-			});
-
-			const employee = {
-				fullname: this.data.fullname,
-				email: this.data.email,
-				storename: store.storename,
-				password: this.data.password,
-				passwordConfirm: this.data.passwordConfirm,
-			};
-
-			storesCollection.updateOne(
-				{ signUpCode: this.data.signUpCode },
-				{
-					$push: {
-						employees: employee,
-					},
-				}
-			);
-
-			//add user into users collection
-			usersCollection.insertOne({
-				fullname: this.data.fullname,
-				email: this.data.email,
-				storename: store.storename,
-				password: this.data.password,
-				passwordConfirm: this.data.passwordConfirm,
-			});
-
-			console.log("employee successfully joined store");
-		}
-	}
-
-	login() {
-		return new Promise((resolve, reject) => {
-			this.cleanUp();
-			usersCollection
-				.findOne({ email: this.data.email })
-				.then((userAttempt) => {
-					if (
-						userAttempt &&
-						bcrypt.compareSync(
-							this.data.password,
-							userAttempt.password
-						)
-					)
-						resolve("congrats");
-					//check if its admin or employee, this detemines the permissions you should give before rendering home page
-					else reject(Error("didnt find user"));
-				})
-				.catch(() => {
-					reject("Please try again later.");
-				});
+		const store = await storesCollection.findOne({
+			signUpCode: this.data.signUpCode,
 		});
-	}
 
-	async joinStore() {
-		await this.register("employee");
+		const employee = {
+			fullname: this.data.fullname,
+			email: this.data.email,
+			storename: store.storename,
+			password: this.data.password,
+			passwordConfirm: this.data.passwordConfirm,
+		};
+
+		storesCollection.updateOne(
+			{ signUpCode: this.data.signUpCode },
+			{
+				$push: {
+					employees: employee,
+				},
+			}
+		);
+
+		//add user into users collection
+		usersCollection.insertOne({
+			fullname: this.data.fullname,
+			email: this.data.email,
+			storename: store.storename,
+			password: this.data.password,
+			passwordConfirm: this.data.passwordConfirm,
+		});
+
+		console.log("employee successfully joined store");
 	}
 }
 

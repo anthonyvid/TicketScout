@@ -4,12 +4,15 @@ exports.renderLogin = function (req, res) {
 	res.render("login");
 };
 
+exports.renderHome = function (req, res) {
+	res.render("home");
+};
+
 exports.renderRegister = function (req, res) {
 	res.render("register");
 };
 
 exports.renderEmployeeRegister = function (req, res) {
-	console.log("made it!");
 	res.render("employeeRegister");
 };
 
@@ -17,14 +20,15 @@ exports.renderRecovery = function (req, res) {
 	res.render("recovery");
 };
 
-exports.login = function (req, res) {
+exports.login = async function (req, res) {
 	let user = new User(req.body);
-	user.login().then((result) => {
-		res.render("home");
-	});
+	const resultToken = await user.login();
+	localStorage.setItem("auth", resultToken);
+
+	res.redirect("home");
 };
 
-exports.joinStore = async function (req, res) {
+exports.employeeRegister = async function (req, res) {
 	let user = new User(req.body);
-	await user.joinStore();
+	await user.employeeRegister();
 };

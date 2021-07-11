@@ -1,3 +1,5 @@
+const usersCollection = require("../mongoDb").collection("users");
+
 module.exports = {
 	isAccessGranted: (req, res, next) => {
 		const jwt = require("jsonwebtoken");
@@ -13,13 +15,15 @@ module.exports = {
      *send back updated jwt to client
      *use next() to pass from routeGard to Route specific method
      */
-		console.log("token", token);
 		//verify that jwt is recieved from client
-		if (!token) {
-			console.log("token not recieved");
-			return;
-		}
+		if (token == null) return res.sendStatus(401);
+
 		//get infomation about specific user
+		jwt.verify(token, process.env.JWT_SECRET, async (err, email) => {
+			if (err) return res.sendStatus(403);
+
+			//find user and database, check if conncted key is true, see if email they inputted matches database
+		});
 
 		next();
 	},

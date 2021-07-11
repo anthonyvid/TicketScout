@@ -26,6 +26,7 @@ exports.login = async function (req, res) {
 	localStorage.setItem("auth", resultToken);
 
 	res.redirect("home");
+	// location.href = "" NEED TO MAKE THIS HOMEPAGE
 };
 
 exports.employeeRegister = async function (req, res) {

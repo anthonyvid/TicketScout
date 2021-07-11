@@ -33,14 +33,16 @@ class User {
 	}
 
 	cleanUp(data) {
-		if (typeof data.fullname != "string") data.fullname = "";
-		if (typeof data.email != "string") data.email = "";
-		if (typeof data.password != "string") data.password = "";
-		if (typeof data.passwordConfirm != "string") data.passwordConfirm = "";
+		if (typeof data.fullname != "string") this.data.fullname = "";
+		if (typeof data.email != "string") this.data.email = "";
+		if (typeof data.password != "string") this.data.password = "";
+		if (typeof data.passwordConfirm != "string")
+			this.data.passwordConfirm = "";
 
 		//If they are admin cleanup data like below
 		if ("storename" in data) {
-			data = {
+			console.log("in cleanUp: Admin");
+			this.data = {
 				fullname: data.fullname.toLowerCase(),
 				email: data.email.trim().toLowerCase(),
 				storename: data.storename.toLowerCase(),
@@ -50,7 +52,8 @@ class User {
 		}
 		//If they are employee cleanup data like below
 		else {
-			data = {
+			console.log("in cleanUp: Employee");
+			this.data = {
 				fullname: data.fullname.toLowerCase(),
 				email: data.email.trim().toLowerCase(),
 				password: data.password,
@@ -109,7 +112,7 @@ class User {
 	async login() {
 		try {
 			const result = await usersCollection
-				.findOne({ email: this.data.email })
+				.findOne({ email: this.data.email.toLowerCase() })
 				.then((userAttempt) => {
 					if (
 						userAttempt &&
@@ -160,9 +163,9 @@ class User {
 		});
 
 		const employee = {
-			fullname: this.data.fullname,
-			email: this.data.email,
-			storename: store.storename,
+			fullname: this.data.fullname.toLowerCase(),
+			email: this.data.email.toLowerCase(),
+			storename: store.storename.toLowerCase(),
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
 		};
@@ -178,9 +181,9 @@ class User {
 
 		//add user into users collection
 		usersCollection.insertOne({
-			fullname: this.data.fullname,
-			email: this.data.email,
-			storename: store.storename,
+			fullname: this.data.fullname.toLowerCase(),
+			email: this.data.email.toLowerCase(),
+			storename: store.storename.toLowerCase(),
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
 		});

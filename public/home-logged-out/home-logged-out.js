@@ -1,14 +1,5 @@
 "use strict";
 
-//temporary test accounts
-const account1 = {
-	fullname: "anthony Vidovic",
-	email: "test@gmail.com",
-	password: "1234",
-};
-
-const accounts = [account1];
-
 //Sign in page elements//
 const signInBtnDesktop = document.getElementById("sign-in-btn-desktop");
 const signInBtnMobile = document.getElementById("sign-in-btn-mobile");
@@ -44,3 +35,5 @@ const signUpBox = document.querySelector(".sign-up-box");
 const forgotPswBox = document.querySelector(".forgot-psw-box");
 
 const graphicBoxText = document.getElementById("graphic-box-text");
+
+

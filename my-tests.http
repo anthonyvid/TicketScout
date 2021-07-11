@@ -5,3 +5,7 @@ Content-Type: application/json
     "email": "anthonyvidovic@gmail.com",
     "signUpCode": "12345"
 }
+
+###
+
+GET http://localhost:3000/home

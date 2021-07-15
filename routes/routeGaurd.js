@@ -1,4 +1,4 @@
-const usersCollection = require("../mongoDb").collection("users");
+const usersCollection = require("../db").collection("users");
 
 module.exports = {
 	isAccessGranted: (req, res, next) => {
@@ -21,8 +21,9 @@ module.exports = {
 		//get infomation about specific user
 		jwt.verify(token, process.env.JWT_SECRET, async (err, email) => {
 			if (err) return res.sendStatus(403);
-
+			
 			//find user and database, check if conncted key is true, see if email they inputted matches database
+			
 		});
 
 		next();

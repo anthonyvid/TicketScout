@@ -1,6 +1,6 @@
 const User = require("./User");
-const storesCollection = require("../mongoDb").collection("stores");
-const usersCollection = require("../mongoDb").collection("users");
+const storesCollection = require("../db").collection("stores");
+const usersCollection = require("../db").collection("users");
 const nodemailer = require("nodemailer");
 
 class Admin extends User {

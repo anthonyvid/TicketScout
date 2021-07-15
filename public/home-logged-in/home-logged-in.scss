@@ -15,6 +15,7 @@ $second-dark-purple: #3f3539;
 $white-1: #edf5fc;
 $white-2: #fafafb;
 $light-grey: #b1aec2;
+$card-pool: #f1f5f9;
 
 $main-color: #1a202e;
 $color-dark: #1d2231;
@@ -88,8 +89,8 @@ input:focus {
 }
 
 .sidebar-user img {
-	width: 110px;
-	height: 110px;
+	width: 100px;
+	height: 100px;
 	border-radius: 50%;
 	border-left: 2px solid transparent;
 	border-right: 2px solid #efefef;
@@ -143,6 +144,10 @@ input:focus {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	h3 span {
+		color: $dark-purple;
+	}
 }
 
 .main-content {
@@ -151,7 +156,7 @@ input:focus {
 
 main {
 	padding: 1.5rem;
-	background: #f1f5f9;
+	background: $card-pool;
 	min-height: calc(100vh - 70px);
 }
 
@@ -331,5 +336,80 @@ header {
 
 	span {
 		font-size: 1.5rem;
+	}
+}
+.model-container.show {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.model-container {
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	height: 100vh;
+	width: 100%;
+	transition: opacity 0.5s ease;
+	// pointer-events: none;
+
+	.model {
+		background-color: $card-pool;
+		width: 1000px;
+		height: 600px;
+		max-height: 90%;
+		max-width: 90%;
+		padding: 50px 25px;
+		border-radius: 5px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-gap: 10px;
+
+		.account-settings-card {
+			height: 95%;
+			margin-top: 5%;
+			border-radius: 5px;
+		}
+		.left-card {
+			background-color: #fff;
+			box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
+			border-radius: 6px;
+
+			img {
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+				border: 1px solid;
+			}
+		}
+
+		.right-card {
+			display: grid;
+			grid-template-rows: 50% 50%;
+			grid-gap: 10px;
+
+			.top-card {
+				border-radius: 5px;
+				height: calc(100% - 10px);
+				width: calc(100% - 10px);
+				background-color: #fff;
+				box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
+				border-radius: 6px;
+			}
+
+			.bottom-card {
+				width: calc(100% - 10px);
+				border-radius: 5px;
+				margin: -10px 0 10px 0;
+				background-color: #fff;
+				box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
+				border-radius: 6px;
+			}
+		}
 	}
 }

@@ -5,7 +5,7 @@ exports.renderLogin = function (req, res) {
 };
 
 exports.renderHome = function (req, res) {
-	res.render("home");
+	res.render("home", { layout: "layouts/homeLayout" });
 };
 
 exports.renderRegister = function (req, res) {

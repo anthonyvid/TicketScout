@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
-const usersCollection = require("../mongoDb").collection("users");
-const storesCollection = require("../mongoDb").collection("stores");
+const usersCollection = require("../db").collection("users");
+const storesCollection = require("../db").collection("stores");
 const JWT = require("jsonwebtoken");
 
 class User {

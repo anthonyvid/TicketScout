@@ -464,6 +464,16 @@ header {
 					border-color: $primary-purple;
 					color: $primary-purple;
 				}
+
+				input:valid {
+					border-color: $primary-purple;
+					color: $primary-purple;
+				}
+
+				input:-webkit-autofill:valid {
+					color: $primary-purple;
+					border-color: $primary-purple;
+				}
 			}
 
 			.submit-button-wrap {
@@ -497,7 +507,6 @@ header {
 				background-color: #fff;
 				box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
 				border-radius: 6px;
-
 
 				////
 			}
@@ -564,16 +573,20 @@ header {
 					}
 				}
 
-				input::placeholder {
-					text-indent: 20px;
-					color: #344e5c;
-					font-family: "Montserrat";
-				}
-
 				input:focus {
 					transition: 0.3s ease-in;
 					border-color: $primary-purple;
 					color: $primary-purple;
+				}
+
+				input:valid {
+					border-color: $primary-purple;
+					color: $primary-purple;
+				}
+
+				input:-webkit-autofill:valid {
+					color: $primary-purple;
+					border-color: $primary-purple;
 				}
 			}
 		}

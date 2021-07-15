@@ -314,12 +314,13 @@
 							<div class="update-info-wrap">
 								<div>
 									<label class="label" for="firstname"
-										>First Name</label
+										>Full Name</label
 									>
 									<input
+										id="update-account-input"
 										name="fullname"
 										type="name"
-										value="John Smith"
+										placeholder="John Smith"
 										required
 									/>
 								</div>
@@ -331,7 +332,7 @@
 									<input
 										name="email"
 										type="email"
-										value="test@gmail.com"
+										placeholder="test@gmail.com"
 										required
 									/>
 								</div>
@@ -355,7 +356,7 @@
 										>Current Password</label
 									>
 									<input
-										class="input-effect"
+										name="current-psw"
 										type="password"
 										placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
 										required
@@ -367,6 +368,7 @@
 											>New Password</label
 										>
 										<input
+											name="new-psw"
 											type="password"
 											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
 											required
@@ -377,6 +379,7 @@
 											>Confirm Password</label
 										>
 										<input
+											name="confirm-new-psw"
 											type="password"
 											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
 											required

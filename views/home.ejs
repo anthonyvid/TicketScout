@@ -298,37 +298,99 @@
 				<div class="model">
 					<!-- <button type="text" id="profile-settings-back-btn">Back</button> -->
 					<div class="left-card account-settings-card">
-						<h4>PROFILE</h4>
 						<form action="update-account-info" method="POST">
-							<label for="">Profile Picture</label>
-							<img src="/assets/user.svg" alt="" />
-							<button type="button" id="upload">
-								Upload New Picture
-							</button>
-							<button type="button" id="delete">Delete</button>
-
-							<label for="">First Name</label>
-							<input type="name" placeholder="john" />
-
-							<label for="">Last Name</label>
-							<input type="name" placeholder="smith" />
-							<button type="submit">Save Changes</button>
+							<label class="label" for="">Profile Picture</label>
+							<div class="update-photo-wrap">
+								<img src="/assets/user1.svg" alt="" />
+								<div class="button-wrap">
+									<button type="button" id="upload">
+										Upload New Picture
+									</button>
+									<button type="button" id="delete">
+										Delete
+									</button>
+								</div>
+							</div>
+							<div class="update-info-wrap">
+								<div>
+									<label class="label" for="firstname"
+										>First Name</label
+									>
+									<input
+										name="fullname"
+										type="name"
+										value="John Smith"
+										required
+									/>
+								</div>
+								<br />
+								<div>
+									<label class="label" for="email"
+										>Email</label
+									>
+									<input
+										name="email"
+										type="email"
+										value="test@gmail.com"
+										required
+									/>
+								</div>
+							</div>
+							<br />
+							<div class="submit-button-wrap">
+								<button type="submit">Save Changes</button>
+							</div>
 						</form>
 						<br />
-						<h4>CHANGE PASSWORD</h4>
-						<form action="change-password" method="POST">
-							<label for="">Current Password</label>
-							<input type="password" />
-							<label for="">New Password</label>
-							<input type="password" />
-							<label for="">Confirm New Password</label>
-							<input type="password" />
-							<button type="submit">Change Password</button>
-						</form>
 					</div>
+
 					<div class="right-card account-settings-card">
-						<div class="top-card"></div>
-						<div class="bottom-card"></div>
+						<div class="top-card">
+							<h1>clock in here</h1>
+						</div>
+						<div class="bottom-card">
+							<form action="change-password" method="POST">
+								<div class="current-psw-wrap">
+									<label class="label" for=""
+										>Current Password</label
+									>
+									<input
+										class="input-effect"
+										type="password"
+										placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+										required
+									/>
+								</div>
+								<div class="new-psw-wrap">
+									<div>
+										<label class="label" for=""
+											>New Password</label
+										>
+										<input
+											type="password"
+											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+											required
+										/>
+									</div>
+									<div>
+										<label class="label" for=""
+											>Confirm Password</label
+										>
+										<input
+											type="password"
+											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+											required
+										/>
+									</div>
+								</div>
+
+								<div class="change-psw-btn-wrap">
+									<button type="submit">
+										Change Password
+									</button>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>

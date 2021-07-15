@@ -7,15 +7,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
-
-// Custom Variables
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"); // Custom Variables
 $primary-purple: #7470fb;
 $dark-purple: #3d354b;
 $second-dark-purple: #3f3539;
 $white-1: #edf5fc;
 $white-2: #fafafb;
 $light-grey: #b1aec2;
-$card-pool: #f1f5f9;
+$card-pool: #f9f9f9;
 
 $main-color: #1a202e;
 $color-dark: #1d2231;
@@ -351,11 +350,11 @@ header {
 	position: fixed;
 	top: 0;
 	left: 0;
-	opacity: 1;
+	opacity: 0;
 	height: 100vh;
 	width: 100%;
 	transition: opacity 0.5s ease;
-	// pointer-events: none;
+	pointer-events: none;
 
 	.model {
 		background-color: $card-pool;
@@ -375,16 +374,113 @@ header {
 			margin-top: 5%;
 			border-radius: 5px;
 		}
+
+		.label {
+			color: #344e5c;
+			display: block;
+			margin-bottom: 10px;
+			font-size: 20px;
+			font-family: "Mukta", sans-serif;
+			font-weight: 600;
+		}
+
 		.left-card {
 			background-color: #fff;
 			box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
 			border-radius: 6px;
+			padding: 25px 35px;
+			display: flex;
+			flex-direction: column;
 
-			img {
-				border-radius: 50%;
-				width: 50px;
+			.update-photo-wrap {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+
+				img {
+					border-radius: 50%;
+					width: 75px;
+					height: 75px;
+					border: 2px solid;
+				}
+
+				.button-wrap {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+					width: 245px;
+					margin-right: 65px;
+
+					#upload,
+					#delete {
+						background-color: $primary-purple;
+						height: 45px;
+						border-radius: 5px;
+						padding: 10px;
+						font-family: "Mukta", sans-serif;
+						font-weight: 400;
+						font-size: 14px;
+					}
+
+					#upload {
+						color: $white-2;
+						border: 0;
+						width: 150px;
+					}
+					#delete {
+						color: rgba($primary-purple, $alpha: 0.8);
+						background-color: $white-2;
+						border: 1.5px solid $text-grey;
+						width: 75px;
+					}
+				}
+			}
+
+			.update-info-wrap {
+				margin-top: 40px;
+				display: flex;
+				flex-direction: column;
+
+				input {
+					border: 1px solid $light-grey;
+					border-radius: 5px;
+					height: 40px;
+					width: 400px;
+					color: #344e5c;
+					line-height: none;
+					text-indent: 20px;
+					font-size: 13px;
+				}
+
+				input::placeholder {
+					text-indent: 20px;
+					color: #344e5c;
+					font-family: "Montserrat";
+				}
+
+				input:focus {
+					transition: 0.3s ease-in;
+					border-color: $primary-purple;
+					color: $primary-purple;
+				}
+			}
+
+			.submit-button-wrap {
+				width: 100%;
 				height: 50px;
-				border: 1px solid;
+				margin-top: 20px;
+
+				button {
+					float: right;
+					height: 100%;
+					width: 150px;
+					border: 0;
+					border-radius: 5px;
+					background-color: $primary-purple;
+					color: $white-1;
+					font-size: 14px;
+				}
 			}
 		}
 
@@ -394,21 +490,91 @@ header {
 			grid-gap: 10px;
 
 			.top-card {
+				padding: 25px 35px;
 				border-radius: 5px;
 				height: calc(100% - 10px);
 				width: calc(100% - 10px);
 				background-color: #fff;
 				box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
 				border-radius: 6px;
+
+
+				////
 			}
 
 			.bottom-card {
+				padding: 25px 35px;
 				width: calc(100% - 10px);
 				border-radius: 5px;
 				margin: -10px 0 10px 0;
 				background-color: #fff;
 				box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
 				border-radius: 6px;
+				display: flex;
+				flex-direction: column;
+
+				.current-psw-wrap {
+					input {
+						border: 1px solid $light-grey;
+						border-radius: 5px;
+						height: 35px;
+						width: 400px;
+						color: #344e5c;
+						line-height: none;
+						text-indent: 20px;
+						margin-top: -10px;
+						margin-bottom: 10px;
+						font-size: 13px;
+					}
+				}
+
+				.new-psw-wrap {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					gap: 10px;
+
+					input {
+						border: 1px solid $light-grey;
+						border-radius: 5px;
+						height: 35px;
+						width: 190px;
+						color: #344e5c;
+						line-height: none;
+						text-indent: 20px;
+						margin-top: -10px;
+						font-size: 13px;
+					}
+				}
+
+				.change-psw-btn-wrap {
+					width: 100%;
+					height: 50px;
+					margin-top: 15px;
+
+					button {
+						float: right;
+						height: 100%;
+						width: 150px;
+						border: 0;
+						border-radius: 5px;
+						background-color: $primary-purple;
+						color: $white-1;
+						font-size: 14px;
+					}
+				}
+
+				input::placeholder {
+					text-indent: 20px;
+					color: #344e5c;
+					font-family: "Montserrat";
+				}
+
+				input:focus {
+					transition: 0.3s ease-in;
+					border-color: $primary-purple;
+					color: $primary-purple;
+				}
 			}
 		}
 	}

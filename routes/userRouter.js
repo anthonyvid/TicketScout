@@ -10,9 +10,10 @@ router.get("/employee-register", userController.renderEmployeeRegister);
 router.get("/recovery", userController.renderRecovery);
 
 router.post("/login", userController.login);
+router.post("/forgot-password", userController.forgotPassword);
 router.post("/employee-register", userController.employeeRegister);
 
-// Routes that require middleware 
+// Routes that require middleware
 router.get("/home", routeGaurd.isAccessGranted, userController.renderHome);
 
 module.exports = router;

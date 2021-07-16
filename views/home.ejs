@@ -106,13 +106,17 @@
 
 			<div class="main-content">
 				<header>
-					<div class="menu-toggle">
-						<label for="">
-							<span class="las la-bars"></span>
-						</label>
-					</div>
-
 					<input type="search" placeholder="Search for..." />
+					<div>
+						<button>
+							New Ticket
+							<span class="las la-plus"></span>
+						</button>
+						<button>
+							New Customer
+							<span class="las la-plus"></span>
+						</button>
+					</div>
 				</header>
 
 				<main>
@@ -123,13 +127,6 @@
 								>Monitor Key Metrics. Check reporting and review
 								insights</small
 							>
-						</div>
-
-						<div class="header-actions">
-							<button>
-								New Ticket
-								<span class="las la-plus"></span>
-							</button>
 						</div>
 					</div>
 
@@ -296,103 +293,137 @@
 
 			<div class="model-container" id="model_container">
 				<div class="model">
-					<!-- <button type="text" id="profile-settings-back-btn">Back</button> -->
-					<div class="left-card account-settings-card">
-						<form action="update-account-info" method="POST">
-							<label class="label" for="">Profile Picture</label>
-							<div class="update-photo-wrap">
-								<img src="/assets/user1.svg" alt="" />
-								<div class="button-wrap">
-									<button type="button" id="upload">
-										Upload New Picture
-									</button>
-									<button type="button" id="delete">
-										Delete
-									</button>
+					<div class="back-btn-wrap">
+						<button type="text" id="profile-settings-back-btn">
+							Back
+						</button>
+						<h2>MY ACCOUNT</h2>
+					</div>
+					<div class="cards-wrap">
+						<div class="left-card account-settings-card">
+							<form action="update-account-info" method="POST">
+								<label class="label" for=""
+									>Profile Picture</label
+								>
+								<div class="update-photo-wrap">
+									<img src="/assets/user1.svg" alt="" />
+									<div class="button-wrap">
+										<button type="button" id="upload">
+											Upload New Picture
+										</button>
+										<button type="button" id="delete">
+											Delete
+										</button>
+									</div>
 								</div>
-							</div>
-							<div class="update-info-wrap">
-								<div>
-									<label class="label" for="firstname"
-										>Full Name</label
-									>
-									<input
-										id="update-account-input"
-										name="fullname"
-										type="name"
-										placeholder="John Smith"
-										required
-									/>
+								<div class="update-info-wrap">
+									<div>
+										<label class="label" for="firstname"
+											>Full Name</label
+										>
+										<input
+											class="update-account-input"
+											name="fullname"
+											type="name"
+											placeholder="John Smith"
+											required
+										/>
+									</div>
+									<br />
+									<div>
+										<label class="label" for="email"
+											>Email</label
+										>
+										<input
+											class="update-account-input"
+											name="email"
+											type="email"
+											placeholder="test@gmail.com"
+											required
+										/>
+									</div>
 								</div>
 								<br />
-								<div>
-									<label class="label" for="email"
-										>Email</label
-									>
-									<input
-										name="email"
-										type="email"
-										placeholder="test@gmail.com"
-										required
-									/>
-								</div>
-							</div>
-							<br />
-							<div class="submit-button-wrap">
-								<button type="submit">Save Changes</button>
-							</div>
-						</form>
-						<br />
-					</div>
-
-					<div class="right-card account-settings-card">
-						<div class="top-card">
-							<h1>clock in here</h1>
-						</div>
-						<div class="bottom-card">
-							<form action="change-password" method="POST">
-								<div class="current-psw-wrap">
-									<label class="label" for=""
-										>Current Password</label
-									>
-									<input
-										name="current-psw"
-										type="password"
-										placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-										required
-									/>
-								</div>
-								<div class="new-psw-wrap">
-									<div>
-										<label class="label" for=""
-											>New Password</label
-										>
-										<input
-											name="new-psw"
-											type="password"
-											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-											required
-										/>
-									</div>
-									<div>
-										<label class="label" for=""
-											>Confirm Password</label
-										>
-										<input
-											name="confirm-new-psw"
-											type="password"
-											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-											required
-										/>
-									</div>
-								</div>
-
-								<div class="change-psw-btn-wrap">
-									<button type="submit">
-										Change Password
-									</button>
+								<div class="submit-button-wrap">
+									<button type="submit">Save Changes</button>
 								</div>
 							</form>
+							<br />
+						</div>
+
+						<div class="right-card account-settings-card">
+							<div class="top-card">
+								<div class="form-wrap">
+									<form action="time-clock" method="POST">
+										<div class="time-clock-wrap">
+											<div class="clock-out-wrap">
+												<label class="label" for=""
+													>Clock-Out Time</label
+												>
+												<input
+													class="update-account-input"
+													class="clock-out-time"
+													type="time"
+													required
+												/>
+											</div>
+
+											<button type="submit">
+												Clock-In
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="bottom-card">
+								<form action="change-password" method="POST">
+									<div class="current-psw-wrap">
+										<label class="label" for=""
+											>Current Password</label
+										>
+										<input
+											class="update-account-input"
+											name="current-psw"
+											type="password"
+											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+											required
+										/>
+									</div>
+									<br />
+									<div class="new-psw-wrap">
+										<div>
+											<label class="label" for=""
+												>New Password</label
+											>
+											<input
+												class="update-account-input"
+												name="new-psw"
+												type="password"
+												placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+												required
+											/>
+										</div>
+										<div>
+											<label class="label" for=""
+												>Confirm Password</label
+											>
+											<input
+												class="update-account-input"
+												name="confirm-new-psw"
+												type="password"
+												placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+												required
+											/>
+										</div>
+									</div>
+
+									<div class="change-psw-btn-wrap">
+										<button type="submit">
+											Change Password
+										</button>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>

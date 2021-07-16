@@ -62,10 +62,17 @@ input:focus {
 .brand-icons span {
   font-size: 1.5rem;
   margin-left: 0.5rem;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 }
 
 .brand-icons span:hover {
   cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+  color: #edf5fc;
 }
 
 .sidebar-user {
@@ -160,14 +167,23 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   padding: 1rem 1.5rem;
   border-radius: 50%;
+  gap: 60px;
+}
+
+header button {
+  outline: none;
+  color: #fff;
+  background: #7470fb;
+  border: none;
+  padding: 0.6rem 1rem;
+  margin-left: 1rem;
+  border-radius: 3px;
+  font-weight: 600;
 }
 
 .menu-toggle label {
@@ -243,17 +259,6 @@ header {
           align-items: center;
 }
 
-.header-actions button {
-  outline: none;
-  color: #fff;
-  background: #7470fb;
-  border: none;
-  padding: 0.6rem 1rem;
-  margin-left: 1rem;
-  border-radius: 3px;
-  font-weight: 600;
-}
-
 .header-actions button span {
   font-size: 1.2rem;
   margin-right: 0.6rem;
@@ -276,6 +281,8 @@ header {
   -webkit-box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
           box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
 }
 
 .card-flex {
@@ -402,7 +409,7 @@ header {
 }
 
 .model-container {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -429,21 +436,48 @@ header {
   height: 600px;
   max-height: 90%;
   max-width: 90%;
-  padding: 50px 25px;
+  padding: 10px 25px;
   border-radius: 5px;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50% 50%;
-      grid-template-columns: 50% 50%;
+  -ms-grid-rows: 5% 95%;
+      grid-template-rows: 5% 95%;
   grid-gap: 10px;
 }
 
-.model-container .model .account-settings-card {
-  height: 95%;
-  margin-top: 5%;
+.model-container .model .back-btn-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 31.5%;
+}
+
+.model-container .model .back-btn-wrap button {
+  width: 100px;
   border-radius: 5px;
+  border: 0;
+  color: #edf5fc;
+  background-color: #344e5c;
+}
+
+.model-container .model .back-btn-wrap h2 {
+  color: #344e5c;
+  font-family: "Mukta", sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.model-container .model .cards-wrap {
+  width: 100%;
+  height: 90%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  grid-gap: 10px;
 }
 
 .model-container .model .label {
@@ -456,6 +490,7 @@ header {
 }
 
 .model-container .model .left-card {
+  width: 100%;
   background-color: #fff;
   -webkit-box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
           box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
@@ -615,9 +650,10 @@ header {
 .model-container .model .right-card {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 50% 50%;
-      grid-template-rows: 50% 50%;
+  -ms-grid-rows: 31.5% 68.5%;
+      grid-template-rows: 31.5% 68.5%;
   grid-gap: 10px;
+  width: 100%;
 }
 
 .model-container .model .right-card .top-card {
@@ -629,11 +665,87 @@ header {
   -webkit-box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
           box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.model-container .model .right-card .top-card .form-wrap {
+  width: 100%;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 40px;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap .clock-out-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap .clock-out-wrap label {
+  margin-bottom: 5px;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap .clock-out-wrap .clock-out-time input[type="time"]:-moz-read-only {
+  background: #eaeff1;
+  border-bottom: 4px solid #c9d6da;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap .clock-out-wrap .clock-out-time input[type="time"]:read-only {
+  background: #eaeff1;
+  border-bottom: 4px solid #c9d6da;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap .clock-out-wrap .clock-out-time input[type="time"][readonly]:focus {
+  background: #e6f8ff;
+  border-bottom: none;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap .clock-out-wrap .clock-out-time input[type="checkbox"]:focus {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: transparent;
+  -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 6px #036fe2;
+          box-shadow: 0 0 0 2px #fff, 0 0 0 6px #036fe2;
+}
+
+.model-container .model .right-card .top-card .time-clock-wrap button {
+  width: 50%;
+  border: 1px solid #7470fb;
+  color: #edf5fc;
+  background-color: #7470fb;
+  border-radius: 5px;
+  font-size: 18px;
+  font-size: 14px;
 }
 
 .model-container .model .right-card .bottom-card {
   padding: 25px 35px;
   width: calc(100% - 10px);
+  height: 100%;
   border-radius: 5px;
   margin: -10px 0 10px 0;
   background-color: #fff;
@@ -652,13 +764,11 @@ header {
 .model-container .model .right-card .bottom-card .current-psw-wrap input {
   border: 1px solid #b1aec2;
   border-radius: 5px;
-  height: 35px;
+  height: 40px;
   width: 400px;
   color: #344e5c;
   line-height: none;
   text-indent: 20px;
-  margin-top: -10px;
-  margin-bottom: 10px;
   font-size: 13px;
 }
 
@@ -679,19 +789,18 @@ header {
 .model-container .model .right-card .bottom-card .new-psw-wrap input {
   border: 1px solid #b1aec2;
   border-radius: 5px;
-  height: 35px;
-  width: 190px;
+  height: 40px;
+  width: 195px;
   color: #344e5c;
   line-height: none;
   text-indent: 20px;
-  margin-top: -10px;
   font-size: 13px;
 }
 
 .model-container .model .right-card .bottom-card .change-psw-btn-wrap {
   width: 100%;
   height: 50px;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .model-container .model .right-card .bottom-card .change-psw-btn-wrap button {

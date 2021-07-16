@@ -3,6 +3,7 @@ const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const JWT = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 class User {
 	constructor(data) {
@@ -25,6 +26,52 @@ class User {
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	async sendEmail(msg) {
+		let transporter = nodemailer.createTransport({
+			// host: "smtp.ethereal.email",
+			// port: 587,
+			// secure: false, // true for 465, false for other ports
+			service: "gmail",
+			auth: {
+				user: process.env.GMAILUSER, // generated ethereal user
+				pass: process.env.GMAILPASS, // generated ethereal password
+			},
+		});
+
+		const info = await transporter.sendMail(msg, (err, data) => {
+			if (err) {
+				console.log("error occured: ", err);
+			} else {
+				console.log("Email sent");
+			}
+		});
+	}
+
+	async forgotPassword(data) {
+		//validate email
+		if (!validator.isEmail(data.email))
+			this.errors.push("Not a valid email");
+
+		const user = await usersCollection.findOne({
+			email: data.email,
+		});
+
+		if (user == null) this.errors.push("User Not Found");
+
+		if (this.errors.length) {
+			console.log("errors", this.errors);
+			return;
+		}
+
+		const msg = {
+			to: `${data.email}`, // list of receivers
+			subject: `Reset Your Password`, // Subject line
+			html: { path: "./views/recoverPasswordEmail.html" },
+		};
+
+		this.sendEmail(msg);
 	}
 
 	clearDatabase() {

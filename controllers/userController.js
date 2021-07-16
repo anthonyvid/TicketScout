@@ -20,6 +20,11 @@ exports.renderRecovery = function (req, res) {
 	res.render("recovery");
 };
 
+exports.forgotPassword = async function (req, res) {
+	let user = new User();
+	await user.forgotPassword(req.body);
+};
+
 exports.login = async function (req, res) {
 	let user = new User(req.body);
 	const resultToken = await user.login();

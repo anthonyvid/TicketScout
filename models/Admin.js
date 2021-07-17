@@ -24,19 +24,30 @@ class Admin extends User {
 		this.data.password = this.hashPrivateInfo(this.data.password);
 		this.data.passwordConfirm = this.data.password;
 
+		const user = {
+			fullname: this.data.fullname.toLowerCase(),
+			email: this.data.email.toLowerCase(),
+			storename: this.data.storename.toLowerCase(),
+			password: this.data.password,
+			passwordConfirm: this.data.passwordConfirm,
+			connected: false,
+			admin: true,
+		};
+
 		try {
 			storesCollection.insertOne({
 				storename: this.data.storename,
 				signUpCode: "12345", //need to auto generate this
-				admin: this.data,
+				admin: user,
 				employees: [],
 			});
-			usersCollection.insertOne(this.data);
+			usersCollection.insertOne(user);
 			console.log("Successfully registered store");
 		} catch (err) {
 			console.log(`error registering store: ${err}`);
 		}
 
+		//FOR TESTING
 		// this.clearDatabase();
 	}
 
@@ -47,7 +58,9 @@ class Admin extends User {
 		const msg = {
 			to: `${email}`, // list of receivers
 			subject: `Register Your Account`, // Subject line
-			html: { path: "./views/employeeRegisterEmailTemplate.html" },
+			html: {
+				path: "./views/emailTemplates/employeeRegisterEmailTemplate.html",
+			},
 		};
 
 		await this.sendEmail(msg);

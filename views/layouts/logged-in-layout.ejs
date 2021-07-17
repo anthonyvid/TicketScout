@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script defer src="/logged-in/layout/layout.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		<link rel="stylesheet" href="logged-in/layout/layout.css" />
+
+		<title>Ticket Scout</title>
+	</head>
+	<body>
+		<div class="page-container">
+			<div class="sidebar">
+				<div class="sidebar-brand">
+					<div class="brand-flex">
+						<h3>ticket<span>Scout</span></h3>
+
+						<div class="brand-icons">
+							<span
+								id="user-profile-icon"
+								class="las la-user-circle"
+							></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="sidebar-main">
+					<div class="sidebar-user">
+						<img src="/assets/user.svg" alt="" />
+						<h3>Anthony Vidovic</h3>
+						<span>anthonyvidovic@gmail.com</span>
+					</div>
+				</div>
+
+				<div class="sidebar-menu">
+					<div class="menu-head">
+						<span>Dashboard</span>
+					</div>
+					<ul>
+						<li>
+							<a href="overview">
+								<span class="las la-sticky-note"></span>
+								Overview
+							</a>
+						</li>
+						<li>
+							<a href="tickets">
+								<span class="las la-tools"></span>
+								Tickets
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="las la-toolbox"></span>
+								Parts
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="las la-file-invoice-dollar"></span>
+								Invoices
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="las la-money-bill"></span>
+								Estimates
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="las la-tasks"></span>
+								Tasks
+							</a>
+						</li>
+					</ul>
+					<div class="menu-head">
+						<span>Admin</span>
+					</div>
+					<ul>
+						<li>
+							<a href="#">
+								<span class="las la-comment-dollar"></span>
+								Finance
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="las la-chart-bar"></span>
+								Reports
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="las la-cog"></span>
+								Settings
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<form class="logout-wrap" action="logout" method="POST">
+						<button type="submit">Logout</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="main-content">
+			<header>
+				<input type="search" placeholder="Search for..." />
+				<div>
+					<button>
+						New Ticket
+						<span class="las la-plus"></span>
+					</button>
+					<button>
+						New Customer
+						<span class="las la-plus"></span>
+					</button>
+				</div>
+			</header>
+		</div>
+		<div class="model-container" id="model_container">
+			<div class="model">
+				<div class="back-btn-wrap">
+					<button type="text" id="profile-settings-back-btn">
+						Back
+					</button>
+					<h2>MY ACCOUNT</h2>
+				</div>
+				<div class="cards-wrap">
+					<div class="left-card account-settings-card">
+						<form action="update-account-info" method="POST">
+							<label class="label" for="">Profile Picture</label>
+							<div class="update-photo-wrap">
+								<img src="/assets/user1.svg" alt="" />
+								<div class="button-wrap">
+									<button type="button" id="upload">
+										Upload New Picture
+									</button>
+									<button type="button" id="delete">
+										Delete
+									</button>
+								</div>
+							</div>
+							<div class="update-info-wrap">
+								<div>
+									<label class="label" for="firstname"
+										>Full Name</label
+									>
+									<input
+										class="update-account-input"
+										name="fullname"
+										type="name"
+										placeholder="John Smith"
+										required
+									/>
+								</div>
+								<br />
+								<div>
+									<label class="label" for="email"
+										>Email</label
+									>
+									<input
+										class="update-account-input"
+										name="email"
+										type="email"
+										placeholder="test@gmail.com"
+										required
+									/>
+								</div>
+							</div>
+							<br />
+							<div class="submit-button-wrap">
+								<button type="submit">Save Changes</button>
+							</div>
+						</form>
+						<br />
+					</div>
+
+					<div class="right-card account-settings-card">
+						<div class="top-card">
+							<div class="form-wrap">
+								<form action="time-clock" method="POST">
+									<div class="time-clock-wrap">
+										<div class="clock-out-wrap">
+											<label class="label" for=""
+												>Clock-Out Time</label
+											>
+											<input
+												class="update-account-input"
+												class="clock-out-time"
+												type="time"
+												required
+											/>
+										</div>
+
+										<button type="submit">Clock-In</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="bottom-card">
+							<form action="change-password" method="POST">
+								<div class="current-psw-wrap">
+									<label class="label" for=""
+										>Current Password</label
+									>
+									<input
+										class="update-account-input"
+										name="current-psw"
+										type="password"
+										placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+										required
+									/>
+								</div>
+								<br />
+								<div class="new-psw-wrap">
+									<div>
+										<label class="label" for=""
+											>New Password</label
+										>
+										<input
+											class="update-account-input"
+											name="new-psw"
+											type="password"
+											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+											required
+										/>
+									</div>
+									<div>
+										<label class="label" for=""
+											>Confirm Password</label
+										>
+										<input
+											class="update-account-input"
+											name="confirm-new-psw"
+											type="password"
+											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+											required
+										/>
+									</div>
+								</div>
+
+								<div class="change-psw-btn-wrap">
+									<button type="submit">
+										Change Password
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%- body %>
+	</body>
+</html>

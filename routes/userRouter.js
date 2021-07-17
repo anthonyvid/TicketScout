@@ -13,7 +13,15 @@ router.post("/login", userController.login);
 router.post("/forgot-password", userController.forgotPassword);
 router.post("/employee-register", userController.employeeRegister);
 
+//NOT SETUP YET
+// router.post("/update-account-info", ); FOR SAVE CHANGES BUTTON
+// router.post("/time-clock", ); FOR TIME CLOCK
+// router.post("/change-password", ); FOR CHANGE PASSWORD
+// router.post("/logout", userController.logout);
+
+router.get("/tickets", userController.tickets);
+
 // Routes that require middleware
-router.get("/home", routeGaurd.isAccessGranted, userController.renderHome);
+router.get("/overview", routeGaurd.isAccessGranted, userController.renderHome);
 
 module.exports = router;

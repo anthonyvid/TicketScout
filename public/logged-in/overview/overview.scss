@@ -1,0 +1,202 @@
+//** TicketScout/home_page/home_page.scss
+//** Author: Anthony Vidovic
+//** Email: Anthonyvidovic@gmail.com
+
+// Font Imports
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"); // Custom Variables
+$primary-purple: #7470fb;
+$dark-purple: #3d354b;
+$second-dark-purple: #3f3539;
+$white-1: #edf5fc;
+$white-2: #fafafb;
+$light-grey: #b1aec2;
+$card-pool: #f9f9f9;
+
+$main-color: #1a202e;
+$color-dark: #1d2231;
+$text-grey: #8390a2;
+
+* {
+	font-family: "Montserrat", sans-serif;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+input[type="search"]::-ms-clear {
+	display: none;
+	width: 0;
+	height: 0;
+}
+input[type="search"]::-ms-reveal {
+	display: none;
+	width: 0;
+	height: 0;
+}
+
+/* clears the 'X' from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+	display: none;
+}
+
+button:hover,
+a:hover,
+input:hover {
+	cursor: pointer;
+}
+
+input:focus {
+	cursor: text;
+	outline: none;
+}
+
+.menu-toggle label {
+	height: 60px;
+	width: 60px;
+	display: grid;
+	place-items: center;
+	font-size: 1.5rem;
+	border-radius: 50%;
+}
+
+.menu-toggle label:hover {
+	background: #efefef;
+}
+
+.page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-actions button span {
+	font-size: 1.2rem;
+	margin-right: 0.6rem;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+	grid-gap: 3rem;
+	margin-top: 2rem;
+}
+
+.card-single {
+	background: #fff;
+	padding: 1rem;
+	box-sizing: 4px 4px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 6px;
+	// box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+	// rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+	// box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
+}
+
+.card-flex {
+	display: grid;
+	grid-template-columns: 70% auto;
+}
+
+.card-head span {
+	display: block;
+	text-transform: uppercase;
+	color: #555;
+	font-size: 0.9rem;
+}
+
+.card-head small {
+	font-weight: 600;
+	color: #555;
+}
+
+.card-info h2 {
+	font-size: 2rem;
+	color: #333;
+}
+
+.card-chart span {
+	font-size: 5rem;
+}
+
+.recent-ticket-card {
+	grid-column: 1/3;
+	grid-row: 2/4;
+
+	.card-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: 5px;
+
+		button {
+			outline: none;
+			color: #fff;
+			background: $primary-purple;
+			border: none;
+			padding: 0.6rem 1rem;
+			margin-left: 1rem;
+			border-radius: 3px;
+
+			span {
+				display: inline-block;
+				color: $white-1;
+				font-size: 1rem;
+			}
+		}
+	}
+
+	.card-scroll-box {
+		margin-top: 10px;
+		width: 100%;
+		height: 95%;
+		overflow-y: auto;
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+
+			thead tr {
+				border-top: 1px solid #f0f0f0;
+				border-bottom: 1px solid #f0f0f0;
+			}
+
+			thead td {
+				font-weight: 700;
+			}
+
+			td {
+				padding: 0.5rem 1rem;
+				font-size: 0.9rem;
+				color: #222;
+			}
+		}
+	}
+}
+
+.task-card {
+	grid-column: 3;
+	grid-row: 2/6;
+
+	span {
+		font-size: 1.5rem;
+	}
+}
+
+.extra-card {
+	grid-column: 1/3;
+	grid-row: 4/6;
+
+	span {
+		font-size: 1.5rem;
+	}
+}

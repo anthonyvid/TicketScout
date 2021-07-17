@@ -21,9 +21,22 @@ module.exports = {
 		//get infomation about specific user
 		jwt.verify(token, process.env.JWT_SECRET, async (err, email) => {
 			if (err) return res.sendStatus(403);
-			
+
 			//find user and database, check if conncted key is true, see if email they inputted matches database
-			
+			const user = await usersCollection.findOne({ email: email.email });
+
+			//user is not connected
+			if (!user.connected) {
+				console.log("user not connected");
+			} else {
+				console.log("user is connected");
+			}
+
+		// 	*then check if its the right user we are currently trying to update
+        //   (making sure users can't update other users informations)
+
+		
+
 		});
 
 		next();

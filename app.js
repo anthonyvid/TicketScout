@@ -16,7 +16,7 @@ app.use(express.static("public"));
 //where views are coming from
 app.set("views", "views");
 app.set("view engine", "ejs");
-app.set("layout", "layouts/loginLayout");
+app.set("layout", "layouts/logged-out-layout");
 app.use(expressLayouts);
 
 app.use(userRouter);

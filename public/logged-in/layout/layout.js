@@ -20,4 +20,3 @@ document.addEventListener("keydown", function (e) {
 		modelContainer.classList.remove("show");
 	}
 });
-

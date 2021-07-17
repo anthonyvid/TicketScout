@@ -30,9 +30,6 @@ class User {
 
 	async sendEmail(msg) {
 		let transporter = nodemailer.createTransport({
-			// host: "smtp.ethereal.email",
-			// port: 587,
-			// secure: false, // true for 465, false for other ports
 			service: "gmail",
 			auth: {
 				user: process.env.GMAILUSER, // generated ethereal user
@@ -68,7 +65,7 @@ class User {
 		const msg = {
 			to: `${data.email}`, // list of receivers
 			subject: `Reset Your Password`, // Subject line
-			html: { path: "./views/recoverPasswordEmail.html" },
+			html: { path: "./views/emailTemplates/recoverPasswordEmail.html" },
 		};
 
 		this.sendEmail(msg);
@@ -158,37 +155,79 @@ class User {
 
 	async login() {
 		try {
-			const result = await usersCollection
-				.findOne({ email: this.data.email.toLowerCase() })
-				.then((userAttempt) => {
-					if (
-						userAttempt &&
-						bcrypt.compareSync(
-							this.data.password,
-							userAttempt.password
-						)
-					) {
-						console.log("valid login info");
+			const result = await usersCollection.findOne({
+				email: this.data.email.toLowerCase(),
+			});
 
-						const token = JWT.sign(
+			if (
+				result &&
+				bcrypt.compareSync(this.data.password, result.password)
+			) {
+				console.log("valid login info");
+				//if user success on login make conenction true
+				try {
+					await usersCollection.updateOne(result, {
+						$set: { connected: true },
+					});
+
+					if (result.admin) {
+						await storesCollection.updateOne(
 							{
-								email: this.data.email,
+								storename: result.storename,
 							},
-							process.env.JWT_SECRET,
-							{
-								expiresIn: 360000,
-							}
+							{ $set: { "admin.connected": true } }
 						);
-						return token;
 					} else {
-						console.log("invalid login info");
-						return;
+						const store = await storesCollection.findOne({
+							storename: result.storename,
+						});
+
+						const employee = store.employees.findIndex(
+							(employee) => employee.email === result.email
+						);
+
+						if (employee === -1) {
+							console.log(
+								"employee not found in store, but found in users collection, warning ***"
+							);
+						} else {
+							await storesCollection.updateOne(
+								{
+									storename: result.storename,
+								},
+								{
+									$set: {
+										[`employees.${employee}.connected`]: true,
+									},
+								}
+							);
+						}
 					}
-				});
-			return result;
+				} catch (err) {
+					console.log(err);
+				}
+
+				const token = JWT.sign(
+					{
+						email: this.data.email,
+					},
+					process.env.JWT_SECRET,
+					{
+						expiresIn: 360000,
+					}
+				);
+				return token;
+			} else {
+				console.log("invalid login info");
+				return;
+			}
 		} catch (err) {
 			console.log(err);
 		}
+	}
+
+	async logout() {
+		console.log("in logout");
 	}
 
 	async employeeRegister() {
@@ -215,6 +254,8 @@ class User {
 			storename: store.storename.toLowerCase(),
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
+			connected: false,
+			admin: false,
 		};
 
 		storesCollection.updateOne(
@@ -227,13 +268,7 @@ class User {
 		);
 
 		//add user into users collection
-		usersCollection.insertOne({
-			fullname: this.data.fullname.toLowerCase(),
-			email: this.data.email.toLowerCase(),
-			storename: store.storename.toLowerCase(),
-			password: this.data.password,
-			passwordConfirm: this.data.passwordConfirm,
-		});
+		usersCollection.insertOne(employee);
 
 		console.log("employee successfully joined store");
 	}

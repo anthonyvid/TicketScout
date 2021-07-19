@@ -1,17 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
-const routeGaurd = require("./routeGaurd.js");
 
-// Routes that done require middleware
+// Login Page
 router.get("/", userController.renderLogin);
-router.get("/register", userController.renderRegister);
-router.get("/employee-register", userController.renderEmployeeRegister);
-router.get("/recovery", userController.renderRecovery);
-
+// Login Handle
 router.post("/login", userController.login);
-router.post("/forgot-password", userController.forgotPassword);
+
+// Employee Register Page
+router.get("/employee-register", userController.renderEmployeeRegister);
+// Employee Register Handle
 router.post("/employee-register", userController.employeeRegister);
+
+// Password Recovery Page
+router.get("/recovery", userController.renderRecovery);
+// Password Recovery Handle
+router.post("/forgot-password", userController.forgotPassword);
+
+////////////////////////////////////////////////////
 
 //NOT SETUP YET
 // router.post("/update-account-info", ); FOR SAVE CHANGES BUTTON
@@ -19,9 +25,16 @@ router.post("/employee-register", userController.employeeRegister);
 // router.post("/change-password", ); FOR CHANGE PASSWORD
 // router.post("/logout", userController.logout);
 
-router.get("/tickets", userController.tickets);
+// router.get("/tickets", userController.tickets);
 
-// Routes that require middleware
-router.get("/overview", routeGaurd.isAccessGranted, userController.renderHome);
+// // Routes that require middleware
+// router.post(
+// 	"/login",
+// 	userController.login,
+// 	routeGaurd.isAccessGranted,
+// 	userController.renderOverview
+// );
+
+// router.get("/overview", userController.renderOverview);
 
 module.exports = router;

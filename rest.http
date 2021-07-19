@@ -1,0 +1,20 @@
+post http://localhost:3000/invite-employee
+Content-Type: application/json
+
+{
+    "email": "anthonyvidovic@gmail.com",
+    "signUpCode": "12345"
+}
+
+###
+
+GET http://localhost:3000/overview
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "av@gmail.com",
+    "password": "asdasdasd"
+}

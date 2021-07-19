@@ -1,7 +1,6 @@
 const User = require("./User");
 const storesCollection = require("../db").collection("stores");
 const usersCollection = require("../db").collection("users");
-const nodemailer = require("nodemailer");
 
 class Admin extends User {
 	constructor(data) {
@@ -16,8 +15,7 @@ class Admin extends User {
 
 		//if there are any errors then stop and print errors
 		if (this.errors.length) {
-			console.log("errors", this.errors);
-			return;
+			return this.errors;
 		}
 
 		//hash user passwords
@@ -40,6 +38,12 @@ class Admin extends User {
 				signUpCode: "12345", //need to auto generate this
 				admin: user,
 				employees: [],
+				storedata: {
+					tickets: [],
+					customers: [],
+					estimates: [],
+					invoices: [],
+				},
 			});
 			usersCollection.insertOne(user);
 			console.log("Successfully registered store");

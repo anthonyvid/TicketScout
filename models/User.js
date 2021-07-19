@@ -2,8 +2,12 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
-const JWT = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+
+
+
+
+
 
 class User {
 	constructor(data) {
@@ -164,59 +168,9 @@ class User {
 				bcrypt.compareSync(this.data.password, result.password)
 			) {
 				console.log("valid login info");
+
 				//if user success on login make conenction true
-				try {
-					await usersCollection.updateOne(result, {
-						$set: { connected: true },
-					});
-
-					if (result.admin) {
-						await storesCollection.updateOne(
-							{
-								storename: result.storename,
-							},
-							{ $set: { "admin.connected": true } }
-						);
-					} else {
-						const store = await storesCollection.findOne({
-							storename: result.storename,
-						});
-
-						const employee = store.employees.findIndex(
-							(employee) => employee.email === result.email
-						);
-
-						if (employee === -1) {
-							console.log(
-								"employee not found in store, but found in users collection, warning ***"
-							);
-						} else {
-							await storesCollection.updateOne(
-								{
-									storename: result.storename,
-								},
-								{
-									$set: {
-										[`employees.${employee}.connected`]: true,
-									},
-								}
-							);
-						}
-					}
-				} catch (err) {
-					console.log(err);
-				}
-
-				const token = JWT.sign(
-					{
-						email: this.data.email,
-					},
-					process.env.JWT_SECRET,
-					{
-						expiresIn: 360000,
-					}
-				);
-				return token;
+				this.changeUserConnection(result, true);
 			} else {
 				console.log("invalid login info");
 				return;
@@ -228,6 +182,61 @@ class User {
 
 	async logout() {
 		console.log("in logout");
+		//TODO: NEED TO GET USER IN REQ.BODY FROM ROUTEGARD INTO CONTROLLER EVEN THOUGH NOTHING IS SUBMITTED IN FORM
+
+		try {
+			const result = await usersCollection.findOne({
+				email: this.data.email.toLowerCase(),
+			});
+
+			this.changeUserConnection(result, false);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async changeUserConnection(user, connection) {
+		try {
+			await usersCollection.updateOne(user, {
+				$set: { connected: connection },
+			});
+
+			if (user.admin) {
+				await storesCollection.updateOne(
+					{
+						storename: user.storename,
+					},
+					{ $set: { "admin.connected": connection } }
+				);
+			} else {
+				const store = await storesCollection.findOne({
+					storename: user.storename,
+				});
+
+				const employee = store.employees.findIndex(
+					(employee) => employee.email === user.email
+				);
+
+				if (employee === -1) {
+					console.log(
+						"employee not found in store, but found in users collection, warning ***"
+					);
+				} else {
+					await storesCollection.updateOne(
+						{
+							storename: user.storename,
+						},
+						{
+							$set: {
+								[`employees.${employee}.connected`]: connection,
+							},
+						}
+					);
+				}
+			}
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	async employeeRegister() {

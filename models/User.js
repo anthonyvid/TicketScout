@@ -4,11 +4,6 @@ const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
 
-
-
-
-
-
 class User {
 	constructor(data) {
 		this.data = data;
@@ -26,7 +21,10 @@ class User {
 			const result = await collection.findOne({
 				[key]: { $eq: value },
 			});
-			if (result != null) this.errors.push(errMessage);
+			if (result != null) {
+				// this.errors[key] = errMessage;
+				this.errors.push(errMessage);
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -112,9 +110,17 @@ class User {
 	}
 
 	async validate(data) {
+		//validate full name
+		if (!/\s/g.test(data.fullname)) {
+			// this.errors["fullname_valid"] = "Not a valid name";
+			this.errors.push("Not a valid name");
+		}
+
 		//validate email
-		if (!validator.isEmail(data.email))
+		if (!validator.isEmail(data.email)) {
+			// this.errors["email_valid"] = "Not a valid email";
 			this.errors.push("Not a valid email");
+		}
 
 		//validate if email exists
 		await this.findExistingDocument(
@@ -123,20 +129,6 @@ class User {
 			data.email,
 			"Email already registered"
 		);
-
-		//validate full name
-		if (!/\s/g.test(data.fullname)) this.errors.push("Not a valid name");
-
-		//validate password
-		if (data.password.length < 8)
-			this.errors.push("Password must be at least 8 characters");
-		if (data.password.length > 50)
-			this.errors.push("Password cannot exceed 50 characters");
-
-		//validate passwordConfirm
-		if (data.passwordConfirm !== data.password) {
-			this.errors.push("Passwords do not match");
-		}
 
 		//validate if store exists already
 		if ("storename" in data) {
@@ -148,13 +140,31 @@ class User {
 			);
 		}
 
-		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
-		if (!("storename" in data)) {
-			const result = await storesCollection.findOne({
-				signUpCode: data.signUpCode,
-			});
-			if (result == null) this.errors.push("Store not found");
+		//validate password
+		if (data.password.length < 8) {
+			// this.errors["password_valid"] =
+			// "Password must be at least 8 characters";
+			this.errors.push("Password must be at least 8 characters");
 		}
+		if (data.password.length > 50) {
+			// this.errors["password_valid"] =
+			// "Password cannot exceed 50 characters";
+			this.errors.push("Password cannot exceed 50 characters");
+		}
+
+		//validate passwordConfirm
+		if (data.passwordConfirm !== data.password) {
+			// this.errors["password_valid"] = "Passwords do not match";
+			this.errors.push("Passwords do not match");
+		}
+
+		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
+		// if (!("storename" in data)) {
+		// 	const result = await storesCollection.findOne({
+		// 		signUpCode: data.signUpCode,
+		// 	});
+		// 	if (result == null) this.errors.push("Store not found");
+		// }
 	}
 
 	async login() {

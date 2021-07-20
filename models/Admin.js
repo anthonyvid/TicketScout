@@ -14,8 +14,10 @@ class Admin extends User {
 		await this.validate(this.data);
 
 		//if there are any errors then stop and print errors
-		if (this.errors.length) {
-			return this.errors;
+		// let errorKeys = Object.keys(this.errors);
+
+		if (this.errors.length > 0) {
+			return [this.errors, this.data];
 		}
 
 		//hash user passwords

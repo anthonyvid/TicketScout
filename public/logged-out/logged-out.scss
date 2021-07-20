@@ -88,377 +88,400 @@ body.superCenter {
 	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
-// Desktop styling
-@media (min-width: 1200px) {
-	.login-box,
-	.sign-up-box,
-	.forgot-psw-box {
-		position: relative;
-		top: 0;
-		left: 0;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding-right: 20px;
-		flex: 3.5;
-		overflow: hidden;
+.login-box,
+.sign-up-box,
+.forgot-psw-box {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-right: 20px;
+	flex: 3.5;
+	overflow: hidden;
 
-		h1, // Dont show some mobile things
+	h1, // Dont show some mobile things
 		#sign-up-link-mobile,
 		.subheading,
 		#sign-in-btn-mobile {
-			display: none;
-		}
-
-		header #logo-img {
-			background-color: transparent;
-			position: absolute;
-			margin: 0;
-			padding: 0;
-			width: 100px;
-			height: 100px;
-			top: 0;
-			left: 0;
-		}
-
-		a {
-			text-decoration: none;
-			color: $dark-purple;
-		}
-
-		form {
-			width: 80%;
-
-			label {
-				margin: 0;
-				color: $dark-purple;
-				font-family: "exo 2", sans-serif;
-				font-size: 13px;
-			}
-
-			.input-wrap {
-				position: relative;
-
-				i {
-					position: absolute;
-					left: 1em;
-					top: 33%;
-					color: $light-grey;
-				}
-
-				input {
-					width: 100%;
-					margin: 0 auto;
-					padding: 1em 0.5em;
-					border: 0;
-					outline: 0;
-					background-color: transparent;
-					border-bottom: 1px solid $light-grey;
-					font-size: 1em;
-					color: $dark-purple;
-					text-indent: 33px;
-					font-family: "exo 2", sans-serif;
-					transition: 0.3s ease-in;
-				}
-
-				input:focus,
-				input:focus::placeholder,
-				input:focus + .fa {
-					transition: 0.3s ease-in;
-					border-color: $primary-purple;
-					color: $primary-purple;
-				}
-
-				input:valid + .fa,
-				input:valid {
-					border-color: $primary-purple;
-					color: $primary-purple;
-				}
-
-				input:-webkit-autofill:valid {
-					color: $primary-purple;
-					border-color: $primary-purple;
-				}
-			}
-
-			.selection-box {
-				margin-bottom: 1em;
-
-				#storename {
-					display: none;
-					transition: 0.3s ease-in;
-					border: 0;
-					outline: 0;
-					background-color: transparent;
-					border-bottom: 1px solid $light-grey;
-					font-size: 1em;
-					color: $dark-purple;
-					text-indent: 10px;
-					font-family: "exo 2", sans-serif;
-					float: right;
-				}
-
-				input:focus,
-				input:focus::placeholder,
-				input:focus {
-					transition: 0.3s ease-in;
-					border-color: $primary-purple;
-					color: $primary-purple;
-				}
-
-				input:valid,
-				input:valid {
-					border-color: $primary-purple;
-					color: $primary-purple;
-				}
-
-				i {
-					float: right;
-					padding-right: -140px;
-				}
-			}
-		}
-
-		.link-wrap {
-			margin-top: 50px;
-			font-size: clamp(8px, 1vw, 16px);
-			width: 100%;
-
-			.forgot-psw-link:hover {
-				transition: all 0.2s ease-in-out;
-				text-shadow: 0 0 1px rgba($color: $dark-purple, $alpha: 0.7);
-			}
-		}
-
-		button {
-			width: 120px;
-			height: 40px;
-			border-radius: 5em;
-			border-width: 0;
-			color: $white-1;
-			font-size: 14px;
-			font-family: "Montserrat", sans-serif;
-			background-color: rgba($color: $dark-purple, $alpha: 1);
-			transition: 0.3s ease-in-out;
-			float: right;
-			margin-top: -15px;
-			margin-right: -20px;
-		}
-
-		button:active,
-		button:focus {
-			outline: none;
-		}
-
-		button:hover {
-			background-color: rgba($color: $dark-purple, $alpha: 0.8);
-			transform: scale(1.01);
-			cursor: pointer;
-		}
-
-		.sign-up-wrap {
-			position: absolute;
-			bottom: 0;
-			font-size: clamp(8px, 1vw, 16px);
-			color: rgba($color: $dark-purple, $alpha: 1);
-
-			p {
-				color: rgba($color: $dark-purple, $alpha: 0.8);
-			}
-		}
-	}
-
-	.graphic-box {
-		flex: 6;
-		background-image: url(/assets/graphicBoxBackground.svg);
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-size: cover;
-
-		.text-wrap {
-			margin-top: 100px;
-			margin-left: 85px;
-			font-family: "exo 2", sans-serif;
-		}
-
-		h1 {
-			color: $white-1;
-			font-size: clamp(40px, 3vw, 56px);
-			font-weight: 500;
-		}
-
-		h2 {
-			color: white;
-			font-weight: 300;
-			margin-top: -15px;
-		}
-
-		h1 .first {
-			color: $second-dark-purple;
-			font-size: clamp(40px, 3vw, 56px);
-			font-weight: 600;
-		}
-
-		h1 .second {
-			color: $second-dark-purple;
-			font-size: clamp(40px, 3vw, 56px);
-			font-weight: 600;
-		}
-	}
-}
-@media (max-width: 915px) {
-	.sign-up-box form input {
-		background-color: #3d354b;
-	}
-}
-
-// Mobile Styling
-@media (max-width: 1200px) {
-	body {
-		background: $primary-purple;
-	}
-	.container > img,
-	#logo-img,
-	.login-box .sign-up-wrap,
-	.graphic-box,
-	.login-box label,
-	#sign-in-btn-desktop,
-	.sign-up-box,
-	.forgot-psw-box,
-	.forgot-psw-link1 {
 		display: none;
 	}
 
-	.container {
-		justify-content: center;
-		margin-bottom: 0px;
-		background-color: $primary-purple;
-		border: none;
-		box-shadow: none;
-		align-items: center;
+	header #logo-img {
+		background-color: transparent;
+		position: absolute;
+		margin: 0;
+		padding: 0;
+		width: 100px;
+		height: 100px;
+		top: 0;
+		left: 0;
 	}
 
-	.login-box {
-		header {
-			h1 {
-				margin: 0;
-				font-size: clamp(36px, 3.5vw, 60px);
-				font-family: "exo 2", sans-serif;
-				text-align: center;
-				color: $second-dark-purple;
-			}
+	a {
+		text-decoration: none;
+		color: $dark-purple;
+	}
 
-			span {
-				color: $white-1;
-			}
+	form {
+		width: 80%;
 
-			h2 {
-				color: $white-1;
-				font-family: "Alegreya sans", sans-serif;
-				font-size: clamp(16px, 1.5vw, 32px);
-				text-transform: lowercase;
-				word-spacing: 0.1em;
-				text-align: center;
-				margin-bottom: 2em;
-			}
-		}
-
-		form {
-			display: grid;
-			align-items: center;
-			grid-gap: 1.5em 1em;
-
-			label {
-				margin: 0;
-				color: $dark-purple;
-				font-family: "exo 2", sans-serif;
-				font-size: clamp(1em);
-			}
-
-			.input-wrap {
-				grid-column: 1 / span 2;
-				position: relative;
-				margin-bottom: -50px;
-
-				i {
-					position: absolute;
-					left: 1em;
-					top: 33%;
-					color: $dark-purple;
-				}
-
-				input {
-					width: 330px;
-					padding: 1em 0.5em;
-					border-radius: 25px;
-					border: 0.125em $dark-purple solid;
-					background-color: transparent;
-					font-size: 0.9em;
-					color: $white-1;
-					text-indent: 33px;
-					font-family: "exo 2", sans-serif;
-				}
-
-				input::placeholder {
-					color: $dark-purple;
-					opacity: 0.7;
-				}
-			}
-		}
-
-		.link-wrap {
-			grid-column: 1 / span 2;
-			display: flex;
-			justify-content: space-evenly;
-			margin-top: 20px;
-			margin-bottom: 40px;
-			font-size: clamp(15px, 2vw, 16px);
-
-			#sign-up-link-mobile {
-				color: #edf5fc;
-			}
-		}
-
-		button {
-			grid-column: 1 / span 2;
-
-			width: 250px;
-			padding: 1.25em 0;
-			border-radius: 1em;
-			border-width: 0;
-
+		label {
+			margin: 0;
 			color: $dark-purple;
-			font-size: 16px;
-			font-weight: bold;
-			font-family: "Montserrat", sans-serif;
-			background-color: $white-1;
-			transition: 0.3s ease-in-out;
-			margin: auto;
-			display: block;
+			font-family: "exo 2", sans-serif;
+			font-size: 13px;
 		}
 
-		button:hover {
-			background-color: rgba($color: #edf5fc, $alpha: 0.7);
-			transform: scale(1.01);
+		.input-wrap {
+			position: relative;
+
+			i {
+				position: absolute;
+				left: 1em;
+				top: 33%;
+				color: $light-grey;
+			}
+
+			input {
+				width: 100%;
+				margin: 0 auto;
+				padding: 1em 0.5em;
+				border: 0;
+				outline: 0;
+				background-color: transparent;
+				border-bottom: 1px solid $light-grey;
+				font-size: 1em;
+				color: $dark-purple;
+				text-indent: 33px;
+				font-family: "exo 2", sans-serif;
+				transition: 0.3s ease-in;
+			}
+
+			input:focus,
+			input:focus::placeholder,
+			input:focus + .fa {
+				transition: 0.3s ease-in;
+				border-color: $primary-purple;
+				color: $primary-purple;
+			}
+
+			input:valid + .fa,
+			input:valid {
+				border-color: $primary-purple;
+				color: $primary-purple;
+			}
+
+			input:-webkit-autofill:valid {
+				color: $primary-purple;
+				border-color: $primary-purple;
+			}
 		}
 
-		#sign-in-btn-mobile {
-			margin-top: -25px;
+		.selection-box {
+			margin-bottom: 1em;
+
+			#storename {
+				display: none;
+				transition: 0.3s ease-in;
+				border: 0;
+				outline: 0;
+				background-color: transparent;
+				border-bottom: 1px solid $light-grey;
+				font-size: 1em;
+				color: $dark-purple;
+				text-indent: 10px;
+				font-family: "exo 2", sans-serif;
+				float: right;
+			}
+
+			input:focus,
+			input:focus::placeholder,
+			input:focus {
+				transition: 0.3s ease-in;
+				border-color: $primary-purple;
+				color: $primary-purple;
+			}
+
+			input:valid,
+			input:valid {
+				border-color: $primary-purple;
+				color: $primary-purple;
+			}
+
+			i {
+				float: right;
+				padding-right: -140px;
+			}
 		}
 	}
 
-	// For very small mobile devices
-	@media (max-width: 399px) {
-		.login-box input,
-		.login-box button,
-		.login-box #sign-up-link-mobile,
-		.login-box .forgot-psw-link {
-			transform: scale(0.8);
-		}
+	.link-wrap {
+		margin-top: 50px;
+		font-size: clamp(8px, 1vw, 16px);
+		width: 100%;
 
-		.login-box i {
-			margin-left: 30px;
+		.forgot-psw-link:hover {
+			transition: all 0.2s ease-in-out;
+			text-shadow: 0 0 1px rgba($color: $dark-purple, $alpha: 0.7);
+		}
+	}
+
+	button {
+		width: 120px;
+		height: 40px;
+		border-radius: 5em;
+		border-width: 0;
+		color: $white-1;
+		font-size: 14px;
+		font-family: "Montserrat", sans-serif;
+		background-color: rgba($color: $dark-purple, $alpha: 1);
+		transition: 0.3s ease-in-out;
+		float: right;
+		margin-top: -15px;
+		margin-right: -20px;
+	}
+
+	button:active,
+	button:focus {
+		outline: none;
+	}
+
+	button:hover {
+		background-color: rgba($color: $dark-purple, $alpha: 0.8);
+		transform: scale(1.01);
+		cursor: pointer;
+	}
+
+	.sign-up-wrap {
+		position: absolute;
+		bottom: 0;
+		font-size: clamp(8px, 1vw, 16px);
+		color: rgba($color: $dark-purple, $alpha: 1);
+
+		p {
+			color: rgba($color: $dark-purple, $alpha: 0.8);
 		}
 	}
 }
+
+.graphic-box {
+	flex: 6;
+	background-image: url(/assets/graphicBoxBackground.svg);
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	.text-wrap {
+		margin-top: 100px;
+		margin-left: 85px;
+		font-family: "exo 2", sans-serif;
+	}
+
+	h1 {
+		color: $white-1;
+		font-size: clamp(40px, 3vw, 56px);
+		font-weight: 500;
+	}
+
+	h2 {
+		color: white;
+		font-weight: 300;
+		margin-top: -15px;
+	}
+
+	h1 .first {
+		color: $second-dark-purple;
+		font-size: clamp(40px, 3vw, 56px);
+		font-weight: 600;
+	}
+
+	h1 .second {
+		color: $second-dark-purple;
+		font-size: clamp(40px, 3vw, 56px);
+		font-weight: 600;
+	}
+}
+
+@media (max-height: 900px) {
+	.container {
+		width: 90vw;
+		height: 85%;
+	}
+}
+
+@media (max-height: 788px) {
+	.sign-up-box {
+		.input-wrap {
+			margin-bottom: -10px;
+		}
+	}
+}
+
+@media (max-height: 720px) {
+	.container {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+//anything under above viewpoint is for mobile
+
+// //ANY CODE BELOW THIS LINE WILL NEED TO BE FIXED, CURRENTLY DOES NOTHING ON DESKTOP
+// @media (max-width: 915px) {
+// 	.sign-up-box form input {
+// 		background-color: #3d354b;
+// 	}
+// }
+
+// // Mobile Styling
+// @media (max-width: 1200px) {
+// 	body {
+// 		background: $primary-purple;
+// 	}
+// 	.container > img,
+// 	#logo-img,
+// 	.login-box .sign-up-wrap,
+// 	.graphic-box,
+// 	.login-box label,
+// 	#sign-in-btn-desktop,
+// 	.sign-up-box,
+// 	.forgot-psw-box,
+// 	.forgot-psw-link1 {
+// 		display: none;
+// 	}
+
+// 	.container {
+// 		justify-content: center;
+// 		margin-bottom: 0px;
+// 		background-color: $primary-purple;
+// 		border: none;
+// 		box-shadow: none;
+// 		align-items: center;
+// 	}
+
+// 	.login-box {
+// 		header {
+// 			h1 {
+// 				margin: 0;
+// 				font-size: clamp(36px, 3.5vw, 60px);
+// 				font-family: "exo 2", sans-serif;
+// 				text-align: center;
+// 				color: $second-dark-purple;
+// 			}
+
+// 			span {
+// 				color: $white-1;
+// 			}
+
+// 			h2 {
+// 				color: $white-1;
+// 				font-family: "Alegreya sans", sans-serif;
+// 				font-size: clamp(16px, 1.5vw, 32px);
+// 				text-transform: lowercase;
+// 				word-spacing: 0.1em;
+// 				text-align: center;
+// 				margin-bottom: 2em;
+// 			}
+// 		}
+
+// 		form {
+// 			display: grid;
+// 			align-items: center;
+// 			grid-gap: 1.5em 1em;
+
+// 			label {
+// 				margin: 0;
+// 				color: $dark-purple;
+// 				font-family: "exo 2", sans-serif;
+// 				font-size: clamp(1em);
+// 			}
+
+// 			.input-wrap {
+// 				grid-column: 1 / span 2;
+// 				position: relative;
+// 				margin-bottom: -50px;
+
+// 				i {
+// 					position: absolute;
+// 					left: 1em;
+// 					top: 33%;
+// 					color: $dark-purple;
+// 				}
+
+// 				input {
+// 					width: 330px;
+// 					padding: 1em 0.5em;
+// 					border-radius: 25px;
+// 					border: 0.125em $dark-purple solid;
+// 					background-color: transparent;
+// 					font-size: 0.9em;
+// 					color: $white-1;
+// 					text-indent: 33px;
+// 					font-family: "exo 2", sans-serif;
+// 				}
+
+// 				input::placeholder {
+// 					color: $dark-purple;
+// 					opacity: 0.7;
+// 				}
+// 			}
+// 		}
+
+// 		.link-wrap {
+// 			grid-column: 1 / span 2;
+// 			display: flex;
+// 			justify-content: space-evenly;
+// 			margin-top: 20px;
+// 			margin-bottom: 40px;
+// 			font-size: clamp(15px, 2vw, 16px);
+
+// 			#sign-up-link-mobile {
+// 				color: #edf5fc;
+// 			}
+// 		}
+
+// 		button {
+// 			grid-column: 1 / span 2;
+
+// 			width: 250px;
+// 			padding: 1.25em 0;
+// 			border-radius: 1em;
+// 			border-width: 0;
+
+// 			color: $dark-purple;
+// 			font-size: 16px;
+// 			font-weight: bold;
+// 			font-family: "Montserrat", sans-serif;
+// 			background-color: $white-1;
+// 			transition: 0.3s ease-in-out;
+// 			margin: auto;
+// 			display: block;
+// 		}
+
+// 		button:hover {
+// 			background-color: rgba($color: #edf5fc, $alpha: 0.7);
+// 			transform: scale(1.01);
+// 		}
+
+// 		#sign-in-btn-mobile {
+// 			margin-top: -25px;
+// 		}
+// 	}
+
+// 	// For very small mobile devices
+// 	@media (max-width: 399px) {
+// 		.login-box input,
+// 		.login-box button,
+// 		.login-box #sign-up-link-mobile,
+// 		.login-box .forgot-psw-link {
+// 			transform: scale(0.8);
+// 		}
+
+// 		.login-box i {
+// 			margin-left: 30px;
+// 		}
+// 	}
+// }

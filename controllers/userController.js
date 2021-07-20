@@ -12,6 +12,7 @@ exports.login = async function (req, res, next) {
 
 	let user = new User(req.body);
 	const resultToken = await user.login();
+	res.redirect("overview");
 };
 ////////////////////////////////////////////////////
 

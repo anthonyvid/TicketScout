@@ -5,7 +5,8 @@
 			<img id="logo-img" src="/assets/ticketScoutLogo.svg" alt="" />
 		</a>
 	</header>
-
+	<br />
+	<br />
 	<form action="register" method="POST">
 		<label for="sign-up-fullname">Full name</label>
 		<div class="input-wrap">
@@ -15,6 +16,7 @@
 				type="fullname"
 				name="fullname"
 				placeholder="John Smith"
+				value="<%= typeof fullname != 'undefined' ? fullname : '' %>"
 				required
 			/>
 			<i class="fa fa-user"></i>
@@ -28,6 +30,7 @@
 				type="email"
 				name="email"
 				placeholder="hello@example.com"
+				value="<%= typeof email != 'undefined' ? email : '' %>"
 				required
 			/>
 			<i class="fa fa-mail-forward"></i>
@@ -40,6 +43,7 @@
 				type="text"
 				name="storename"
 				placeholder="compumobile"
+				value="<%= typeof storename != 'undefined' ? storename : '' %>"
 				required
 			/>
 			<i class="fa fa-copyright"></i>
@@ -52,10 +56,12 @@
 				type="password"
 				name="password"
 				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+				value="<%= typeof password != 'undefined' ? password : '' %>"
 				required
 			/>
 			<i class="fa fa-lock"></i>
 		</div>
+
 		<br />
 		<label for="sign-up-psw-confirm">Confirm password</label>
 		<div class="input-wrap">
@@ -64,6 +70,7 @@
 				type="password"
 				name="passwordConfirm"
 				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+				value="<%= typeof passwordConfirm != 'undefined' ? passwordConfirm : '' %>"
 				required
 			/>
 			<i class="fa fa-check-circle"></i>

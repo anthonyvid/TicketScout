@@ -7,27 +7,13 @@ const nodemailer = require("nodemailer");
 class User {
 	constructor(data) {
 		this.data = data;
-		this.errors = [];
+		this.errors = {};
 	}
 
 	hashPrivateInfo(info) {
 		let salt = bcrypt.genSaltSync(10);
 		const hashedData = bcrypt.hashSync(info, salt);
 		return hashedData;
-	}
-
-	async findExistingDocument(collection, key, value, errMessage) {
-		try {
-			const result = await collection.findOne({
-				[key]: { $eq: value },
-			});
-			if (result != null) {
-				// this.errors[key] = errMessage;
-				this.errors.push(errMessage);
-			}
-		} catch (error) {
-			console.log(error);
-		}
 	}
 
 	async sendEmail(msg) {
@@ -51,26 +37,32 @@ class User {
 	async forgotPassword(data) {
 		//validate email
 		if (!validator.isEmail(data.email))
-			this.errors.push("Not a valid email");
+			this.errors["email"] = "Not a valid email";
+
+		if (Object.keys(this.errors).length > 0) {
+			return this.errors;
+		}
 
 		const user = await usersCollection.findOne({
 			email: data.email,
 		});
 
-		if (user == null) this.errors.push("User Not Found");
-
-		if (this.errors.length) {
-			console.log("errors", this.errors);
+		// if no user found
+		if (!user) {
 			return;
+		} else {
+			const msg = {
+				to: `${data.email}`, // list of receivers
+				subject: `Reset Your Password`, // Subject line
+				html: {
+					path: "./views/emailTemplates/recoverPasswordEmail.html",
+				},
+			};
+
+			this.sendEmail(msg);
+
+			return user;
 		}
-
-		const msg = {
-			to: `${data.email}`, // list of receivers
-			subject: `Reset Your Password`, // Subject line
-			html: { path: "./views/emailTemplates/recoverPasswordEmail.html" },
-		};
-
-		this.sendEmail(msg);
 	}
 
 	clearDatabase() {
@@ -111,60 +103,47 @@ class User {
 
 	async validate(data) {
 		//validate full name
-		if (!/\s/g.test(data.fullname)) {
-			// this.errors["fullname_valid"] = "Not a valid name";
-			this.errors.push("Not a valid name");
-		}
+		if (!/\s/g.test(data.fullname))
+			this.errors["fullname"] = "Not a valid name";
 
 		//validate email
-		if (!validator.isEmail(data.email)) {
-			// this.errors["email_valid"] = "Not a valid email";
-			this.errors.push("Not a valid email");
-		}
+		if (!validator.isEmail(data.email))
+			this.errors["email"] = "Not a valid email";
 
-		//validate if email exists
-		await this.findExistingDocument(
-			usersCollection,
-			"email",
-			data.email,
-			"Email already registered"
-		);
+		//validate if email exists already
+		const emailResult = await usersCollection.findOne({
+			email: data.email,
+		});
+		if (emailResult) this.errors["email"] = "Email already registered";
 
 		//validate if store exists already
 		if ("storename" in data) {
-			await this.findExistingDocument(
-				storesCollection,
-				"storename",
-				data.storename,
-				"Store already registered"
-			);
+			const storeResult = await storesCollection.findOne({
+				storename: data.storename,
+			});
+			if (storeResult)
+				this.errors["storename"] = "Store already registered";
 		}
 
 		//validate password
-		if (data.password.length < 8) {
-			// this.errors["password_valid"] =
-			// "Password must be at least 8 characters";
-			this.errors.push("Password must be at least 8 characters");
-		}
-		if (data.password.length > 50) {
-			// this.errors["password_valid"] =
-			// "Password cannot exceed 50 characters";
-			this.errors.push("Password cannot exceed 50 characters");
-		}
+		if (data.password.length < 8)
+			this.errors["password"] = "Password must be at least 8 characters";
+
+		if (data.password.length > 50)
+			this.errors["password"] = "Password cannot exceed 50 characters";
 
 		//validate passwordConfirm
-		if (data.passwordConfirm !== data.password) {
-			// this.errors["password_valid"] = "Passwords do not match";
-			this.errors.push("Passwords do not match");
-		}
+		if (data.passwordConfirm !== data.password)
+			this.errors["passwordConfirm"] = "Passwords do not match";
 
 		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
-		// if (!("storename" in data)) {
-		// 	const result = await storesCollection.findOne({
-		// 		signUpCode: data.signUpCode,
-		// 	});
-		// 	if (result == null) this.errors.push("Store not found");
-		// }
+		if (!("storename" in data)) {
+			const result = await storesCollection.findOne({
+				signUpCode: data.signUpCode,
+			});
+			if (result == null)
+				this.errors["storename"] = "Store you are joining not found";
+		}
 	}
 
 	async login() {

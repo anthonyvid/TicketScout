@@ -36,7 +36,24 @@ exports.renderRecovery = function (req, res) {
 // Password Recovery Handle
 exports.forgotPassword = async function (req, res) {
 	let user = new User();
-	await user.forgotPassword(req.body);
+	const result = await user.forgotPassword(req.body);
+
+	if (!result) {
+		res.render("logged-out/recovery", {
+			layout: "layouts/logged-out-layout",
+			success: true,
+		});
+	} else {
+		// If Invalid Email
+		if (result.hasOwnProperty("email")) {
+			console.log("errors");
+			res.render("logged-out/recovery", {
+				layout: "layouts/logged-out-layout",
+				result: Object.values(result),
+				success: undefined,
+			});
+		}
+	}
 };
 ////////////////////////////////////////////////////
 

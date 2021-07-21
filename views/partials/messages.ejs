@@ -1,4 +1,13 @@
-<% if(typeof registrationErrors !== 'undefined') { %>
-        <%= registrationErrors[0] %>
+<!--Message for Admin Register Page-->
+<% if(typeof errors !== 'undefined') { %>
+<div class="isa_error"><%= errors[0] %></div>
 <% } %>
 
+<!--Message for Account Recovery Page-->
+<% if(typeof result !== 'undefined') { %>
+<div class="isa_error recovery"><%= result[0] %></div>
+<% } else if(typeof success !== 'undefined') { %>
+<div class="isa_success recovery"><%= 'Recovery Steps Sent' %></div>
+<% } %>
+
+<!--Message for Login Page-->

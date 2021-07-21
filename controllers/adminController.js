@@ -1,4 +1,3 @@
-const { removeAllListeners } = require("../app");
 const Admin = require("../models/Admin");
 
 // Admin Register Page
@@ -15,26 +14,38 @@ exports.register = async function (req, res) {
 
 	// No errors means passed registration
 	if (!result) {
-		res.send("passed Registration");
+		res.render("logged-out/login", {
+			layout: "layouts/logged-out-layout",
+		});
 	} else {
 		const [registrationErrors, data] = result;
-		const { fullname, email, storename, password, passwordConfirm } = data;
-		console.log(registrationErrors);
-		console.log(data);
+		let { fullname, email, storename, password, passwordConfirm } = data;
 
-		if (registrationErrors.length > 0) {
-			res.render("logged-out/adminRegister", {
-				layout: "layouts/logged-out-layout",
-				registrationErrors,
-				fullname,
-				email,
-				storename,
-				password,
-				passwordConfirm,
-			});
-		} else {
-			res.render("registration passed");
+		if (registrationErrors.hasOwnProperty("fullname")) {
+			fullname = undefined;
 		}
+		if (registrationErrors.hasOwnProperty("email")) {
+			email = undefined;
+		}
+		if (registrationErrors.hasOwnProperty("storename")) {
+			storename = undefined;
+		}
+		if (registrationErrors.hasOwnProperty("password")) {
+			password = undefined;
+		}
+		if (registrationErrors.hasOwnProperty("passwordConfirm")) {
+			passwordConfirm = undefined;
+		}
+
+		res.render("logged-out/adminRegister", {
+			layout: "layouts/logged-out-layout",
+			errors: Object.values(registrationErrors),
+			fullname,
+			email,
+			storename,
+			password,
+			passwordConfirm,
+		});
 	}
 };
 

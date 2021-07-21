@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/messages.css" />
+
 <section class="sign-up-box">
 	<header>
 		<a href="/">
@@ -7,7 +9,7 @@
 	</header>
 	<br />
 	<br />
-	<form action="register" method="POST">
+	<form action="register" method="POST" id="signUpForm">
 		<label for="sign-up-fullname">Full name</label>
 		<div class="input-wrap">
 			<input
@@ -19,6 +21,7 @@
 				value="<%= typeof fullname != 'undefined' ? fullname : '' %>"
 				required
 			/>
+
 			<i class="fa fa-user"></i>
 		</div>
 		<br />
@@ -42,7 +45,7 @@
 				id="storename"
 				type="text"
 				name="storename"
-				placeholder="compumobile"
+				placeholder="Enter store name"
 				value="<%= typeof storename != 'undefined' ? storename : '' %>"
 				required
 			/>
@@ -75,9 +78,7 @@
 			/>
 			<i class="fa fa-check-circle"></i>
 		</div>
-		<br />
 		<%- include('../partials/messages'); %>
-		<br />
 		<div class="link-wrap">
 			<a href="/recovery" class="forgot-psw-link2">Forgot Password?</a>
 			<button id="sign-up-btn" type="submit">Sign Up</button>

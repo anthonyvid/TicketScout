@@ -36,4 +36,3 @@ const forgotPswBox = document.querySelector(".forgot-psw-box");
 
 const graphicBoxText = document.getElementById("graphic-box-text");
 
-

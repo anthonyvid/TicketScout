@@ -6,7 +6,7 @@ class Admin extends User {
 	constructor(data) {
 		super();
 		this.data = data;
-		this.errors = [];
+		this.errors = {};
 	}
 
 	async register() {
@@ -16,7 +16,7 @@ class Admin extends User {
 		//if there are any errors then stop and print errors
 		// let errorKeys = Object.keys(this.errors);
 
-		if (this.errors.length > 0) {
+		if (Object.keys(this.errors).length > 0) {
 			return [this.errors, this.data];
 		}
 

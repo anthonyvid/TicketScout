@@ -1,0 +1,66 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.isa_info,
+.isa_success,
+.isa_warning,
+.isa_error {
+	margin: 10px 0px;
+	padding: 8px;
+	height: 20px;
+	font-size: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 3px;
+	margin-left: 17px;
+}
+
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	99% {
+		opacity: 0.01;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	99% {
+		opacity: 0.01;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.recovery {
+	width: 75%;
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 75px;
+	-webkit-animation: fadeOut 6s;
+	animation: fadeOut 6s;
+	animation-fill-mode: forwards;
+}
+
+.isa_info {
+	color: #00529b;
+	background-color: #bde5f8;
+}
+.isa_success {
+	color: #4f8a10;
+	background-color: #dff2bf;
+}
+.isa_warning {
+	color: #9f6000;
+	background-color: #feefb3;
+}
+.isa_error {
+	color: #d8000c;
+	background-color: #ffd2d2;
+}

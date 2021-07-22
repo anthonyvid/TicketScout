@@ -38,7 +38,14 @@
 	}
 }
 
-.recovery {
+.dont_fade {
+	width: 75%;
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 75px;
+}
+
+.fade_out {
 	width: 75%;
 	position: absolute;
 	bottom: 0;

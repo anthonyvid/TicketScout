@@ -3,6 +3,7 @@ const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
+const { Mongoose } = require("mongoose");
 
 class User {
 	constructor(data) {
@@ -143,88 +144,6 @@ class User {
 			});
 			if (result == null)
 				this.errors["storename"] = "Store you are joining not found";
-		}
-	}
-
-	async login() {
-		try {
-			const result = await usersCollection.findOne({
-				email: this.data.email.toLowerCase(),
-			});
-
-			if (
-				result &&
-				bcrypt.compareSync(this.data.password, result.password)
-			) {
-				console.log("valid login info");
-
-				//if user success on login make conenction true
-				this.changeUserConnection(result, true);
-			} else {
-				console.log("invalid login info");
-				return;
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	}
-
-	async logout() {
-		console.log("in logout");
-		//TODO: NEED TO GET USER IN REQ.BODY FROM ROUTEGARD INTO CONTROLLER EVEN THOUGH NOTHING IS SUBMITTED IN FORM
-
-		try {
-			const result = await usersCollection.findOne({
-				email: this.data.email.toLowerCase(),
-			});
-
-			this.changeUserConnection(result, false);
-		} catch (err) {
-			console.log(err);
-		}
-	}
-
-	async changeUserConnection(user, connection) {
-		try {
-			await usersCollection.updateOne(user, {
-				$set: { connected: connection },
-			});
-
-			if (user.admin) {
-				await storesCollection.updateOne(
-					{
-						storename: user.storename,
-					},
-					{ $set: { "admin.connected": connection } }
-				);
-			} else {
-				const store = await storesCollection.findOne({
-					storename: user.storename,
-				});
-
-				const employee = store.employees.findIndex(
-					(employee) => employee.email === user.email
-				);
-
-				if (employee === -1) {
-					console.log(
-						"employee not found in store, but found in users collection, warning ***"
-					);
-				} else {
-					await storesCollection.updateOne(
-						{
-							storename: user.storename,
-						},
-						{
-							$set: {
-								[`employees.${employee}.connected`]: connection,
-							},
-						}
-					);
-				}
-			}
-		} catch (err) {
-			console.log(err);
 		}
 	}
 

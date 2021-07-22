@@ -3,11 +3,31 @@
 <div class="isa_error"><%= errors[0] %></div>
 <% } %>
 
+<!--Flash Messages-->
+<% if(success_msg != '') {%>
+<div class="isa_success fade_out"><%= success_msg %></div>
+<% } %> 
+<% if(error_msg != '') {%>
+<div class="isa_error dont_fade"><%= error_msg %></div>
+<% } %>
+<% if(error != '') {%>
+<div class="isa_error fade_out"><%= error %></div>
+<% } %>
+<% if(logout_msg != '') {%>
+<div class="isa_info dont_fade"><%= logout_msg %></div>
+<% } %>
+<% if(invalid_auth != '') {%>
+<div class="isa_warning fade_out"><%= invalid_auth %></div>
+<% } %>
+
+
+
+
 <!--Message for Account Recovery Page-->
 <% if(typeof result !== 'undefined') { %>
-<div class="isa_error recovery"><%= result[0] %></div>
+<div class="isa_error fade_out"><%= result[0] %></div>
 <% } else if(typeof success !== 'undefined') { %>
-<div class="isa_success recovery"><%= 'Recovery Steps Sent' %></div>
+<div class="isa_success fade_out"><%= 'Recovery Steps Sent' %></div>
 <% } %>
 
 <!--Message for Login Page-->

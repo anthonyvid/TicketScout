@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const passport = require("passport");
 
 ////////////////////////////////////////////////////
 
@@ -8,11 +9,11 @@ exports.renderLogin = function (req, res) {
 };
 // Login Handle
 exports.login = async function (req, res, next) {
-	console.log(req.token);
-
-	let user = new User(req.body);
-	const resultToken = await user.login();
-	res.redirect("overview");
+	passport.authenticate("local", {
+		successRedirect: "/overview",
+		failureRedirect: "/",
+		failureFlash: true,
+	})(req, res, next);
 };
 ////////////////////////////////////////////////////
 
@@ -56,17 +57,20 @@ exports.forgotPassword = async function (req, res) {
 	}
 };
 ////////////////////////////////////////////////////
+//TODO: organize functions below
 
-// exports.renderOverview = function (req, res) {
-// 	console.log(req.user);
-// 	res.render("logged-in/overview", { layout: "layouts/logged-in-layout" });
-// };
+exports.renderOverview = function (req, res) {
+	res.render("logged-in/overview", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
+};
 
-// exports.logout = async function (req, res) {
-// 	console.log(req.body);
-// 	let user = new User(req.body);
-// 	await user.logout();
-// };
+exports.logout = async function (req, res) {
+	req.logout();
+	req.flash("logout_msg", "You are logged out");
+	res.redirect("/");
+};
 
 // exports.tickets = function (req, res) {
 // 	res.render("logged-in/tickets", { layout: "layouts/logged-in-layout" });

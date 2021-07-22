@@ -14,9 +14,8 @@ exports.register = async function (req, res) {
 
 	// No errors means passed registration
 	if (!result) {
-		res.render("logged-out/login", {
-			layout: "layouts/logged-out-layout",
-		});
+		req.flash("success_msg", "You are now registered and can log in");
+		res.redirect("/");
 	} else {
 		const [registrationErrors, data] = result;
 		let { fullname, email, storename, password, passwordConfirm } = data;

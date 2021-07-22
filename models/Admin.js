@@ -13,9 +13,7 @@ class Admin extends User {
 		this.cleanUp(this.data);
 		await this.validate(this.data);
 
-		//if there are any errors then stop and print errors
-		// let errorKeys = Object.keys(this.errors);
-
+		// If any errors found during registration
 		if (Object.keys(this.errors).length > 0) {
 			return [this.errors, this.data];
 		}

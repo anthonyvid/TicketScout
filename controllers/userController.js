@@ -25,7 +25,7 @@ exports.renderEmployeeRegister = function (req, res) {
 };
 // Employee Register Handle
 exports.employeeRegister = async function (req, res) {
-	let user = new User(req.body);
+	const user = new User(req.body);
 	await user.employeeRegister();
 };
 ////////////////////////////////////////////////////

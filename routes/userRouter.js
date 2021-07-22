@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
-const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
+const {
+	ensureAuthenticated,
+	forwardAuthenticated,
+	checkNotAuthenticated,
+} = require("../config/auth");
 
 // Login Page
-router.get("/", forwardAuthenticated, userController.renderLogin);
+router.get("/", checkNotAuthenticated, userController.renderLogin);
 // Login Handle
 router.post("/login", userController.login);
 
@@ -12,12 +16,16 @@ router.post("/login", userController.login);
 router.post("/logout", userController.logout);
 
 // Employee Register Page
-router.get("/employee-register", userController.renderEmployeeRegister);
+router.get(
+	"/employee-register",
+	checkNotAuthenticated,
+	userController.renderEmployeeRegister
+);
 // Employee Register Handle
 router.post("/employee-register", userController.employeeRegister);
 
 // Password Recovery Page
-router.get("/recovery", userController.renderRecovery);
+router.get("/recovery", checkNotAuthenticated, userController.renderRecovery);
 // Password Recovery Handle
 router.post("/forgot-password", userController.forgotPassword);
 

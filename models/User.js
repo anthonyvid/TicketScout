@@ -21,8 +21,8 @@ class User {
 		let transporter = nodemailer.createTransport({
 			service: "gmail",
 			auth: {
-				user: process.env.GMAILUSER, // generated ethereal user
-				pass: process.env.GMAILPASS, // generated ethereal password
+				user: process.env.GMAILUSER,
+				pass: process.env.GMAILPASS,
 			},
 		});
 
@@ -175,6 +175,7 @@ class User {
 			admin: false,
 		};
 
+		//add user into stores collection under the store they signed up for
 		storesCollection.updateOne(
 			{ signUpCode: this.data.signUpCode },
 			{

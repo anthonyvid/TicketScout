@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
+const {
+	ensureAuthenticated,
+	forwardAuthenticated,
+	checkNotAuthenticated,
+} = require("../config/auth");
 
 // Admin Register Page
-router.get("/register", adminController.renderRegister);
+router.get("/register", checkNotAuthenticated, adminController.renderRegister);
 // Admin Register handle
 router.post("/register", adminController.register);
 

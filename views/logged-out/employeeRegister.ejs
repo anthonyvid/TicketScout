@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/messages.css" />
 <section class="sign-up-box">
 	<header>
 		<a href="/">
@@ -14,6 +15,7 @@
 				type="fullname"
 				name="fullname"
 				placeholder="John Smith"
+				value="<%= typeof fullname != 'undefined' ? fullname : '' %>"
 				required
 			/>
 			<i class="fa fa-user"></i>
@@ -27,6 +29,7 @@
 				type="email"
 				name="email"
 				placeholder="hello@example.com"
+				value="<%= typeof email != 'undefined' ? email : '' %>"
 				required
 			/>
 			<i class="fa fa-mail-forward"></i>
@@ -39,6 +42,7 @@
 				type="password"
 				name="password"
 				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+				value="<%= typeof password != 'undefined' ? password : '' %>"
 				required
 			/>
 			<i class="fa fa-lock"></i>
@@ -51,6 +55,7 @@
 				type="password"
 				name="passwordConfirm"
 				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+				value="<%= typeof passwordConfirm != 'undefined' ? passwordConfirm : '' %>"
 				required
 			/>
 			<i class="fa fa-check-circle"></i>
@@ -63,13 +68,22 @@
 				type="text"
 				name="signUpCode"
 				placeholder="paste code here"
+				value="<%= typeof signUpCode != 'undefined' ? signUpCode : '' %>"
 				required
 			/>
 			<i class="fas fa-fingerprint"></i>
 		</div>
-		<br />
+		<div style="margin-top: 10px">
+			<%- include('../partials/messages'); %>
+		</div>
 		<div class="link-wrap">
-			<button id="sign-up-btn" type="submit">Sign Up</button>
+			<button
+				id="sign-up-btn"
+				type="submit"
+				style="margin-bottom: -100px"
+			>
+				Sign Up
+			</button>
 		</div>
 	</form>
 </section>

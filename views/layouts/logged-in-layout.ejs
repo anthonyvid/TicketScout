@@ -14,7 +14,7 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
 		<link rel="stylesheet" href="logged-in/layout/layout.css" />
-
+		<link rel="stylesheet" href="/messages.css" />
 		<title>Ticket Scout</title>
 	</head>
 	<body>
@@ -37,19 +37,18 @@
 					<div class="sidebar-user">
 						<img src="/assets/user.svg" alt="" />
 						<h3><%= user.fullname %></h3>
-						<span><%= user.email %></span>
 					</div>
 				</div>
 
 				<div class="sidebar-menu">
 					<div class="menu-head">
-						<span>Dashboard</span>
+						<span>Menu</span>
 					</div>
 					<ul>
 						<li>
-							<a href="overview">
+							<a href="dashboard">
 								<span class="las la-sticky-note"></span>
-								Overview
+								Dashboard
 							</a>
 						</li>
 						<li>
@@ -83,6 +82,7 @@
 							</a>
 						</li>
 					</ul>
+					<% if(user.admin) {%>
 					<div class="menu-head">
 						<span>Admin</span>
 					</div>
@@ -106,6 +106,7 @@
 							</a>
 						</li>
 					</ul>
+					<% } %>
 				</div>
 				<div>
 					<form class="logout-wrap" action="logout" method="POST">

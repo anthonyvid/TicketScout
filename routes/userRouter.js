@@ -7,35 +7,35 @@ const {
 	checkNotAuthenticated,
 } = require("../config/auth");
 
-// Login Page
-router.get("/", checkNotAuthenticated, userController.renderLogin);
+//- Routes That Dont Require Middleware -//
 // Login Handle
 router.post("/login", userController.login);
-
 // Logout Handle
 router.post("/logout", userController.logout);
+// Employee Register Handle
+router.post("/employee-register", userController.employeeRegister);
+// Password Recovery Handle
+router.post("/forgot-password", userController.forgotPassword);
 
+//- Routes That Require Middleware -//
+// Login Page
+router.get("/", checkNotAuthenticated, userController.renderLogin);
+// Password Recovery Page
+router.get("/recovery", checkNotAuthenticated, userController.renderRecovery);
 // Employee Register Page
 router.get(
 	"/employee-register",
 	checkNotAuthenticated,
 	userController.renderEmployeeRegister
 );
-// Employee Register Handle
-router.post("/employee-register", userController.employeeRegister);
-
-// Password Recovery Page
-router.get("/recovery", checkNotAuthenticated, userController.renderRecovery);
-// Password Recovery Handle
-router.post("/forgot-password", userController.forgotPassword);
-
-////////////////////////////////////////////////////
-router.get("/overview", ensureAuthenticated, userController.renderOverview);
+// Dashboard Page
+router.get("/dashboard", ensureAuthenticated, userController.renderDashboard);
+// Tickets Page
+router.get("/tickets", userController.renderTickets);
 
 //NOT SETUP YET
-// router.post("/update-account-info", ); FOR SAVE CHANGES BUTTON
-// router.post("/time-clock", ); FOR TIME CLOCK
-// router.post("/change-password", ); FOR CHANGE PASSWORD
-// router.get("/tickets", userController.tickets);
+// router.post("/update-account-info", );
+// router.post("/time-clock", );
+// router.post("/change-password", );
 
 module.exports = router;

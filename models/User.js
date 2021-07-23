@@ -137,13 +137,13 @@ class User {
 		if (data.passwordConfirm !== data.password)
 			this.errors["passwordConfirm"] = "Passwords do not match";
 
-		//NEED TO VALIDATE AND SEE IF STORE EVEN EXISTS WHEN EMPLOYEE ENTERS IN SIGNUPKEY
+		// Check if signUpCode is valid
 		if (!("storename" in data)) {
 			const result = await storesCollection.findOne({
 				signUpCode: data.signUpCode,
 			});
 			if (result == null)
-				this.errors["storename"] = "Store you are joining not found";
+				this.errors["signUpCode"] = "Store you are joining not found";
 		}
 	}
 
@@ -152,9 +152,8 @@ class User {
 		await this.validate(this.data);
 
 		//if there are any errors then stop and print errors
-		if (this.errors.length) {
-			console.log("errors", this.errors);
-			return;
+		if (Object.keys(this.errors).length > 0) {
+			return [this.errors, this.data];
 		}
 
 		//hash user passwords

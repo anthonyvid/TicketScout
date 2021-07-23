@@ -1,1 +1,92 @@
+$base-spacing-unit: 24px;
+$half-spacing-unit: $base-spacing-unit / 2;
 
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+.card-scroll-box {
+	margin-top: 10px;
+	width: 100%;
+	height: 95%;
+	overflow-y: auto;
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		border: 1px solid #eeeeee;
+
+		thead tr {
+			text-transform: uppercase;
+			display: flex;
+		}
+
+		thead td {
+			font-weight: 800;
+			font-size: 16px;
+			padding: ($half-spacing-unit * 1.5) 0;
+			flex: 1 1 20%;
+			text-align: center;
+		}
+
+		tbody tr {
+			display: flex;
+			padding: ($half-spacing-unit * 1.5) 0;
+			&:nth-of-type(odd) {
+				background: #eeeeee;
+			}
+		}
+
+		td {
+			padding: 0.5rem 1rem;
+			font-size: 0.9rem;
+			color: #222;
+			flex: 1 1 20%;
+			text-align: center;
+		}
+		.ticket-id {
+			flex: 5%;
+			margin-left: 1%;
+		}
+
+		.last-update,
+		.issue,
+		.status,
+		.customer {
+			flex: 6%;
+		}
+
+        .subject {
+            margin-right: 5%;
+        }
+	}
+}
+
+// .filter__link {
+// 	color: white;
+// 	text-decoration: none;
+// 	position: relative;
+// 	display: inline-block;
+// 	padding-left: $base-spacing-unit;
+// 	padding-right: $base-spacing-unit;
+
+// 	&::after {
+// 		content: "";
+// 		position: absolute;
+// 		right: -($half-spacing-unit * 1.5);
+// 		color: white;
+// 		font-size: $half-spacing-unit;
+// 		top: 50%;
+// 		transform: translateY(-50%);
+// 	}
+
+// 	&.desc::after {
+// 		content: "(desc)";
+// 	}
+
+// 	&.asc::after {
+// 		content: "(asc)";
+// 	}
+// }

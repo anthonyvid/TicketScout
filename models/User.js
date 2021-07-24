@@ -38,7 +38,7 @@ class User {
 	async forgotPassword(data) {
 		//validate email
 		if (!validator.isEmail(data.email))
-			this.errors["email"] = "Not a valid email";
+			this.errors["error"] = "Not a valid email";
 
 		if (Object.keys(this.errors).length > 0) {
 			return this.errors;
@@ -53,7 +53,7 @@ class User {
 			return;
 		} else {
 			const msg = {
-				to: `${data.email}`, // list of receivers
+				to: `${user.email}`, // list of receivers
 				subject: `Reset Your Password`, // Subject line
 				html: {
 					path: "./views/emailTemplates/recoverPasswordEmail.html",

@@ -4,17 +4,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"); // Custom Variables
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 $primary-purple: #7470fb;
 $dark-purple: #3d354b;
 $second-dark-purple: #3f3539;
 $white-1: #edf5fc;
 $white-2: #fafafb;
 $light-grey: #b1aec2;
-$card-pool: #f9f9f9;
+$card-pool: #e8edf5;
+
 
 $main-color: #1a202e;
 $color-dark: #1d2231;
 $text-grey: #8390a2;
+
+$swatch_1: #e8edf5;
+$swatch_2: #050505;
+$swatch_3: #b4becc;
+$swatch_4: #354250;
+$swatch_5: #717987;
+$bluetext: #0d2238;
 
 * {
 	font-family: "Montserrat", sans-serif;
@@ -50,96 +59,91 @@ input:hover {
 	cursor: pointer;
 }
 
-
 input:focus {
 	cursor: text;
 	outline: none;
 }
 
+@keyframes slideOut {
+}
+
 .sidebar {
-	width: 280px;
+	width: 240px;
 	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100%;
 	padding: 1rem 1.5rem;
-	background-color: $primary-purple;
-	color: $white-1;
+	background-color: white;
 }
 
 .sidebar-brand {
-	height: 70px;
-}
-
-.brand-icons span {
-	font-size: 1.5rem;
-	margin-left: 0.5rem;
-	transition: 0.3s ease-out;
-}
-.brand-icons span:hover {
-	cursor: pointer;
-	transform: scale(1.1);
-	transition: 0.3s ease-in;
-	color: rgba($white-1, $alpha: 1.3);
-}
-
-.sidebar-user {
-	margin: 0rem 0rem 1rem 0rem;
-	text-align: center;
-}
-
-.sidebar-user img {
-	width: 100px;
 	height: 100px;
-	border-radius: 50%;
-	border-left: 2px solid transparent;
-	border-right: 2px solid #efefef;
-	border-bottom: 2px solid #efefef;
-	border-top-width: 2px solid #efefef;
-	margin-bottom: 1rem;
-}
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-.sidebar-user h3 {
-	font-size: 1rem;
-}
-
-.sidebar-user span {
-	font-size: 0.8rem;
+	.brand-flex {
+		h2 {
+			color: $swatch_4;
+		}
+		h2 span {
+			color: $swatch_3;
+		}
+	}
 }
 
 .sidebar-menu {
-	margin-top: 3rem;
-}
-
-.menu-head {
-	text-transform: uppercase;
-	color: #8da2fb;
-	font-size: 1rem;
-	font-weight: 600;
-	margin-bottom: 0.5rem;
-}
-
-.sidebar ul {
-	margin-bottom: 1.5rem;
-}
-
-.sidebar-menu li {
-	margin-bottom: 0.7rem;
-}
-
-.sidebar-menu li a {
-	color: #efefef;
-	font-size: 0.95rem;
+	margin-top: 1rem;
 	display: flex;
-	align-items: center;
-}
+	justify-content: center;
 
-.sidebar-menu li a span {
-	font-size: 1.5rem;
-	display: inline-block;
-	margin-right: 0.8rem;
-}
+	#navList {
+		background-color: transparent;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+	}
 
+	.menu-link {
+		color: $swatch_3;
+		font-size: 0.95rem;
+		display: flex;
+		align-items: center;
+		margin-top: 1.25em;
+		background-color: transparent;
+		height: 45px;
+		width: 200px;
+		border-radius: 6.5px;
+		transition: 0.15s ease-in-out;
+		transform: scale(1);
+
+		span {
+			font-size: 1.5rem;
+			width: 25px;
+			height: 25px;
+			display: inline-block;
+			margin-right: 1rem;
+			margin-left: 1.3rem;
+			color: $swatch_2;
+		}
+	}
+
+	.active,
+	.menu-link:hover {
+		background-color: $swatch_2;
+		color: white;
+
+		span {
+			color: white;
+		}
+	}
+
+	.menu-link:hover {
+		transition: 0.3s ease-in-out;
+		transform: scale(1.03);
+	}
+}
 .logout-wrap {
 	button {
 		width: 100px;
@@ -153,65 +157,133 @@ input:focus {
 	}
 }
 
-.brand-flex {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	h3 span {
-		color: $dark-purple;
-	}
-}
-
 .main-content {
-	margin-left: 280px;
+	margin-left: 240px;
+	padding: 0 10px 0 10px;
+	background-color: $card-pool;
+
+	header {
+		height: 70px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 1.5rem;
+
+		.search-box {
+			display: flex;
+			align-items: center;
+
+			input {
+				height: 35px;
+				width: 230px;
+				border: 0;
+				outline: 0;
+				border-bottom: 1px solid $light-grey;
+				background-color: transparent;
+				font-size: 0.9em;
+				text-indent: 35px;
+				transition: 0.3s ease-in;
+				font-family: "Roboto", sans-serif;
+			}
+
+			span {
+				position: absolute;
+				margin-left: 7px;
+				color: $light-grey;
+			}
+
+			input:focus,
+			input:focus::placeholder,
+			input:focus + .fa {
+				transition: 0.3s ease-in;
+				border-color: $bluetext;
+				color: $bluetext;
+			}
+		}
+
+		.profile-wrap {
+			display: flex;
+			align-items: center;
+			justify-content: space-evenly;
+			gap: 15px;
+
+			.time-clock-animation {
+				// animation: slideOut;
+				transition: 0.3s ease-in-out;
+				width: 250px;
+			}
+
+			.clock-box {
+				width: 40px;
+				height: 40px;
+				border-radius: 5px;
+				background-color: lightblue;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				transition: 0.15s ease-in-out;
+				transform: scale(1);
+
+				i {
+					font-size: 20px;
+				}
+			}
+
+			.clock-box:hover {
+				transition: 0.15s ease-in-out;
+				transform: scale(1.1);
+				cursor: pointer;
+			}
+
+			.initial-box {
+				width: 40px;
+				height: 40px;
+				border-radius: 5px;
+				background-color: lightblue;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.name-wrap {
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				justify-content: center;
+				gap: 2px;
+				height: 40px;
+				margin-right: 20px;
+
+				h5 {
+					font-size: 15px;
+					color: $bluetext;
+				}
+				small {
+					font-size: 11px;
+					color: $swatch_5;
+				}
+			}
+
+			.icon-wrap {
+				color: $swatch_5;
+				transition: 0.15s ease-in-out;
+				transform: scale(1);
+				font-size: 18px;
+			}
+
+			.icon-wrap:hover {
+				transition: 0.15s ease-in-out;
+				transform: scale(1.2);
+				cursor: pointer;
+			}
+		}
+	}
 }
 
 main {
 	padding: 1.5rem;
 	background: $card-pool;
 	min-height: calc(100vh - 70px);
-}
-
-header {
-	height: 70px;
-	display: flex;
-	align-items: center;
-	padding: 1rem 1.5rem;
-	border-radius: 50%;
-	gap: 60px;
-
-	button {
-		outline: none;
-		color: #fff;
-		background: $primary-purple;
-		border: none;
-		padding: 0.6rem 1rem;
-		margin-left: 1rem;
-		border-radius: 3px;
-		font-weight: 600;
-	}
-}
-
-.main-content header input {
-	height: 35px;
-	width: 230px;
-	border: 0;
-	outline: 0;
-	background-color: transparent;
-	border-bottom: 1px solid $light-grey;
-	font-size: 1em;
-	color: $dark-purple;
-	text-indent: 15px;
-	font-family: "exo 2", sans-serif;
-	transition: 0.3s ease-in;
-}
-
-.main-content header input:focus,
-.main-content header input:focus::placeholder {
-	transition: 0.3s ease-in;
-	border-color: $primary-purple;
-	color: $primary-purple;
 }
 
 .model-container.show {

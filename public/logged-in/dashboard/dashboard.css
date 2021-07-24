@@ -70,6 +70,15 @@ input:focus {
           align-items: center;
 }
 
+.page-header h1 {
+  color: #0d2238;
+  margin-bottom: 5px;
+}
+
+.page-header small {
+  color: #717987;
+}
+
 .header-actions button span {
   font-size: 1.2rem;
   margin-right: 0.6rem;

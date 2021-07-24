@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const passport = require("passport");
+const { json } = require("express");
 
 // Login Page
 exports.renderLogin = function (req, res) {
@@ -70,15 +71,14 @@ exports.forgotPassword = async function (req, res) {
 	let user = new User();
 	const result = await user.forgotPassword(req.body);
 
-	if (!result) {
+	if (typeof result == "undefined" || !result["error"]) {
 		res.render("logged-out/recovery", {
 			layout: "layouts/logged-out-layout",
 			success: true,
 		});
-	} else {
+	} else if (result["error"]) {
 		// If Invalid Email
-		if (result.hasOwnProperty("email")) {
-			console.log("errors");
+		if (result.hasOwnProperty("error")) {
 			res.render("logged-out/recovery", {
 				layout: "layouts/logged-out-layout",
 				result: Object.values(result),
@@ -100,7 +100,6 @@ exports.renderDashboard = function (req, res) {
 	res.render("logged-in/dashboard", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
-		welcome_msg: `Welcome back, ${req.user.fullname.split(" ")[0]}`,
 	});
 };
 

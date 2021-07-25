@@ -24,7 +24,7 @@
 			<div class="sidebar">
 				<div class="sidebar-brand">
 					<div class="brand-flex">
-						<h2>ticket<span>Scout</span></h2>
+						<h2>TicketScout</h2>
 						<!--ADD SVG LOGO HERE-->
 						<!-- <div class="brand-icons">
 							<span
@@ -119,23 +119,54 @@
 			<header>
 				<div class="search-box">
 					<form action="" method="">
-						<input type="text" placeholder="Search for..." />
+						<input type="text" placeholder="Search for anything" />
 					</form>
 					<span><i class="fa fa-search"></i></span>
 				</div>
+				<div class="date-wrap">
+					<i class="far fa-calendar-alt"></i>
+					<p>Today <span id="current-date"></span></p>
+				</div>
 				<div class="profile-wrap">
-					<div id="time-clock" class="clock-box">
-						<i class="fas fa-user-clock"></i>
+					<div>
+						<div id="time-clock" class="clock-box">
+							<i class="fas fa-user-clock"></i>
+						</div>
+						<div class="clock-settings-wrap">
+							<div class="time-settings">
+								<label class="label" for=""
+									>Clock-Out Time</label
+								>
+								<input
+									class="update-account-input"
+									class="clock-out-time"
+									type="time"
+									required
+								/>
+							</div>
+							<div class="time-submit">
+								<form action="">
+									<button class="clock-in-btn" type="submit">
+										<i class="fas fa-check"></i>
+									</button>
+								</form>
+							</div>
+						</div>
 					</div>
-					<div class="initial-box">AV</div>
+
+					<div class="initial-box">
+						<%= (user.fullname.split(' ')[0][0] +
+						user.fullname.split(' ')[1][0]).toUpperCase() %>
+					</div>
 					<div class="name-wrap">
-						<h5><%= user.fullname%></h5>
+						<h5><%= user.fullname.split(" ")[0].charAt(0).toUpperCase() + user.fullname.split(" ")[0].substring(1) + " " + user.fullname.split(" ")[1].charAt(0).toUpperCase() + user.fullname.split(" ")[1].substring(1)%></h5>
 						<small><%= user.email%></small>
 					</div>
 					<div class="icon-wrap">
-						<i class="las la-angle-down"></i>
+						<i id="arrow" class="las la-angle-down"></i>
 					</div>
 				</div>
+				<div class="dropdown">test</div>
 			</header>
 		</div>
 		<!-- <div class="model-container" id="model_container">

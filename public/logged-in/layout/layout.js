@@ -5,6 +5,31 @@ const userProfileBackBtn = document.getElementById("profile-settings-back-btn");
 const navList = document.querySelector("#navList");
 const menuLinks = navList.querySelectorAll(".menu-link");
 const timeClock = document.getElementById("time-clock");
+const timeClockSettings = document.querySelector(".clock-settings-wrap");
+const dropDownIcon = document.querySelector(".icon-wrap");
+const currentDate = document.getElementById("current-date");
+let date = new Date();
+let month = date.getMonth();
+let day = date.getDate();
+
+let monthNames = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
+const today = monthNames[month] + " " + day;
+
+currentDate.insertAdjacentHTML("afterbegin", today);
 
 $(document).ready(function () {
 	var CurrentUrl = document.URL;
@@ -20,11 +45,24 @@ $(document).ready(function () {
 	});
 });
 
-console.log(timeClock);
-
 timeClock.addEventListener("click", function () {
-	console.log("test");
-	timeClock.classList.add("time-clock-animation");
+	timeClock.classList.toggle("time-clock-animation");
+	document.querySelector(".clock-settings-wrap").classList.toggle("expanded");
+});
+
+dropDownIcon.addEventListener("click", () => {
+	document.getElementById("arrow").classList.toggle("rotate");
+	document.querySelector(".dropdown").classList.toggle("show-dd");
+});
+
+document.addEventListener("keydown", function (e) {
+	if (document.querySelector(".dropdown").classList.contains("show-dd")) {
+		let keyCode = e.keyCode;
+		if (keyCode === 27) {
+			document.querySelector(".dropdown").classList.toggle("show-dd");
+			document.getElementById("arrow").classList.toggle("rotate");
+		}
+	}
 });
 
 // userProfileIcon.addEventListener("click", function () {

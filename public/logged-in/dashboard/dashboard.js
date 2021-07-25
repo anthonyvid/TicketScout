@@ -1,10 +1,12 @@
 const greeting = document.getElementById("greeting");
 
-let today = new Date();
-if (today.getHours() >= 0 && today.getHours() < 12) {
+let greet = new Date();
+console.log("test");
+
+if (greet.getHours() >= 0 && greet.getHours() < 12) {
 	greeting.insertAdjacentHTML("afterbegin", `Good morning, `);
-} else if (today.getHours() >= 12 && today.getHours() <= 17) {
+} else if (greet.getHours() >= 12 && greet.getHours() <= 17) {
 	greeting.insertAdjacentHTML("afterbegin", `Good afternoon, `);
-} else if (today.getHours() >= 17 && today.getHours() < 24) {
+} else if (greet.getHours() >= 17 && greet.getHours() < 24) {
 	greeting.insertAdjacentHTML("afterbegin", `Good evening, `);
 }

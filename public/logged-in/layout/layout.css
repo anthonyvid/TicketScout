@@ -15,7 +15,7 @@
 }
 
 * {
-  font-family: "avenir";
+  font-family: "Inter";
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-decoration: none;
@@ -55,15 +55,18 @@ input:focus {
   outline: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .sidebar {
-  width: 240px;
+  width: 220px;
   position: fixed;
   left: 0;
   top: 0;
   height: 100%;
   padding: 1rem 1.5rem;
   background-color: white;
-  border-right: 1.5px solid rgba(231, 232, 233, 0.5);
 }
 
 .sidebar-brand {
@@ -88,7 +91,6 @@ input:focus {
 }
 
 .sidebar-menu {
-  margin-top: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -110,35 +112,36 @@ input:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .sidebar-menu .menu-link {
   color: #7d8a96;
-  font-size: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 1.25em;
   background-color: transparent;
-  height: 45px;
-  width: 200px;
-  border-radius: 6.5px;
+  height: 42px;
+  width: 190px;
+  border-radius: 5px;
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
   -webkit-transform: scale(1);
           transform: scale(1);
   text-align: center;
-  font-weight: bold;
+  margin-top: 1.25em;
+  font-size: 1rem;
 }
 
 .sidebar-menu .menu-link span {
-  font-size: 1.5rem;
-  width: 25px;
-  height: 25px;
-  display: inline-block;
+  font-size: 16px;
+  height: 20px;
+  width: 20px;
   margin-right: 1rem;
   margin-left: 1.3rem;
   color: #7d8a96;
@@ -174,7 +177,7 @@ input:focus {
 }
 
 .main-content {
-  margin-left: 240px;
+  margin-left: 220px;
   padding: 0 10px 0 10px;
   background-color: #f6f8fa;
 }
@@ -212,50 +215,26 @@ input:focus {
   text-indent: 35px;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  font-family: "avenir";
+  font-family: "Inter";
 }
 
 .main-content header .search-box span {
   position: absolute;
   margin-left: 7px;
   color: #b1aec2;
-  font-family: "avenir";
+  font-family: "Inter";
 }
 
 .main-content header input:focus,
-.main-content header input:focus::-webkit-input-placeholder,
 .main-content header input:focus + span {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  color: #0d2238;
-  font-family: "avenir";
-}
-
-.main-content header input:focus,
-.main-content header input:focus:-ms-input-placeholder,
-.main-content header input:focus + span {
-  -webkit-transition: 0.3s ease-in;
-  transition: 0.3s ease-in;
-  color: #0d2238;
-  font-family: "avenir";
-}
-
-.main-content header input:focus,
-.main-content header input:focus::-ms-input-placeholder,
-.main-content header input:focus + span {
-  -webkit-transition: 0.3s ease-in;
-  transition: 0.3s ease-in;
-  color: #0d2238;
-  font-family: "avenir";
-}
-
-.main-content header input:focus,
-.main-content header input:focus::placeholder,
-.main-content header input:focus + span {
-  -webkit-transition: 0.3s ease-in;
-  transition: 0.3s ease-in;
-  color: #0d2238;
-  font-family: "avenir";
+  color: #000;
+  font-family: "Inter";
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 1px #b1aec2;
+          box-shadow: 0 1px 1px #b1aec2;
+  border-radius: 3px;
 }
 
 .main-content .date-wrap {
@@ -274,7 +253,8 @@ input:focus {
 
 .main-content .date-wrap span {
   color: #2b3154;
-  font-family: "avenir";
+  font-family: "Inter";
+  font-weight: 500;
   font-size: 16px;
 }
 
@@ -341,6 +321,7 @@ input:focus {
 }
 
 .main-content .profile-wrap div .clock-settings-wrap.expanded {
+  visibility: visible;
   opacity: 1;
   max-width: 200;
   -webkit-transition: 1s ease-in-out;
@@ -352,6 +333,7 @@ input:focus {
 }
 
 .main-content .profile-wrap div .clock-settings-wrap {
+  visibility: hidden;
   opacity: 0;
   max-width: 0;
   width: 200px;
@@ -368,8 +350,10 @@ input:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: lightblue;
-  gap: 4px;
+  background-color: #fff;
+  gap: 2px;
+  -webkit-box-shadow: 0 1px 1px #b1aec2;
+          box-shadow: 0 1px 1px #b1aec2;
 }
 
 .main-content .profile-wrap div .clock-settings-wrap .time-settings input {
@@ -381,16 +365,16 @@ input:focus {
 .main-content .profile-wrap div .clock-settings-wrap .time-settings label {
   font-size: 12px;
   text-align: center;
+  font-family: "Inter";
+  font-weight: 500;
 }
 
 .main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:-moz-read-only {
   background: #eaeff1;
-  border-bottom: 4px solid #c9d6da;
 }
 
 .main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:read-only {
   background: #eaeff1;
-  border-bottom: 4px solid #c9d6da;
 }
 
 .main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="time"][readonly]:focus {
@@ -401,8 +385,6 @@ input:focus {
 .main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="checkbox"]:focus {
   background: rgba(255, 255, 255, 0.9);
   border-color: transparent;
-  -webkit-box-shadow: 0 0 0 2px #fff, 0 0 0 6px #036fe2;
-          box-shadow: 0 0 0 2px #fff, 0 0 0 6px #036fe2;
 }
 
 .main-content .profile-wrap div .clock-settings-wrap .time-submit button {
@@ -418,15 +400,17 @@ input:focus {
   width: 40px;
   height: 40px;
   border: 0;
-  background-color: lightblue;
+  background-color: #fff;
   border-radius: 5px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
+  -webkit-box-shadow: 0 1px 1px #b1aec2;
+          box-shadow: 0 1px 1px #b1aec2;
 }
 
 .main-content .profile-wrap div .clock-settings-wrap .time-submit button:hover {
   background-color: black;
-  color: lightblue;
+  color: #fff;
 }
 
 .main-content .profile-wrap .initial-box {
@@ -467,6 +451,8 @@ input:focus {
 .main-content .profile-wrap .name-wrap h5 {
   font-size: 15px;
   color: #0d2238;
+  font-family: "Inter";
+  font-weight: 600;
 }
 
 .main-content .profile-wrap .name-wrap small {
@@ -506,12 +492,13 @@ input:focus {
 .dropdown {
   display: none;
   position: fixed;
-  width: 300px;
-  height: 500px;
-  top: 80px;
-  right: 20px;
-  background-color: #0d2238;
-  border-radius: 8px;
+  width: 175px;
+  top: 60px;
+  right: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 2px 2px #b1aec2;
+          box-shadow: 0 2px 2px #b1aec2;
   -webkit-transition: 1s ease-in-out;
   transition: 1s ease-in-out;
 }
@@ -520,8 +507,33 @@ input:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-transition: 1s ease-in-out;
   transition: 1s ease-in-out;
+  border: 1px solid lightblue;
+}
+
+.show-dd ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.show-dd ul li {
+  background-color: red;
+  width: 100%;
+  height: 25px;
 }
 
 main {

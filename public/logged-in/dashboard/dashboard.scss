@@ -8,6 +8,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"); // Custom Variables
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 $primary-purple: #7470fb;
 $dark-purple: #3d354b;
 $second-dark-purple: #3f3539;
@@ -77,8 +78,10 @@ input:focus {
 	align-items: center;
 
 	h1 {
-		color: #2b3154;
+		color: #000;
 		margin-bottom: 5px;
+		font-family: 'Inter';
+		font-weight: 600;
 	}
 
 	small {

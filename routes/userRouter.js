@@ -11,7 +11,7 @@ const {
 // Login Handle
 router.post("/login", userController.login);
 // Logout Handle
-router.post("/logout", userController.logout);
+router.get("/logout", userController.logout);
 // Employee Register Handle
 router.post("/employee-register", userController.employeeRegister);
 // Password Recovery Handle

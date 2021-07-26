@@ -8,7 +8,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"); // Custom Variables
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 $primary-purple: #7470fb;
 $dark-purple: #3d354b;
 $second-dark-purple: #3f3539;
@@ -80,7 +80,7 @@ input:focus {
 	h1 {
 		color: #000;
 		margin-bottom: 5px;
-		font-family: 'Inter';
+		font-family: "Inter";
 		font-weight: 600;
 	}
 
@@ -93,72 +93,175 @@ input:focus {
 	font-size: 1.2rem;
 	margin-right: 0.6rem;
 }
-
-.cards-layout {
+.cards-master-layout {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	flex-direction: row;
 	justify-content: center;
+	align-items: center;
+	height: calc(100vh - 200px);
+	gap: 30px;
+	padding-top: 25px;
 
-	.top-cards-layout {
+	.cards-master-left {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
+		width: 65%;
+		height: 100%;
+		gap: 25px;
+
+		.top-cards-layout {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			height: 130px;
+
+			.top-card-style {
+				width: 30%;
+				height: 100%;
+				border-radius: 10px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				background-color: #fff;
+				gap: 20px;
+				box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+				transform: scale(1);
+				transition: 0.3s ease-in-out;
+			}
+
+			.top-card-style:hover {
+				transform: scale(1.06);
+				transition: 0.3s ease-in-out;
+			}
+
+			.info-wrap {
+				display: flex;
+				flex-direction: column;
+				gap: 7px;
+
+				p {
+					font-family: "Inter";
+					font-size: 14px;
+					font-weight: 600;
+					color: rgba($swatch_5, 0.7);
+				}
+
+				h4 {
+					font-family: "Inter";
+					font-size: 26px;
+					font-weight: 700;
+				}
+			}
+
+			.card1 {
+				span {
+					color: #496ddb;
+				}
+			}
+			.card2 {
+				span {
+					color: #1b998b;
+				}
+			}
+			.card3 {
+				background-color: #eb5160;
+				color: #fffcf9;
+				padding: 0 10px 0 10px;
+				p {
+					color: $swatch_1;
+				}
+				span {
+					color: #fffcf9;
+				}
+			}
+		}
+
+		.recent-tickets-layout {
+			width: 100%;
+			height: 55%;
+			border-radius: 10px;
+			background-color: #fff;
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+		}
+
+		.changeMyName-layout {
+			width: 100%;
+			height: 21%;
+			border-radius: 10px;
+			background-color: #fff;
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+		}
+	}
+
+	.cards-master-right {
+		display: flex;
+		justify-content: center;
 		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		height: 275px;
-		margin-top: 2%;
+		flex-direction: column;
+		width: 35%;
+		height: 100%;
+		gap: 20px;
 
-		.top-card-style {
-			width: 20%;
-			height: 100%;
-			border-radius: 20px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
+		.c-m-innerLayout {
+			width: 100%;
+			height: 50%;
+			border-radius: 10px;
+		}
+		.right-card-top {
+			background-color: #fff;
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+		}
+		.right-card-bottom {
+			background-color: #fff;
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+		}
+	}
+}
+//Change layout of dashboard cards
+@media only screen and (max-width: 1150px) {
+	.main-content header {
+		//TODO: Maybe I should make header sticky here??
+	}
+	.cards-master-layout {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: auto;
+		padding-top: 25px;
+
+		.cards-master-left {
+			width: 100%;
+
+			.recent-tickets-layout {
+				height: 275px;
+			}
+
+			.changeMyName-layout {
+				height: 220px;
+			}
 		}
 
-		.extended {
-			height: 100%;
-			width: 35%;
-			border-radius: 20px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-		}
+		.cards-master-right {
+			flex-direction: row;
+			width: 100%;
 
-		@media only screen and (max-width: 1790px) {
-			.top-card-style {
-				width: 20%;
-				height: 100%;
-			}
-			.top-cards-layout {
-				height: 225px;
+			.c-m-innerLayout {
+				height: 220px;
 			}
 		}
-		@media only screen and (max-width: 1525px) {
-			.top-card-style {
-				width: 20%;
-				height: 100%;
-			}
-			.top-cards-layout {
-				height: 150px;
-			}
-		}
+	}
+}
+//Remove "Today 'date'" at top of screen
+@media only screen and (max-width: 975px) {
+	.date-wrap {
+		visibility: hidden;
+	}
 
-		.card1 {
-			background-color: #508aff;
-		}
-		.card2 {
-			background-color: #ffc355;
-		}
-		.card3 {
-			background-color: #ff7eae;
-		}
-		.card4 {
-			background-color: #8254ff;
-		}
+	.main-content header {
+		justify-content: space-around;
 	}
 }

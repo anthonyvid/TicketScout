@@ -163,18 +163,7 @@ a {
   transition: 0.3s ease-in-out;
   -webkit-transform: scale(1.03);
           transform: scale(1.03);
-  background-color: #77B6EA;
-}
-
-.logout-wrap button {
-  width: 100px;
-  height: 30px;
-  background-color: #fafafb;
-  border: 0;
-  border-radius: 5px;
-  color: #3d354b;
-  position: absolute;
-  top: 95%;
+  background-color: #77b6ea;
 }
 
 .main-content {

@@ -16,6 +16,15 @@ input[type="search"]::-ms-reveal {
   height: 0;
 }
 
+a,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #000;
+}
+
 /* clears the 'X' from Chrome */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
@@ -189,8 +198,18 @@ input:focus {
   color: #496ddb;
 }
 
+.cards-master-layout .cards-master-left .top-cards-layout .card1 svg {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .cards-master-layout .cards-master-left .top-cards-layout .card2 span {
   color: #1b998b;
+}
+
+.cards-master-layout .cards-master-left .top-cards-layout .card2 svg {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .cards-master-layout .cards-master-left .top-cards-layout .card3 {
@@ -214,6 +233,60 @@ input:focus {
   background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  display: table;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tr td {
+  padding: 0 20px 0 45px;
+  font-size: 14px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tr:first-child td:first-child {
+  border-top-left-radius: 10px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tr:first-child td:last-child {
+  border-top-right-radius: 10px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table thead {
+  background-color: transparent;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  height: 40px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table thead tr,
+.cards-master-layout .cards-master-left .recent-tickets-layout table thead td {
+  background-color: black;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tbody a:hover {
+  text-decoration: underline;
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cards-master-layout .cards-master-left .recent-tickets-layout table tbody tr {
+  border-top: 1px solid #b4becc;
 }
 
 .cards-master-layout .cards-master-left .changeMyName-layout {
@@ -308,6 +381,13 @@ input:focus {
   .main-content header {
     -ms-flex-pack: distribute;
         justify-content: space-around;
+  }
+}
+
+@media only screen and (max-width: 1370px) {
+  .issue {
+    visibility: hidden;
+    display: none;
   }
 }
 /*# sourceMappingURL=dashboard.css.map */

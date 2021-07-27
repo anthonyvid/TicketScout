@@ -40,6 +40,15 @@ input[type="search"]::-ms-reveal {
 	height: 0;
 }
 
+a,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+	text-decoration: none;
+	color: #000;
+}
+
 /* clears the 'X' from Chrome */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
@@ -160,10 +169,19 @@ input:focus {
 				span {
 					color: #496ddb;
 				}
+
+				svg {
+					border-bottom-left-radius: 5px;
+					border-bottom-right-radius: 5px;
+				}
 			}
 			.card2 {
 				span {
 					color: #1b998b;
+				}
+				svg {
+					border-bottom-left-radius: 5px;
+					border-bottom-right-radius: 5px;
 				}
 			}
 			.card3 {
@@ -185,6 +203,65 @@ input:focus {
 			border-radius: 10px;
 			background-color: #fff;
 			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+
+			table {
+				width: 100%;
+				height: 100%;
+				border-collapse: collapse;
+				display: table;
+
+				tr td {
+					padding: 0 20px 0 45px;
+					font-size: 14px;
+				}
+
+				//make thead border round at top left
+				tr:first-child td:first-child {
+					border-top-left-radius: 10px;
+				}
+				//make thead border round at top right
+				tr:first-child td:last-child {
+					border-top-right-radius: 10px;
+				}
+
+				thead {
+					background-color: transparent;
+					font-family: "Inter";
+					font-weight: 700;
+					font-size: 16px;
+					color: white;
+					height: 40px;
+
+					tr,
+					td {
+						// background-color: #5bb0ff;
+						background-color: black;
+					}
+				}
+
+				tbody {
+					//make thead border round at bottom left
+					tr:last-child td:first-child {
+						border-bottom-left-radius: 10px;
+					}
+					//make thead border round at bottom right
+					tr:last-child td:last-child {
+						border-bottom-right-radius: 10px;
+					}
+
+					a:hover {
+						text-decoration: underline;
+					}
+					tr:hover {
+						// background-color: rgba($color: #5bb0ff, $alpha: 0.2);
+						background-color: rgba($color: black, $alpha: 0.1);
+					}
+
+					tr {
+						border-top: 1px solid $swatch_3;
+					}
+				}
+			}
 		}
 
 		.changeMyName-layout {
@@ -213,6 +290,9 @@ input:focus {
 		.right-card-top {
 			background-color: #fff;
 			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+			//show things that are waiting for parts to be delivered
+			//make it so the box can expand to be bigger
+			//
 		}
 		.right-card-bottom {
 			background-color: #fff;
@@ -263,5 +343,12 @@ input:focus {
 
 	.main-content header {
 		justify-content: space-around;
+	}
+}
+//Shorten Table to fit all content nicely
+@media only screen and (max-width: 1370px) {
+	.issue {
+		visibility: hidden;
+		display: none;
 	}
 }

@@ -32,6 +32,12 @@ router.get(
 router.get("/dashboard", ensureAuthenticated, userController.renderDashboard);
 // Tickets Page
 router.get("/tickets", userController.renderTickets);
+// Track a shipment Handle
+router.post(
+	"/track-shipment",
+	ensureAuthenticated,
+	userController.trackShipment
+);
 
 //NOT SETUP YET
 // router.post("/update-account-info", );

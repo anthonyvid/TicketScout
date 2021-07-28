@@ -18,3 +18,10 @@ Content-Type: application/json
     "email": "av@gmail.com",
     "password": "asdasdasd"
 }
+
+###
+curl https://api.goshippo.com/tracks/fedex/281729605885 \
+    -H "Authorization: ShippoToken shippo_live_d94c55abdf656717365c634cf8182c5f5986c3db"
+
+
+    //shippo_live_d94c55abdf656717365c634cf8182c5f5986c3db

@@ -4,6 +4,7 @@ const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
 const { Mongoose } = require("mongoose");
+const fetch = require("node-fetch");
 
 class User {
 	constructor(data) {
@@ -33,6 +34,26 @@ class User {
 				console.log("Email sent");
 			}
 		});
+	}
+
+	async trackShipment(trackingObj) {
+		const tracking_number = trackingObj.tracking_number;
+		const carrier = trackingObj.carrier;
+
+		//TODO: validate tracking # and carrier first
+		//if errors then add to array arraty and return error array
+		//if no errors then send off request
+		//if request fail add error to errors array and return error array
+		//if request pass then return object
+
+		const url = `https://api.goshippo.com/tracks/${carrier}/${tracking_number}`;
+		const response = await fetch(url, {
+			headers: {
+				Authorization: `ShippoToken ${process.env.SHIPPO_API_TOKEN}`,
+			},
+		});
+		const json = await response.json();
+		return json;
 	}
 
 	async forgotPassword(data) {

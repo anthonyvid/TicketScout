@@ -62,6 +62,12 @@ exports.employeeRegister = async function (req, res) {
 	}
 };
 
+// Track shipment handle
+exports.trackShipment = async function (req, res) {
+	const user = new User();
+	const result = await user.trackShipment(req.body);
+};
+
 // Password Recovery Page
 exports.renderRecovery = function (req, res) {
 	res.render("logged-out/recovery", { layout: "layouts/logged-out-layout" });

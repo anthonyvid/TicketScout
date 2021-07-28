@@ -166,19 +166,12 @@ input:focus {
 			}
 
 			.card1 {
-				span {
-					color: #496ddb;
-				}
-
 				svg {
 					border-bottom-left-radius: 5px;
 					border-bottom-right-radius: 5px;
 				}
 			}
 			.card2 {
-				span {
-					color: #1b998b;
-				}
 				svg {
 					border-bottom-left-radius: 5px;
 					border-bottom-right-radius: 5px;
@@ -190,9 +183,6 @@ input:focus {
 				padding: 0 10px 0 10px;
 				p {
 					color: $swatch_1;
-				}
-				span {
-					color: #fffcf9;
 				}
 			}
 		}
@@ -274,32 +264,35 @@ input:focus {
 	}
 
 	.cards-master-right {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
+		display: grid;
+		grid-template-rows: 60% 40%;
 		width: 35%;
 		height: 100%;
-		gap: 20px;
+		border-radius: 10px;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
 
-		.c-m-innerLayout {
+		.map-layout {
+			background-color: $color-dark;
+			height: 100%;
 			width: 100%;
-			height: 50%;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+
+		.tracking-settings {
 			border-radius: 10px;
-		}
-		.right-card-top {
-			background-color: #fff;
-			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-			//show things that are waiting for parts to be delivered
-			//make it so the box can expand to be bigger
-			//
-		}
-		.right-card-bottom {
-			background-color: #fff;
-			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+			height: calc(100% + 20px);
+			width: 100%;
+			background-color: white;
+			transform: translateY(-20px);
+
+			.search-wrap {
+				
+			}
 		}
 	}
 }
+
 //Change layout of dashboard cards
 @media only screen and (max-width: 1150px) {
 	.main-content header {

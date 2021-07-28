@@ -194,17 +194,9 @@ input:focus {
   font-weight: 700;
 }
 
-.cards-master-layout .cards-master-left .top-cards-layout .card1 span {
-  color: #496ddb;
-}
-
 .cards-master-layout .cards-master-left .top-cards-layout .card1 svg {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-}
-
-.cards-master-layout .cards-master-left .top-cards-layout .card2 span {
-  color: #1b998b;
 }
 
 .cards-master-layout .cards-master-left .top-cards-layout .card2 svg {
@@ -220,10 +212,6 @@ input:focus {
 
 .cards-master-layout .cards-master-left .top-cards-layout .card3 p {
   color: #e8edf5;
-}
-
-.cards-master-layout .cards-master-left .top-cards-layout .card3 span {
-  color: #fffcf9;
 }
 
 .cards-master-layout .cards-master-left .recent-tickets-layout {
@@ -299,40 +287,32 @@ input:focus {
 }
 
 .cards-master-layout .cards-master-right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 60% 40%;
+      grid-template-rows: 60% 40%;
   width: 35%;
   height: 100%;
-  gap: 20px;
-}
-
-.cards-master-layout .cards-master-right .c-m-innerLayout {
-  width: 100%;
-  height: 50%;
   border-radius: 10px;
-}
-
-.cards-master-layout .cards-master-right .right-card-top {
-  background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
 }
 
-.cards-master-layout .cards-master-right .right-card-bottom {
-  background-color: #fff;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+.cards-master-layout .cards-master-right .map-layout {
+  background-color: #1d2231;
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.cards-master-layout .cards-master-right .tracking-settings {
+  border-radius: 10px;
+  height: calc(100% + 20px);
+  width: 100%;
+  background-color: white;
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
 }
 
 @media only screen and (max-width: 1150px) {

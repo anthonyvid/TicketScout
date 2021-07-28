@@ -40,12 +40,7 @@ class User {
 		const tracking_number = trackingObj.tracking_number;
 		const carrier = trackingObj.carrier;
 
-		//TODO: validate tracking # and carrier first
-		//if errors then add to array arraty and return error array
-		//if no errors then send off request
-		//if request fail add error to errors array and return error array
-		//if request pass then return object
-
+		// Fetch API Call for tracking and carrier
 		const url = `https://api.goshippo.com/tracks/${carrier}/${tracking_number}`;
 		const response = await fetch(url, {
 			headers: {
@@ -53,6 +48,14 @@ class User {
 			},
 		});
 		const json = await response.json();
+
+		// If tracking is invalid return with errors
+		if (json.servicelevel.token == null) {
+			this.errors["tracking_error"] = "Tracking number invalid";
+			return this.errors;
+		}
+		
+		//TODO: Return any required information needed, for now just everything
 		return json;
 	}
 

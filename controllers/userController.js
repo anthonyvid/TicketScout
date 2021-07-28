@@ -66,6 +66,16 @@ exports.employeeRegister = async function (req, res) {
 exports.trackShipment = async function (req, res) {
 	const user = new User();
 	const result = await user.trackShipment(req.body);
+
+	if (result.hasOwnProperty("tracking_error")) {
+		console.log("invalid tracking ");
+		//rerender dashboard with error msg
+	}
+
+	res.render("logged-in/dashboard", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
 };
 
 // Password Recovery Page

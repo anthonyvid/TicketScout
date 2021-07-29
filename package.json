@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "app.js",
 	"dependencies": {
+		"@googlemaps/js-api-loader": "^1.12.1",
 		"bcryptjs": "^2.4.3",
 		"bootstrap": "^5.0.2",
 		"bootstrap-icons": "^1.5.0",

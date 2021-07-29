@@ -39,9 +39,29 @@ router.post(
 	userController.trackShipment
 );
 
-//NOT SETUP YET
-// router.post("/update-account-info", );
-// router.post("/time-clock", );
-// router.post("/change-password", );
+// Create new ticket page
+router.get(
+	"/create-new-ticket",
+	ensureAuthenticated,
+	userController.renderCreateNewTicket
+);
+// create new customer page
+router.get(
+	"/create-new-customer",
+	ensureAuthenticated,
+	userController.renderCreateNewCustomer
+);
+//create new invoice page
+router.get(
+	"/create-new-invoice",
+	ensureAuthenticated,
+	userController.renderCreateNewInvoice
+);
+//create new estimate page
+router.get(
+	"/create-new-estimate",
+	ensureAuthenticated,
+	userController.renderCreateNewEstimate
+);
 
 module.exports = router;

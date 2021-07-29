@@ -7,6 +7,70 @@ $half-spacing-unit: $base-spacing-unit / 2;
 	box-sizing: border-box;
 }
 
+a,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+	text-decoration: none;
+	color: #000;
+}
+
+.header-wrap {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 25px;
+	height: 75px;
+
+	.title-wrap {
+		width: 150px;
+		height: 100%;
+	}
+
+	.ticket-action-container {
+		width: calc(100% - 100px);
+		height: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		gap: 10px;
+
+		.filter-container {
+			height: 100%;
+			border: 1px solid red;
+			width: calc(100% - 200px);
+		}
+
+		.new-ticket-wrap {
+			height: 100%;
+			width: 190px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			padding-right: 15px;
+
+			form button {
+				height: 40px;
+				width: 140px;
+				border-radius: 5px;
+				border: 0;
+				background-color: black;
+				color: white;
+				box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+					rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+				transition: 0.2s ease-in-out;
+				transform: scale(1);
+			}
+
+			form button:hover {
+				transition: 0.3s ease-in-out;
+				transform: scale(1.1);
+			}
+		}
+	}
+}
+
 .card-scroll-box {
 	margin-top: 10px;
 	width: 100%;
@@ -14,9 +78,11 @@ $half-spacing-unit: $base-spacing-unit / 2;
 	overflow-y: auto;
 
 	table {
+		font-family: "Inter";
 		border-collapse: collapse;
 		width: 100%;
 		border: 1px solid #eeeeee;
+		display: table;
 
 		thead tr {
 			text-transform: uppercase;
@@ -27,8 +93,6 @@ $half-spacing-unit: $base-spacing-unit / 2;
 			font-weight: 800;
 			font-size: 16px;
 			padding: ($half-spacing-unit * 1.5) 0;
-			flex: 1 1 20%;
-			text-align: center;
 		}
 
 		tbody tr {
@@ -58,35 +122,12 @@ $half-spacing-unit: $base-spacing-unit / 2;
 			flex: 6%;
 		}
 
-        .subject {
-            margin-right: 5%;
-        }
+		.subject {
+			margin-right: 5%;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
 	}
 }
-
-// .filter__link {
-// 	color: white;
-// 	text-decoration: none;
-// 	position: relative;
-// 	display: inline-block;
-// 	padding-left: $base-spacing-unit;
-// 	padding-right: $base-spacing-unit;
-
-// 	&::after {
-// 		content: "";
-// 		position: absolute;
-// 		right: -($half-spacing-unit * 1.5);
-// 		color: white;
-// 		font-size: $half-spacing-unit;
-// 		top: 50%;
-// 		transform: translateY(-50%);
-// 	}
-
-// 	&.desc::after {
-// 		content: "(desc)";
-// 	}
-
-// 	&.asc::after {
-// 		content: "(asc)";
-// 	}
-// }

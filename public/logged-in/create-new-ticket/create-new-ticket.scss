@@ -1,0 +1,40 @@
+//CUSTOMER INFO
+//first name
+//last name
+//business name(optional)
+//email
+//phone
+//TICKET INFO
+//subject
+//issue
+//description
+
+.new-ticket-container {
+	width: 100%;
+	height: calc(100vh - 220px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	margin-top: 20px;
+	background-color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+	padding: 20px 0 20px 0;
+
+	.create-ticket-form {
+		height: 100%;
+		width: 70%;
+		border: 1px solid green;
+		display: flex;
+		flex-direction: column;
+
+		.heading-wrap {
+			width: 100%;
+			border: 1px solid red;
+		}
+		.customer-info-input-wrap {
+            border: 1px solid blue;
+            width: 100%;
+		}
+	}
+}

@@ -28,7 +28,6 @@ class Admin extends User {
 			storename: this.data.storename.toLowerCase(),
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
-			connected: false,
 			admin: true,
 		};
 
@@ -39,7 +38,7 @@ class Admin extends User {
 				admin: user,
 				employees: [],
 				storedata: {
-					tickets: [],
+					tickets: {},
 					customers: [],
 					estimates: [],
 					invoices: [],

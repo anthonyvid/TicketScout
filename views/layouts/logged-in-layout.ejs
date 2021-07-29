@@ -114,10 +114,29 @@
 		<div class="main-content">
 			<header>
 				<div class="search-box">
-					<form action="" method="">
-						<input type="text" placeholder="Search for anything" />
+					<form action="/create-new" method="POST" id="search-result-form">
+						<input type="text" placeholder="Search for anything" name="search"/>
 					</form>
 					<span><i class="fa fa-search"></i></span>
+					<div class="create-new">
+						<i class="fas fa-plus-square"></i>
+					</div>
+					<div class="create-new-dropdown">
+						<ul>
+							<a href="create-new-ticket" >
+								<li id="new_ticket">Ticket</li>
+							</a>
+							<a href="create-new-customer">
+								<li id="new_customer">Customer</li>
+							</a>
+							<a href="create-new-invoice">
+								<li id="new_invoice">Invoice</li>
+							</a>
+							<a href="create-new-estimate">
+								<li id="new_estimate">Estimate</li>
+							</a>
+						</ul>
+					</div>
 				</div>
 				<div class="date-wrap">
 					<i class="far fa-calendar-alt"></i>
@@ -174,139 +193,6 @@
 				</div>
 			</header>
 		</div>
-		<!-- <div class="model-container" id="model_container">
-			<div class="model">
-				<div class="back-btn-wrap">
-					<button type="text" id="profile-settings-back-btn">
-						Back
-					</button>
-					<h2>MY ACCOUNT</h2>
-				</div>
-				<div class="cards-wrap">
-					<div class="left-card account-settings-card">
-						<form action="update-account-info" method="POST">
-							<label class="label" for="">Profile Picture</label>
-							<div class="update-photo-wrap">
-								<img src="/assets/user1.svg" alt="" />
-								<div class="button-wrap">
-									<button type="button" id="upload">
-										Upload New Picture
-									</button>
-									<button type="button" id="delete">
-										Delete
-									</button>
-								</div>
-							</div>
-							<div class="update-info-wrap">
-								<div>
-									<label class="label" for="firstname"
-										>Full Name</label
-									>
-									<input
-										class="update-account-input"
-										name="fullname"
-										type="name"
-										placeholder="John Smith"
-										required
-									/>
-								</div>
-								<br />
-								<div>
-									<label class="label" for="email"
-										>Email</label
-									>
-									<input
-										class="update-account-input"
-										name="email"
-										type="email"
-										placeholder="test@gmail.com"
-										required
-									/>
-								</div>
-							</div>
-							<br />
-							<div class="submit-button-wrap">
-								<button type="submit">Save Changes</button>
-							</div>
-						</form>
-						<br />
-					</div>
-
-					<div class="right-card account-settings-card">
-						<div class="top-card">
-							<div class="form-wrap">
-								<form action="time-clock" method="POST">
-									<div class="time-clock-wrap">
-										<div class="clock-out-wrap">
-											<label class="label" for=""
-												>Clock-Out Time</label
-											>
-											<input
-												class="update-account-input"
-												class="clock-out-time"
-												type="time"
-												required
-											/>
-										</div>
-
-										<button type="submit">Clock-In</button>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="bottom-card">
-							<form action="change-password" method="POST">
-								<div class="current-psw-wrap">
-									<label class="label" for=""
-										>Current Password</label
-									>
-									<input
-										class="update-account-input"
-										name="current-psw"
-										type="password"
-										placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-										required
-									/>
-								</div>
-								<br />
-								<div class="new-psw-wrap">
-									<div>
-										<label class="label" for=""
-											>New Password</label
-										>
-										<input
-											class="update-account-input"
-											name="new-psw"
-											type="password"
-											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-											required
-										/>
-									</div>
-									<div>
-										<label class="label" for=""
-											>Confirm Password</label
-										>
-										<input
-											class="update-account-input"
-											name="confirm-new-psw"
-											type="password"
-											placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-											required
-										/>
-									</div>
-								</div>
-
-								<div class="change-psw-btn-wrap">
-									<button type="submit">
-										Change Password
-									</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 		<%- body %>
 	</body>
 </html>

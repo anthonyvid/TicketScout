@@ -3,8 +3,6 @@ const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
-const { Mongoose } = require("mongoose");
-const fetch = require("node-fetch");
 
 class User {
 	constructor(data) {
@@ -36,27 +34,34 @@ class User {
 		});
 	}
 
-	async trackShipment(trackingObj) {
-		const tracking_number = trackingObj.tracking_number;
-		const carrier = trackingObj.carrier;
+	async trackShipment(ticketID, user) {
+		const storename = user.storename;
+
+		/* 1. need to get trackingObj from the store->tickets->ticket.trackingObj
+		//
+		*/
+
+		// const { tracking_number, carrier } = trackingObj;
 
 		// Fetch API Call for tracking and carrier
-		const url = `https://api.goshippo.com/tracks/${carrier}/${tracking_number}`;
-		const response = await fetch(url, {
-			headers: {
-				Authorization: `ShippoToken ${process.env.SHIPPO_API_TOKEN}`,
-			},
-		});
-		const json = await response.json();
+		// const url = `https://api.goshippo.com/tracks/${carrier}/${tracking_number}`;
+		// const response = await fetch(url, {
+		// 	headers: {
+		// 		Authorization: `ShippoToken ${process.env.SHIPPO_API_TOKEN}`,
+		// 	},
+		// });
+		// const json = await response.json();
 
-		// If tracking is invalid return with errors
-		if (json.servicelevel.token == null) {
-			this.errors["tracking_error"] = "Tracking number invalid";
-			return this.errors;
-		}
-		
-		//TODO: Return any required information needed, for now just everything
-		return json;
+		// // If tracking is invalid return with errors
+		// if (json.servicelevel.token == null) {
+		// 	this.errors["tracking_error"] = "Tracking number invalid";
+		// 	return this.errors;
+		// }
+
+		// //TODO: when JSON OBJECT IS DONE THEN WE CAN GET MOST RECENT ADDRESS AND USE FOR GEOLOCATOPN API
+
+		// //TODO: Return any required information needed, for now just everything
+		// return json;
 	}
 
 	async forgotPassword(data) {

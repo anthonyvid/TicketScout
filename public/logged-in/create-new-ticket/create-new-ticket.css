@@ -1,0 +1,43 @@
+.new-ticket-container {
+  width: 100%;
+  height: calc(100vh - 220px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+  padding: 20px 0 20px 0;
+}
+
+.new-ticket-container .create-ticket-form {
+  height: 100%;
+  width: 70%;
+  border: 1px solid green;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.new-ticket-container .create-ticket-form .heading-wrap {
+  width: 100%;
+  border: 1px solid red;
+}
+
+.new-ticket-container .create-ticket-form .customer-info-input-wrap {
+  border: 1px solid blue;
+  width: 100%;
+}
+/*# sourceMappingURL=create-new-ticket.css.map */

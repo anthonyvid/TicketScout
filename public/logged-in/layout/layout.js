@@ -8,6 +8,8 @@ const timeClock = document.getElementById("time-clock");
 const timeClockSettings = document.querySelector(".clock-settings-wrap");
 const dropDownIcon = document.querySelector(".icon-wrap");
 const currentDate = document.getElementById("current-date");
+const plusBoxIcon = document.querySelector(".create-new");
+
 let date = new Date();
 let month = date.getMonth();
 let day = date.getDate();
@@ -56,29 +58,34 @@ dropDownIcon.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", function (e) {
+	let keyCode = e.keyCode;
 	if (document.querySelector(".dropdown").classList.contains("show-dd")) {
-		let keyCode = e.keyCode;
 		if (keyCode === 27) {
 			document.querySelector(".dropdown").classList.toggle("show-dd");
 			document.getElementById("arrow").classList.toggle("rotate");
 		}
 	}
+	if (
+		document
+			.querySelector(".create-new-dropdown")
+			.classList.contains("show-create-new-dd")
+	) {
+		if (keyCode === 27) {
+			document
+				.querySelector(".create-new-dropdown")
+				.classList.toggle("show-create-new-dd");
+			plusBoxIcon.style.color = "#b1aec2";
+		}
+	}
 });
 
-// userProfileIcon.addEventListener("click", function () {
-// 	modelContainer.classList.add("show");
-// 	updateAccountInput.forEach((node) => {
-// 		node.value = "";
-// 	});
-// });
-
-// userProfileBackBtn.addEventListener("click", function () {
-// 	modelContainer.classList.remove("show");
-// });
-
-// document.addEventListener("keydown", function (e) {
-// 	let keyCode = e.keyCode;
-// 	if (keyCode === 27) {
-// 		modelContainer.classList.remove("show");
-// 	}
-// });
+plusBoxIcon.addEventListener("click", () => {
+	document
+		.querySelector(".create-new-dropdown")
+		.classList.toggle("show-create-new-dd");
+	if (plusBoxIcon.style.color != "black") {
+		plusBoxIcon.style.color = "black";
+	} else {
+		plusBoxIcon.style.color = "#b1aec2";
+	}
+});

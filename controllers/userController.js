@@ -65,17 +65,24 @@ exports.employeeRegister = async function (req, res) {
 // Track shipment handle
 exports.trackShipment = async function (req, res) {
 	const user = new User();
-	const result = await user.trackShipment(req.body);
+	const result = await user.trackShipment(req.body, req.user);
 
-	if (result.hasOwnProperty("tracking_error")) {
-		console.log("invalid tracking ");
-		//rerender dashboard with error msg
-	}
+	// // If errors found when tracking shipment
+	// if (result.hasOwnProperty("tracking_error")) {
+	// 	console.log("invalid tracking ");
+	// 	res.redirect("logged-in/dashboard", {
+	// 		layout: "layouts/logged-in-layout",
+	// 		user: req.user,
+	// 		result: Object.values(result),
+	// 	});
+	// }
 
-	res.render("logged-in/dashboard", {
-		layout: "layouts/logged-in-layout",
-		user: req.user,
-	});
+	// // No errors found
+	// console.log("passed tracking");
+	// res.redirect("logged-in/dashboard", {
+	// 	layout: "layouts/logged-in-layout",
+	// 	user: req.user,
+	// });
 };
 
 // Password Recovery Page
@@ -102,6 +109,31 @@ exports.forgotPassword = async function (req, res) {
 			});
 		}
 	}
+};
+
+exports.renderCreateNewTicket = function (req, res) {
+	res.render(`logged-in/create-new-ticket`, {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
+};
+exports.renderCreateNewCustomer = function (req, res) {
+	res.render(`logged-in/create-new-customer`, {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
+};
+exports.renderCreateNewInvoice = function (req, res) {
+	res.render(`logged-in/create-new-invoice`, {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
+};
+exports.renderCreateNewEstimate = function (req, res) {
+	res.render(`logged-in/create-new-estimate`, {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
 };
 
 // Logout Handle

@@ -5,6 +5,94 @@
           box-sizing: border-box;
 }
 
+a,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #000;
+}
+
+.header-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 25px;
+  height: 75px;
+}
+
+.header-wrap .title-wrap {
+  width: 150px;
+  height: 100%;
+}
+
+.header-wrap .ticket-action-container {
+  width: calc(100% - 100px);
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+}
+
+.header-wrap .ticket-action-container .filter-container {
+  height: 100%;
+  border: 1px solid red;
+  width: calc(100% - 200px);
+}
+
+.header-wrap .ticket-action-container .new-ticket-wrap {
+  height: 100%;
+  width: 190px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-right: 15px;
+}
+
+.header-wrap .ticket-action-container .new-ticket-wrap form button {
+  height: 40px;
+  width: 140px;
+  border-radius: 5px;
+  border: 0;
+  background-color: black;
+  color: white;
+  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.header-wrap .ticket-action-container .new-ticket-wrap form button:hover {
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
 .card-scroll-box {
   margin-top: 10px;
   width: 100%;
@@ -13,9 +101,11 @@
 }
 
 .card-scroll-box table {
+  font-family: "Inter";
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #eeeeee;
+  display: table;
 }
 
 .card-scroll-box table thead tr {
@@ -29,10 +119,6 @@
   font-weight: 800;
   font-size: 16px;
   padding: 18px 0;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 20%;
-          flex: 1 1 20%;
-  text-align: center;
 }
 
 .card-scroll-box table tbody tr {
@@ -74,5 +160,9 @@
 
 .card-scroll-box table .subject {
   margin-right: 5%;
+}
+
+.card-scroll-box table a:hover {
+  text-decoration: underline;
 }
 /*# sourceMappingURL=tickets.css.map */

@@ -197,7 +197,7 @@ a {
 
 .main-content header .search-box input {
   height: 35px;
-  width: 230px;
+  width: 190px;
   border: 0;
   outline: 0;
   background-color: transparent;
@@ -215,6 +215,110 @@ a {
   font-family: "Inter";
 }
 
+.main-content header .search-box .create-new {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  color: #b1aec2;
+}
+
+.main-content header .search-box .create-new:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.main-content header .search-box .create-new-dropdown {
+  display: none;
+  position: fixed;
+  width: 175px;
+  height: 160px;
+  top: 55px;
+  left: 300px;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
+  -webkit-box-shadow: 0 2px 2px #b1aec2;
+          box-shadow: 0 2px 2px #b1aec2;
+}
+
+.main-content header .search-box .show-create-new-dd {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 1;
+}
+
+.main-content header .search-box .show-create-new-dd ul {
+  list-style: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+
+.main-content header .search-box .show-create-new-dd ul li {
+  color: #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 175px;
+  height: 40px;
+  -webkit-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+  font-size: 12px;
+  font-weight: 500;
+  padding-left: 20px;
+}
+
+.main-content header .search-box .show-create-new-dd li:hover {
+  background-color: #000;
+  color: #fff;
+  -webkit-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+}
+
+.main-content header .search-box .show-create-new-dd li:hover span {
+  color: white;
+}
+
+.main-content header .search-box .show-create-new-dd #new_estimate:hover {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.main-content header .search-box .show-create-new-dd #new_ticket:hover {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
 .main-content header input:focus,
 .main-content header input:focus {
   -webkit-transition: 0.3s ease-in;
@@ -227,7 +331,7 @@ a {
   border-radius: 3px;
 }
 
-.main-content .date-wrap {
+.main-content header .date-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -241,14 +345,14 @@ a {
   color: #717987;
 }
 
-.main-content .date-wrap span {
+.main-content header .date-wrap span {
   color: #2b3154;
   font-family: "Inter";
   font-weight: 500;
   font-size: 16px;
 }
 
-.main-content .profile-wrap {
+.main-content header .profile-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -261,7 +365,7 @@ a {
   gap: 15px;
 }
 
-.main-content .profile-wrap .time-clock-animation {
+.main-content header .profile-wrap .time-clock-animation {
   -webkit-transition: 2s ease-in-out;
   transition: 2s ease-in-out;
   -webkit-transform: translate(-170px) !important;
@@ -270,13 +374,13 @@ a {
   border-bottom-right-radius: 0 !important;
 }
 
-.main-content .profile-wrap div {
+.main-content header .profile-wrap div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.main-content .profile-wrap div .clock-box {
+.main-content header .profile-wrap div .clock-box {
   width: 40px;
   height: 40px;
   border-radius: 5px;
@@ -298,11 +402,11 @@ a {
           box-shadow: 0 1px 1px #b1aec2;
 }
 
-.main-content .profile-wrap div .clock-box i {
+.main-content header .profile-wrap div .clock-box i {
   font-size: 20px;
 }
 
-.main-content .profile-wrap div .clock-box:hover {
+.main-content header .profile-wrap div .clock-box:hover {
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
   -webkit-transform: scale(1.1);
@@ -310,7 +414,7 @@ a {
   cursor: pointer;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap.expanded {
+.main-content header .profile-wrap div .clock-settings-wrap.expanded {
   visibility: visible;
   opacity: 1;
   max-width: 200;
@@ -322,7 +426,7 @@ a {
   border-bottom-right-radius: 0 !important;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap {
+.main-content header .profile-wrap div .clock-settings-wrap {
   visibility: hidden;
   opacity: 0;
   max-width: 0;
@@ -332,7 +436,7 @@ a {
   border-top-left-radius: 0;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -346,38 +450,38 @@ a {
           box-shadow: 0 1px 1px #b1aec2;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings input {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings input {
   width: 100px;
   padding: 0 3px 0 3px;
   border: 0;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings label {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings label {
   font-size: 12px;
   text-align: center;
   font-family: "Inter";
   font-weight: 500;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:-moz-read-only {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:-moz-read-only {
   background: #eaeff1;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:read-only {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:read-only {
   background: #eaeff1;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="time"][readonly]:focus {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="time"][readonly]:focus {
   background: #e6f8ff;
   border-bottom: none;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-settings input[type="checkbox"]:focus {
+.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="checkbox"]:focus {
   background: rgba(255, 255, 255, 0.9);
   border-color: transparent;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-submit button {
+.main-content header .profile-wrap div .clock-settings-wrap .time-submit button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -398,12 +502,12 @@ a {
           box-shadow: 0 1px 1px #b1aec2;
 }
 
-.main-content .profile-wrap div .clock-settings-wrap .time-submit button:hover {
+.main-content header .profile-wrap div .clock-settings-wrap .time-submit button:hover {
   background-color: black;
   color: #fff;
 }
 
-.main-content .profile-wrap .initial-box {
+.main-content header .profile-wrap .initial-box {
   width: 40px;
   height: 40px;
   border-radius: 5px;
@@ -419,7 +523,7 @@ a {
           align-items: center;
 }
 
-.main-content .profile-wrap .name-wrap {
+.main-content header .profile-wrap .name-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -438,19 +542,19 @@ a {
   margin-right: 20px;
 }
 
-.main-content .profile-wrap .name-wrap h5 {
+.main-content header .profile-wrap .name-wrap h5 {
   font-size: 15px;
   color: #0d2238;
   font-family: "Inter";
   font-weight: 600;
 }
 
-.main-content .profile-wrap .name-wrap small {
+.main-content header .profile-wrap .name-wrap small {
   font-size: 11px;
   color: #717987;
 }
 
-.main-content .profile-wrap .icon-wrap {
+.main-content header .profile-wrap .icon-wrap {
   color: #717987;
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
@@ -459,12 +563,12 @@ a {
   font-size: 18px;
 }
 
-.main-content .profile-wrap .icon-wrap i {
+.main-content header .profile-wrap .icon-wrap i {
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
 
-.main-content .profile-wrap .icon-wrap:hover {
+.main-content header .profile-wrap .icon-wrap:hover {
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
   -webkit-transform: scale(1.2);
@@ -472,7 +576,7 @@ a {
   cursor: pointer;
 }
 
-.main-content .profile-wrap .rotate {
+.main-content header .profile-wrap .rotate {
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
   -webkit-transform: rotate(180deg);
@@ -557,5 +661,15 @@ main {
   padding: 2rem;
   background: #f6f8fa;
   min-height: calc(100vh - 70px);
+}
+
+@media only screen and (max-width: 975px) {
+  .date-wrap {
+    visibility: hidden;
+  }
+  .main-content header {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
 }
 /*# sourceMappingURL=layout.css.map */

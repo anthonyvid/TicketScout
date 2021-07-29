@@ -3,14 +3,24 @@
 	<main>
 		<div class="page-header">
 			<div class="header-wrap">
-				<h1>Tickets</h1>
-				<small>View recent tickets</small>
+				<div class="title-wrap">
+					<h1>Tickets</h1>
+					<small>View recent tickets</small>
+				</div>
+				<div class="ticket-action-container">
+					<div class="filter-container">filters go here</div>
+					<div class="new-ticket-wrap">
+						<form action="/create-new-ticket" method="GET">
+							<button type="submit">New Ticket</button>
+						</form>
+					</div>
+				</div>
 			</div>
 			<div class="card-scroll-box">
 				<table>
 					<thead>
 						<tr>
-							<td class="ticket-id">Ticket #</td>
+							<td class="ticket-id">Ticket ID</td>
 							<td class="customer">Customer</td>
 							<td class="subject">Subject</td>
 							<td class="status">Status</td>
@@ -20,170 +30,82 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
+							<td class="ticket-id"><a href="">20653</a></td>
+							<td class="customer"><a href="">John Smith</a></td>
+							<td class="subject">
+								<a href="">iPhone Xr Screen replacement</a>
+							</td>
 							<td class="status">
 								<span class="status"></span>
-								In Progress
+								<select name="status" id="status">
+									<option value="in_progress">
+										In Progess
+									</option>
+									<option value="new">New</option>
+									<option value="waiting_for_customer">
+										Waiting for customer
+									</option>
+								</select>
 							</td>
 							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
+							<td class="issue">
+								<select name="issue" id="issue">
+									<option value="repair">Repair</option>
+									<option value="warranty">warranty</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
+							<td class="ticket-id"><a href="">20653</a></td>
+							<td class="customer"><a href="">John Smith</a></td>
+							<td class="subject">
+								<a href="">iPhone Xr Screen replacement</a>
+							</td>
 							<td class="status">
 								<span class="status"></span>
-								In Progress
+								<select name="status" id="status">
+									<option value="in_progress">
+										In Progess
+									</option>
+									<option value="new">New</option>
+									<option value="waiting_for_customer">
+										Waiting for customer
+									</option>
+								</select>
 							</td>
 							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
+							<td class="issue">
+								<select name="issue" id="issue">
+									<option value="repair">Repair</option>
+									<option value="warranty">warranty</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
+							<td class="ticket-id"><a href="">20653</a></td>
+							<td class="customer"><a href="">John Smith</a></td>
+							<td class="subject">
+								<a href="">iPhone Xr Screen replacement</a>
+							</td>
 							<td class="status">
 								<span class="status"></span>
-								In Progress
+								<select name="status" id="status">
+									<option value="in_progress">
+										In Progess
+									</option>
+									<option value="new">New</option>
+									<option value="waiting_for_customer">
+										Waiting for customer
+									</option>
+								</select>
 							</td>
 							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
+							<td class="issue">
+								<select name="issue" id="issue">
+									<option value="repair">Repair</option>
+									<option value="warranty">warranty</option>
+								</select>
 							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">20653</td>
-							<td class="customer">John Smith</td>
-							<td class="subject">iPhone Xr Screen replacement</td>
-							<td class="status">
-								<span class="status"></span>
-								In Progress
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">repair</td>
-						</tr>
 						</tr>
 					</tbody>
 				</table>

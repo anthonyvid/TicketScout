@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/logged-in/dashboard/dashboard.css" />
-<script defer src="/logged-in/dashboard/dashboard.js"></script>
+<script defer type="module" src="/logged-in/dashboard/dashboard.js"></script>
 <body>
 	<div class="main-content">
 		<main>
@@ -178,40 +178,25 @@
 					<div class="changeMyName-layout">1</div>
 				</div>
 				<div class="cards-master-right">
-					<div class="map-layout"></div>
+					<div class="map-layout" id="map"></div>
 					<div class="tracking-settings">
-						<!--FIRST FORM WITH 2 INPUTS FOR TESTINGS FOR NOW-->
-						<!-- <div class="search-wrap">
+						<div class="search-wrap">
 							<form
 								action="/track-shipment"
 								method="POST"
 								id="trackform"
 							>
-								<input
-									type="text"
-									name="tracking_number"
-									placeholder="tracking #"
-								/>
-								<select name="carrier" id="" form="trackform">
-									<option value="canada_post">
-										Canada Post
-									</option>
-									<option value="fedex">FedEx</option>
-									<option value="ups">UPS</option>
-									<option value="usps">USPS</option>
-									<option value="purolator">Purolator</option>
-									<option value="dhl_express">
-										DHL Express
-									</option>
-									<option value="royal_mail">
-										Royal Mail
-									</option>
-								</select>
-								<button type="submit">Track</button>
+								<div class="input-wrap">
+									<input
+										type="text"
+										placeholder="Ticket ID"
+										required
+										name="ticketID"
+									/>
+									<button type="submit">Track</button>
+								</div>
 							</form>
-						</div> -->
-						<!--THIS FORM BELOW IS THE ONE I WILL USE FOR REAL-->
-						<div class="search-wrap"></div>
+						</div>
 					</div>
 				</div>
 			</div>

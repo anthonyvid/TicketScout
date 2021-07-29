@@ -1,13 +1,37 @@
-//CUSTOMER INFO
-//first name
-//last name
-//business name(optional)
-//email
-//phone
-//TICKET INFO
-//subject
-//issue
-//description
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap");
+$primary-purple: #7470fb;
+$dark-purple: #3d354b;
+$second-dark-purple: #3f3539;
+$white-1: #edf5fc;
+$white-2: #fafafb;
+$light-grey: #b1aec2;
+$card-pool: #e8edf5;
+
+$main-color: #1a202e;
+$color-dark: #1d2231;
+$text-grey: #8390a2;
+
+// Main Color Scheme
+$swatch_1: #e8edf5;
+$swatch_2: #050505;
+$swatch_3: #b4becc;
+$swatch_4: #354250;
+$swatch_5: #717987;
+$bluetext: #0d2238;
+
+.title-wrap {
+	h1 {
+		color: #000;
+		margin-bottom: 5px;
+		font-family: "Inter";
+		font-weight: 600;
+	}
+
+	small {
+		color: $swatch_5;
+	}
+}
 
 .new-ticket-container {
 	width: 100%;
@@ -17,24 +41,181 @@
 	justify-content: center;
 	border-radius: 10px;
 	margin-top: 20px;
+	gap: 30px;
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-	padding: 20px 0 20px 0;
+	padding: 20px 45px 20px 45px;
 
-	.create-ticket-form {
+	.content-container {
+		width: 100%;
 		height: 100%;
-		width: 70%;
-		border: 1px solid green;
-		display: flex;
+
+		form {
+			width: 100%;
+			height: 100%;
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;
+
+			.info-container {
+				height: 100%;
+				width: 50%;
+				padding: 50px 45px 20px 45px;
+
+				h3 {
+					// color: $swatch_5;
+					margin-bottom: 25px;
+					font-family: "Padauk";
+					font-weight: bold;
+				}
+
+				.input-wrap {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+
+					div {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+
+						small {
+							color: $swatch_3;
+						}
+					}
+
+					label {
+						text-transform: uppercase;
+						color: $swatch_5;
+						font-size: 13px;
+						font-weight: 500;
+						font-family: "Padauk" bold;
+					}
+
+					input,
+					select,
+					textarea {
+						margin-bottom: 40px;
+						border-radius: 3px;
+						background-color: #f7f7f7;
+						border: 0;
+						height: 50px;
+						text-indent: 10px;
+
+						&:focus,
+						&:valid:not(#email) {
+							background-color: white;
+							transition: 0.3s ease-in-out;
+							outline: none;
+							border-color: #9ecaed;
+							box-shadow: 0 0 10px #9ecaed;
+						}
+					}
+
+					textarea {
+						height: 167px;
+						padding: 2px;
+						resize: none;
+					}
+				}
+				.button-wrap {
+					width: 100%;
+					height: 50px;
+
+					button {
+						float: right;
+						height: 100%;
+						width: 150px;
+						border-radius: 5px;
+						border: 0;
+						background-color: black;
+						color: white;
+						box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+							rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+						transform: scale(1);
+						transition: 0.3s ease-in-out;
+						font-weight: 600;
+					}
+
+					button:hover {
+						transform: scale(1.05);
+						transition: 0.3s ease-in-out;
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (max-width: 1400px) {
+	.new-ticket-container .content-container form {
 		flex-direction: column;
 
-		.heading-wrap {
+		.info-container {
 			width: 100%;
-			border: 1px solid red;
+			padding-top: 10px;
 		}
-		.customer-info-input-wrap {
-            border: 1px solid blue;
-            width: 100%;
+	}
+
+	.new-ticket-container {
+		height: auto;
+	}
+}
+@media only screen and (max-height: 880px) {
+	.new-ticket-container .content-container form {
+		.info-container {
+			padding-top: 10px;
+
+			.input-wrap {
+				input,
+				select,
+				textarea {
+					margin-bottom: 30px;
+				}
+
+				textarea {
+					height: 157px;
+					padding: 2px;
+				}
+			}
+			.button-wrap {
+				margin-top: -10px;
+			}
+		}
+	}
+}
+@media only screen and (max-height: 785px) {
+	.new-ticket-container .content-container form {
+		.info-container {
+			padding-top: 10px;
+
+			.input-wrap {
+				input,
+				select,
+				textarea {
+					margin-bottom: 20px;
+				}
+
+				textarea {
+					height: 147px;
+					padding: 2px;
+				}
+			}
+			.button-wrap {
+				margin-top: -10px;
+			}
+		}
+	}
+}
+@media only screen and (max-height: 735px) {
+	.new-ticket-container {
+		height: auto;
+	}
+
+	@media only screen and (min-width: 1400px) {
+		.new-ticket-container {
+			height: auto;
 		}
 	}
 }

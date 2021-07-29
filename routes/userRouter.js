@@ -3,7 +3,6 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const {
 	ensureAuthenticated,
-	forwardAuthenticated,
 	checkNotAuthenticated,
 } = require("../config/auth");
 
@@ -41,27 +40,35 @@ router.post(
 
 // Create new ticket page
 router.get(
-	"/create-new-ticket",
+	"/new-ticket",
 	ensureAuthenticated,
 	userController.renderCreateNewTicket
 );
 // create new customer page
 router.get(
-	"/create-new-customer",
+	"/new-customer",
 	ensureAuthenticated,
 	userController.renderCreateNewCustomer
 );
 //create new invoice page
 router.get(
-	"/create-new-invoice",
+	"/new-invoice",
 	ensureAuthenticated,
 	userController.renderCreateNewInvoice
 );
 //create new estimate page
 router.get(
-	"/create-new-estimate",
+	"/new-estimate",
 	ensureAuthenticated,
 	userController.renderCreateNewEstimate
 );
+//account settings page
+router.get(
+	"/account-settings",
+	ensureAuthenticated,
+	userController.renderAccountSettings
+);
+//create new ticket handle
+router.post("/create-new-ticket", ensureAuthenticated, userController.createNewTicket)
 
 module.exports = router;

@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+.page-header h1 {
+  color: #000;
+  margin-bottom: 5px;
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.page-header small {
+  color: #717987;
+}
+
+.account-settings-container {
+  width: 100%;
+  height: calc(100vh - 220px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+  padding: 20px 0 20px 0;
+}
+/*# sourceMappingURL=account-settings.css.map */

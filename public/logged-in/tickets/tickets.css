@@ -34,6 +34,17 @@ a:active {
   height: 100%;
 }
 
+.header-wrap .title-wrap h1 {
+  color: #000;
+  margin-bottom: 5px;
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.header-wrap .title-wrap small {
+  color: #717987;
+}
+
 .header-wrap .ticket-action-container {
   width: calc(100% - 100px);
   height: 100%;

@@ -110,6 +110,12 @@ exports.forgotPassword = async function (req, res) {
 		}
 	}
 };
+exports.renderAccountSettings = function (req, res) {
+	res.render(`logged-in/account-settings`, {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
+};
 
 exports.renderCreateNewTicket = function (req, res) {
 	res.render(`logged-in/create-new-ticket`, {
@@ -157,4 +163,9 @@ exports.renderTickets = function (req, res) {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 	});
+};
+
+//Create new ticket handle
+exports.createNewTicket = function (req, res) {
+	console.log(req.body);
 };

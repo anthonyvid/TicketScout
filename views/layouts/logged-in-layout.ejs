@@ -82,8 +82,7 @@
 							</li>
 							<br />
 							<hr color="#b4becc" size="1" />
-							<!-- <% if(user.admin) {%>
-
+							<% if(user.admin) { %> 
 							<li class="menu-item">
 								<a href="" class="menu-link">
 									<span><i class="fas fa-toolbox"></i></span>
@@ -103,19 +102,26 @@
 									<span><i class="fas fa-wallet"></i></span>
 									Estimates
 								</a>
-							</li> -->
+							</li>
+							<% } %> 
 						</ul>
 					</nav>
-					<% } %>
 				</div>
-
 			</div>
 		</div>
 		<div class="main-content">
 			<header>
 				<div class="search-box">
-					<form action="/create-new" method="POST" id="search-result-form">
-						<input type="text" placeholder="Search for anything" name="search"/>
+					<form
+						action="/create-new"
+						method="POST"
+						id="search-result-form"
+					>
+						<input
+							type="text"
+							placeholder="Search for anything"
+							name="search"
+						/>
 					</form>
 					<span><i class="fa fa-search"></i></span>
 					<div class="create-new">
@@ -123,7 +129,7 @@
 					</div>
 					<div class="create-new-dropdown">
 						<ul>
-							<a href="new-ticket" >
+							<a href="new-ticket">
 								<li id="new_ticket">Ticket</li>
 							</a>
 							<a href="new-customer">
@@ -170,11 +176,12 @@
 					</div>
 
 					<div class="initial-box">
-						<%= (user.fullname.split(' ')[0][0] +
-						user.fullname.split(' ')[1][0]).toUpperCase() %>
+						<%= (user.fullname.split(' ')[0][0] + user.fullname.split(' ')[1][0]).toUpperCase() %>
 					</div>
 					<div class="name-wrap">
-						<h5><%= user.fullname.split(" ")[0].charAt(0).toUpperCase() + user.fullname.split(" ")[0].substring(1) + " " + user.fullname.split(" ")[1].charAt(0).toUpperCase() + user.fullname.split(" ")[1].substring(1)%></h5>
+						<h5>
+							<%= user.fullname.split("")[0].charAt(0).toUpperCase() +user.fullname.split(" ")[0].substring(1) + " " +user.fullname.split(" ")[1].charAt(0).toUpperCase()+ user.fullname.split(" ")[1].substring(1)%>
+						</h5>
 						<small><%= user.email%></small>
 					</div>
 					<div class="icon-wrap">
@@ -186,7 +193,7 @@
 						<a href="account-settings" class="">
 							<li id="acc-settings">Account Settings</li>
 						</a>
-						<a href="logout" >
+						<a href="logout">
 							<li id="logout">Logout</li>
 						</a>
 					</ul>

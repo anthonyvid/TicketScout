@@ -2,6 +2,7 @@
 	rel="stylesheet"
 	href="/logged-in/create-new-ticket/create-new-ticket.css"
 />
+<link rel="stylesheet" href="/messages.css" />
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -12,11 +13,13 @@
 						>Add a new ticket by filling in the information
 						below</small
 					>
+					<%- include('../partials/messages'); %>
 				</div>
 			</div>
 		</div>
 		<div class="new-ticket-container">
 			<div class="content-container">
+				
 				<form action="/create-new-ticket" method="POST">
 					<div class="info-container">
 						<h3>Customer Information</h3>
@@ -29,6 +32,7 @@
 								placeholder="John"
 								required
 								autocomplete="nope"
+								value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
 							/>
 						</div>
 						<div class="input-wrap">
@@ -40,6 +44,7 @@
 								placeholder="Smith"
 								required
 								autocomplete="nope"
+								value="<%= typeof lastname != 'undefined' ? lastname : '' %>"
 							/>
 						</div>
 						<div class="input-wrap">
@@ -51,6 +56,7 @@
 								placeholder="123-356-7890"
 								required
 								autocomplete="nope"
+								value="<%= typeof phone != 'undefined' ? phone : '' %>"
 							/>
 						</div>
 						<div class="input-wrap">
@@ -64,6 +70,7 @@
 								name="email"
 								id="email"
 								placeholder="example@hello.com"
+								value="<%= typeof email != 'undefined' ? email : '' %>"
 							/>
 						</div>
 					</div>
@@ -78,6 +85,7 @@
 								placeholder="Title of ticket"
 								required
 								autocomplete="off"
+								value="<%= typeof subject != 'undefined' ? subject : '' %>"
 							/>
 						</div>
 						<div class="input-wrap">
@@ -90,7 +98,11 @@
 
 						<div class="input-wrap">
 							<label for="">Descripion</label>
-							<textarea name="description" autocomplete="off" required></textarea>
+							<textarea
+								name="description" 
+								autocomplete="off"
+								required
+							><%= typeof subject != 'undefined' ? subject : '' %></textarea>
 						</div>
 						<div class="button-wrap">
 							<button type="submit">Create Ticket</button>

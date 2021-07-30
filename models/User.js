@@ -34,6 +34,65 @@ class User {
 		});
 	}
 
+	async createNewTicket(formData, storename) {
+		//validate phone number
+		if (!validator.isMobilePhone(formData.phone)) {
+			this.errors["phoneError"] = "Invalid phone number";
+			return [this.errors, formData];
+		}
+
+		//Get store we are working with
+		const store = await storesCollection.findOne({
+			storename: storename,
+		});
+
+		let mostRecentTicketNum;
+
+		//If no tickets are in the store (new store) start count at 2000
+		if (Object.keys(store.storedata.tickets).length === 0) {
+			mostRecentTicketNum = 2000;
+		} else {
+			//find most recent ticket# created
+			mostRecentTicketNum =
+				Math.max(
+					...Object.keys(store.storedata.tickets).map((i) =>
+						parseInt(i)
+					)
+				) + 1;
+		}
+
+		//ticket object to add
+		const ticket = {
+			customer: {
+				firstname: formData.firstname.trim().toLowerCase(),
+				lastname: formData.lastname.trim().toLowerCase(),
+				phone: formData.phone.trim(),
+				email: formData.email.trim().toLowerCase(),
+			},
+			subject: formData.subject.trim(),
+			issue: formData.issue,
+			description: formData.description.trim(),
+			status: "new",
+			shipping: {
+				tracking: "",
+				carrier: "",
+			},
+			payments: {},
+		};
+
+		//Add ticket:data pair to storedata
+		storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.tickets.${[mostRecentTicketNum]}`]: ticket,
+				},
+			}
+		);
+	}
+
 	async trackShipment(ticketID, user) {
 		const storename = user.storename;
 

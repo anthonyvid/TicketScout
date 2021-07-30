@@ -3,6 +3,11 @@
 <div class="isa_error"><%= errors[0] %></div>
 <% } %>
 
+<!--Message for create ticket form-->
+<% if(typeof ticketError !== 'undefined') { %>
+<div class="isa_error ticket-error"><%= ticketError[0] %></div>
+<% } %>
+
 <!--Flash Messages-->
 <% if(success_msg != '') {%>
 <div class="isa_success fade_out"><%= success_msg %></div>

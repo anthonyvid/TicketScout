@@ -166,6 +166,28 @@ exports.renderTickets = function (req, res) {
 };
 
 //Create new ticket handle
-exports.createNewTicket = function (req, res) {
-	console.log(req.body);
+exports.createNewTicket = async function (req, res) {
+	const user = new User();
+	const result = await user.createNewTicket(req.body, req.user.storename);
+
+	// No errors
+	if (!result) {
+		req.flash("success_msg", "Ticket Created"); //doesnt work?
+		res.redirect("/");
+	} else {
+		const [ticketError, data] = result;
+		if (ticketError.hasOwnProperty("phoneError")) {
+			res.render("logged-in/create-new-ticket", {
+				layout: "layouts/logged-in-layout",
+				user: req.user,
+				ticketError: Object.values(ticketError),
+				firstname: data.firstname,
+				lastname: data.lastname,
+				phone: undefined,
+				email: data.email,
+				subject: data.subject,
+				description: data.description,
+			});
+		}
+	}
 };

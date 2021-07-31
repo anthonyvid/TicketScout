@@ -2,6 +2,10 @@
 	rel="stylesheet"
 	href="/logged-in/create-new-customer/create-new-customer.css"
 />
+<script
+	defer
+	src="/logged-in/create-new-customer/create-new-customer.js"
+></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -9,11 +13,80 @@
 				<div class="title-wrap">
 					<h1>Create new Customer</h1>
 					<small>View recent tickets</small>
+					<%- include('../partials/messages'); %>
 				</div>
 			</div>
 		</div>
-		<div class="content_box-changeMyname">
+		<div class="new-customer-container">
+			<div class="content-container">
+				<form action="/create-new-customer" method="POST">
+					<div class="info-container">
+						<h3>Customer Information</h3>
+						<div class="input-wrap">
+							<label for="">First name</label>
+							<input
+								type="text"
+								name="firstname"
+								id=""
+								placeholder="John"
+								required
+								autocomplete="nope"
+								value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
+							/>
+						</div>
+						<div class="input-wrap">
+							<label for="">Last name</label>
+							<input
+								type="text"
+								name="lastname"
+								id=""
+								placeholder="Smith"
+								required
+								autocomplete="nope"
+								value="<%= typeof lastname != 'undefined' ? lastname : '' %>"
+							/>
+						</div>
+						<div class="input-wrap">
+							<label for="">Phone number</label>
+							<input
+								type="text"
+								name="phone"
+								id=""
+								placeholder="123-356-7890"
+								required
+								autocomplete="nope"
+								value="<%= typeof phone != 'undefined' ? phone : '' %>"
+							/>
+						</div>
+						<div class="input-wrap">
+							<div>
+								<label for="">Email</label>
+								<small>Optional</small>
+							</div>
 
+							<input
+								type="email"
+								name="email"
+								id="email"
+								placeholder="example@hello.com"
+								value="<%= typeof email != 'undefined' ? email : '' %>"
+							/>
+						</div>
+						<input
+							type="hidden"
+							name="customer_and_ticket"
+							id="customer_and_ticket"
+							value="false"
+						/>
+						<div class="buttons-wrap">
+							<button id="ct" type="submit">
+								Create customer and ticket
+							</button>
+							<button type="submit">Create customer</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</main>
 </div>

@@ -1,1 +1,165 @@
-/* No CSS *//*# sourceMappingURL=create-new-customer.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap");
+.new-customer-container {
+  width: 100%;
+  height: calc(100vh - 220px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+  padding: 20px 45px 20px 45px;
+}
+
+.new-customer-container .content-container {
+  width: 100%;
+  height: 100%;
+}
+
+.new-customer-container .content-container form {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.new-customer-container .content-container form .info-container {
+  height: 100%;
+  width: 100%;
+  padding: 50px 45px 20px 45px;
+}
+
+.new-customer-container .content-container form .info-container h3 {
+  margin-bottom: 25px;
+  font-family: "Padauk";
+  font-weight: bold;
+}
+
+.new-customer-container .content-container form .info-container .input-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.new-customer-container .content-container form .info-container .input-wrap div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.new-customer-container .content-container form .info-container .input-wrap div small {
+  color: #b4becc;
+}
+
+.new-customer-container .content-container form .info-container .input-wrap label {
+  text-transform: uppercase;
+  color: #717987;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Padauk" bold;
+}
+
+.new-customer-container .content-container form .info-container .input-wrap input {
+  margin-bottom: 40px;
+  border-radius: 3px;
+  background-color: #f7f7f7;
+  border: 0;
+  height: 50px;
+  text-indent: 10px;
+}
+
+.new-customer-container .content-container form .info-container .input-wrap input:focus, .new-customer-container .content-container form .info-container .input-wrap input:valid:not(#email) {
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-customer-container .content-container form .info-container .buttons-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  gap: 50px;
+}
+
+.new-customer-container .content-container form .info-container .buttons-wrap button {
+  height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0;
+  background-color: black;
+  color: white;
+  -webkit-box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+          box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+
+.new-customer-container .content-container form .info-container .buttons-wrap button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.new-customer-container .content-container form .info-container .buttons-wrap #ct {
+  background-color: #5bb0ff;
+}
+
+@media only screen and (max-height: 885px) {
+  .new-customer-container {
+    height: auto;
+  }
+  .new-customer-container .info-container {
+    padding-top: 20px !important;
+  }
+  .new-customer-container .info-container .input-wrap input {
+    margin-bottom: 25px !important;
+  }
+}
+/*# sourceMappingURL=create-new-customer.css.map */

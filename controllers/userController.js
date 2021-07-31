@@ -172,7 +172,6 @@ exports.createNewTicket = async function (req, res) {
 
 	// No errors
 	if (!result) {
-		req.flash("success_msg", "Ticket Created"); //doesnt work?
 		res.redirect("/");
 	} else {
 		const [ticketError, data] = result;
@@ -189,5 +188,42 @@ exports.createNewTicket = async function (req, res) {
 				description: data.description,
 			});
 		}
+	}
+};
+
+//Create new customer handle
+exports.createNewCustomer = async function (req, res) {
+	const user = new User();
+	const result = await user.createNewCustomer(req.body, req.user.storename);
+	const [ticketError, data] = result;
+	// No errors
+	if (!ticketError.hasOwnProperty("phoneError")) {
+		//if they choose to create ticket and customer
+		if (req.body.customer_and_ticket) {
+			res.render("logged-in/create-new-ticket", {
+				layout: "layouts/logged-in-layout",
+				user: req.user,
+				firstname: data.firstname,
+				lastname: data.lastname,
+				phone: data.phone,
+				email: data.email,
+			});
+		} else {
+			// res.redirect('/customers')
+			//TODO: I NEED TO REDIRECT TO PAGE THAT SHOWS ALL OF CUSTOMER INFO
+			// I HAVE TO SEND PHONE NUMBER IN URL
+		}
+	} else {
+		console.log("errr");
+		console.log(data);
+		res.render("logged-in/create-new-customer", {
+			layout: "layouts/logged-in-layout",
+			user: req.user,
+			ticketError: Object.values(ticketError),
+			firstname: data.firstname,
+			lastname: data.lastname,
+			phone: undefined,
+			email: data.email,
+		});
 	}
 };

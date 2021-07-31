@@ -70,5 +70,7 @@ router.get(
 );
 //create new ticket handle
 router.post("/create-new-ticket", ensureAuthenticated, userController.createNewTicket)
+//create new customer handle
+router.post("/create-new-customer", ensureAuthenticated, userController.createNewCustomer)
 
 module.exports = router;

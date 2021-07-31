@@ -38,7 +38,6 @@ storedata: {
             lastname: "smith",
             phone: "9057030659",
             email: "anthonyvidovic@gmail.com"
-            address: null,
             payments: {
                 invoices: {
                     '1234': {

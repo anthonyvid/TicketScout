@@ -34,6 +34,51 @@ class User {
 		});
 	}
 
+	async createNewCustomer(formData, storename) {
+		//validate phone number
+		if (!validator.isMobilePhone(formData.phone)) {
+			this.errors["phoneError"] = "Invalid phone number";
+			return [this.errors, formData];
+		}
+
+		//Get store we are working with
+		const store = await storesCollection.findOne({
+			storename: storename,
+		});
+
+		//check if phone number is already registered
+		if (store.storedata.customers.hasOwnProperty(formData.phone)) {
+			this.errors["phoneError"] = "Customer already in system";
+			return [this.errors, formData];
+		}
+
+		//add customer info to store.storedata.customers
+		const customer = {
+			firstname: formData.firstname.trim().toLowerCase(),
+			lastname: formData.lastname.trim().toLowerCase(),
+			phone: formData.phone.trim(),
+			email: formData.email.trim().toLowerCase(),
+			payments: {
+				invoices: {},
+				estimates: {},
+			},
+			tickets: {},
+		};
+
+		storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.customers.${[formData.phone]}`]: customer,
+				},
+			}
+		);
+
+		return [{}, customer];
+	}
+
 	async createNewTicket(formData, storename) {
 		//validate phone number
 		if (!validator.isMobilePhone(formData.phone)) {
@@ -80,7 +125,47 @@ class User {
 			payments: {},
 		};
 
-		//Add ticket:data pair to storedata
+		//if customer info put in is not in system, then create new customer also
+		if (!store.storedata.customers.hasOwnProperty(formData.phone)) {
+			const customer = {
+				firstname: formData.firstname.trim().toLowerCase(),
+				lastname: formData.lastname.trim().toLowerCase(),
+				phone: formData.phone.trim(),
+				email: formData.email.trim().toLowerCase(),
+				payments: {
+					invoices: {},
+					estimates: {},
+				},
+				tickets: {},
+			};
+
+			storesCollection.updateOne(
+				{
+					storename: storename,
+				},
+				{
+					$set: {
+						[`storedata.customers.${[formData.phone]}`]: customer,
+					},
+				}
+			);
+		}
+
+		//Add ticket:data pair to storedata.customers
+		storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.customers.${[formData.phone]}.tickets.${[
+						mostRecentTicketNum,
+					]}`]: ticket,
+				},
+			}
+		);
+
+		//Add ticket:data pair to storedata.tickets
 		storesCollection.updateOne(
 			{
 				storename: storename,

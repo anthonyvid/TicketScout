@@ -35,6 +35,7 @@ class User {
 	}
 
 	async createNewCustomer(formData, storename) {
+
 		//validate phone number
 		if (!validator.isMobilePhone(formData.phone)) {
 			this.errors["phoneError"] = "Invalid phone number";
@@ -176,6 +177,8 @@ class User {
 				},
 			}
 		);
+
+		return [{}, ticket, mostRecentTicketNum];
 	}
 
 	async trackShipment(ticketID, user) {

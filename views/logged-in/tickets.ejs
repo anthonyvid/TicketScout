@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/logged-in/tickets/tickets.css" />
+<script defer src="/logged-in/tickets/tickets.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -30,8 +31,52 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="ticket-id"><a href="">20653</a></td>
-							<td class="customer"><a href="">John Smith</a></td>
+							<td class="ticket-id">
+								<a class="ticket_link" href="/tickets/"
+									>20653</a
+								>
+							</td>
+							<td class="customer">
+								<a class="customer_link" href="/customers/"
+									>John Smith</a
+								>
+							</td>
+							<td class="subject">
+								<a href="/tickets/"
+									>iPhone Xr Screen replacement</a
+								>
+							</td>
+							<td class="status">
+								<span class="status"></span>
+								<select name="status" id="status">
+									<option value="in_progress">
+										In Progess
+									</option>
+									<option value="new">New</option>
+									<option value="waiting_for_customer">
+										Waiting for customer
+									</option>
+								</select>
+							</td>
+							<td class="last-update">3 hours ago</td>
+							<td class="issue">
+								<select name="issue" id="issue">
+									<option value="repair">Repair</option>
+									<option value="warranty">warranty</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="ticket-id">
+								<a class="ticket_link" href="/tickets/"
+									>20653</a
+								>
+							</td>
+							<td class="customer">
+								<a class="customer_link" href="/customers/"
+									>John Smith</a
+								>
+							</td>
 							<td class="subject">
 								<a href="">iPhone Xr Screen replacement</a>
 							</td>
@@ -56,34 +101,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="ticket-id"><a href="">20653</a></td>
-							<td class="customer"><a href="">John Smith</a></td>
-							<td class="subject">
-								<a href="">iPhone Xr Screen replacement</a>
+							<td class="ticket-id">
+								<a class="ticket_link" href="/tickets/"
+									>20653</a
+								>
 							</td>
-							<td class="status">
-								<span class="status"></span>
-								<select name="status" id="status">
-									<option value="in_progress">
-										In Progess
-									</option>
-									<option value="new">New</option>
-									<option value="waiting_for_customer">
-										Waiting for customer
-									</option>
-								</select>
+							<td class="customer">
+								<a class="customer_link" href="/customers/"
+									>John Smith</a
+								>
 							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">
-								<select name="issue" id="issue">
-									<option value="repair">Repair</option>
-									<option value="warranty">warranty</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="ticket-id"><a href="">20653</a></td>
-							<td class="customer"><a href="">John Smith</a></td>
 							<td class="subject">
 								<a href="">iPhone Xr Screen replacement</a>
 							</td>

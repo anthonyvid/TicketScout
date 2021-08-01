@@ -30,7 +30,9 @@ router.get(
 // Dashboard Page
 router.get("/dashboard", ensureAuthenticated, userController.renderDashboard);
 // Tickets Page
-router.get("/tickets", userController.renderTickets);
+router.get("/tickets", userController.renderStoreTickets);
+// Customers Page
+// router.get("/customers", userController.renderCustomers);
 // Track a shipment Handle
 router.post(
 	"/track-shipment",
@@ -69,8 +71,28 @@ router.get(
 	userController.renderAccountSettings
 );
 //create new ticket handle
-router.post("/create-new-ticket", ensureAuthenticated, userController.createNewTicket)
+router.post(
+	"/create-new-ticket",
+	ensureAuthenticated,
+	userController.createNewTicket
+);
 //create new customer handle
-router.post("/create-new-customer", ensureAuthenticated, userController.createNewCustomer)
+router.post(
+	"/create-new-customer",
+	ensureAuthenticated,
+	userController.createNewCustomer
+);
+//dynamic customer page
+router.get(
+	"/customers/:phone",
+	ensureAuthenticated,
+	userController.renderCustomer
+);
+//dynamic ticket page
+router.get(
+	"/tickets/:ticketID",
+	ensureAuthenticated,
+	userController.renderTicket
+);
 
 module.exports = router;

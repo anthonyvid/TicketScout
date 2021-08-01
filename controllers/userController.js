@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const passport = require("passport");
 const { json } = require("express");
+const fetch = require("node-fetch");
 
 // Login Page
 exports.renderLogin = function (req, res) {
@@ -158,37 +159,51 @@ exports.renderDashboard = function (req, res) {
 };
 
 // Tickets Page
-exports.renderTickets = function (req, res) {
+exports.renderStoreTickets = function (req, res) {
 	res.render("logged-in/tickets", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 	});
 };
 
+// Customers Page
+// exports.renderStoreCustomers = function (req, res) {
+// 	res.render("logged-in/customers", {
+// 		layout: "layouts/logged-in-layout",
+// 		user: req.user,
+// 	});
+// };
+
 //Create new ticket handle
-exports.createNewTicket = async function (req, res) {
+exports.createNewTicket = async function (req, res, next) {
 	const user = new User();
 	const result = await user.createNewTicket(req.body, req.user.storename);
+	const [ticketError, data, ticketID] = result;
 
 	// No errors
-	if (!result) {
-		res.redirect("/");
+	if (Object.keys(ticketError).length === 0) {
+		res.redirect(`/customers/${ticketID}`);
 	} else {
-		const [ticketError, data] = result;
-		if (ticketError.hasOwnProperty("phoneError")) {
-			res.render("logged-in/create-new-ticket", {
-				layout: "layouts/logged-in-layout",
-				user: req.user,
-				ticketError: Object.values(ticketError),
-				firstname: data.firstname,
-				lastname: data.lastname,
-				phone: undefined,
-				email: data.email,
-				subject: data.subject,
-				description: data.description,
-			});
-		}
+		console.log("failed");
+		res.render("logged-in/create-new-ticket", {
+			layout: "layouts/logged-in-layout",
+			user: req.user,
+			ticketError: Object.values(ticketError),
+			firstname: data.firstname,
+			lastname: data.lastname,
+			phone: undefined,
+			email: data.email,
+			subject: data.subject,
+			description: data.description,
+		});
 	}
+};
+
+exports.renderTicket = function (req, res) {
+	res.send("you requested to see ticket" + req.params.ticketID);
+};
+exports.renderCustomer = function (req, res) {
+	res.send("you requested to see customer" + req.params.phone);
 };
 
 //Create new customer handle
@@ -196,10 +211,11 @@ exports.createNewCustomer = async function (req, res) {
 	const user = new User();
 	const result = await user.createNewCustomer(req.body, req.user.storename);
 	const [ticketError, data] = result;
+
 	// No errors
-	if (!ticketError.hasOwnProperty("phoneError")) {
+	if (Object.keys(ticketError).length == 0) {
 		//if they choose to create ticket and customer
-		if (req.body.customer_and_ticket) {
+		if (req.body.customer_and_ticket == "true") {
 			res.render("logged-in/create-new-ticket", {
 				layout: "layouts/logged-in-layout",
 				user: req.user,
@@ -208,14 +224,10 @@ exports.createNewCustomer = async function (req, res) {
 				phone: data.phone,
 				email: data.email,
 			});
-		} else {
-			// res.redirect('/customers')
-			//TODO: I NEED TO REDIRECT TO PAGE THAT SHOWS ALL OF CUSTOMER INFO
-			// I HAVE TO SEND PHONE NUMBER IN URL
+		} else if (req.body.customer_and_ticket == "false") {
+			res.redirect(`/customers/${data.phone}`);
 		}
 	} else {
-		console.log("errr");
-		console.log(data);
 		res.render("logged-in/create-new-customer", {
 			layout: "layouts/logged-in-layout",
 			user: req.user,

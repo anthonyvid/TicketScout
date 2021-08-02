@@ -6,12 +6,12 @@ for (const ID of ticketIDs) {
 	ID.href += ID.textContent;
 }
 
-// for (const subject of subjects) {
-// 	console.log(subject);
-// 	const ticket = subject.closest("td.ticket-id").find(".ticket_link");
-// 	console.log(ticket);
-// 	subject.href += ticket.textContent;
-// }
+for (const subject of subjects) {
+	const id =
+		subject.parentElement.parentElement.firstElementChild.firstElementChild
+			.text;
+	subject.href += id;
+}
 
 // for (const customer of customers) {
 // 	customer.addEventListener("click", () => {
@@ -26,6 +26,5 @@ for (const select of statusSelects) {
 	console.log(selectedOption);
 }
 
-//TODO: I NEED TO MAKE THE CLOSEST WORK
 //TODO: I NEED TO GET CURRENT OPTION CHOSEN FOR ANY SELECT
 // SEND TO BACKEND AND UPDATE STATUS FOR THAT TICKET

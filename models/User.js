@@ -35,7 +35,6 @@ class User {
 	}
 
 	async createNewCustomer(formData, storename) {
-
 		//validate phone number
 		if (!validator.isMobilePhone(formData.phone)) {
 			this.errors["phoneError"] = "Invalid phone number";
@@ -78,6 +77,41 @@ class User {
 		);
 
 		return [{}, customer];
+	}
+
+	getCurrentDate() {
+		let dateObj = new Date();
+
+		let date = ("0" + dateObj.getDate()).slice(-2);
+
+		// current month
+		let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+
+		// current year
+		let year = dateObj.getFullYear();
+
+		// current hours
+		let hours = dateObj.getHours();
+
+		// current minutes
+		let minutes = dateObj.getMinutes();
+
+		// current seconds
+		let seconds = dateObj.getSeconds();
+
+		return (
+			year +
+			"-" +
+			month +
+			"-" +
+			date +
+			" " +
+			hours +
+			":" +
+			minutes +
+			":" +
+			seconds
+		);
 	}
 
 	async createNewTicket(formData, storename) {
@@ -124,6 +158,9 @@ class User {
 				carrier: "",
 			},
 			payments: {},
+			lastUpdated: new Date().getTime(),
+			dateCreated: this.getCurrentDate(),
+			
 		};
 
 		//if customer info put in is not in system, then create new customer also
@@ -179,6 +216,25 @@ class User {
 		);
 
 		return [{}, ticket, mostRecentTicketNum];
+	}
+
+	async updateTicketList(storename) {
+		//get store we are working with
+		const store = await storesCollection.findOne({ storename: storename });
+
+		//create array sorted by recently updated
+		const tickets = store.storedata.tickets;
+
+		const sortedTickets = [];
+		for (let ticket in tickets) {
+			sortedTickets.push([ticket, tickets[ticket]]);
+		}
+
+		sortedTickets.sort((a, b) => {
+			return b[1].lastUpdated - a[1].lastUpdated;
+		});
+
+		return [sortedTickets, store];
 	}
 
 	async trackShipment(ticketID, user) {

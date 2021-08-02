@@ -30,19 +30,65 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<% for(let i=0; i<tickets.length; i++) { %> 
+							<tr>
+								<td class="ticket-id">
+									<a class="ticket_link" id="ticket" href="/tickets/"
+										><%=tickets[i][0]%></a
+									>
+								</td>
+								<td class="customer">
+									<a class="customer_link"
+										><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
+									>
+								</td>
+								<td class="subject">
+									<p class="test"></p>
+									<a class="subject_link" href="/tickets/"
+										> <%= tickets[i][1].subject %> </a
+									>
+								</td>
+								<td class="status">
+									<select name="status" class="status-selects" id="status">
+										<!-- <option value="">1</option>			
+										<option value="">2</option>			
+										<option value="">3</option>		 -->
+										<option selected="selected">
+												<%= tickets[i][1].status %>
+										</option>
+										<% for(let i=0; i<store.storeSettings.tickets.status.length; i++) { %>
+											<option selected="selected">
+												<%= store.storeSettings.tickets.status[i] %>
+											</option>
+										<% } %> 	
+									</select>
+								</td>
+								<td class="last-update">3 hours ago</td>
+								<td class="issue" id="issue">
+									<select name="issue" id="issue">
+										<% for(let i=0; i<store.storeSettings.tickets.issue.length; i++) { %>
+											<option>
+												<%= store.storeSettings.tickets.issue[i] %>
+											</option>
+										<% } %> 	
+									</select>
+								</td>
+							</tr>
+						<% } %> 
+						
+						<!-- <tr>
 							<td class="ticket-id">
 								<a class="ticket_link" href="/tickets/"
 									>20653</a
 								>
 							</td>
 							<td class="customer">
-								<a class="customer_link" href="/customers/"
+								<a class="customer_link" href="/caustomers/"
 									>John Smith</a
 								>
 							</td>
 							<td class="subject">
-								<a href="/tickets/"
+								<a class="subject_link" href="/tickets/"
 									>iPhone Xr Screen replacement</a
 								>
 							</td>
@@ -78,7 +124,9 @@
 								>
 							</td>
 							<td class="subject">
-								<a href="">iPhone Xr Screen replacement</a>
+								<a class="subject_link" href="/tickets/"
+									>iPhone Xr Screen replacement</a
+								>
 							</td>
 							<td class="status">
 								<span class="status"></span>
@@ -99,41 +147,7 @@
 									<option value="warranty">warranty</option>
 								</select>
 							</td>
-						</tr>
-						<tr>
-							<td class="ticket-id">
-								<a class="ticket_link" href="/tickets/"
-									>20653</a
-								>
-							</td>
-							<td class="customer">
-								<a class="customer_link" href="/customers/"
-									>John Smith</a
-								>
-							</td>
-							<td class="subject">
-								<a href="">iPhone Xr Screen replacement</a>
-							</td>
-							<td class="status">
-								<span class="status"></span>
-								<select name="status" id="status">
-									<option value="in_progress">
-										In Progess
-									</option>
-									<option value="new">New</option>
-									<option value="waiting_for_customer">
-										Waiting for customer
-									</option>
-								</select>
-							</td>
-							<td class="last-update">3 hours ago</td>
-							<td class="issue">
-								<select name="issue" id="issue">
-									<option value="repair">Repair</option>
-									<option value="warranty">warranty</option>
-								</select>
-							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 			</div>

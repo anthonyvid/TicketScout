@@ -43,6 +43,12 @@ class Admin extends User {
 					estimates: [],
 					invoices: [],
 				},
+				storeSettings: {
+					tickets: {
+						status: ["new"],
+						issue: [],
+					},
+				},
 			});
 			usersCollection.insertOne(user);
 			console.log("Successfully registered store");

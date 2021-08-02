@@ -159,10 +159,16 @@ exports.renderDashboard = function (req, res) {
 };
 
 // Tickets Page
-exports.renderStoreTickets = function (req, res) {
+exports.renderStoreTickets = async function (req, res) {
+	const user = new User();
+	const [result, store] = await user.updateTicketList(req.user.storename);
+	console.log(store.storeSettings.tickets);
+
 	res.render("logged-in/tickets", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		tickets: result,
+		store: store,
 	});
 };
 
@@ -182,7 +188,7 @@ exports.createNewTicket = async function (req, res, next) {
 
 	// No errors
 	if (Object.keys(ticketError).length === 0) {
-		res.redirect(`/customers/${ticketID}`);
+		res.redirect(`/tickets/${ticketID}`);
 	} else {
 		console.log("failed");
 		res.render("logged-in/create-new-ticket", {
@@ -208,34 +214,53 @@ exports.renderCustomer = function (req, res) {
 
 //Create new customer handle
 exports.createNewCustomer = async function (req, res) {
-	const user = new User();
-	const result = await user.createNewCustomer(req.body, req.user.storename);
-	const [ticketError, data] = result;
-
-	// No errors
-	if (Object.keys(ticketError).length == 0) {
-		//if they choose to create ticket and customer
-		if (req.body.customer_and_ticket == "true") {
-			res.render("logged-in/create-new-ticket", {
-				layout: "layouts/logged-in-layout",
-				user: req.user,
-				firstname: data.firstname,
-				lastname: data.lastname,
-				phone: data.phone,
-				email: data.email,
-			});
-		} else if (req.body.customer_and_ticket == "false") {
-			res.redirect(`/customers/${data.phone}`);
-		}
-	} else {
-		res.render("logged-in/create-new-customer", {
+	if (req.body.customer_and_ticket == "true") {
+		res.render("logged-in/create-new-ticket", {
 			layout: "layouts/logged-in-layout",
 			user: req.user,
-			ticketError: Object.values(ticketError),
-			firstname: data.firstname,
-			lastname: data.lastname,
-			phone: undefined,
-			email: data.email,
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			phone: req.body.phone,
+			email: req.body.email,
 		});
+	} else {
+		const user = new User();
+		const result = await user.createNewCustomer(
+			req.body,
+			req.user.storename
+		);
+		const [ticketError, data] = result;
+
+		// No errors
+		if (Object.keys(ticketError).length == 0) {
+			res.redirect(`/customers/${data.phone}`);
+		} else {
+			res.render("logged-in/create-new-customer", {
+				layout: "layouts/logged-in-layout",
+				user: req.user,
+				ticketError: Object.values(ticketError),
+				firstname: data.firstname,
+				lastname: data.lastname,
+				phone: undefined,
+				email: data.email,
+			});
+		}
 	}
+
+	// // No errors
+	// if (Object.keys(ticketError).length == 0) {
+	// 	//if they choose to create ticket and customer
+	// 	if (req.body.customer_and_ticket == "true") {
+	// 		res.render("logged-in/create-new-ticket", {
+	// 			layout: "layouts/logged-in-layout",
+	// 			user: req.user,
+	// 			firstname: data.firstname,
+	// 			lastname: data.lastname,
+	// 			phone: data.phone,
+	// 			email: data.email,
+	// 		});
+	// 	} else if (req.body.customer_and_ticket == "false") {
+	// 		console.log("testt");
+	// 	}
+	// }
 };

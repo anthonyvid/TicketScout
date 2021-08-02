@@ -13,18 +13,71 @@ for (const subject of subjects) {
 	subject.href += id;
 }
 
-// for (const customer of customers) {
-// 	customer.addEventListener("click", () => {
-// 		console.log(customer.closest(".ticket_link").textContent);
-// 	});
-// }
+for (const customer of customers) {
+	const id =
+		customer.parentElement.parentElement.firstElementChild.firstElementChild
+			.text;
+	(async () => {
+		const response = await fetch("/get-phone", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ id }),
+		});
+		const data = await response.json();
+		customer.href += data.phone;
+	})();
+}
 
 const statusSelects = document.querySelectorAll(".status-selects");
 
 for (const select of statusSelects) {
-	const selectedOption = select.selectedOptions[0].text;
-	console.log(selectedOption);
+	select.addEventListener("change", (e) => {
+		const id =
+			select.parentElement.parentElement.firstElementChild
+				.firstElementChild.text;
+		const selection = e.target.value;
+		(async () => {
+			try {
+				const response = await fetch("/update-ticket-status", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ selection, id }),
+				});
+				const data = await response.json();
+				location.reload();
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	});
 }
 
-//TODO: I NEED TO GET CURRENT OPTION CHOSEN FOR ANY SELECT
-// SEND TO BACKEND AND UPDATE STATUS FOR THAT TICKET
+const issueSelects = document.querySelectorAll(".issue-selects");
+
+for (const select of issueSelects) {
+	select.addEventListener("change", (e) => {
+		const id =
+			select.parentElement.parentElement.firstElementChild
+				.firstElementChild.text;
+		const selection = e.target.value;
+		(async () => {
+			try {
+				const response = await fetch("/update-ticket-issue", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ selection, id }),
+				});
+				const data = await response.json();
+				location.reload();
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	});
+}

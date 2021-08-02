@@ -94,5 +94,8 @@ router.get(
 	ensureAuthenticated,
 	userController.renderTicket
 );
+router.post("/get-phone", userController.getPhone);
+router.post("/update-ticket-status", userController.updateTicketStatus);
+router.post("/update-ticket-issue", userController.updateTicketIssue);
 
 module.exports = router;

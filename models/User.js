@@ -79,6 +79,43 @@ class User {
 		return [{}, customer];
 	}
 
+	async getPhone(ticketID, storename) {
+		const store = await storesCollection.findOne({ storename: storename });
+
+		const phone = store.storedata.tickets[ticketID].customer.phone;
+		return phone;
+	}
+	async updateTicketStatus(selection, ticketID, storename) {
+		storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.tickets.${[ticketID]}.status`]: selection,
+					[`storedata.tickets.${[ticketID]}.lastUpdated`]:
+						new Date().getTime(),
+				},
+			}
+		);
+		const [tickets, store] = await this.updateTicketList(storename);
+		return tickets;
+	}
+	async updateTicketIssue(selection, ticketID, storename) {
+		storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.tickets.${[ticketID]}.issue`]: selection,
+					[`storedata.tickets.${[ticketID]}.lastUpdated`]:
+						new Date().getTime(),
+				},
+			}
+		);
+	}
+
 	getCurrentDate() {
 		let dateObj = new Date();
 
@@ -160,7 +197,6 @@ class User {
 			payments: {},
 			lastUpdated: new Date().getTime(),
 			dateCreated: this.getCurrentDate(),
-			
 		};
 
 		//if customer info put in is not in system, then create new customer also

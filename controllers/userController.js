@@ -162,7 +162,6 @@ exports.renderDashboard = function (req, res) {
 exports.renderStoreTickets = async function (req, res) {
 	const user = new User();
 	const [result, store] = await user.updateTicketList(req.user.storename);
-	console.log(store.storeSettings.tickets);
 
 	res.render("logged-in/tickets", {
 		layout: "layouts/logged-in-layout",
@@ -172,6 +171,29 @@ exports.renderStoreTickets = async function (req, res) {
 	});
 };
 
+exports.getPhone = async function (req, res) {
+	const user = new User();
+	const phone = await user.getPhone(req.body.id, req.user.storename);
+	res.json({ phone: phone });
+};
+exports.updateTicketStatus = async function (req, res) {
+	const user = new User();
+	const tickets = await user.updateTicketStatus(
+		req.body.selection,
+		req.body.id,
+		req.user.storename
+	);
+	res.json({ tickets });
+};
+exports.updateTicketIssue = async function (req, res) {
+	const user = new User();
+	const tickets = await user.updateTicketIssue(
+		req.body.selection,
+		req.body.id,
+		req.user.storename
+	);
+	res.json({ tickets });
+};
 // Customers Page
 // exports.renderStoreCustomers = function (req, res) {
 // 	res.render("logged-in/customers", {

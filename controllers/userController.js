@@ -183,6 +183,7 @@ exports.updateTicketStatus = async function (req, res) {
 		req.body.id,
 		req.user.storename
 	);
+	
 	res.json({ tickets });
 };
 exports.updateTicketIssue = async function (req, res) {

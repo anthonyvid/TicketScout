@@ -114,6 +114,8 @@ class User {
 				},
 			}
 		);
+		const [tickets, store] = await this.updateTicketList(storename);
+		return tickets;
 	}
 
 	getCurrentDate() {
@@ -269,6 +271,8 @@ class User {
 		sortedTickets.sort((a, b) => {
 			return b[1].lastUpdated - a[1].lastUpdated;
 		});
+
+		console.log(sortedTickets);
 
 		return [sortedTickets, store];
 	}

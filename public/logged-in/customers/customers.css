@@ -72,6 +72,7 @@ a:active {
       -ms-flex-align: end;
           align-items: flex-end;
   gap: 25px;
+  margin-left: 25px;
 }
 
 .header-wrap .ticket-action-container .filter-container .search-wrap {
@@ -97,11 +98,7 @@ a:active {
           box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 
-.header-wrap .ticket-action-container .filter-container #search-customer-wrap {
-  width: 200px;
-}
-
-.header-wrap .ticket-action-container .new-ticket-wrap {
+.header-wrap .ticket-action-container .new-customer-wrap {
   height: 100%;
   width: 190px;
   display: -webkit-box;
@@ -116,7 +113,7 @@ a:active {
   padding-right: 15px;
 }
 
-.header-wrap .ticket-action-container .new-ticket-wrap form button {
+.header-wrap .ticket-action-container .new-customer-wrap form button {
   height: 40px;
   width: 140px;
   border-radius: 5px;
@@ -131,7 +128,7 @@ a:active {
           transform: scale(1);
 }
 
-.header-wrap .ticket-action-container .new-ticket-wrap form button:hover {
+.header-wrap .ticket-action-container .new-customer-wrap form button:hover {
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   -webkit-transform: scale(1.1);
@@ -150,27 +147,29 @@ a:active {
   font-family: "Inter";
   border-collapse: collapse;
   width: 100%;
-  display: table;
   border: 1px solid #e8edf5;
+  display: table;
 }
 
 .card-scroll-box table thead tr {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #f9fbfc;
   border: 1px solid #e8edf5;
-}
-
-.card-scroll-box table thead tr #lastUpdatedHeader {
-  text-decoration: underline;
+  background-color: #f9fbfc;
 }
 
 .card-scroll-box table thead td {
   font-weight: 800;
   font-size: 14px;
   padding: 18px 0;
-  padding-left: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 3rem;
   color: #7e8082 !important;
 }
 
@@ -182,37 +181,8 @@ a:active {
       -ms-flex-align: center;
           align-items: center;
   padding: 18px 0;
-  background-color: white;
   border: 1px solid #e8edf5;
-}
-
-.card-scroll-box table tbody tr .issue-selects {
-  padding: 7px 40px 7px 12px;
-  border: 2px solid #e8eaed;
-  border-radius: 5px;
   background: white;
-  -webkit-box-shadow: 0 1px 3px -2px #9098a9;
-          box-shadow: 0 1px 3px -2px #9098a9;
-  cursor: pointer;
-  outline: none;
-}
-
-.card-scroll-box table tbody tr #icon-color {
-  font-size: 12px;
-}
-
-.card-scroll-box table tbody tr .status-selects {
-  -webkit-appearance: none;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  margin-left: 2px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.card-scroll-box table tbody tr .status-selects:hover {
-  cursor: pointer;
 }
 
 .card-scroll-box table tbody tr:hover {
@@ -231,38 +201,10 @@ a:active {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 20%;
           flex: 1 1 20%;
-  text-align: left;
-}
-
-.card-scroll-box table .ticket-id {
-  -webkit-box-flex: 5%;
-      -ms-flex: 5%;
-          flex: 5%;
-  margin-left: 2%;
-}
-
-.card-scroll-box table .last-update,
-.card-scroll-box table .issue,
-.card-scroll-box table .customer {
-  -webkit-box-flex: 6%;
-      -ms-flex: 6%;
-          flex: 6%;
-}
-
-.card-scroll-box table .status {
-  -webkit-box-flex: 10%;
-      -ms-flex: 10%;
-          flex: 10%;
-}
-
-.card-scroll-box table .subject {
-  margin-left: 5%;
-  -webkit-box-flex: 15%;
-      -ms-flex: 15%;
-          flex: 15%;
+  padding-left: 3rem;
 }
 
 .card-scroll-box table a:hover {
   text-decoration: underline;
 }
-/*# sourceMappingURL=tickets.css.map */
+/*# sourceMappingURL=customers.css.map */

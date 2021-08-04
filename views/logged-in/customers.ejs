@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="/logged-in/customers/customers.css" />
+<script defer src="/logged-in/customers/customers.js"></script>
+<div class="main-content">
+	<main>
+		<div class="page-header">
+			<div class="header-wrap">
+				<div class="title-wrap">
+					<h1>Customers</h1>
+					<small>View recent customers</small>
+				</div>
+				<div class="ticket-action-container">
+					<div class="filter-container">
+						<div class="search-wrap">
+							<input onkeyup="searchForName()" id="search-name" type="text" placeholder="Search for name">
+						</div>
+						<div class="search-wrap">
+							<input onkeyup="searchForPhone()" id="search-phone" type="text" placeholder="Search for phone">
+						</div>
+					</div>
+					<div class="new-customer-wrap">
+						<form action="/new-customer" method="GET">
+							<button type="submit">New Customer</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="card-scroll-box">
+				<table>
+					<thead>
+						<tr>
+							<td class="name">name</td>
+							<td class="phone">Phone</td>
+							<td class="tickets">Tickets</td>
+							<td class="date-joined">Date Joined</td>
+						</tr>
+					</thead>
+					<tbody>
+                        <% if(customers.length === 0) {%>
+                            <tr id="noCustomers"><td>No Customers</td></tr>
+                        <% } else { %> 
+                            <% for(let i=0; i<customers.length; i++) { %> 
+                                <tr id="table-row">
+                                    <td class="name">
+                                        <a class="name_link" id="name" href="/customers/"
+                                            ><%=customers[i][1].firstname.charAt(0).toUpperCase() + customers[i][1].firstname.slice(1) +" "+ customers[i][1].lastname.charAt(0).toUpperCase() + customers[i][1].lastname.slice(1)%></a
+                                        >
+                                    </td>
+                                    <td class="phone">
+                                        <% if (customers[i][1].phone.length < 10 || customers[i][1].phone.length > 11) { %> 
+                                            <a href="/customers/" class="phone_link">
+                                                <%=customers[i][1].phone %>
+                                            </a>
+                                        <% } else if (customers[i][1].phone.length === 10) {%> 
+                                            <a href="/customers/" class="phone_link">
+                                                <%=`(${customers[i][1].phone.substring(0,3)})`+' '+customers[i][1].phone.substring(3,6)+'-'+customers[i][1].phone.substring(6,10) %>
+                                            </a>
+                                        <% } else if (customers[i][1].phone.length === 11) {%> 
+                                            <a href="/customers/" class="phone_link">
+                                                <%=`+${customers[i][1].phone.substring(0,1)}`+' '+`(${customers[i][1].phone.substring(1,4)})`+' '+customers[i][1].phone.substring(4,7)+'-'+customers[i][1].phone.substring(7,11)%>
+                                            </a>
+                                        <% } %> %> 
+                                    </td>
+                                    <td class="tickets" id="tickets">
+                                        <%=Object.keys(customers[i][1].tickets).length%>
+                                    </td>
+                                    <td class="date-joined">
+                                        <%= customers[i][1].dateJoined %> 
+                                    </td>
+                                </tr>
+                            <% } %> 
+                        <% } %> 
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</div>

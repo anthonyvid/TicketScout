@@ -25,3 +25,36 @@ if (greet.getHours() >= 0 && greet.getHours() < 12) {
 // 		disableDefaultUI: true,
 // 	});
 // });
+
+const ticketIDs = document.querySelectorAll(".ticket_link");
+const customers = document.querySelectorAll(".customer_link");
+const subjects = document.querySelectorAll(".subject_link");
+
+for (const ID of ticketIDs) {
+	ID.href += ID.textContent;
+}
+
+for (const subject of subjects) {
+	const id =
+		subject.parentElement.parentElement.firstElementChild.firstElementChild
+			.textContent;
+
+	subject.href += id;
+}
+
+for (const customer of customers) {
+	const id =
+		customer.parentElement.parentElement.firstElementChild.firstElementChild
+			.textContent;
+	(async () => {
+		const response = await fetch("/get-phone", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ id }),
+		});
+		const data = await response.json();
+		customer.href += data.phone;
+	})();
+}

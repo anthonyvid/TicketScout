@@ -87,91 +87,28 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="ticket-id">
-										<a href="">20653</a>
-									</td>
-									<td class="customer">
-										<a href="">John Smith</a>
-									</td>
-									<td class="subject">
-										<a href="">
-											iPhone Xr Screen replacement</a
-										>
-									</td>
-									<td class="status">
-										<span class="status"></span>
-										In Progress
-									</td>
-								</tr>
-								<tr>
-									<td class="ticket-id">
-										<a href="">20653</a>
-									</td>
-									<td class="customer">
-										<a href="">John Smith</a>
-									</td>
-									<td class="subject">
-										<a href="">
-											iPhone Xr Screen replacement</a
-										>
-									</td>
-									<td class="status">
-										<span class="status"></span>
-										In Progress
-									</td>
-								</tr>
-								<tr>
-									<td class="ticket-id">
-										<a href="">20653</a>
-									</td>
-									<td class="customer">
-										<a href="">John Smith</a>
-									</td>
-									<td class="subject">
-										<a href="">
-											iPhone Xr Screen replacement</a
-										>
-									</td>
-									<td class="status">
-										<span class="status"></span>
-										In Progress
-									</td>
-								</tr>
-								<tr>
-									<td class="ticket-id">
-										<a href="">20653</a>
-									</td>
-									<td class="customer">
-										<a href="">John Smith</a>
-									</td>
-									<td class="subject">
-										<a href="">
-											iPhone Xr Screen replacement</a
-										>
-									</td>
-									<td class="status">
-										<span class="status"></span>
-										In Progress
-									</td>
-								</tr>
-								<tr>
-									<td class="ticket-id">
-										<a href="">20653</a>
-									</td>
-									<td class="customer">
-										<a href="">John Smith</a>
-									</td>
-									<td class="subject">
-										<a href="">
-											iPhone Xr Screen replacement</a
-										>
-									</td>
-									<td class="status">
-										<span class="status"></span>
-										In Progress
-									</td>
-								</tr>
+								<% for(let i=0; i<tickets.slice(0,5).length; i++) { %> 
+							<tr id="table-row">
+								<td class="ticket-id">
+									<a class="ticket_link" id="ticket" href="/tickets/"
+										><%=tickets[i][0]%></a
+									>
+								</td>
+								<td class="customer">
+									<a href="/customers/" class="customer_link"
+										><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
+									>
+								</td>
+								<td class="subject">
+									<a class="subject_link" href="/tickets/"
+										> <%= tickets[i][1].subject %> </a
+									>
+								</td>
+								<td class="status">
+									<%= tickets[i][1].status %>
+								</td>								
+							</tr>
+						<% } %> 
 							</tbody>
 						</table>
 					</div>

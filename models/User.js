@@ -63,6 +63,7 @@ class User {
 				estimates: {},
 			},
 			tickets: {},
+			dateJoined: new Date().toDateString(),
 		};
 
 		storesCollection.updateOne(
@@ -194,7 +195,7 @@ class User {
 			subject: formData.subject.trim(),
 			issue: formData.issue,
 			description: formData.description.trim(),
-			status: "new",
+			status: "New",
 			shipping: {
 				tracking: "",
 				carrier: "",
@@ -216,6 +217,7 @@ class User {
 					estimates: {},
 				},
 				tickets: {},
+				dateJoined: new Date().toDateString(),
 			};
 
 			storesCollection.updateOne(
@@ -276,6 +278,25 @@ class User {
 		});
 
 		return [sortedTickets, store];
+	}
+
+	async updateCustomerList(storename) {
+		//get store we are working with
+		const store = await storesCollection.findOne({ storename: storename });
+
+		//create array sorted by recently updated
+		const customers = store.storedata.customers;
+
+		const sortedCustomers = [];
+		for (let customer in customers) {
+			sortedCustomers.push([customer, customers[customer]]);
+		}
+
+		sortedCustomers.sort(function (a, b) {
+			return a[1].firstname > b[1].firstname ? 1 : -1;
+		});
+
+		return [sortedCustomers, store];
 	}
 
 	async trackShipment(ticketID, user) {

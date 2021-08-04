@@ -45,51 +45,55 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% for(let i=0; i<tickets.length; i++) { %> 
-							<tr id="table-row">
-								<td class="ticket-id">
-									<a class="ticket_link" id="ticket" href="/tickets/"
-										><%=tickets[i][0]%></a
-									>
-								</td>
-								<td class="customer">
-									<a href="/customers/" class="customer_link"
-										><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
-									>
-								</td>
-								<td class="subject">
-									<a class="subject_link" href="/tickets/"
-										> <%= tickets[i][1].subject %> </a
-									>
-								</td>
-								<td class="status">
-									
-									<select name="status" class="status-selects" id="status">
-										
-										<option selected="selected" class="selected-option">
-												<%= tickets[i][1].status %>
-										</option>
-										<% for(let j=0; j<store.storeSettings.tickets.status.length; j++) { %>
-											<option class="status-options">
-												<%= store.storeSettings.tickets.status.filter(item => item[0] !== tickets[i][1].status).map(item => item[0])[j] %>
+						<% if(tickets.length === 0) {%>
+                            <tr><td style="margin-left: 2rem;">No Tickets</td></tr>
+                        <% } else { %> 
+							<% for(let i=0; i<tickets.length; i++) { %> 
+								<tr id="table-row">
+									<td class="ticket-id">
+										<a class="ticket_link" id="ticket" href="/tickets/"
+											><%=tickets[i][0]%></a
+										>
+									</td>
+									<td class="customer">
+										<a href="/customers/" class="customer_link"
+											><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
+										>
+									</td>
+									<td class="subject">
+										<a class="subject_link" href="/tickets/"
+											> <%= tickets[i][1].subject %> </a
+										>
+									</td>
+									<td class="status">
+										<span><i id="icon-color" class="fas fa-circle"></i></span>
+										<select name="status" class="status-selects" id="status">
+											<option selected="selected" class="selected-option">
+												
+													<%= tickets[i][1].status %>
 											</option>
-										<% } %> 	
-									</select>
-								</td>
-								<td class="last-update last-update-text"><%= tickets[i][1].lastUpdated %></td>
-								<td name="issue" class="issue" id="issue">
-									<select name="issue" class="issue-selects" id="issue">
-										<option selected="selected">
-												<%= tickets[i][1].issue %>
-										</option>
-										<% for(let j=0; j<store.storeSettings.tickets.issue.length; j++) { %>
-											<option class="issue-options">
-												<%= store.storeSettings.tickets.issue.filter(item=>item!==tickets[i][1].issue)[j] %>
+											<% for(let j=0; j<store.storeSettings.tickets.status.length; j++) { %>
+												<option class="status-options">
+													<%= store.storeSettings.tickets.status.filter(item => item[0] !== tickets[i][1].status).map(item => item[0])[j] %>
+												</option>
+											<% } %> 	
+										</select>
+									</td>
+									<td class="last-update last-update-text"><%= tickets[i][1].lastUpdated %></td>
+									<td name="issue" class="issue" id="issue">
+										<select name="issue" class="issue-selects" id="issue">
+											<option selected="selected">
+													<%= tickets[i][1].issue %>
 											</option>
-										<% } %> 	
-									</select>
-								</td>
-							</tr>
+											<% for(let j=0; j<store.storeSettings.tickets.issue.length; j++) { %>
+												<option class="issue-options">
+													<%= store.storeSettings.tickets.issue.filter(item=>item!==tickets[i][1].issue)[j] %>
+												</option>
+											<% } %> 	
+										</select>
+									</td>
+								</tr>
+							<% } %> 
 						<% } %> 
 					</tbody>
 				</table>

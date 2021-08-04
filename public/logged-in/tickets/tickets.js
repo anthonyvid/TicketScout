@@ -142,8 +142,9 @@ const statusSelects = document.querySelectorAll(".status-selects");
 		for (const select of statusSelects) {
 			for (let i = 0; i < statusArray.length; i++) {
 				if (select.firstElementChild.text === statusArray[i][0]) {
-					select.style.borderColor = `#${statusArray[i][1]}`;
-					select.style.borderWidth = "2px";
+					select.style.color = `#${statusArray[i][1]}`;
+					// select.style.backgroundColor = `#${statusArray[i][1]}50`;
+					select.lastElementChild.firstElementChild.backgroundColor = `#${statusArray[i][1]}`;
 				}
 			}
 		}

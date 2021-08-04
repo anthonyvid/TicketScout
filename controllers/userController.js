@@ -151,10 +151,15 @@ exports.logout = async function (req, res) {
 };
 
 // Dashboard Page
-exports.renderDashboard = function (req, res) {
+exports.renderDashboard = async function (req, res) {
+	const user = new User();
+	const [result, store] = await user.updateTicketList(req.user.storename);
+
 	res.render("logged-in/dashboard", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		tickets: result,
+		store: store,
 	});
 };
 
@@ -167,6 +172,17 @@ exports.renderStoreTickets = async function (req, res) {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 		tickets: result,
+		store: store,
+	});
+};
+
+exports.renderStoreCustomers = async function (req, res) {
+	const user = new User();
+	const [result, store] = await user.updateCustomerList(req.user.storename);
+	res.render("logged-in/customers", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		customers: result,
 		store: store,
 	});
 };

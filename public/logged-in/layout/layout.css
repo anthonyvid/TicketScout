@@ -163,7 +163,6 @@ a {
   transition: 0.3s ease-in-out;
   -webkit-transform: scale(1.03);
           transform: scale(1.03);
-  background-color: #77b6ea;
 }
 
 .main-content {

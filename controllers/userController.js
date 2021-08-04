@@ -178,13 +178,13 @@ exports.getPhone = async function (req, res) {
 };
 exports.updateTicketStatus = async function (req, res) {
 	const user = new User();
-	const tickets = await user.updateTicketStatus(
+	const [tickets, store] = await user.updateTicketStatus(
 		req.body.selection,
 		req.body.id,
 		req.user.storename
 	);
-	
-	res.json({ tickets });
+
+	res.json({ tickets, store });
 };
 exports.updateTicketIssue = async function (req, res) {
 	const user = new User();
@@ -194,6 +194,12 @@ exports.updateTicketIssue = async function (req, res) {
 		req.user.storename
 	);
 	res.json({ tickets });
+};
+
+exports.getStore = async function (req, res) {
+	const user = new User();
+	const store = await user.getStore(req.user.storename);
+	res.json({ store });
 };
 // Customers Page
 // exports.renderStoreCustomers = function (req, res) {

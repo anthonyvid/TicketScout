@@ -63,8 +63,42 @@ a:active {
 
 .header-wrap .ticket-action-container .filter-container {
   height: 100%;
-  border: 1px solid red;
+  padding: 10px 0 10px 0;
   width: calc(100% - 200px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  gap: 25px;
+}
+
+.header-wrap .ticket-action-container .filter-container .search-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 35px;
+}
+
+.header-wrap .ticket-action-container .filter-container .search-wrap input {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  text-indent: 10px;
+  border: 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+
+.header-wrap .ticket-action-container .filter-container #search-customer-wrap {
+  width: 200px;
 }
 
 .header-wrap .ticket-action-container .new-ticket-wrap {
@@ -126,6 +160,10 @@ a:active {
   display: flex;
 }
 
+.card-scroll-box table thead tr #lastUpdatedHeader {
+  text-decoration: underline;
+}
+
 .card-scroll-box table thead td {
   font-weight: 800;
   font-size: 16px;
@@ -141,6 +179,28 @@ a:active {
 
 .card-scroll-box table tbody tr:nth-of-type(odd) {
   background: #eeeeee;
+}
+
+.card-scroll-box table tbody tr .status-selects,
+.card-scroll-box table tbody tr .issue-selects {
+  -webkit-appearance: none;
+  padding: 7px 40px 7px 12px;
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  background: white;
+  -webkit-box-shadow: 0 1px 3px -2px #9098a9;
+          box-shadow: 0 1px 3px -2px #9098a9;
+  cursor: pointer;
+  outline: none;
+}
+
+.card-scroll-box table tbody tr #color {
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: red;
+  z-index: 999;
+  display: inline-block;
 }
 
 .card-scroll-box table td {

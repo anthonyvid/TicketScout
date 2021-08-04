@@ -98,8 +98,7 @@ class User {
 				},
 			}
 		);
-		const [tickets, store] = await this.updateTicketList(storename);
-		return tickets;
+		return await this.updateTicketList(storename);
 	}
 	async updateTicketIssue(selection, ticketID, storename) {
 		storesCollection.updateOne(
@@ -116,6 +115,10 @@ class User {
 		);
 		const [tickets, store] = await this.updateTicketList(storename);
 		return tickets;
+	}
+
+	async getStore(storename) {
+		return storesCollection.findOne({ storename: storename });
 	}
 
 	getCurrentDate() {
@@ -271,8 +274,6 @@ class User {
 		sortedTickets.sort((a, b) => {
 			return b[1].lastUpdated - a[1].lastUpdated;
 		});
-
-		console.log(sortedTickets);
 
 		return [sortedTickets, store];
 	}

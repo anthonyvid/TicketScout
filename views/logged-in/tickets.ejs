@@ -9,7 +9,20 @@
 					<small>View recent tickets</small>
 				</div>
 				<div class="ticket-action-container">
-					<div class="filter-container">filters go here</div>
+					<div class="filter-container">
+						<div class="search-wrap">
+							<input onkeyup="searchForID()" id="search-ID" type="text" placeholder="Search ticket ID">
+						</div>
+						<div class="search-wrap" id="search-customer-wrap">
+							<input onkeyup="searchForCustomer()" id="search-customer" type="text" placeholder="Search customer name">
+						</div>
+						<div class="search-wrap" id="search-subject-wrap">
+							<input onkeyup="searchForSubject()" id="search-subject" type="text" placeholder="Search subject">
+						</div>
+						<div class="search-wrap">
+							<input onkeyup="searchForStatus()" id="search-status" type="text" placeholder="Search status">
+						</div>
+					</div>
 					<div class="new-ticket-wrap">
 						<form action="/new-ticket" method="GET">
 							<button type="submit">New Ticket</button>
@@ -25,7 +38,9 @@
 							<td class="customer">Customer</td>
 							<td class="subject">Subject</td>
 							<td class="status">Status</td>
-							<td class="last-update">Last Updated</td>
+							<td class="last-update" id="lastUpdatedHeader">
+								<a>Last Updated</a>
+							</td>
 							<td class="issue">Issue</td>
 						</tr>
 					</thead>
@@ -43,19 +58,20 @@
 									>
 								</td>
 								<td class="subject">
-									<p class="test"></p>
 									<a class="subject_link" href="/tickets/"
 										> <%= tickets[i][1].subject %> </a
 									>
 								</td>
 								<td class="status">
+									
 									<select name="status" class="status-selects" id="status">
-										<option selected="selected">
+										
+										<option selected="selected" class="selected-option">
 												<%= tickets[i][1].status %>
 										</option>
 										<% for(let j=0; j<store.storeSettings.tickets.status.length; j++) { %>
 											<option class="status-options">
-												<%= store.storeSettings.tickets.status.filter(item=>item!==tickets[i][1].status)[j] %>
+												<%= store.storeSettings.tickets.status.filter(item => item[0] !== tickets[i][1].status).map(item => item[0])[j] %>
 											</option>
 										<% } %> 	
 									</select>

@@ -110,10 +110,8 @@ for (const element of lastUpdated) {
 	const timeDiffInMonths = timeDiffInDays * 30.417;
 
 	if (timeDiffInSec < 60) {
-		element.textContent = "Less than a minute ago";
-	} else if (timeDiffInSec > 59 && timeDiffInSec < 120) {
-		element.textContent = "1 minute ago";
-	} else if (timeDiffInSec > 120 && timeDiffInSec < 3600) {
+		element.textContent = "A minute ago";
+	} else if (timeDiffInSec > 59 && timeDiffInSec < 3600) {
 		element.textContent = `${Math.round(timeDiffInSec / 60)} minutes ago`;
 	} else if (timeDiffInSec > 3600 && timeDiffInSec < 7200) {
 		element.textContent = `1 hour ago`;
@@ -143,8 +141,7 @@ const statusSelects = document.querySelectorAll(".status-selects");
 			for (let i = 0; i < statusArray.length; i++) {
 				if (select.firstElementChild.text === statusArray[i][0]) {
 					select.style.color = `#${statusArray[i][1]}`;
-					// select.style.backgroundColor = `#${statusArray[i][1]}50`;
-					select.lastElementChild.firstElementChild.backgroundColor = `#${statusArray[i][1]}`;
+					select.previousElementSibling.style.color = `#${statusArray[i][1]}`;
 				}
 			}
 		}
@@ -167,7 +164,7 @@ for (const option of issueOptions) {
 for (const select of statusSelects) {
 	select.addEventListener("change", (e) => {
 		const id =
-			select.parentElement.parentElement.firstElementChild
+			select.parentElement.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
 		const selection = e.target.value;
 		(async () => {

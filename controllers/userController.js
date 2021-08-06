@@ -250,11 +250,19 @@ exports.createNewTicket = async function (req, res, next) {
 	}
 };
 
-exports.renderTicket = function (req, res) {
-	res.send("you requested to see ticket" + req.params.ticketID);
-};
 exports.renderCustomer = function (req, res) {
-	res.send("you requested to see customer" + req.params.phone);
+	console.log(req.params.phone);
+	res.render("logged-in/customer-profile", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
+};
+exports.renderTicket = function (req, res) {
+	console.log(req.params.ticketID);
+	res.render("logged-in/ticket-profile", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+	});
 };
 
 //Create new customer handle

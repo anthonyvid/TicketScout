@@ -1,0 +1,47 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #7e8082 !important;
+}
+
+.header-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 25px;
+  height: 75px;
+}
+
+.header-wrap .title-wrap {
+  width: 150px;
+  height: 100%;
+}
+
+.header-wrap .title-wrap h1 {
+  color: #000;
+  margin-bottom: 5px;
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.header-wrap .title-wrap small {
+  color: #717987;
+}
+/*# sourceMappingURL=ticket-profile.css.map */

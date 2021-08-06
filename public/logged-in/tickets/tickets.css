@@ -255,11 +255,24 @@ a:active {
           flex: 10%;
 }
 
+.card-scroll-box table .status div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2px;
+}
+
 .card-scroll-box table .subject {
   margin-left: 5%;
-  -webkit-box-flex: 15%;
-      -ms-flex: 15%;
-          flex: 15%;
+  -webkit-box-flex: 12%;
+      -ms-flex: 12%;
+          flex: 12%;
 }
 
 .card-scroll-box table a:hover {

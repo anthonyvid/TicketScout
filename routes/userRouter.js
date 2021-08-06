@@ -31,7 +31,11 @@ router.get(
 router.get("/dashboard", ensureAuthenticated, userController.renderDashboard);
 // Tickets Page
 router.get("/tickets", ensureAuthenticated, userController.renderStoreTickets);
-router.get("/customers", ensureAuthenticated, userController.renderStoreCustomers);
+router.get(
+	"/customers",
+	ensureAuthenticated,
+	userController.renderStoreCustomers
+);
 // Customers Page
 // router.get("/customers", userController.renderCustomers);
 // Track a shipment Handle

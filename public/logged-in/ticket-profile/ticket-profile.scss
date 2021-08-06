@@ -1,0 +1,60 @@
+$base-spacing-unit: 24px;
+$half-spacing-unit: $base-spacing-unit / 2;
+$primary-purple: #7470fb;
+$dark-purple: #3d354b;
+$second-dark-purple: #3f3539;
+$white-1: #edf5fc;
+$white-2: #fafafb;
+$light-grey: #b1aec2;
+$card-pool: #e8edf5;
+
+$main-color: #1a202e;
+$color-dark: #1d2231;
+$text-grey: #8390a2;
+
+// Main Color Scheme
+$swatch_1: #e8edf5;
+$swatch_2: #050505;
+$swatch_3: #b4becc;
+$swatch_4: #354250;
+$swatch_5: #717987;
+$bluetext: #0d2238;
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+a,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+	text-decoration: none;
+	color: #7e8082 !important;
+}
+
+.header-wrap {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 25px;
+	height: 75px;
+
+	.title-wrap {
+		width: 150px;
+		height: 100%;
+
+		h1 {
+			color: #000;
+			margin-bottom: 5px;
+			font-family: "Inter";
+			font-weight: 600;
+		}
+
+		small {
+			color: $swatch_5;
+		}
+	}
+}

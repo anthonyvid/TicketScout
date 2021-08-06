@@ -179,21 +179,12 @@ a:active {
 
 			.status-selects {
 				-webkit-appearance: none;
-				// padding: 5px 10px 5px 10px;
-				// border-radius: 25px;
 				border: none;
-				// width: min-content;
-				// display: flex;
-				// justify-content: center;
-				// align-items: center;
 				outline: none;
-				// text-align-last: center;
 				background-color: transparent;
 				margin-left: 2px;
-				// text-transform: uppercase;
 				font-weight: 600;
 				font-size: 14px;
-
 				&:hover {
 					cursor: pointer;
 				}
@@ -229,11 +220,18 @@ a:active {
 
 		.status {
 			flex: 10%;
+
+			div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 2px;
+			}
 		}
 
 		.subject {
 			margin-left: 5%;
-			flex: 15%;
+			flex: 12%;
 		}
 
 		a:hover {

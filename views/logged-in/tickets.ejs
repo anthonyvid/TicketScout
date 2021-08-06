@@ -66,18 +66,19 @@
 										>
 									</td>
 									<td class="status">
-										<span><i id="icon-color" class="fas fa-circle"></i></span>
-										<select name="status" class="status-selects" id="status">
-											<option selected="selected" class="selected-option">
-												
-													<%= tickets[i][1].status %>
-											</option>
-											<% for(let j=0; j<store.storeSettings.tickets.status.length; j++) { %>
-												<option class="status-options">
-													<%= store.storeSettings.tickets.status.filter(item => item[0] !== tickets[i][1].status).map(item => item[0])[j] %>
+										<div>
+											<i id="icon-color" class="fas fa-circle"></i>
+											<select name="status" class="status-selects" id="status">
+												<option selected="selected" class="selected-option">
+														<%= tickets[i][1].status %>
 												</option>
-											<% } %> 	
-										</select>
+												<% for(let j=0; j<store.storeSettings.tickets.status.length; j++) { %>
+													<option class="status-options">
+														<%= store.storeSettings.tickets.status.filter(item => item[0] !== tickets[i][1].status).map(item => item[0])[j] %>
+													</option>
+												<% } %> 	
+											</select>
+										</div>
 									</td>
 									<td class="last-update last-update-text"><%= tickets[i][1].lastUpdated %></td>
 									<td name="issue" class="issue" id="issue">

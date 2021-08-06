@@ -87,6 +87,8 @@ class User {
 		return phone;
 	}
 	async updateTicketStatus(selection, ticketID, storename) {
+		console.log(selection);
+		console.log(ticketID);
 		storesCollection.updateOne(
 			{
 				storename: storename,

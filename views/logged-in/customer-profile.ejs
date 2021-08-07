@@ -1,4 +1,16 @@
-<link rel="stylesheet" href="/logged-in/customer-profile/customer-profile.css" />
+<% const fullname = customer.firstname.charAt(0).toUpperCase()+customer.firstname.slice(1)+" "+customer.lastname.charAt(0).toUpperCase()+customer.lastname.slice(1); %> 
+<% let phone = ''; %> 
+<% if (customer.phone.length < 10 || customer.phone.length > 11) { %> 
+	<% phone = customer.phone %>
+<% } else if (customer.phone.length === 10) {%> 
+	<% phone = `(${customer.phone.substring(0,3)})`+' '+customer.phone.substring(3,6)+'-'+customer.phone.substring(6,10) %>
+<% } else if (customer.phone.length === 11) {%> 
+	<% phone = `+${customer.phone.substring(0,1)}`+' '+`(${customer.phone.substring(1,4)})`+' '+customer.phone.substring(4,7)+'-'+customer.phone.substring(7,11)%>
+<% } %>
+<link
+	rel="stylesheet"
+	href="/logged-in/customer-profile/customer-profile.css"
+/>
 <link rel="stylesheet" href="/logged-in/layout/layout.css" />
 <script defer src="/logged-in/customer-profile/customer-profile.js"></script>
 <div class="main-content">
@@ -6,11 +18,69 @@
 		<div class="page-header">
 			<div class="header-wrap">
 				<div class="title-wrap">
-					<h1>customer name</h1>
-					<small>View recent tickets</small>
+					<h1>
+						<%= fullname %>
+					</h1>
 				</div>
-
-			<div></div>
+			</div>
+		</div>
+		<div class="customer-content">
+			<div class="left-container container-style"></div>
+			<div class="right-container container-style">
+				<div class="heading">
+					<h2>Customer</h2>
+					<span id="edit-customer-info"><i class="fas fa-edit" ></i></span>
+				</div>
+				<div class="quick-info-wrap">
+					<div class="name">
+						<img src="/assets/customer-profile-userIcon.svg" width="40px"/>
+						<p id="name"><%= fullname %></p>
+						<div>
+							<input name="firstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= customer.firstname %> ">
+							<input name="lastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= customer.lastname %> ">
+						</div>
+						
+					</div>
+					<hr color="#eaeef5" size="1" />
+					<div class="tickets">
+						<img src="/assets/customer-profile-ticketsIcon.svg" width="40px"/>
+						<% if(Object.keys(customer.tickets).length === 0) { %>
+							<%= "No Tickets" %> 
+						<% } else if(Object.keys(customer.tickets).length === 1) { %>
+							<%= "1 Ticket" %> 
+						<% } else { %>
+							<%= Object.keys(customer.tickets).length +" Tickets"%> 
+						<% } %> 
+					</div>
+					<hr color="#eaeef5" size="1" />
+				</div>
+				<div class="contact-info-wrap">
+					<div>
+						<h3>Contact Info</h3>
+					</div>
+					<div class="info-wrap">
+						<div class="item-style">
+							<span><i class="fas fa-phone-alt"></i></span>
+							<p id="phone"><%= phone %> </p> 
+							<input name="oldPhone" form="editCustomerInfoForm" type="hidden" value="<%= phone %> ">
+							<input name="phone" form="editCustomerInfoForm" class="hidden edit-field" id="edit-phone-field" type="text" value="<%= customer.phone %>">
+						</div>
+						<div class="item-style">
+							<span><i class="fas fa-envelope"></i></span>
+							<p id="email"><%= customer.email.length === 0 ? "No Email" : customer.email%> </p>
+							<input name="email" form="editCustomerInfoForm" class="hidden edit-field" id="edit-email-field" type="email" value="<%= customer.email.length === 0 ? "" : customer.email %>">
+						</div>
+					</div>
+					<hr color="#eaeef5" size="1" />
+					
+				</div>
+				<div class="edit-info-btn-wrap">
+					<button class="hidden" id="cancel-info-change" type>Cancel</button>
+					<form id="editCustomerInfoForm" action="/update-customer-contact-info" method="POST">
+						<button class="hidden" id="submit-info-change" type="submit">Confirm Changes</button>
+					</form>					
+				</div>
+			</div>
 		</div>
 	</main>
 </div>

@@ -250,19 +250,34 @@ exports.createNewTicket = async function (req, res, next) {
 	}
 };
 
-exports.renderCustomer = function (req, res) {
-	console.log(req.params.phone);
+exports.renderCustomerProfile = async function (req, res) {
+	const user = new User();
+	const result = await user.getCustomerData(
+		req.user.storename,
+		req.params.phone
+	);
 	res.render("logged-in/customer-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		customer: result,
 	});
 };
-exports.renderTicket = function (req, res) {
-	console.log(req.params.ticketID);
+exports.renderTicketProfile = async function (req, res) {
+	const user = new User();
+	const result = await user.getTicketData(
+		req.user.storename,
+		req.params.ticketID
+	);
 	res.render("logged-in/ticket-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		ticket: result,
 	});
+};
+
+exports.updateCustomerContactInfo = async function (req, res) {
+	const user = new User();
+	await user.updateCustomerContactInfo(req.user.storename, req.body);
 };
 
 //Create new customer handle

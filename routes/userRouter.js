@@ -91,17 +91,23 @@ router.post(
 router.get(
 	"/customers/:phone",
 	ensureAuthenticated,
-	userController.renderCustomer
+	userController.renderCustomerProfile
 );
 //dynamic ticket page
 router.get(
 	"/tickets/:ticketID",
 	ensureAuthenticated,
-	userController.renderTicket
+	userController.renderTicketProfile
 );
 router.post("/get-phone", userController.getPhone);
 router.post("/update-ticket-status", userController.updateTicketStatus);
 router.post("/update-ticket-issue", userController.updateTicketIssue);
 router.get("/get-store", userController.getStore);
+
+router.post(
+	"/update-customer-contact-info",
+	ensureAuthenticated,
+	userController.updateCustomerContactInfo
+);
 
 module.exports = router;

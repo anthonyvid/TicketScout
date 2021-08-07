@@ -263,6 +263,19 @@ class User {
 		return [{}, ticket, mostRecentTicketNum];
 	}
 
+	async getCustomerData(storename, phone) {
+		//get store were working with
+		const store = await storesCollection.findOne({ storename: storename });
+
+		return store.storedata.customers[phone];
+	}
+	async getTicketData(storename, ticketID) {
+		//get store were working with
+		const store = await storesCollection.findOne({ storename: storename });
+
+		return store.storedata.tickets[ticketID];
+	}
+
 	async updateTicketList(storename) {
 		//get store we are working with
 		const store = await storesCollection.findOne({ storename: storename });
@@ -299,6 +312,10 @@ class User {
 		});
 
 		return [sortedCustomers, store];
+	}
+
+	async updateCustomerContactInfo(storename, newInfo) {
+		console.log(storename, newInfo);
 	}
 
 	async trackShipment(ticketID, user) {

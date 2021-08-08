@@ -12,6 +12,7 @@
 	href="/logged-in/customer-profile/customer-profile.css"
 />
 <link rel="stylesheet" href="/logged-in/layout/layout.css" />
+<link rel="stylesheet" href="/messages.css" />
 <script defer src="/logged-in/customer-profile/customer-profile.js"></script>
 <div class="main-content">
 	<main>
@@ -22,7 +23,9 @@
 						<%= fullname %>
 					</h1>
 				</div>
+				
 			</div>
+			<%- include('../partials/messages'); %>
 		</div>
 		<div class="customer-content">
 			<div class="left-container container-style"></div>

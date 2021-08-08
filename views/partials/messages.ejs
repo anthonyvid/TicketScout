@@ -8,6 +8,11 @@
 <div class="isa_error ticket-error"><%= ticketError[0] %></div>
 <% } %>
 
+<!--Message for updating customer info-->
+<% if(typeof updateErrors !== 'undefined') { %>
+<div class="isa_error ticket-error"><%= updateErrors[0] %></div>
+<% } %>
+
 <!--Flash Messages-->
 <% if(success_msg != '') {%>
 <div class="isa_success fade_out"><%= success_msg %></div>

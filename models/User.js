@@ -232,6 +232,22 @@ class User {
 					},
 				}
 			);
+		} else {
+			if (
+				formData.firstname.trim().toLowerCase() !==
+				store.storedata.customers[formData.phone].firstname
+			) {
+				this.errors["firstnameError"] =
+					"Firstname doesnt match account on file";
+				return [this.errors, formData];
+			} else if (
+				formData.lastname.trim().toLowerCase() !==
+				store.storedata.customers[formData.phone].lastname
+			) {
+				this.errors["lastnameError"] =
+					"Lastname doesnt match account on file";
+				return [this.errors, formData];
+			}
 		}
 
 		//Add ticket:data pair to storedata.customers
@@ -266,7 +282,7 @@ class User {
 	async getCustomerData(storename, phone) {
 		//get store were working with
 		const store = await storesCollection.findOne({ storename: storename });
-
+		console.log(phone);
 		return store.storedata.customers[phone];
 	}
 	async getTicketData(storename, ticketID) {
@@ -315,7 +331,49 @@ class User {
 	}
 
 	async updateCustomerContactInfo(storename, newInfo) {
-		console.log(storename, newInfo);
+		let { firstname, lastname, phone, email } = newInfo;
+
+		//New Data to store, not yet validated
+		firstname = firstname.trim().toLowerCase();
+		lastname = lastname.trim().toLowerCase();
+		phone = phone.trim().toLowerCase();
+		email = email.trim().toLowerCase();
+
+		//get store
+		const store = await storesCollection.findOne({ storename: storename });
+
+		//validate phone
+		if (phone.length > 0) {
+			if (
+				!/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g.test(
+					phone
+				)
+			) {
+				this.errors["phoneError"] = "Not a valid phone number";
+				return this.errors;
+			}
+			//update customers phone number
+			// storesCollection.updateOne(
+			// 	{
+			// 		storename: storename,
+			// 	},
+			// 	{
+			// 		$set: {
+			// 			[`storedata.customers.${[phone]}`]: selection,
+			// 		},
+			// 	}
+			// );
+		}
+
+		//validate email
+		if (email.length > 0) {
+			if (!validator.isEmail(email)) {
+				this.errors["emailError"] = "Not a valid email";
+				return this.errors;
+			}
+			//update customers email 
+		}
+		return {};
 	}
 
 	async trackShipment(ticketID, user) {

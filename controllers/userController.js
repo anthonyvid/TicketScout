@@ -277,7 +277,30 @@ exports.renderTicketProfile = async function (req, res) {
 
 exports.updateCustomerContactInfo = async function (req, res) {
 	const user = new User();
-	await user.updateCustomerContactInfo(req.user.storename, req.body);
+	const updateErrors = await user.updateCustomerContactInfo(
+		req.user.storename,
+		req.body
+	);
+
+	// No errors
+	if (Object.keys(updateErrors).length === 0) {
+		// res.redirect(`/customers/${newData.phone}`);
+		console.log("no errors");
+	} else {
+		console.log("errors");
+
+		const previousData = await user.getCustomerData(
+			req.user.storename,
+			req.body.oldPhone.trim().replace(/\D/g, "")
+		);
+
+		res.render("logged-in/customer-profile", {
+			layout: "layouts/logged-in-layout",
+			updateErrors: Object.values(updateErrors),
+			user: req.user,
+			customer: previousData,
+		});
+	}
 };
 
 //Create new customer handle

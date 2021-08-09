@@ -188,5 +188,34 @@ a:active {
 				}
 			}
 		}
+
+		.account-stats {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			.date-joined {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+			}
+			.invoices {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+			}
+			.estimates {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+			}
+		}
+	}
+}
+
+@media only screen and (max-height: 807px) {
+	.customer-content {
+		height: auto;
 	}
 }

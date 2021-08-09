@@ -277,15 +277,15 @@ exports.renderTicketProfile = async function (req, res) {
 
 exports.updateCustomerContactInfo = async function (req, res) {
 	const user = new User();
-	const updateErrors = await user.updateCustomerContactInfo(
+	const [updateErrors, newPhone] = await user.updateCustomerContactInfo(
 		req.user.storename,
 		req.body
 	);
 
 	// No errors
 	if (Object.keys(updateErrors).length === 0) {
-		// res.redirect(`/customers/${newData.phone}`);
-		console.log("no errors");
+		req.flash("success_update", "Updated Customer Information");
+		res.redirect(`/customers/${newPhone}`);
 	} else {
 		console.log("errors");
 

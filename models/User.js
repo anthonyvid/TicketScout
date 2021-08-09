@@ -259,7 +259,19 @@ class User {
 				$set: {
 					[`storedata.customers.${[formData.phone]}.tickets.${[
 						mostRecentTicketNum,
-					]}`]: ticket,
+					]}`]: {
+						subject: formData.subject.trim(),
+						issue: formData.issue,
+						description: formData.description.trim(),
+						status: "New",
+						shipping: {
+							tracking: "",
+							carrier: "",
+						},
+						payments: {},
+						lastUpdated: new Date().getTime(),
+						dateCreated: this.getCurrentDate(),
+					},
 				},
 			}
 		);
@@ -317,6 +329,7 @@ class User {
 
 		//create array sorted by recently updated
 		const customers = store.storedata.customers;
+		console.log(customers);
 
 		const sortedCustomers = [];
 		for (let customer in customers) {
@@ -330,50 +343,112 @@ class User {
 		return [sortedCustomers, store];
 	}
 
+	isValidPhone(phone) {
+		if (
+			/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g.test(
+				phone
+			)
+		)
+			return true;
+		return false;
+	}
+
+	isValidEmail(email) {
+		if (validator.isEmail(email)) return true;
+		return false;
+	}
+
 	async updateCustomerContactInfo(storename, newInfo) {
-		let { firstname, lastname, phone, email } = newInfo;
+		let { newFirstname, newLastname, oldPhone, newPhone, newEmail } =
+			newInfo;
 
 		//New Data to store, not yet validated
-		firstname = firstname.trim().toLowerCase();
-		lastname = lastname.trim().toLowerCase();
-		phone = phone.trim().toLowerCase();
-		email = email.trim().toLowerCase();
+		newFirstname = newFirstname.trim().toLowerCase();
+		newLastname = newLastname.trim().toLowerCase();
+		newPhone = newPhone.trim();
+		oldPhone = oldPhone.trim().replace(/\D/g, "");
+		newEmail = newEmail.trim().toLowerCase();
 
 		//get store
 		const store = await storesCollection.findOne({ storename: storename });
 
-		//validate phone
-		if (phone.length > 0) {
-			if (
-				!/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g.test(
-					phone
-				)
-			) {
-				this.errors["phoneError"] = "Not a valid phone number";
-				return this.errors;
-			}
-			//update customers phone number
-			// storesCollection.updateOne(
-			// 	{
-			// 		storename: storename,
-			// 	},
-			// 	{
-			// 		$set: {
-			// 			[`storedata.customers.${[phone]}`]: selection,
-			// 		},
-			// 	}
-			// );
+		//validate newPhone and newEmail
+		if (newPhone.length > 0) {
+			if (!this.isValidPhone(newPhone))
+				return [{ phoneError: "Not a valid phone number" }, ""];
 		}
 
-		//validate email
-		if (email.length > 0) {
-			if (!validator.isEmail(email)) {
-				this.errors["emailError"] = "Not a valid email";
-				return this.errors;
-			}
-			//update customers email 
+		if (newEmail.length > 0)
+			if (!validator.isEmail(newEmail))
+				return [{ emailError: "Not a valid email" }, ""];
+
+		//see if phone is already in system
+		if (
+			oldPhone !== newPhone &&
+			store.storedata.customers.hasOwnProperty(newPhone)
+		)
+			return [{ phoneError: "Phone already in system" }, ""];
+		else if (oldPhone !== newPhone) {
+			//update customers phone number
+			await storesCollection.updateOne(
+				{
+					storename: storename,
+				},
+				{
+					$rename: {
+						[`storedata.customers.${[
+							oldPhone,
+						]}`]: `storedata.customers.${newPhone}`,
+					},
+				}
+			);
 		}
-		return {};
+
+		//update info in customers.phone object
+		await storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.customers.${[newPhone]}.phone`]: newPhone,
+					[`storedata.customers.${[newPhone]}.firstname`]:
+						newFirstname,
+					[`storedata.customers.${[newPhone]}.lastname`]: newLastname,
+					[`storedata.customers.${[newPhone]}.email`]: newEmail,
+				},
+			}
+		);
+
+		//update info in each ticket customer has
+		if (
+			Object.keys(store.storedata.customers[oldPhone]?.tickets).length > 0
+		) {
+			const ticketsToUpdate = Object.keys(
+				store.storedata.customers[oldPhone]?.tickets
+			);
+			for (const ticket of ticketsToUpdate) {
+				await storesCollection.updateOne(
+					{ storename: storename },
+					{
+						$set: {
+							[`storedata.tickets.${[
+								ticket,
+							]}.customer.firstname`]: newFirstname,
+							[`storedata.tickets.${[ticket]}.customer.lastname`]:
+								newLastname,
+							[`storedata.tickets.${[ticket]}.customer.phone`]:
+								newPhone,
+							[`storedata.tickets.${[ticket]}.customer.email`]:
+								newEmail,
+						},
+					}
+				);
+			}
+		}
+		//TODO: NEED TO UPDATE INFORMATION IN INVOICES AND ESTIMATES AS WELL, AND ANYWHERE ELSE CUSTOMER DATA IS STORED
+
+		return [{}, newPhone];
 	}
 
 	async trackShipment(ticketID, user) {

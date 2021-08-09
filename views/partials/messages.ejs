@@ -12,6 +12,9 @@
 <% if(typeof updateErrors !== 'undefined') { %>
 <div class="isa_error ticket-error"><%= updateErrors[0] %></div>
 <% } %>
+<% if(success_update != '') { %>
+<div class="isa_success"><%= success_update %></div>
+<% } %>
 
 <!--Flash Messages-->
 <% if(success_msg != '') {%>

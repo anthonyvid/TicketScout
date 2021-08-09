@@ -39,8 +39,8 @@
 						<img src="/assets/customer-profile-userIcon.svg" width="40px"/>
 						<p id="name"><%= fullname %></p>
 						<div>
-							<input name="firstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= customer.firstname %> ">
-							<input name="lastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= customer.lastname %> ">
+							<input name="newFirstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= customer.firstname %> ">
+							<input name="newLastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= customer.lastname %> ">
 						</div>
 						
 					</div>
@@ -66,16 +66,45 @@
 							<span><i class="fas fa-phone-alt"></i></span>
 							<p id="phone"><%= phone %> </p> 
 							<input name="oldPhone" form="editCustomerInfoForm" type="hidden" value="<%= phone %> ">
-							<input name="phone" form="editCustomerInfoForm" class="hidden edit-field" id="edit-phone-field" type="text" value="<%= customer.phone %>">
+							<input name="newPhone" form="editCustomerInfoForm" class="hidden edit-field" id="edit-phone-field" type="text" value="<%= customer.phone %>">
 						</div>
 						<div class="item-style">
 							<span><i class="fas fa-envelope"></i></span>
 							<p id="email"><%= customer.email.length === 0 ? "No Email" : customer.email%> </p>
-							<input name="email" form="editCustomerInfoForm" class="hidden edit-field" id="edit-email-field" type="email" value="<%= customer.email.length === 0 ? "" : customer.email %>">
+							<input name="newEmail" form="editCustomerInfoForm" class="hidden edit-field" id="edit-email-field" type="email" value="<%= customer.email.length === 0 ? "" : customer.email %>">
 						</div>
 					</div>
 					<hr color="#eaeef5" size="1" />
 					
+				</div>
+				
+				<div class="account-stats">
+					<div class="date-joined">
+						<img src="/assets/customer-profile-dateJoinedIcon.svg" width="40px"/>
+						<p>Joined on <b><%= customer.dateJoined %></b></p>
+					</div>
+					<hr color="#eaeef5" size="1" />
+					<div class="invoices">
+						<img src="/assets/customer-profile-invoiceIcon.svg" width="40px"/>
+						<% if(Object.keys(customer.payments.invoices).length === 0) { %>
+							<%= "No Invoices" %> 
+						<% } else if(Object.keys(customer.payments.invoices).length === 1) { %>
+							<%= "1 Invoice" %> 
+						<% } else { %>
+							<%= Object.keys(customer.payments.invoices).length +" Invoices"%> 
+						<% } %> 
+					</div>
+					<hr color="#eaeef5" size="1" />
+					<div class="estimates">
+						<img src="/assets/customer-profile-estimateIcon.svg" width="40px"/>
+						<% if(Object.keys(customer.payments.estimates).length === 0) { %>
+							<%= "No Estimates" %> 
+						<% } else if(Object.keys(customer.payments.estimates).length === 1) { %>
+							<%= "1 Estimate" %> 
+						<% } else { %>
+							<%= Object.keys(customer.payments.estimates).length +" Estimates"%> 
+						<% } %> 
+					</div>
 				</div>
 				<div class="edit-info-btn-wrap">
 					<button class="hidden" id="cancel-info-change" type>Cancel</button>

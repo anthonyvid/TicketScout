@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 	res.locals.logout_msg = req.flash("logout_msg");
 	res.locals.invalid_auth = req.flash("invalid_auth");
 	res.locals.welcome_back = req.flash("welcome_back");
+	res.locals.success_update = req.flash("success_update");
 	next();
 });
 

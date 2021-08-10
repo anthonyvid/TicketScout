@@ -204,7 +204,7 @@ class User {
 			},
 			payments: {},
 			lastUpdated: new Date().getTime(),
-			dateCreated: this.getCurrentDate(),
+			dateCreated: new Date().toDateString(),
 		};
 
 		//if customer info put in is not in system, then create new customer also
@@ -270,7 +270,7 @@ class User {
 						},
 						payments: {},
 						lastUpdated: new Date().getTime(),
-						dateCreated: this.getCurrentDate(),
+						dateCreated: new Date().toDateString(),
 					},
 				},
 			}

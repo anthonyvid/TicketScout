@@ -19,17 +19,137 @@
 		<div class="page-header">
 			<div class="header-wrap">
 				<div class="title-wrap">
-					<h1>
-						<%= fullname %>
-					</h1>
+					<div>
+						<h1>
+							<%= fullname %>
+							<span> <%= phone %> </span>
+						</h1>
+					</div>
+					<div class="actions-wrap">
+						<div class="newActionBtn action-style ">
+							new<i class="fas fa-angle-down"></i>
+						</div>
+						<div class="newActionDropdown">
+							<ul>
+								<a id="newTicketActionDD" id="new-ticket-link">
+									<li id="new_ticket">Ticket</li>
+								</a>
+								<a href="/new-invoice" id="new-invoice-link">
+									<li id="new_invoice">Invoice</li>
+								</a>
+								<a href="/new-estimate" id="new-estimate-link">
+									<li id="new_estimate">Estimate</li>
+								</a>
+							</ul>
+						</div>
+						<div class="documentBtn action-style ">
+							<i class="fas fa-file-pdf"></i><i class="fas fa-angle-down"></i>
+						</div>
+						<div class="documentDropdown">
+							<ul>
+								<a>
+									<li onclick="printCustomerLabel()" id="printCustomerLabel">print customer label</li>
+								</a>
+							</ul>
+						</div>
+					</div>
 				</div>
-				
 			</div>
 			<%- include('../partials/messages'); %>
 		</div>
 		<div class="customer-content">
-			<div class="left-container container-style"></div>
-			<div class="right-container container-style">
+			<div class="left-container">
+				<div class="tickets-table table-style ">
+					<div>
+						<div class="table-title">
+							<span></span>
+							<p>TICKETS</p>
+							<button class="new-btn">new</button>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<td class="">Ticket ID</td>
+									<td class="">Subject</td>
+									<td class="">Date Created</td>
+									<td class="">Status</td>
+								</tr>
+							</thead>
+							<tbody>
+								<% if(Object.keys(customer.tickets).length === 0) { %>
+									<tr>
+										<td>No Tickets</td>
+									</tr>
+								<% } else {%> 
+									<% for(const ticket in customer.tickets) { %>
+										<tr>
+											<td class="ticketID"><a href="/tickets/"><%= ticket %></a></td>
+											<td class="ticket_subject"><a href="/tickets/"><%= customer.tickets[ticket].subject %></a></td>
+											<td class="ticket_date"><%= customer.tickets[ticket].dateCreated %></td>
+											<td class="ticket_status"><%= customer.tickets[ticket].status %></td>
+										</tr>
+									<% } %>
+								<% } %> 
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="invoices-table table-style">
+					<div>
+						<div class="table-title">
+							<span></span>
+							<p>INVOICES</p>
+							<button class="new-btn">new</button>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<td class="">Ticket ID</td>
+									<td class="">Subject</td>
+									<td class="">Date Created</td>
+									<td class="">Status</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href=""> hello</a></td>
+									<td><a href=""> hello</a></td>
+									<td><a href=""> hello</a></td>
+									<td><a href=""> hello</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="estimates-table table-style">
+					<div>
+						<div class="table-title">
+							<span></span>
+							<p>ESTIMATES</p>
+							<button class="new-btn">new</button>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<td class="">Ticket ID</td>
+									<td class="">Subject</td>
+									<td class="">Date Created</td>
+									<td class="">Status</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href=""> hello</a></td>
+									<td><a href=""> hello</a></td>
+									<td><a href=""> hello</a></td>
+									<td><a href=""> hello</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="right-container">
 				<div class="heading">
 					<h2>Customer</h2>
 					<span id="edit-customer-info"><i class="fas fa-edit" ></i></span>
@@ -114,5 +234,12 @@
 				</div>
 			</div>
 		</div>
+		<form action="/create-new-" method="POST" id="createNewForm">
+			<input type="hidden" name="firstname" id="firstname" value="<%=customer.firstname%>">			
+			<input type="hidden" name="lastname" id="lastname" value="<%=customer.lastname%>">			
+			<input type="hidden" name="phone" id="phone" value="<%=customer.phone%>">			
+			<input type="hidden" name="email" id="email" value="<%=customer.email%>">			
+			<input type="hidden" name="customer_and_ticket" id="customer_and_ticket" value="">			
+		</form>
 	</main>
 </div>

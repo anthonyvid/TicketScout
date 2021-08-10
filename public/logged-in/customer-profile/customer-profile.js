@@ -27,3 +27,91 @@ cancelChangeBtn.addEventListener("click", () => {
 	cancelChangeBtn.classList.add("hidden");
 	submitChangeBtn.classList.add("hidden");
 });
+
+const ticketIDs = document.querySelectorAll(".ticketID");
+const ticketSubjects = document.querySelectorAll(".ticket_subject");
+
+for (ticket of ticketIDs) {
+	const id = ticket.firstElementChild.textContent.trim();
+	ticket.firstElementChild.href += id;
+}
+
+for (subject of ticketSubjects) {
+	const id =
+		subject.previousElementSibling.firstElementChild.textContent.trim();
+	subject.firstElementChild.href += id;
+}
+
+const createNewForm = document.getElementById("createNewForm");
+const newBtn = document.querySelectorAll(".new-btn");
+
+for (const btn of newBtn) {
+	btn.addEventListener("click", () => {
+		const path = btn.previousElementSibling.textContent
+			.trim()
+			.toLowerCase()
+			.slice(0, -1);
+		createNewForm.action += path;
+
+		if (path === "ticket") {
+			document.getElementById("customer_and_ticket").value = "true";
+			createNewForm.action = "/create-new-customer";
+			createNewForm.submit();
+		} else {
+			createNewForm.submit();
+		}
+	});
+}
+
+document.getElementById("newTicketActionDD").addEventListener("click", () => {
+	document.getElementById("customer_and_ticket").value = "true";
+	createNewForm.action = "/create-new-customer";
+	createNewForm.submit();
+});
+
+const newActionBtn = document.querySelector(".newActionBtn");
+
+newActionBtn.addEventListener("click", () => {
+	document
+		.querySelector(".newActionDropdown")
+		.classList.toggle("show-create-new-dd");
+});
+
+const documentBtn = document.querySelector(".documentBtn");
+
+documentBtn.addEventListener("click", () => {
+	document
+		.querySelector(".documentDropdown")
+		.classList.toggle("show-create-new-dd");
+});
+
+document.addEventListener("keydown", function (e) {
+	let keyCode = e.keyCode;
+	if (
+		document
+			.querySelector(".newActionDropdown")
+			.classList.contains("show-create-new-dd")
+	) {
+		if (keyCode === 27) {
+			document
+				.querySelector(".newActionDropdown")
+				.classList.toggle("show-create-new-dd");
+		}
+	}
+	if (
+		document
+			.querySelector(".documentDropdown")
+			.classList.contains("show-create-new-dd")
+	) {
+		if (keyCode === 27) {
+			document
+				.querySelector(".documentDropdown")
+				.classList.toggle("show-create-new-dd");
+		}
+	}
+});
+
+function printCustomerLabel() {
+	//need to figure out how im gonna make it print labels
+	console.log("PRINT LABEL");
+}

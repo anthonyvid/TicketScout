@@ -216,7 +216,7 @@ a {
 				display: none;
 				position: fixed;
 				width: 175px;
-				height: 160px;
+				height: 120px;
 				top: 55px;
 				left: 300px;
 				background-color: #fff;
@@ -259,13 +259,9 @@ a {
 					}
 				}
 
-				#new_estimate:hover {
+				#new_payment:hover {
 					border-bottom-left-radius: 5px;
 					border-bottom-right-radius: 5px;
-				}
-				#new_ticket:hover {
-					border-top-left-radius: 5px;
-					border-top-right-radius: 5px;
 				}
 			}
 		}

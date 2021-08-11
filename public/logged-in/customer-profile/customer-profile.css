@@ -100,7 +100,7 @@ a:active {
   display: none;
   position: fixed;
   width: 175px;
-  height: 120px;
+  height: 80px;
   top: 155px;
   left: 587px;
   background-color: #fff;
@@ -189,6 +189,11 @@ a:active {
 .header-wrap .title-wrap .actions-wrap .show-create-new-dd #printCustomerLabel:hover {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.header-wrap .title-wrap .actions-wrap .show-create-new-dd #pdfCustomerLabel:hover {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .hidden {
@@ -528,17 +533,7 @@ a:active {
   gap: 20px;
 }
 
-.customer-content .right-container .account-stats .invoices {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 20px;
-}
-
-.customer-content .right-container .account-stats .estimates {
+.customer-content .right-container .account-stats .payments {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

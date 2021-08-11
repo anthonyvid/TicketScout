@@ -138,28 +138,26 @@ a:active {
 		width: 100%;
 		display: table;
 		border: 1px solid $swatch_1;
+		text-align: left;
 
 		thead tr {
-			display: flex;
 			background-color: #f9fbfc;
 			border: 1px solid $swatch_1;
+
 			#lastUpdatedHeader {
 				text-decoration: underline;
 			}
-		}
 
-		thead td {
-			font-weight: 800;
-			font-size: 14px;
-			padding: ($half-spacing-unit * 1.5) 0;
-			padding-left: 15px;
-			color: #7e8082 !important;
+			td {
+				font-weight: 800;
+				font-size: 14px;
+				color: #7e8082 !important;
+				padding: 10px;
+				padding-left: 3rem;
+			}
 		}
 
 		tbody tr {
-			display: flex;
-			align-items: center;
-			padding: ($half-spacing-unit * 1.5) 0;
 			background-color: white;
 			border: 1px solid $swatch_1;
 
@@ -197,45 +195,25 @@ a:active {
 					color: #575758 !important;
 				}
 			}
-		}
 
-		td {
-			padding: 0.5rem 1rem;
-			font-size: 0.9rem;
-			color: #7e8082 !important;
-			flex: 1 1 20%;
-			text-align: left;
-		}
-		.ticket-id {
-			flex: 5%;
-			margin-left: 2%;
-		}
-
-		.last-update,
-		.issue,
-		// .status,
-		.customer {
-			flex: 6%;
-		}
-
-		.status {
-			flex: 10%;
-
-			div {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 2px;
+			td {
+				font-size: 0.9rem;
+				color: #7e8082 !important;
+				padding: 15px;
+				padding-left: 3rem;
 			}
-		}
 
-		.subject {
-			margin-left: 5%;
-			flex: 12%;
-		}
+			.status {
+				div {
+					display: flex;
+					align-items: center;
+					gap: 2px;
+				}
+			}
 
-		a:hover {
-			text-decoration: underline;
+			a:hover {
+				text-decoration: underline;
+			}
 		}
 	}
 }

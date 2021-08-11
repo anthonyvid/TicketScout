@@ -57,18 +57,13 @@ router.get(
 	ensureAuthenticated,
 	userController.renderCreateNewCustomer
 );
-//create new invoice page
+//create new payment page
 router.get(
-	"/new-invoice",
+	"/new-payment",
 	ensureAuthenticated,
-	userController.renderCreateNewInvoice
+	userController.renderCreateNewPayment
 );
-//create new estimate page
-router.get(
-	"/new-estimate",
-	ensureAuthenticated,
-	userController.renderCreateNewEstimate
-);
+
 //account settings page
 router.get(
 	"/account-settings",
@@ -86,6 +81,12 @@ router.post(
 	"/create-new-customer",
 	ensureAuthenticated,
 	userController.createNewCustomer
+);
+//create new payment handle
+router.post(
+	"/create-new-payment",
+	ensureAuthenticated,
+	userController.createNewpayment
 );
 //dynamic customer page
 router.get(

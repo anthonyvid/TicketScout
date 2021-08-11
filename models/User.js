@@ -34,6 +34,15 @@ class User {
 		});
 	}
 
+	async getPaymentSettings(storename) {
+		const store = await storesCollection.findOne({ storename: storename });
+		return store.storeSettings.payments;
+	}
+
+	async createNewpayment(formData, storename) {
+		return;
+	}
+
 	async createNewCustomer(formData, storename) {
 		//validate phone number
 		if (!validator.isMobilePhone(formData.phone)) {
@@ -58,10 +67,7 @@ class User {
 			lastname: formData.lastname.trim().toLowerCase(),
 			phone: formData.phone.trim(),
 			email: formData.email.trim().toLowerCase(),
-			payments: {
-				invoices: {},
-				estimates: {},
-			},
+			payments: {},
 			tickets: {},
 			dateJoined: new Date().toDateString(),
 		};
@@ -214,10 +220,7 @@ class User {
 				lastname: formData.lastname.trim().toLowerCase(),
 				phone: formData.phone.trim(),
 				email: formData.email.trim().toLowerCase(),
-				payments: {
-					invoices: {},
-					estimates: {},
-				},
+				payments: {},
 				tickets: {},
 				dateJoined: new Date().toDateString(),
 			};

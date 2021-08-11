@@ -1,0 +1,375 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap");
+.title-wrap h1 {
+  color: #000;
+  margin-bottom: 5px;
+  font-family: "Inter";
+  font-weight: 600;
+}
+
+.title-wrap small {
+  color: #717987;
+}
+
+.new-payment-container {
+  width: 100%;
+  height: calc(100vh - 220px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 10px;
+  margin-top: 20px;
+  gap: 30px;
+  background-color: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+  padding: 20px 45px 20px 45px;
+}
+
+.new-payment-container .content-container {
+  width: 100%;
+  height: 100%;
+}
+
+.new-payment-container .content-container form {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.new-payment-container .content-container form .info-container {
+  height: 100%;
+  width: 50%;
+  padding: 50px 45px 20px 45px;
+}
+
+.new-payment-container .content-container form .info-container h3 {
+  margin-bottom: 25px;
+  font-family: "Padauk";
+  font-weight: bold;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap div small {
+  color: #b4becc;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap label {
+  text-transform: uppercase;
+  color: #717987;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Padauk" bold;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap input {
+  margin-bottom: 40px;
+  border-radius: 3px;
+  background-color: #f7f7f7;
+  border: 0;
+  height: 50px;
+  text-indent: 10px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap input:focus, .new-payment-container .content-container form .info-container .input-wrap input:valid:not(#email) {
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap #categorySelect {
+  margin-bottom: 40px;
+  border-radius: 3px;
+  background-color: #f7f7f7;
+  border: 0;
+  height: 50px;
+  text-indent: 10px;
+  outline: none;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap #categorySelect:focus {
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap #categorySelect:hover {
+  cursor: pointer;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 15px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .card,
+.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .cash {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+  width: 50%;
+  height: 50px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  font-weight: 600;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .card:hover,
+.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .cash:hover {
+  cursor: pointer;
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 25px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .input-dollar-sign {
+  position: relative;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .input-dollar-sign::before {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  content: "$";
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .left input {
+  padding-left: 15px;
+  border-radius: 3px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #tax_amount {
+  width: 75px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #quantity {
+  width: 35px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #tax_dollar_amount {
+  margin-left: -25px;
+  width: 75px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #tax_dollar {
+  margin-left: -16px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings label {
+  margin-top: -25px;
+  margin-bottom: 9px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings select {
+  height: 50px;
+  width: 75px;
+  padding-left: 5px;
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+  border-radius: 3px;
+}
+
+.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings select:hover {
+  cursor: pointer;
+}
+
+.new-payment-container .content-container form .info-container .button-wrap {
+  width: 100%;
+  height: 50px;
+}
+
+.new-payment-container .content-container form .info-container .button-wrap button {
+  float: right;
+  height: 100%;
+  width: 150px;
+  border-radius: 5px;
+  border: 0;
+  background-color: black;
+  color: white;
+  -webkit-box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+          box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+
+.new-payment-container .content-container form .info-container .button-wrap button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+@media only screen and (max-width: 1400px) {
+  .new-payment-container .content-container form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .new-payment-container .content-container form .info-container {
+    width: 100%;
+    padding-top: 10px;
+  }
+  .new-ticket-container {
+    height: auto;
+  }
+}
+
+@media only screen and (max-height: 880px) {
+  .new-payment-container .content-container form .info-container {
+    padding-top: 10px;
+  }
+  .new-payment-container .content-container form .info-container .input-wrap input,
+  .new-payment-container .content-container form .info-container .input-wrap select,
+  .new-payment-container .content-container form .info-container .input-wrap textarea {
+    margin-bottom: 30px;
+  }
+  .new-payment-container .content-container form .info-container .input-wrap textarea {
+    height: 157px;
+    padding: 2px;
+  }
+  .new-payment-container .content-container form .info-container .button-wrap {
+    margin-top: -10px;
+  }
+}
+
+@media only screen and (max-height: 785px) {
+  .new-payment-container .content-container form .info-container {
+    padding-top: 10px;
+  }
+  .new-payment-container .content-container form .info-container .input-wrap input,
+  .new-payment-container .content-container form .info-container .input-wrap select,
+  .new-payment-container .content-container form .info-container .input-wrap textarea {
+    margin-bottom: 20px;
+  }
+  .new-payment-container .content-container form .info-container .input-wrap textarea {
+    height: 147px;
+    padding: 2px;
+  }
+  .new-payment-container .content-container form .info-container .button-wrap {
+    margin-top: -10px;
+  }
+}
+
+@media only screen and (max-height: 735px) {
+  .new-payment-container {
+    height: auto;
+  }
+}
+
+@media only screen and (max-height: 735px) and (min-width: 1400px) {
+  .new-payment-container {
+    height: auto;
+  }
+}
+/*# sourceMappingURL=create-new-payment.css.map */

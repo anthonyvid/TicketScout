@@ -1,0 +1,185 @@
+<link
+	rel="stylesheet"
+	href="/logged-in/create-new-payment/create-new-payment.css"
+/>
+<script
+	defer
+	src="/logged-in/create-new-payment/create-new-payment.js"
+></script>
+<link rel="stylesheet" href="/messages.css" />
+<div class="main-content">
+	<main>
+		<div class="page-header">
+			<div class="header-wrap">
+				<div class="title-wrap">
+					<h1>New Payment</h1>
+					<small
+						>Add a new ticket by filling in the information
+						below</small
+					>
+					<%- include('../partials/messages'); %>
+				</div>
+			</div>
+		</div>
+		<div class="new-payment-container">
+			<div class="content-container">
+				<form
+					action="/create-new-payment"
+					method="POST"
+					id="paymentForm"
+				>
+					<div class="info-container">
+						<h3>Customer Information</h3>
+						<div class="input-wrap">
+							<label for="">First name</label>
+							<input
+								type="text"
+								name="firstname"
+								id=""
+								placeholder="John"
+								required
+								autocomplete="nope"
+								value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
+							/>
+						</div>
+						<div class="input-wrap">
+							<label for="">Last name</label>
+							<input
+								type="text"
+								name="lastname"
+								id=""
+								placeholder="Smith"
+								required
+								autocomplete="nope"
+								value="<%= typeof lastname != 'undefined' ? lastname : '' %>"
+							/>
+						</div>
+						<div class="input-wrap">
+							<label for="">Phone number</label>
+							<input
+								type="text"
+								name="phone"
+								id=""
+								placeholder="123-356-7890"
+								required
+								autocomplete="nope"
+								value="<%= typeof phone != 'undefined' ? phone : '' %>"
+							/>
+						</div>
+						<div class="input-wrap">
+							<div>
+								<label for="">Email</label>
+								<small>Optional</small>
+							</div>
+
+							<input
+								type="email"
+								name="email"
+								id="email"
+								placeholder="example@hello.com"
+								value="<%= typeof email != 'undefined' ? email : '' %>"
+							/>
+						</div>
+					</div>
+					<div class="info-container">
+						<h3>Payment Information</h3>
+						<div class="input-wrap">
+							<label for="">Category</label>
+							<select name="categorySelect" id="categorySelect">
+								<% if(payments.categories.length === 0) {%>
+									<option selected hidden>
+										Categories Not Setup 
+									</option>
+								<% } else { %>
+									<option selected hidden>Choose Category</option>
+									<% for(let i=0; i<payments.categories.length; i++) { %>
+										<option value="<%= payments.categories[i] %>"><%= payments.categories[i] %></option>
+									<% } %> 
+								<% } %>
+							</select>
+						</div>
+						<div class="input-wrap">
+							<label for="">Description</label>
+							<input
+								type="text"
+								name="description"
+								placeholder="Brief description of item"
+								required
+								autocomplete="nope"
+							/>
+						</div>
+						<div class="input-wrap">
+							<label for="">Amount</label>
+							<div class="amount-wrap">
+								<span class="input-dollar-sign left">
+									<input
+										type="text"
+										name="amount"
+										placeholder="Amount"
+										required
+										autocomplete="nope"
+										id="payment-amount"
+									/>
+								</span>
+								<div class="tax-settings">
+									<label for="">Tax</label>
+									<select name="tax" id="tax">
+										<option selected value="true">Yes</option>
+										<option value="false">No</option>
+									</select>
+								</div>
+								<div class="tax-settings">
+									<label for="">%</label>
+									<input type="text" value="<%= `${payments.taxRate}%` %>" id="tax_amount" readonly>
+								</div>
+								<div class="tax-settings">
+									<label for="" id="tax_dollar">$</label>
+									<input type="number" value="0.00" id="tax_dollar_amount" readonly>
+								</div>
+								<div class="tax-settings qty">
+									<label for="">Qty</label>
+									<input type="number" min="1" value="1" step="1" id="quantity">
+								</div>
+								<div class="tax-settings total">
+									<label for="">Total</label>
+									<input id="total" type="number" min="0.01" value="0.00" readonly>
+								</div>
+							</div>
+						</div>
+						<div class="input-wrap">
+							<label for="">Type of payment</label>
+							<div class="typeof-payment-wrap">
+								<div class="card">
+									<i class="fas fa-credit-card"></i>
+									<span>Card</span>
+									<input
+										class="card-input"
+										type="hidden"
+										name="card"
+										value="false"
+									/>
+								</div>
+								<div class="cash">
+									<i class="fas fa-money-bill"></i>
+									<input
+										class="cash-input"
+										type="hidden"
+										name="cash"
+										value="false"
+									/>
+									<span>Cash</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="button-wrap">
+							<button id="complete_payment_btn" type="button">
+								Complete Payment
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+</div>

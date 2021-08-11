@@ -130,16 +130,14 @@ exports.renderCreateNewCustomer = function (req, res) {
 		user: req.user,
 	});
 };
-exports.renderCreateNewInvoice = function (req, res) {
-	res.render(`logged-in/create-new-invoice`, {
+exports.renderCreateNewPayment = async function (req, res) {
+	const user = new User();
+	const paymentSettings = await user.getPaymentSettings(req.user.storename);
+
+	res.render(`logged-in/create-new-payment`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
-	});
-};
-exports.renderCreateNewEstimate = function (req, res) {
-	res.render(`logged-in/create-new-estimate`, {
-		layout: "layouts/logged-in-layout",
-		user: req.user,
+		payments: paymentSettings,
 	});
 };
 
@@ -305,7 +303,7 @@ exports.updateCustomerContactInfo = async function (req, res) {
 
 //Create new customer handle
 exports.createNewCustomer = async function (req, res) {
-	if (req.body.customer_and_ticket == "true") {
+	if (req.body.customerDataExists == "true") {
 		res.render("logged-in/create-new-ticket", {
 			layout: "layouts/logged-in-layout",
 			user: req.user,
@@ -337,21 +335,26 @@ exports.createNewCustomer = async function (req, res) {
 			});
 		}
 	}
+};
 
-	// // No errors
-	// if (Object.keys(ticketError).length == 0) {
-	// 	//if they choose to create ticket and customer
-	// 	if (req.body.customer_and_ticket == "true") {
-	// 		res.render("logged-in/create-new-ticket", {
-	// 			layout: "layouts/logged-in-layout",
-	// 			user: req.user,
-	// 			firstname: data.firstname,
-	// 			lastname: data.lastname,
-	// 			phone: data.phone,
-	// 			email: data.email,
-	// 		});
-	// 	} else if (req.body.customer_and_ticket == "false") {
-	// 		console.log("testt");
-	// 	}
-	// }
+exports.createNewpayment = async function (req, res) {
+	const user = new User();
+
+	if (req.body.customerDataExists == "true") {
+		const paymentSettings = await user.getPaymentSettings(
+			req.user.storename
+		);
+
+		res.render("logged-in/create-new-payment", {
+			layout: "layouts/logged-in-layout",
+			user: req.user,
+			payments: paymentSettings,
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			phone: req.body.phone,
+			email: req.body.email,
+		});
+	}
+
+	await user.createNewpayment();
 };

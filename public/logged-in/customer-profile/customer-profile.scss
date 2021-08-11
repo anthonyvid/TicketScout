@@ -95,7 +95,7 @@ a:active {
 				display: none;
 				position: fixed;
 				width: 175px;
-				height: 120px;
+				height: 80px;
 				top: 155px;
 				left: 587px;
 				background-color: #fff;
@@ -162,6 +162,10 @@ a:active {
 				#printCustomerLabel:hover {
 					border-top-left-radius: 5px;
 					border-top-right-radius: 5px;
+				}
+				#pdfCustomerLabel:hover {
+					border-bottom-left-radius: 5px;
+					border-bottom-right-radius: 5px;
 				}
 			}
 		}
@@ -404,12 +408,7 @@ a:active {
 				align-items: center;
 				gap: 20px;
 			}
-			.invoices {
-				display: flex;
-				align-items: center;
-				gap: 20px;
-			}
-			.estimates {
+			.payments {
 				display: flex;
 				align-items: center;
 				gap: 20px;
@@ -423,4 +422,3 @@ a:active {
 		overflow-y: auto;
 	}
 }
-

@@ -247,7 +247,7 @@ a {
   display: none;
   position: fixed;
   width: 175px;
-  height: 160px;
+  height: 120px;
   top: 55px;
   left: 300px;
   background-color: #fff;
@@ -308,14 +308,9 @@ a {
   color: white;
 }
 
-.main-content header .search-box .show-create-new-dd #new_estimate:hover {
+.main-content header .search-box .show-create-new-dd #new_payment:hover {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-}
-
-.main-content header .search-box .show-create-new-dd #new_ticket:hover {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
 }
 
 .main-content header input:focus,

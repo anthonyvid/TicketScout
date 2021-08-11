@@ -39,14 +39,17 @@ class Admin extends User {
 				employees: [],
 				storedata: {
 					tickets: {},
-					customers: [],
-					estimates: [],
-					invoices: [],
+					customers: {},
+					payments: {},
 				},
 				storeSettings: {
 					tickets: {
-						status: ["new"],
+						status: [["New", "88D18A"], [("Resolved", "124559")]],
 						issue: [],
+					},
+					payments: {
+						categories: [],
+						taxRate: ""
 					},
 				},
 			});

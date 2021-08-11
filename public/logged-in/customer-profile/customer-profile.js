@@ -54,10 +54,12 @@ for (const btn of newBtn) {
 		createNewForm.action += path;
 
 		if (path === "ticket") {
-			document.getElementById("customer_and_ticket").value = "true";
+			document.getElementById("customerDataExists").value = "true";
 			createNewForm.action = "/create-new-customer";
 			createNewForm.submit();
-		} else {
+		} else if (path === "payment") {
+			document.getElementById("customerDataExists").value = "true";
+			createNewForm.action = "/create-new-payment";
 			createNewForm.submit();
 		}
 	});
@@ -114,4 +116,7 @@ document.addEventListener("keydown", function (e) {
 function printCustomerLabel() {
 	//need to figure out how im gonna make it print labels
 	console.log("PRINT LABEL");
+}
+function pdfCustomerLabel() {
+	console.log("PDF LABEL");
 }

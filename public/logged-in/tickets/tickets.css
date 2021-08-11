@@ -152,12 +152,10 @@ a:active {
   width: 100%;
   display: table;
   border: 1px solid #e8edf5;
+  text-align: left;
 }
 
 .card-scroll-box table thead tr {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   background-color: #f9fbfc;
   border: 1px solid #e8edf5;
 }
@@ -166,22 +164,15 @@ a:active {
   text-decoration: underline;
 }
 
-.card-scroll-box table thead td {
+.card-scroll-box table thead tr td {
   font-weight: 800;
   font-size: 14px;
-  padding: 18px 0;
-  padding-left: 15px;
   color: #7e8082 !important;
+  padding: 10px;
+  padding-left: 3rem;
 }
 
 .card-scroll-box table tbody tr {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 18px 0;
   background-color: white;
   border: 1px solid #e8edf5;
 }
@@ -224,58 +215,24 @@ a:active {
   color: #575758 !important;
 }
 
-.card-scroll-box table td {
-  padding: 0.5rem 1rem;
+.card-scroll-box table tbody tr td {
   font-size: 0.9rem;
   color: #7e8082 !important;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 20%;
-          flex: 1 1 20%;
-  text-align: left;
+  padding: 15px;
+  padding-left: 3rem;
 }
 
-.card-scroll-box table .ticket-id {
-  -webkit-box-flex: 5%;
-      -ms-flex: 5%;
-          flex: 5%;
-  margin-left: 2%;
-}
-
-.card-scroll-box table .last-update,
-.card-scroll-box table .issue,
-.card-scroll-box table .customer {
-  -webkit-box-flex: 6%;
-      -ms-flex: 6%;
-          flex: 6%;
-}
-
-.card-scroll-box table .status {
-  -webkit-box-flex: 10%;
-      -ms-flex: 10%;
-          flex: 10%;
-}
-
-.card-scroll-box table .status div {
+.card-scroll-box table tbody tr .status div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   gap: 2px;
 }
 
-.card-scroll-box table .subject {
-  margin-left: 5%;
-  -webkit-box-flex: 12%;
-      -ms-flex: 12%;
-          flex: 12%;
-}
-
-.card-scroll-box table a:hover {
+.card-scroll-box table tbody tr a:hover {
   text-decoration: underline;
 }
 /*# sourceMappingURL=tickets.css.map */

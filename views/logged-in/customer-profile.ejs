@@ -50,6 +50,9 @@
 								<a>
 									<li onclick="printCustomerLabel()" id="printCustomerLabel">print customer label</li>
 								</a>
+								<a>
+									<li onclick="pdfCustomerLabel()" id="pdfCustomerLabel">pdf customer label</li>
+								</a>
 							</ul>
 						</div>
 					</div>
@@ -94,38 +97,11 @@
 						</table>
 					</div>
 				</div>
-				<div class="invoices-table table-style">
+				<div class="payments-table table-style">
 					<div>
 						<div class="table-title">
 							<span></span>
-							<p>INVOICES</p>
-							<button class="new-btn">new</button>
-						</div>
-						<table>
-							<thead>
-								<tr>
-									<td class="">Ticket ID</td>
-									<td class="">Subject</td>
-									<td class="">Date Created</td>
-									<td class="">Status</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><a href=""> hello</a></td>
-									<td><a href=""> hello</a></td>
-									<td><a href=""> hello</a></td>
-									<td><a href=""> hello</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="estimates-table table-style">
-					<div>
-						<div class="table-title">
-							<span></span>
-							<p>ESTIMATES</p>
+							<p>PAYMENTS</p>
 							<button class="new-btn">new</button>
 						</div>
 						<table>
@@ -204,27 +180,17 @@
 						<p>Joined on <b><%= customer.dateJoined %></b></p>
 					</div>
 					<hr color="#eaeef5" size="1" />
-					<div class="invoices">
+					<div class="payments">
 						<img src="/assets/customer-profile-invoiceIcon.svg" width="40px"/>
-						<% if(Object.keys(customer.payments.invoices).length === 0) { %>
-							<%= "No Invoices" %> 
-						<% } else if(Object.keys(customer.payments.invoices).length === 1) { %>
-							<%= "1 Invoice" %> 
+						<% if(Object.keys(customer.payments).length === 0) { %>
+							<%= "No Payments" %> 
+						<% } else if(Object.keys(customer.payments).length === 1) { %>
+							<%= "1 Payment" %> 
 						<% } else { %>
-							<%= Object.keys(customer.payments.invoices).length +" Invoices"%> 
+							<%= Object.keys(customer.payments).length +" Payments"%> 
 						<% } %> 
 					</div>
 					<hr color="#eaeef5" size="1" />
-					<div class="estimates">
-						<img src="/assets/customer-profile-estimateIcon.svg" width="40px"/>
-						<% if(Object.keys(customer.payments.estimates).length === 0) { %>
-							<%= "No Estimates" %> 
-						<% } else if(Object.keys(customer.payments.estimates).length === 1) { %>
-							<%= "1 Estimate" %> 
-						<% } else { %>
-							<%= Object.keys(customer.payments.estimates).length +" Estimates"%> 
-						<% } %> 
-					</div>
 				</div>
 				<div class="edit-info-btn-wrap">
 					<button class="hidden" id="cancel-info-change" type>Cancel</button>
@@ -239,7 +205,7 @@
 			<input type="hidden" name="lastname" id="lastname" value="<%=customer.lastname%>">			
 			<input type="hidden" name="phone" id="phone" value="<%=customer.phone%>">			
 			<input type="hidden" name="email" id="email" value="<%=customer.email%>">			
-			<input type="hidden" name="customer_and_ticket" id="customer_and_ticket" value="">			
+			<input type="hidden" name="customerDataExists" id="customerDataExists" value="">			
 		</form>
 	</main>
 </div>

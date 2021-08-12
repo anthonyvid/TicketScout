@@ -337,8 +337,9 @@ exports.createNewCustomer = async function (req, res) {
 	}
 };
 
-exports.createNewpayment = async function (req, res) {
+exports.createNewPayment = async function (req, res) {
 	const user = new User();
+	console.log("yaaaaaaaaaaaaa");
 
 	if (req.body.customerDataExists == "true") {
 		const paymentSettings = await user.getPaymentSettings(
@@ -356,5 +357,5 @@ exports.createNewpayment = async function (req, res) {
 		});
 	}
 
-	await user.createNewpayment();
+	await user.createNewpayment(req.body);
 };

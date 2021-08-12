@@ -2,33 +2,44 @@ const card = document.querySelector(".card");
 const cardInput = document.querySelector(".card-input");
 const cash = document.querySelector(".cash");
 const cashInput = document.querySelector(".cash-input");
-const paymentBtn = document.getElementById("complete_payment_btn");
+const paymentBtn = document.getElementById("complete-payment-btn");
 const paymentForm = document.getElementById("paymentForm");
-const taxSelection = document.getElementById("tax");
-const storeTaxRate = document.getElementById("tax_amount").value;
+const cardOptions = document.querySelectorAll(".type");
+let cardChoice = "";
 
-taxSelection.addEventListener("input", () => {
-	if (
-		Array.from(
-			taxSelection.selectedOptions,
-			({ textContent }) => textContent
-		)[0] === "No"
-	) {
-		document.getElementById("tax_amount").value = "0%";
-	} else {
-		document.getElementById("tax_amount").value = storeTaxRate;
-	}
-});
+let orderItems = [];
 
-function getTaxVal() {
-	console.log("yaa");
+cardOptions.forEach((cardType) =>
+	cardType.addEventListener("click", () => {
+		for (const card of cardOptions) {
+			if (card.classList.contains(".selected")) {
+				card.classList.remove(".selected");
+				card.value = "false";
+				card.firstElementChild.value = "false";
+				card.style.backgroundColor = "white";
+				card.style.border = "1px solid lightgrey";
+				card.style.color = "black";
+			}
+		}
 
-	console.log(taxSelection.value);
-	if (taxSelection.value === "False")
-		document.getElementById("tax_amount").textContent = "0%";
+		cardType.classList.add(".selected");
+		cardType.firstElementChild.value = "true";
+		cardType.style.backgroundColor = "#9ecaed";
+		cardType.style.border = "none";
+		cardType.style.color = "white";
+		cardChoice = cardType.textContent.trim();
+	})
+);
+
+function btnTransition() {
+	document.getElementById("complete-payment-btn").style.width = "50%";
+	setTimeout(() => {
+		document.querySelector(".card-options").style.display = "flex";
+	}, 200);
 }
 
 card.addEventListener("click", () => {
+	btnTransition();
 	card.classList.add(".selected");
 	cardInput.value = "true";
 	cash.classList.remove(".selected");
@@ -55,41 +66,184 @@ cash.addEventListener("click", () => {
 	card.style.backgroundColor = "white";
 	card.style.border = "1px solid lightgrey";
 	card.style.color = "black";
+
+	document.getElementById("complete-payment-btn").style.width = "100%";
+	document.querySelector(".card-options").style.display = "none";
 });
 
 paymentBtn.addEventListener("click", () => {
+	if (orderItems.length === 0) {
+		document.querySelector(".category-overview").style.color = "Red";
+		console.log("no items in order");
+		return;
+	}
+
 	if (
 		!card.classList.contains(".selected") &&
 		!cash.classList.contains(".selected")
-	)
+	) {
+		console.log("no payment method selected");
 		return;
+	}
+	if (card.classList.contains(".selected")) {
+		let x = 0;
+		for (const card of cardOptions) {
+			if (card.classList.contains(".selected")) {
+				x = 1;
+			}
+		}
+		if (x === 0) {
+			console.log("no card option chosen");
+			return;
+		}
+	}
 
-	paymentForm.submit();
+	let paymentType;
+
+	if (card.classList.contains(".selected")) {
+		paymentType = cardChoice;
+	} else {
+		paymentType = "cash";
+	}
+
+	console.log(paymentType);
+	console.log("maaede it through");
+
+	const form = document.createElement("form");
+	form.method = "POST";
+	form.action = "/create-new-payment";
+
+	const customer = {
+		firstname: document.getElementById("firstname").value,
+		lastname: document.getElementById("lastname").value,
+		phone: document.getElementById("phone").value,
+		email: document.getElementById("email").value,
+	};
+
+	const customerField = document.createElement("input");
+	customerField.type = "input";
+	customerField.name = "customer";
+	customerField.value = JSON.stringify(customer);
+	const orderItemsField = document.createElement("input");
+	orderItemsField.type = "input";
+	orderItemsField.name = "order";
+	orderItemsField.value = JSON.stringify(orderItems);
+	const paymentMethod = document.createElement("input");
+	paymentMethod.type = "input";
+	paymentMethod.name = "payment";
+	paymentMethod.value = paymentType;
+
+	form.appendChild(customerField);
+	form.appendChild(orderItemsField);
+	form.appendChild(paymentMethod);
+	document.body.appendChild(form);
+	form.submit();
 });
 
-let paymentAmount = document.getElementById("payment-amount");
+//payment options
+let amount = document.getElementById("payment-amount");
+let taxOption = document.getElementById("tax");
+let taxPercent = document.getElementById("tax-percent");
+const initialStoreTaxRate = document.getElementById("tax-percent").value;
+let taxDollar = document.getElementById("tax_dollar_amount");
 let quantity = document.getElementById("quantity");
+let itemTotalAfterTax = document.getElementById("total-after-tax");
+const table = document.getElementById("order-table");
 
-let calculateTax = function (e) {
-	let amountBeforeTax = e.target.value;
-	const taxPercentage = document.getElementById("tax_amount").value;
+taxOption.addEventListener("input", () => {
+	if (
+		Array.from(
+			taxOption.selectedOptions,
+			({ textContent }) => textContent
+		)[0].trim() === "No"
+	) {
+		taxPercent.value = "0%";
+		calculateItemAmount();
+	} else {
+		taxPercent.value = initialStoreTaxRate;
+	}
+});
 
-	quantity.addEventListener("input", (e) => {
-		quantity.value = e.target.value;
-	});
+function calculateItemAmount() {
+	let amountBeforeTax = amount.value * quantity.value;
+	let taxDollarAmount =
+		amountBeforeTax * (parseFloat(taxPercent.value) / 100.0);
 
-	amountBeforeTax *= quantity.value;
-	let taxAmount = amountBeforeTax * (parseFloat(taxPercentage) / 100.0);
+	let totalAfterTax = amountBeforeTax + taxDollarAmount;
 
-	const finalAmount = amountBeforeTax + taxAmount;
+	taxDollar.value = (Math.round(taxDollarAmount * 100) / 100).toFixed(2);
 
-	document.getElementById("tax_dollar_amount").value = (
-		Math.round(taxAmount * 100) / 100
-	).toFixed(2);
+	itemTotalAfterTax.value = (Math.round(totalAfterTax * 100) / 100).toFixed(
+		2
+	);
+}
 
-	document.getElementById("total").value = (
-		Math.round(finalAmount * 100) / 100
-	).toFixed(2);
-};
+amount.addEventListener("input", calculateItemAmount, false);
+quantity.addEventListener("input", calculateItemAmount, false);
 
-paymentAmount.addEventListener("input", calculateTax, false);
+const addToOrderBtn = document.getElementById("add-to-order");
+let itemSlot = 0;
+
+addToOrderBtn.addEventListener("click", () => {
+	if (document.getElementById("description").value == "") {
+		console.log("no description added");
+		return;
+	} else if (amount.value == "") {
+		console.log("no amount added");
+		return;
+	}
+
+	const amountBeforeTax = amount.value;
+	const taxPercentage = taxPercent.value;
+	const taxDollarValue = taxDollar.value;
+	const qty = quantity.value;
+	const totalAfterTax = itemTotalAfterTax.value;
+
+	let categoryText = Array.from(
+		categorySelect.selectedOptions,
+		({ textContent }) => textContent
+	)[0];
+
+	if (categoryText === "Choose Category") {
+		categoryText = "No Category";
+	}
+
+	const item = {
+		category: categoryText,
+		description: document.getElementById("description").value,
+		amount: amountBeforeTax,
+		taxPercent: taxPercentage,
+		taxDollar: taxDollarValue,
+		quantity: qty,
+		total: totalAfterTax,
+	};
+
+	console.log(item.description);
+
+	orderItems.push(item);
+
+	let row = table.insertRow();
+	row.insertCell(0).innerHTML = orderItems[itemSlot].category;
+	row.insertCell(1).innerHTML = orderItems[itemSlot].description;
+	row.insertCell(2).innerHTML = "$" + orderItems[itemSlot].amount;
+	row.insertCell(3).innerHTML = orderItems[itemSlot].taxPercent;
+	row.insertCell(4).innerHTML = "$" + orderItems[itemSlot].taxDollar;
+	row.insertCell(5).innerHTML = orderItems[itemSlot].quantity;
+	row.insertCell(6).innerHTML = "$" + orderItems[itemSlot].total;
+
+	itemSlot++;
+
+	if (
+		table.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.textContent.trim() ==
+		"No Items in Order"
+	) {
+		table.firstElementChild.nextElementSibling.firstElementChild.remove();
+	}
+
+	amount.value = 0;
+	quantity.value = 1;
+	itemTotalAfterTax.value = 0;
+	taxDollar.value = 0;
+	document.getElementById("description").value = "";
+	amount.value = "";
+});

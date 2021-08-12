@@ -86,7 +86,7 @@ router.post(
 router.post(
 	"/create-new-payment",
 	ensureAuthenticated,
-	userController.createNewpayment
+	userController.createNewPayment
 );
 //dynamic customer page
 router.get(

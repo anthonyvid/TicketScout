@@ -28,64 +28,70 @@
 					method="POST"
 					id="paymentForm"
 				>
-					<div class="info-container">
-						<h3>Customer Information</h3>
-						<div class="input-wrap">
-							<label for="">First name</label>
-							<input
-								type="text"
-								name="firstname"
-								id=""
-								placeholder="John"
-								required
-								autocomplete="nope"
-								value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
-							/>
-						</div>
-						<div class="input-wrap">
-							<label for="">Last name</label>
-							<input
-								type="text"
-								name="lastname"
-								id=""
-								placeholder="Smith"
-								required
-								autocomplete="nope"
-								value="<%= typeof lastname != 'undefined' ? lastname : '' %>"
-							/>
-						</div>
-						<div class="input-wrap">
-							<label for="">Phone number</label>
-							<input
-								type="text"
-								name="phone"
-								id=""
-								placeholder="123-356-7890"
-								required
-								autocomplete="nope"
-								value="<%= typeof phone != 'undefined' ? phone : '' %>"
-							/>
-						</div>
-						<div class="input-wrap">
-							<div>
-								<label for="">Email</label>
-								<small>Optional</small>
+					<div class="form-style">
+						<div class="info-container">
+							<h3>Customer Information <i>leave blank for general checkout</i></h3>
+							<div class="input-wrap">
+								<div class="optional-wrap">
+									<label for="">First name</label>
+									<small>Optional</small>
+								</div>
+								<input
+									type="text"
+									name="firstname"
+									id="firstname"
+									placeholder="John"
+									autocomplete="nope"
+									value="<%= typeof firstname != 'undefined' ? firstname : '' %>"
+								/>
 							</div>
-
-							<input
-								type="email"
-								name="email"
-								id="email"
-								placeholder="example@hello.com"
-								value="<%= typeof email != 'undefined' ? email : '' %>"
-							/>
+							<div class="input-wrap">
+								<div class="optional-wrap">
+									<label for="">Last name</label>
+									<small>Optional</small>
+								</div>
+								<input
+									type="text"
+									name="lastname"
+									id="lastname"
+									placeholder="Smith"
+									autocomplete="nope"
+									value="<%= typeof lastname != 'undefined' ? lastname : '' %>"
+								/>
+							</div>
+							<div class="input-wrap">
+								<div class="optional-wrap">
+									<label for="">Phone number</label>
+									<small>Optional</small>
+								</div>
+								<input
+									type="text"
+									name="phone"
+									id="phone"
+									placeholder="123-356-7890"
+									autocomplete="nope"
+									value="<%= typeof phone != 'undefined' ? phone : '' %>"
+								/>
+							</div>
+							<div class="input-wrap">
+								<div class="optional-wrap">
+									<label for="">Email</label>
+									<small>Optional</small>
+								</div>
+								<input
+									type="email"
+									name="email"
+									id="email"
+									placeholder="example@hello.com"
+									value="<%= typeof email != 'undefined' ? email : '' %>"
+								/>
+							</div>
 						</div>
-					</div>
-					<div class="info-container">
-						<h3>Payment Information</h3>
-						<div class="input-wrap">
-							<label for="">Category</label>
-							<select name="categorySelect" id="categorySelect">
+						<div class="info-container">
+							<h3>Payment Information</h3>
+							<div class="input-wrap">
+								<label for="">Category</label>
+								<select name="categorySelect" id="categorySelect">
 								<% if(payments.categories.length === 0) {%>
 									<option selected hidden>
 										Categories Not Setup 
@@ -96,86 +102,211 @@
 										<option value="<%= payments.categories[i] %>"><%= payments.categories[i] %></option>
 									<% } %> 
 								<% } %>
-							</select>
-						</div>
-						<div class="input-wrap">
-							<label for="">Description</label>
-							<input
-								type="text"
-								name="description"
-								placeholder="Brief description of item"
-								required
-								autocomplete="nope"
-							/>
-						</div>
-						<div class="input-wrap">
-							<label for="">Amount</label>
-							<div class="amount-wrap">
-								<span class="input-dollar-sign left">
-									<input
-										type="text"
-										name="amount"
-										placeholder="Amount"
-										required
-										autocomplete="nope"
-										id="payment-amount"
-									/>
-								</span>
-								<div class="tax-settings">
-									<label for="">Tax</label>
-									<select name="tax" id="tax">
-										<option selected value="true">Yes</option>
-										<option value="false">No</option>
-									</select>
-								</div>
-								<div class="tax-settings">
-									<label for="">%</label>
-									<input type="text" value="<%= `${payments.taxRate}%` %>" id="tax_amount" readonly>
-								</div>
-								<div class="tax-settings">
-									<label for="" id="tax_dollar">$</label>
-									<input type="number" value="0.00" id="tax_dollar_amount" readonly>
-								</div>
-								<div class="tax-settings qty">
-									<label for="">Qty</label>
-									<input type="number" min="1" value="1" step="1" id="quantity">
-								</div>
-								<div class="tax-settings total">
-									<label for="">Total</label>
-									<input id="total" type="number" min="0.01" value="0.00" readonly>
+								</select>
+							</div>
+							<div class="input-wrap">
+								<label for="">Description</label>
+								<input
+									type="text"
+									name="description"
+									placeholder="Brief description of item"
+									required
+									autocomplete="nope"
+									id="description"
+								/>
+							</div>
+							<div class="input-wrap">
+								<label for="">Payment Options</label>
+								<div class="payment-options-wrap">
+									<div class="amount">
+										<input
+											type="number"
+											name="amount"
+											placeholder="Amount"
+											required
+											autocomplete="nope"
+											id="payment-amount"
+										/>
+									</div>
+									<div class="tax-options">
+										<div class="tax-choice">
+											<label for="">Tax</label>
+											<select
+												name="tax"
+												id="tax"
+												required
+											>
+												<option selected value="true">
+													Yes
+												</option>
+												<option value="false">
+													No
+												</option>
+											</select>
+										</div>
+										<div class="tax-percent">
+											<input
+												type="text"
+												value="<%= `${payments.taxRate}%` %>"
+												id="tax-percent"
+												readonly
+											/>
+										</div>
+										<div class="tax-dollar">
+											<span class="input-symbol-dollar">
+												<input
+													type="number"
+													value="0.00"
+													id="tax_dollar_amount"
+													readonly
+													required
+												/>
+											</span>
+										</div>
+										<div class="quantity">
+											<span>
+												<input
+													type="number"
+													min="1"
+													value="1"
+													step="1"
+													id="quantity"
+													required
+												/>
+											</span>
+										</div>
+									</div>
+									<div class="total">
+										<div class="amount-wrap">
+											<span class="input-symbol-dollar">
+												<input
+													type="text"
+													name="totalAfterTax"
+													placeholder="0.00"
+													required
+													readonly
+													autocomplete="nope"
+													id="total-after-tax"
+												/>
+											</span>
+										</div>
+										<div class="add-item">
+											<button
+												type="button"
+												id="add-to-order"
+											>
+												Add to order
+											</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="input-wrap">
-							<label for="">Type of payment</label>
-							<div class="typeof-payment-wrap">
-								<div class="card">
-									<i class="fas fa-credit-card"></i>
-									<span>Card</span>
-									<input
-										class="card-input"
-										type="hidden"
-										name="card"
-										value="false"
-									/>
-								</div>
-								<div class="cash">
-									<i class="fas fa-money-bill"></i>
-									<input
-										class="cash-input"
-										type="hidden"
-										name="cash"
-										value="false"
-									/>
-									<span>Cash</span>
-								</div>
-							</div>
+					</div>
+					<div class="items-in-order-container">
+						<h4>Items in Order</h4>
+						<table id="order-table">
+							<thead>
+								<tr>
+									<td>Category</td>
+									<td>Description</td>
+									<td>Amount</td>
+									<td>Tax %</td>
+									<td>Tax $</td>
+									<td>Qty</td>
+									<td>Total</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="category-overview">No Items in Order</td>
+									<td class="description-overview">
+									</td>
+									<td class="amount-overview"></td>
+									<td class="tax-percent-overview"></td>
+									<td class="tax-dollar-overview"></td>
+									<td class="quantity-overview"></td>
+									<td class="total-overview"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="complete-order-wrap">
+						<div class="container">
+							<h4>Payment Overview</h4>
+							<div class="complete-order-style"></div>
 						</div>
 
-						<div class="button-wrap">
-							<button id="complete_payment_btn" type="button">
-								Complete Payment
-							</button>
+						<div class="container">
+							<h4>Type of payment</h4>
+							<div class="complete-order-style type-container">
+								<div class="type-wrap">
+									<div class="card">
+										<i class="fas fa-credit-card"></i>
+										<span>Card</span>
+										<input
+											class="card-input"
+											type="hidden"
+											name="card"
+											value="false"
+										/>
+									</div>
+									<div class="cash">
+										<i class="fas fa-money-bill"></i>
+										<input
+											class="cash-input"
+											type="hidden"
+											name="cash"
+											value="false"
+										/>
+										<span>Cash</span>
+									</div>
+								</div>
+								<div class="button-wrap">
+									<div class="card-options">
+										<div class="debit type">
+											<input
+												class="debit-input"
+												type="hidden"
+												name="debit"
+												value="false"
+											/>
+											<span>Debit</span>
+										</div>
+										<div class="visa type">
+											<input
+												class="visa-input"
+												type="hidden"
+												name="visa"
+												value="false"
+											/>
+											<span>Visa</span>
+										</div>
+										<div class="mastercard type">
+											<input
+												class="mastercard-input"
+												type="hidden"
+												name="mastercard"
+												value="false"
+											/>
+											<span>MC</span>
+										</div>
+										<div class="amex type">
+											<input
+												class="amex-input"
+												type="hidden"
+												name="amex"
+												value="false"
+											/>
+											<span>Amex</span>
+										</div>
+									</div>
+									<button type="button" id="complete-payment-btn">
+										Complete Payment
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>

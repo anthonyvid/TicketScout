@@ -40,7 +40,16 @@ class User {
 	}
 
 	async createNewpayment(formData, storename) {
-		return;
+		// console.log(JSON.parse(formData.order)); covert json to regular object
+
+		//create variables for all form data
+		//get store working with
+		//check if phone number is there, if so then check if phone matches a custoemr, 
+		//then check if first and lastname matches account
+		//if that info matches thenadd payment to customer payments object, also add
+		//to store payments, if no payments in stock then start payment id number at something
+		//if payments in store then get most recent number and plus one that, 
+
 	}
 
 	async createNewCustomer(formData, storename) {

@@ -13,19 +13,15 @@
 
 .new-payment-container {
   width: 100%;
-  height: calc(100vh - 220px);
+  height: calc(100%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   border-radius: 10px;
   margin-top: 20px;
-  gap: 30px;
   background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
@@ -35,6 +31,16 @@
 .new-payment-container .content-container {
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .new-payment-container .content-container form {
@@ -44,31 +50,49 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.new-payment-container .content-container form .form-style {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  width: 100%;
+  height: 60%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.new-payment-container .content-container form .info-container {
+.new-payment-container .content-container form .form-style .info-container {
   height: 100%;
   width: 50%;
   padding: 50px 45px 20px 45px;
 }
 
-.new-payment-container .content-container form .info-container h3 {
+.new-payment-container .content-container form .form-style .info-container h3 {
   margin-bottom: 25px;
   font-family: "Padauk";
   font-weight: bold;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap {
+.new-payment-container .content-container form .form-style .info-container h3 i {
+  font-size: 13px;
+  color: grey;
+  font-weight: 400;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -79,7 +103,7 @@
   gap: 10px;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap div {
+.new-payment-container .content-container form .form-style .info-container .input-wrap .optional-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,11 +115,11 @@
           align-items: center;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap div small {
+.new-payment-container .content-container form .form-style .info-container .input-wrap .optional-wrap small {
   color: #b4becc;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap label {
+.new-payment-container .content-container form .form-style .info-container .input-wrap label {
   text-transform: uppercase;
   color: #717987;
   font-size: 13px;
@@ -103,7 +127,7 @@
   font-family: "Padauk" bold;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap input {
+.new-payment-container .content-container form .form-style .info-container .input-wrap input {
   margin-bottom: 40px;
   border-radius: 3px;
   background-color: #f7f7f7;
@@ -114,7 +138,7 @@
   transition: 0.3s ease-in-out;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap input:focus, .new-payment-container .content-container form .info-container .input-wrap input:valid:not(#email) {
+.new-payment-container .content-container form .form-style .info-container .input-wrap input:focus, .new-payment-container .content-container form .form-style .info-container .input-wrap input:valid {
   background-color: white;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
@@ -124,7 +148,7 @@
           box-shadow: 0 0 10px #9ecaed;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap #categorySelect {
+.new-payment-container .content-container form .form-style .info-container .input-wrap #categorySelect {
   margin-bottom: 40px;
   border-radius: 3px;
   background-color: #f7f7f7;
@@ -134,7 +158,7 @@
   outline: none;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap #categorySelect:focus {
+.new-payment-container .content-container form .form-style .info-container .input-wrap #categorySelect:focus {
   background-color: white;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
@@ -144,11 +168,87 @@
           box-shadow: 0 0 10px #9ecaed;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap #categorySelect:hover {
+.new-payment-container .content-container form .form-style .info-container .input-wrap #categorySelect:hover {
   cursor: pointer;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap {
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 170px;
+  width: 100%;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .amount {
+  width: 100%;
+  height: 55px;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .amount input {
+  width: 100%;
+  height: 100%;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .total {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 55px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 20px;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .total .amount-wrap {
+  height: 100%;
+  width: 70%;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .total .amount-wrap input {
+  width: 100%;
+  height: 100%;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .total .add-item {
+  height: 100%;
+  width: 30%;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .total .add-item button {
+  width: 100%;
+  height: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  font-weight: 600;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .total .add-item button:hover {
+  cursor: pointer;
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options {
+  width: 100%;
+  height: 55px;
+  padding: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -156,17 +256,239 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  gap: 30px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  gap: 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .card,
-.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .cash {
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-choice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-choice select {
+  border-radius: 3px;
+  background-color: #f7f7f7;
+  border: 0;
+  outline: none;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-choice select:hover {
+  cursor: pointer;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-percent,
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-dollar,
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .quantity {
+  height: 100%;
+  width: 20%;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-percent input,
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-dollar input,
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .quantity input {
+  height: 100%;
+  width: 100%;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  border: 0 !important;
+  background-color: #f7f7f7 !important;
+  text-indent: 10px;
+  outline: none !important;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-percent:hover,
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .tax-dollar:hover,
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .quantity:hover {
+  cursor: none;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .quantity span {
+  color: grey;
+  position: relative;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .quantity span::before {
+  position: absolute;
+  top: 0;
+  content: "qty: ";
+  left: 5px;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .tax-options .quantity input {
+  padding-left: 35px;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .input-symbol-dollar {
+  position: relative;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .input-symbol-dollar input {
+  padding-left: 15px;
+}
+
+.new-payment-container .content-container form .form-style .info-container .input-wrap .payment-options-wrap .input-symbol-dollar:before {
+  position: absolute;
+  top: 0;
+  content: "$";
+  left: 5px;
+}
+
+.new-payment-container .content-container form .items-in-order-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+  padding: 0px 45px 20px 45px;
+}
+
+.new-payment-container .content-container form .items-in-order-container h4 {
+  margin-bottom: 25px;
+}
+
+.new-payment-container .content-container form .items-in-order-container table {
+  font-family: "Inter";
+  border-collapse: collapse;
+  width: 100%;
+  display: table;
+  border: 1px solid #e8edf5;
+}
+
+.new-payment-container .content-container form .items-in-order-container table thead tr {
+  background-color: #f9fbfc;
+  border: 1px solid #e8edf5;
+}
+
+.new-payment-container .content-container form .items-in-order-container table thead tr td {
+  font-weight: 800;
+  font-size: 14px;
+  color: #7e8082 !important;
+  padding: 10px;
+  padding-left: 3rem;
+}
+
+.new-payment-container .content-container form .items-in-order-container table tbody tr {
+  background-color: white;
+  border: 1px solid #e8edf5;
+}
+
+.new-payment-container .content-container form .items-in-order-container table tbody tr:hover {
+  background-color: #f5f5f5;
+  color: #575758 !important;
+}
+
+.new-payment-container .content-container form .items-in-order-container table tbody tr:hover a {
+  color: #575758 !important;
+}
+
+.new-payment-container .content-container form .items-in-order-container table tbody tr td {
+  font-size: 0.9rem;
+  color: #7e8082 !important;
+  padding: 15px;
+  padding-left: 3rem;
+}
+
+.new-payment-container .content-container form .items-in-order-container table tbody tr .status div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2px;
+}
+
+.new-payment-container .content-container form .complete-order-wrap {
+  width: 100%;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 0px 45px 20px 45px;
+  gap: 40px;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container h4 {
+  margin-bottom: 25px;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .complete-order-style {
+  background-color: #f9fbfc;
+  border: 1px solid #e8edf5;
+  width: 100%;
+  height: 90%;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .type-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  background-color: white;
+  border: none;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .type-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .type-wrap .card,
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .type-wrap .cash {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -178,7 +500,7 @@
           align-items: center;
   gap: 5px;
   width: 50%;
-  height: 50px;
+  height: 60px;
   border: 1px solid lightgrey;
   border-radius: 3px;
   font-weight: 600;
@@ -186,8 +508,8 @@
   transition: 0.3s ease-in-out;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .card:hover,
-.new-payment-container .content-container form .info-container .input-wrap .typeof-payment-wrap .cash:hover {
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .type-wrap .card:hover,
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .type-wrap .cash:hover {
   cursor: pointer;
   background-color: white;
   -webkit-transition: 0.3s ease-in-out;
@@ -198,97 +520,75 @@
           box-shadow: 0 0 10px #9ecaed;
 }
 
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap {
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .button-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  gap: 25px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .input-dollar-sign {
-  position: relative;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .input-dollar-sign::before {
-  position: absolute;
-  top: 15px;
-  left: 10px;
-  content: "$";
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .left input {
-  padding-left: 15px;
-  border-radius: 3px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #tax_amount {
-  width: 75px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #quantity {
-  width: 35px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #tax_dollar_amount {
-  margin-left: -25px;
-  width: 75px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap #tax_dollar {
-  margin-left: -16px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings label {
-  margin-top: -25px;
-  margin-bottom: 9px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings select {
-  height: 50px;
-  width: 75px;
-  padding-left: 5px;
-  background-color: white;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-  outline: none;
-  border-color: #9ecaed;
-  -webkit-box-shadow: 0 0 10px #9ecaed;
-          box-shadow: 0 0 10px #9ecaed;
-  border-radius: 3px;
-}
-
-.new-payment-container .content-container form .info-container .input-wrap .amount-wrap .tax-settings select:hover {
-  cursor: pointer;
-}
-
-.new-payment-container .content-container form .info-container .button-wrap {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
-  height: 50px;
+  height: 100%;
+  gap: 15px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
-.new-payment-container .content-container form .info-container .button-wrap button {
-  float: right;
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .button-wrap .card-options {
+  display: none;
+  height: 60px;
+  width: 50%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .button-wrap .card-options div {
+  width: 25%;
   height: 100%;
-  width: 150px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  font-weight: 600;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .button-wrap .card-options div:hover {
+  cursor: pointer;
+  background-color: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  border-color: #9ecaed;
+  -webkit-box-shadow: 0 0 10px #9ecaed;
+          box-shadow: 0 0 10px #9ecaed;
+}
+
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .button-wrap button {
+  height: 60px;
+  width: 100%;
   border-radius: 5px;
   border: 0;
   background-color: black;
@@ -300,9 +600,10 @@
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   font-weight: 600;
+  outline: none;
 }
 
-.new-payment-container .content-container form .info-container .button-wrap button:hover {
+.new-payment-container .content-container form .complete-order-wrap .container .type-container .button-wrap button:hover {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
   -webkit-transition: 0.3s ease-in-out;
@@ -310,66 +611,16 @@
 }
 
 @media only screen and (max-width: 1400px) {
-  .new-payment-container .content-container form {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+  .new-payment-container .content-container .form-style {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    height: auto !important;
+    gap: 0;
   }
-  .new-payment-container .content-container form .info-container {
-    width: 100%;
-    padding-top: 10px;
-  }
-  .new-ticket-container {
-    height: auto;
-  }
-}
-
-@media only screen and (max-height: 880px) {
-  .new-payment-container .content-container form .info-container {
-    padding-top: 10px;
-  }
-  .new-payment-container .content-container form .info-container .input-wrap input,
-  .new-payment-container .content-container form .info-container .input-wrap select,
-  .new-payment-container .content-container form .info-container .input-wrap textarea {
-    margin-bottom: 30px;
-  }
-  .new-payment-container .content-container form .info-container .input-wrap textarea {
-    height: 157px;
-    padding: 2px;
-  }
-  .new-payment-container .content-container form .info-container .button-wrap {
-    margin-top: -10px;
-  }
-}
-
-@media only screen and (max-height: 785px) {
-  .new-payment-container .content-container form .info-container {
-    padding-top: 10px;
-  }
-  .new-payment-container .content-container form .info-container .input-wrap input,
-  .new-payment-container .content-container form .info-container .input-wrap select,
-  .new-payment-container .content-container form .info-container .input-wrap textarea {
-    margin-bottom: 20px;
-  }
-  .new-payment-container .content-container form .info-container .input-wrap textarea {
-    height: 147px;
-    padding: 2px;
-  }
-  .new-payment-container .content-container form .info-container .button-wrap {
-    margin-top: -10px;
-  }
-}
-
-@media only screen and (max-height: 735px) {
-  .new-payment-container {
-    height: auto;
-  }
-}
-
-@media only screen and (max-height: 735px) and (min-width: 1400px) {
-  .new-payment-container {
-    height: auto;
+  .new-payment-container .content-container .form-style .info-container {
+    width: 100% !important;
   }
 }
 /*# sourceMappingURL=create-new-payment.css.map */

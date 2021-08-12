@@ -183,6 +183,10 @@ quantity.addEventListener("input", calculateItemAmount, false);
 
 const addToOrderBtn = document.getElementById("add-to-order");
 let itemSlot = 0;
+let paymentOverviewItemsInOrder = 0;
+let paymentOverviewTotalBeforeTax = 0;
+let paymentOverviewTaxAmount = 0;
+let paymentOverviewTotalAfterTax = 0;
 
 addToOrderBtn.addEventListener("click", () => {
 	if (document.getElementById("description").value == "") {
@@ -193,11 +197,11 @@ addToOrderBtn.addEventListener("click", () => {
 		return;
 	}
 
-	const amountBeforeTax = amount.value;
+	const amountBeforeTax = Number(amount.value).toFixed(2);
 	const taxPercentage = taxPercent.value;
-	const taxDollarValue = taxDollar.value;
-	const qty = quantity.value;
-	const totalAfterTax = itemTotalAfterTax.value;
+	const taxDollarValue = Number(taxDollar.value).toFixed(2);
+	const qty = parseInt(quantity.value);
+	const totalAfterTax = Number(itemTotalAfterTax.value).toFixed(2);
 
 	let categoryText = Array.from(
 		categorySelect.selectedOptions,
@@ -217,8 +221,6 @@ addToOrderBtn.addEventListener("click", () => {
 		quantity: qty,
 		total: totalAfterTax,
 	};
-
-	console.log(item.description);
 
 	orderItems.push(item);
 
@@ -240,10 +242,35 @@ addToOrderBtn.addEventListener("click", () => {
 		table.firstElementChild.nextElementSibling.firstElementChild.remove();
 	}
 
+	paymentOverviewItemsInOrder += qty;
+	paymentOverviewTotalBeforeTax += amountBeforeTax;
+	paymentOverviewTaxAmount += taxDollarValue;
+	paymentOverviewTotalAfterTax += totalAfterTax;
+
+	console.log(taxDollarValue);
+
+	console.log(typeof paymentOverviewItemsInOrder);
+	console.log(typeof paymentOverviewTotalBeforeTax);
+	console.log(typeof typeopaymentOverviewTaxAmount);
+	console.log(typeof paymentOverviewTotalAfterTax);
+
+	// document.getElementById("po-items-in-order").textContent =
+	// 	paymentOverviewItemsInOrder;
+	// document.getElementById("po-total-before-tax").textContent = (
+	// 	Math.round(paymentOverviewTotalBeforeTax * 100) / 100
+	// ).toFixed(2);
+	// document.getElementById("po-tax-amount").textContent = (
+	// 	Math.round(paymentOverviewTaxAmount * 100) / 100
+	// ).toFixed(2);
+	// document.getElementById("po-total-after-tax").textContent = (
+	// 	Math.round(paymentOverviewTotalAfterTax * 100) / 100
+	// ).toFixed(2);
+
 	amount.value = 0;
 	quantity.value = 1;
 	itemTotalAfterTax.value = 0;
 	taxDollar.value = 0;
 	document.getElementById("description").value = "";
 	amount.value = "";
+	document.getElementById("total-after-tax").value = "";
 });

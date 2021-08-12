@@ -372,6 +372,22 @@ $bluetext: #0d2238;
 						height: 90%;
 					}
 
+					.overview-container {
+						padding: 15px;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						gap: 10px;
+
+						div {
+							display: flex;
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+						}
+
+					}
+
 					.type-container {
 						display: flex;
 						flex-direction: column;

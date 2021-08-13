@@ -321,6 +321,7 @@ $bluetext: #0d2238;
 					tbody tr {
 						background-color: white;
 						border: 1px solid $swatch_1;
+						transition: 0.3s ease-in-out;
 
 						&:hover {
 							background-color: #f5f5f5;
@@ -385,7 +386,6 @@ $bluetext: #0d2238;
 							justify-content: space-between;
 							align-items: center;
 						}
-
 					}
 
 					.type-container {

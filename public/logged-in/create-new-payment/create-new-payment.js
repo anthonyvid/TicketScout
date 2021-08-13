@@ -73,7 +73,10 @@ cash.addEventListener("click", () => {
 
 paymentBtn.addEventListener("click", () => {
 	if (orderItems.length === 0) {
-		document.querySelector(".category-overview").style.color = "Red";
+		document.getElementById("tr").style.backgroundColor = "#FFCCCC";
+		setTimeout(() => {
+			document.getElementById("tr").style.backgroundColor = "#f7f7f7";
+		}, 500);
 		console.log("no items in order");
 		return;
 	}
@@ -187,21 +190,32 @@ let paymentOverviewItemsInOrder = 0;
 let paymentOverviewTotalBeforeTax = 0;
 let paymentOverviewTaxAmount = 0;
 let paymentOverviewTotalAfterTax = 0;
+const trashIcon = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+const newIcon = document.createElement("i").classList.add("fa", "fa-trash-o");
 
 addToOrderBtn.addEventListener("click", () => {
 	if (document.getElementById("description").value == "") {
+		document.getElementById("description").style.backgroundColor =
+			"#FFCCCC";
+		setTimeout(() => {
+			document.getElementById("description").style.backgroundColor =
+				"#f7f7f7";
+		}, 500);
 		console.log("no description added");
 		return;
 	} else if (amount.value == "") {
+		amount.style.backgroundColor = "#FFCCCC";
+		setTimeout(() => {
+			amount.style.backgroundColor = "#f7f7f7";
+		}, 500);
 		console.log("no amount added");
 		return;
 	}
-
-	const amountBeforeTax = Number(amount.value).toFixed(2);
+	const qty = Number(quantity.value);
+	const amountBeforeTax = Number(amount.value) * qty;
 	const taxPercentage = taxPercent.value;
-	const taxDollarValue = Number(taxDollar.value).toFixed(2);
-	const qty = parseInt(quantity.value);
-	const totalAfterTax = Number(itemTotalAfterTax.value).toFixed(2);
+	const taxDollarValue = Number(taxDollar.value);
+	const totalAfterTax = Number(itemTotalAfterTax.value);
 
 	let categoryText = Array.from(
 		categorySelect.selectedOptions,
@@ -222,16 +236,23 @@ addToOrderBtn.addEventListener("click", () => {
 		total: totalAfterTax,
 	};
 
+	console.log("TOTAL:" + totalAfterTax);
+
 	orderItems.push(item);
 
 	let row = table.insertRow();
 	row.insertCell(0).innerHTML = orderItems[itemSlot].category;
 	row.insertCell(1).innerHTML = orderItems[itemSlot].description;
-	row.insertCell(2).innerHTML = "$" + orderItems[itemSlot].amount;
+	row.insertCell(2).innerHTML =
+		"$" + parseFloat(orderItems[itemSlot].amount).toFixed(2);
 	row.insertCell(3).innerHTML = orderItems[itemSlot].taxPercent;
-	row.insertCell(4).innerHTML = "$" + orderItems[itemSlot].taxDollar;
+	row.insertCell(4).innerHTML =
+		"$" + parseFloat(orderItems[itemSlot].taxDollar).toFixed(2);
 	row.insertCell(5).innerHTML = orderItems[itemSlot].quantity;
-	row.insertCell(6).innerHTML = "$" + orderItems[itemSlot].total;
+	row.insertCell(6).innerHTML =
+		"$" +
+		parseFloat(orderItems[itemSlot].total).toFixed(2) +
+		'<i class="fa fa-trash-o" aria-hidden="true" onclick="deleterow(this)"></i>';
 
 	itemSlot++;
 
@@ -247,24 +268,15 @@ addToOrderBtn.addEventListener("click", () => {
 	paymentOverviewTaxAmount += taxDollarValue;
 	paymentOverviewTotalAfterTax += totalAfterTax;
 
-	console.log(taxDollarValue);
-
-	console.log(typeof paymentOverviewItemsInOrder);
-	console.log(typeof paymentOverviewTotalBeforeTax);
-	console.log(typeof typeopaymentOverviewTaxAmount);
-	console.log(typeof paymentOverviewTotalAfterTax);
-
-	// document.getElementById("po-items-in-order").textContent =
-	// 	paymentOverviewItemsInOrder;
-	// document.getElementById("po-total-before-tax").textContent = (
-	// 	Math.round(paymentOverviewTotalBeforeTax * 100) / 100
-	// ).toFixed(2);
-	// document.getElementById("po-tax-amount").textContent = (
-	// 	Math.round(paymentOverviewTaxAmount * 100) / 100
-	// ).toFixed(2);
-	// document.getElementById("po-total-after-tax").textContent = (
-	// 	Math.round(paymentOverviewTotalAfterTax * 100) / 100
-	// ).toFixed(2);
+	document.getElementById("po-items-in-order").textContent =
+		paymentOverviewItemsInOrder;
+	document.getElementById("po-total-before-tax").textContent =
+		"$" +
+		(Math.round(paymentOverviewTotalBeforeTax * 100) / 100).toFixed(2);
+	document.getElementById("po-tax-amount").textContent =
+		"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
+	document.getElementById("po-total-after-tax").textContent =
+		"$" + (Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
 
 	amount.value = 0;
 	quantity.value = 1;
@@ -274,3 +286,35 @@ addToOrderBtn.addEventListener("click", () => {
 	amount.value = "";
 	document.getElementById("total-after-tax").value = "";
 });
+
+function deleterow(el) {
+	// paymentOverviewItemsInOrder -= parseFloat(
+	// 	el.parentElement.previousElementSibling.textContent
+	// );
+
+	// // paymentOverviewTotalBeforeTax -= parseFloat(
+	// // 	el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent.replaceAll(
+	// // 		"[^0-9]",
+	// // 		""
+	// // 	)
+	// // );
+	// // paymentOverviewTaxAmount -= parseFloat(
+	// // 	el.parentElement.previousElementSibling.previousElementSibling.textContent.replaceAll(
+	// // 		"[^0-9]",
+	// // 		""
+	// // 	)
+	// // ); 
+	// // paymentOverviewTotalAfterTax -= parseFloat(el.parentElement.text)
+
+	// document.getElementById("po-items-in-order").textContent =
+	// 	paymentOverviewItemsInOrder;
+	// document.getElementById("po-total-before-tax").textContent =
+	// 	"$" +
+	// 	(Math.round(paymentOverviewTotalBeforeTax * 100) / 100).toFixed(2);
+	// document.getElementById("po-tax-amount").textContent =
+	// 	"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
+	// document.getElementById("po-total-after-tax").textContent =
+	// 	"$" + (Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
+
+	// $(el).closest("tr").remove();
+}

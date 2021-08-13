@@ -339,7 +339,6 @@ exports.createNewCustomer = async function (req, res) {
 
 exports.createNewPayment = async function (req, res) {
 	const user = new User();
-	console.log("yaaaaaaaaaaaaa");
 
 	if (req.body.customerDataExists == "true") {
 		const paymentSettings = await user.getPaymentSettings(
@@ -357,5 +356,5 @@ exports.createNewPayment = async function (req, res) {
 		});
 	}
 
-	await user.createNewpayment(req.body);
+	await user.createNewpayment(req.body, req.user.storename);
 };

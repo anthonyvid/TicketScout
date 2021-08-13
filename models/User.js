@@ -44,12 +44,38 @@ class User {
 
 		//create variables for all form data
 		//get store working with
-		//check if phone number is there, if so then check if phone matches a custoemr, 
+		//check if phone number is there, if so then check if phone matches a custoemr,
 		//then check if first and lastname matches account
 		//if that info matches thenadd payment to customer payments object, also add
 		//to store payments, if no payments in stock then start payment id number at something
-		//if payments in store then get most recent number and plus one that, 
+		//if payments in store then get most recent number and plus one that,
 
+		// { firstname: '', lastname: '', phone: '', email: '' }
+		// [
+		// {
+		// 	category: 'No Category',
+		// 	description: 'adsasd',
+		// 	amount: 1,
+		// 	taxPercent: '0%',
+		// 	taxDollar: 0,
+		// 	quantity: 1,
+		// 	total: 1
+		// },
+		// ]
+		// Debit
+
+		const customer = JSON.parse(formData.customer);
+		const order = JSON.parse(formData.order);
+		const paymentMethod = formData.payment;
+
+		const store = await storesCollection.findOne({ storename: storename });
+
+		//get most recent payment number
+		
+
+		if (!customer.phone.length) {
+
+		}
 	}
 
 	async createNewCustomer(formData, storename) {

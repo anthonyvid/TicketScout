@@ -387,6 +387,8 @@
 .new-payment-container .content-container form .items-in-order-container table tbody tr {
   background-color: white;
   border: 1px solid #e8edf5;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .new-payment-container .content-container form .items-in-order-container table tbody tr:hover {

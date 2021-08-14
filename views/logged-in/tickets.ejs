@@ -49,6 +49,7 @@
                             <tr><td style="margin-left: 2rem;">No Tickets</td></tr>
                         <% } else { %> 
 							<% for(let i=0; i<tickets.length; i++) { %> 
+								<input type="hidden" id="phone" value="<%= tickets[i][1].customer.phone %>">
 								<tr id="table-row">
 									<td class="ticket-id">
 										<a class="ticket_link" id="ticket" href="/tickets/"

@@ -27,6 +27,7 @@ a:active {
           align-items: center;
   gap: 50px;
   height: 75px;
+  margin-bottom: 15px;
 }
 
 .header-wrap .title-wrap {
@@ -61,7 +62,7 @@ a:active {
 
 .header-wrap .actions-wrap {
   height: 100%;
-  width: 100%;
+  width: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -76,7 +77,7 @@ a:active {
 
 .header-wrap .actions-wrap .action-style {
   height: 30px;
-  width: 150;
+  width: 150px;
   border-radius: 5px;
   background-color: #f2f6f9;
   border: 1px solid #e8edf5;
@@ -102,71 +103,6 @@ a:active {
   width: 50px;
 }
 
-.header-wrap .actions-wrap .documentDropdown {
-  display: none;
-  position: fixed;
-  width: 175px;
-  height: 80px;
-  top: 155px;
-  left: 587px;
-  background-color: #fff;
-  border-radius: 5px;
-  -webkit-transition: 1s ease-in-out;
-  transition: 1s ease-in-out;
-  -webkit-box-shadow: 0 2px 2px #b1aec2;
-          box-shadow: 0 2px 2px #b1aec2;
-}
-
-.header-wrap .actions-wrap .show-create-new-dd {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  z-index: 1;
-}
-
-.header-wrap .actions-wrap .show-create-new-dd ul {
-  list-style: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
-
-.header-wrap .actions-wrap .show-create-new-dd ul li {
-  color: #000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 175px;
-  height: 40px;
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
-  font-size: 12px;
-  font-weight: 500;
-  padding-left: 20px;
-}
-
-.header-wrap .actions-wrap .show-create-new-dd li:hover {
-  background-color: #000;
-  color: #fff;
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
-}
-
-.header-wrap .actions-wrap .show-create-new-dd li:hover span {
-  color: white;
-}
-
 .hidden {
   display: none;
 }
@@ -175,12 +111,6 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -190,23 +120,137 @@ a:active {
 }
 
 .customer-content .left-container {
-  padding: 0;
   width: 60%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: white;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+  border-radius: 10px;
+}
+
+.customer-content .left-container .chat-box {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.customer-content .left-container .chat-box .chat-header {
+  width: 100%;
+  height: 10%;
+  opacity: 0.5;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.customer-content .left-container .chat-box .chat-body {
+  height: 55%;
+}
+
+.customer-content .left-container .chat-box .chat-send-wrap {
+  width: 100%;
+  height: 35%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+}
+
+.customer-content .left-container .chat-box .chat-send-wrap .chat-send-content {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #eaeaec;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 25px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.customer-content .left-container .chat-box .chat-send-wrap .chat-send-content textarea {
+  width: 100%;
+  height: 70%;
+  border: none;
+  border-bottom: 2px solid #eaeaec;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  outline: none;
+  text-indent: 15px;
+  padding: 10px 10px;
+}
+
+.customer-content .left-container .chat-box .chat-send-wrap .chat-send-content div {
+  width: 100%;
+  height: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.customer-content .left-container .chat-box .chat-send-wrap .chat-send-content div .canned-messages {
+  width: 70%;
+  height: 100%;
+}
+
+.customer-content .left-container .chat-box .chat-send-wrap .chat-send-content div button {
+  margin: 10px 15px 10px 0;
+  width: 85px;
+  height: 30px;
+  padding: 5px;
+  outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 7px;
+  border-radius: 5px;
+  border: none;
+  background-color: #64b5ff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  color: white;
+  font-weight: 600;
 }
 
 .customer-content .right-container {
+  overflow-y: auto;
   width: 40%;
   height: 100%;
   display: -webkit-box;
@@ -337,6 +381,95 @@ a:active {
   background-color: ghostwhite;
   border: 1px solid lightgray;
   border-radius: 5px;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style span {
+  color: #95a9c6;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #shipping-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add-tracking-info {
+  height: 30px;
+  width: 150px;
+  border-radius: 5px;
+  background-color: #f2f6f9;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add-tracking-info:hover {
+  cursor: pointer;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .tracking-field {
+  display: none;
+  gap: 5px;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .tracking-field div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .customer-content .right-container .contact-info-wrap {

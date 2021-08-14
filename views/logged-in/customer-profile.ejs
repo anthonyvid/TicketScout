@@ -17,6 +17,7 @@
 <div class="main-content">
 	<main>
 		<div class="page-header">
+			<%- include('../partials/messages'); %>
 			<div class="header-wrap">
 				<div class="title-wrap">
 					<div>
@@ -26,39 +27,18 @@
 						</h1>
 					</div>
 					<div class="actions-wrap">
-						<div class="newActionBtn action-style ">
-							new<i class="fas fa-angle-down"></i>
+						<div class="newTicketBtn action-style ">
+							new ticket<i class="fas fa-ticket-alt"></i>
 						</div>
-						<div class="newActionDropdown">
-							<ul>
-								<a id="newTicketActionDD" id="new-ticket-link">
-									<li id="new_ticket">Ticket</li>
-								</a>
-								<a href="/new-invoice" id="new-invoice-link">
-									<li id="new_invoice">Invoice</li>
-								</a>
-								<a href="/new-estimate" id="new-estimate-link">
-									<li id="new_estimate">Estimate</li>
-								</a>
-							</ul>
-						</div>
+						<div class="newPaymentBtn action-style ">
+							new payment<i class="fas fa-credit-card"></i>
+						</div>					
 						<div class="documentBtn action-style ">
-							<i class="fas fa-file-pdf"></i><i class="fas fa-angle-down"></i>
-						</div>
-						<div class="documentDropdown">
-							<ul>
-								<a>
-									<li onclick="printCustomerLabel()" id="printCustomerLabel">print customer label</li>
-								</a>
-								<a>
-									<li onclick="pdfCustomerLabel()" id="pdfCustomerLabel">pdf customer label</li>
-								</a>
-							</ul>
+							<i class="fas fa-file-pdf"></i>
 						</div>
 					</div>
 				</div>
 			</div>
-			<%- include('../partials/messages'); %>
 		</div>
 		<div class="customer-content">
 			<div class="left-container">
@@ -74,8 +54,8 @@
 								<tr>
 									<td class="">Ticket ID</td>
 									<td class="">Subject</td>
-									<td class="">Date Created</td>
 									<td class="">Status</td>
+									<td class="">Date Created</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -88,8 +68,8 @@
 										<tr>
 											<td class="ticketID"><a href="/tickets/"><%= ticket %></a></td>
 											<td class="ticket_subject"><a href="/tickets/"><%= customer.tickets[ticket].subject %></a></td>
-											<td class="ticket_date"><%= customer.tickets[ticket].dateCreated %></td>
 											<td class="ticket_status"><%= customer.tickets[ticket].status %></td>
+											<td class="ticket_date"><%= customer.tickets[ticket].dateCreated %></td>
 										</tr>
 									<% } %>
 								<% } %> 
@@ -141,15 +121,9 @@
 						
 					</div>
 					<hr color="#eaeef5" size="1" />
-					<div class="tickets">
-						<img src="/assets/customer-profile-ticketsIcon.svg" width="40px"/>
-						<% if(Object.keys(customer.tickets).length === 0) { %>
-							<%= "No Tickets" %> 
-						<% } else if(Object.keys(customer.tickets).length === 1) { %>
-							<%= "1 Ticket" %> 
-						<% } else { %>
-							<%= Object.keys(customer.tickets).length +" Tickets"%> 
-						<% } %> 
+					<div class="date-joined">
+						<img src="/assets/customer-profile-dateJoinedIcon.svg" width="40px"/>
+						<p>Joined on <b><%= customer.dateJoined %></b></p>
 					</div>
 					<hr color="#eaeef5" size="1" />
 				</div>
@@ -175,9 +149,15 @@
 				</div>
 				
 				<div class="account-stats">
-					<div class="date-joined">
-						<img src="/assets/customer-profile-dateJoinedIcon.svg" width="40px"/>
-						<p>Joined on <b><%= customer.dateJoined %></b></p>
+					<div class="tickets">
+						<img src="/assets/customer-profile-ticketsIcon.svg" width="40px"/>
+						<% if(Object.keys(customer.tickets).length === 0) { %>
+							<%= "No Tickets" %> 
+						<% } else if(Object.keys(customer.tickets).length === 1) { %>
+							<%= "1 Ticket" %> 
+						<% } else { %>
+							<%= Object.keys(customer.tickets).length +" Tickets"%> 
+						<% } %> 
 					</div>
 					<hr color="#eaeef5" size="1" />
 					<div class="payments">

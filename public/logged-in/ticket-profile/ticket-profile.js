@@ -67,6 +67,10 @@ for (const select of statusSelects) {
 			.textContent.trim()
 			.replace("#", "");
 		const selection = e.target.value;
+		const phone = document
+			.getElementById("phone")
+			.textContent.trim()
+			.replace(/\D/g, "");
 		(async () => {
 			try {
 				const response = await fetch("/update-ticket-status", {
@@ -74,7 +78,7 @@ for (const select of statusSelects) {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ selection, id }),
+					body: JSON.stringify({ selection, id, phone }),
 				});
 				const data = await response.json();
 				location.reload();
@@ -98,6 +102,10 @@ for (const select of issueSelects) {
 			.textContent.trim()
 			.replace("#", "");
 		const selection = e.target.value;
+		const phone = document
+			.getElementById("phone")
+			.textContent.trim()
+			.replace(/\D/g, "");
 		(async () => {
 			try {
 				const response = await fetch("/update-ticket-issue", {
@@ -105,7 +113,7 @@ for (const select of issueSelects) {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ selection, id }),
+					body: JSON.stringify({ selection, id, phone }),
 				});
 				const data = await response.json();
 				location.reload();
@@ -169,6 +177,10 @@ const submitForms = () => {
 		.getElementById("ticketID")
 		.textContent.trim()
 		.replace("#", "");
+	const phone = document
+		.getElementById("phone")
+		.textContent.trim()
+		.replace(/\D/g, "");
 	(async () => {
 		try {
 			const response = await fetch("/update-ticket-info", {
@@ -176,7 +188,7 @@ const submitForms = () => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ subject, description, ticketID }),
+				body: JSON.stringify({ subject, description, ticketID, phone }),
 			});
 			const data = await response.json();
 		} catch (error) {
@@ -185,4 +197,91 @@ const submitForms = () => {
 	})();
 
 	document.getElementById("editCustomerInfoForm").submit();
+};
+
+const documentBtn = document.querySelector(".documentBtn");
+
+documentBtn.addEventListener("click", () => {
+	printCustomerLabel();
+});
+
+function printCustomerLabel() {
+	//need to figure out how im gonna make it print labels
+	console.log("PRINT LABEL");
+}
+
+const linkedPayments = document.querySelectorAll(".linkedPayment");
+
+for (const payment of linkedPayments) {
+	const paymentID = payment.textContent.trim();
+	payment.href += paymentID;
+}
+
+const displayTrackingDetailsForm = () => {
+	document.getElementById("add-tracking-info").style.display = "none";
+	document.querySelector(".tracking-field").style.display = "flex";
+	document.getElementById("shipping-details").style.display = "none";
+};
+
+const confirmTrackingDetails = () => {
+	if (document.getElementById("tracking-number").value == "") {
+		document.getElementById("tracking-number").style.backgroundColor =
+			"#FFCCCC";
+		setTimeout(() => {
+			document.getElementById("tracking-number").style.backgroundColor =
+				"#fff";
+		}, 500);
+		return;
+	} else if (
+		Array.from(
+			document.getElementById("carrier-select").selectedOptions,
+			({ textContent }) => textContent
+		)[0].trim() === "Select a carrier"
+	) {
+		document.getElementById("carrier-select").style.backgroundColor =
+			"#FFCCCC";
+		setTimeout(() => {
+			document.getElementById("carrier-select").style.backgroundColor =
+				"#fff";
+		}, 500);
+		return;
+	}
+
+	const trackingNumber = document.getElementById("tracking-number").value;
+
+	const carrier = Array.from(
+		document.getElementById("carrier-select").selectedOptions,
+		({ textContent }) => textContent
+	)[0].trim();
+
+	const ticketID = document
+		.getElementById("ticketID")
+		.textContent.trim()
+		.replace("#", "");
+
+	const phone = document
+		.getElementById("phone")
+		.textContent.trim()
+		.replace(/\D/g, "");
+
+	(async () => {
+		try {
+			const response = await fetch("/update-ticket-shipping-info", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					trackingNumber,
+					carrier,
+					ticketID,
+					phone,
+				}),
+			});
+			const data = await response.json();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+	location.reload();
 };

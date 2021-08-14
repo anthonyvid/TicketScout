@@ -43,48 +43,25 @@ for (subject of ticketSubjects) {
 }
 
 const createNewForm = document.getElementById("createNewForm");
-const newBtn = document.querySelectorAll(".new-btn");
+const newTicketBtn = document.querySelector(".newTicketBtn");
 
-for (const btn of newBtn) {
-	btn.addEventListener("click", () => {
-		const path = btn.previousElementSibling.textContent
-			.trim()
-			.toLowerCase()
-			.slice(0, -1);
-		createNewForm.action += path;
-
-		if (path === "ticket") {
-			document.getElementById("customerDataExists").value = "true";
-			createNewForm.action = "/create-new-customer";
-			createNewForm.submit();
-		} else if (path === "payment") {
-			document.getElementById("customerDataExists").value = "true";
-			createNewForm.action = "/create-new-payment";
-			createNewForm.submit();
-		}
-	});
-}
-
-document.getElementById("newTicketActionDD").addEventListener("click", () => {
-	document.getElementById("customer_and_ticket").value = "true";
+newTicketBtn.addEventListener("click", () => {
+	document.getElementById("customerDataExists").value = "true";
 	createNewForm.action = "/create-new-customer";
 	createNewForm.submit();
 });
+const newPaymentBtn = document.querySelector(".newPaymentBtn");
 
-const newActionBtn = document.querySelector(".newActionBtn");
-
-newActionBtn.addEventListener("click", () => {
-	document
-		.querySelector(".newActionDropdown")
-		.classList.toggle("show-create-new-dd");
+newPaymentBtn.addEventListener("click", () => {
+	document.getElementById("customerDataExists").value = "true";
+	createNewForm.action = "/create-new-payment";
+	createNewForm.submit();
 });
 
 const documentBtn = document.querySelector(".documentBtn");
 
 documentBtn.addEventListener("click", () => {
-	document
-		.querySelector(".documentDropdown")
-		.classList.toggle("show-create-new-dd");
+	printCustomerLabel();
 });
 
 document.addEventListener("keydown", function (e) {
@@ -116,7 +93,4 @@ document.addEventListener("keydown", function (e) {
 function printCustomerLabel() {
 	//need to figure out how im gonna make it print labels
 	console.log("PRINT LABEL");
-}
-function pdfCustomerLabel() {
-	console.log("PDF LABEL");
 }

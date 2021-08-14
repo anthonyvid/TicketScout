@@ -196,6 +196,7 @@ exports.updateTicketStatus = async function (req, res) {
 	const [tickets, store] = await user.updateTicketStatus(
 		req.body.selection,
 		req.body.id,
+		req.body.phone,
 		req.user.storename
 	);
 
@@ -206,6 +207,7 @@ exports.updateTicketIssue = async function (req, res) {
 	const tickets = await user.updateTicketIssue(
 		req.body.selection,
 		req.body.id,
+		req.body.phone,
 		req.user.storename
 	);
 	res.json({ tickets });
@@ -278,9 +280,14 @@ exports.renderTicketProfile = async function (req, res) {
 	});
 };
 
+exports.updateTicketShippingInfo = async function (req, res) {
+	const user = new User();
+	await user.updateTicketShippingInfo(req.body, req.user.storename);
+};
+
 exports.updateTicketInfo = async function (req, res) {
 	const user = new User();
-	await user.updateTicketInfo(req.user.storename, req.body);
+	await user.updateTicketInfo(req.user.storename, req.body, req.body.phone);
 };
 exports.updateCustomerContactInfo = async function (req, res) {
 	const user = new User();
@@ -291,7 +298,7 @@ exports.updateCustomerContactInfo = async function (req, res) {
 
 	// No errors
 	if (Object.keys(updateErrors).length === 0) {
-		req.flash("success_update", "Updated Customer Information");
+		req.flash("success_update", "Successfully Updated Information");
 		if (req.body.sentFrom === "customer")
 			res.redirect(`/customers/${newPhone}`);
 		res.redirect(`/tickets/${req.body.sentFrom.replace(/\D/g, "")}`);
@@ -369,6 +376,7 @@ exports.createNewPayment = async function (req, res) {
 					? req.body.linkedTicket
 					: "",
 		});
+		return;
 	}
 
 	const result = await user.createNewpayment(req.body, req.user.storename);

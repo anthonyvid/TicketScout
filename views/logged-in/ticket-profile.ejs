@@ -7,7 +7,7 @@
 <% } else if (ticket.customer.phone.length === 11) {%> 
 	<% phone = `+${ticket.customer.phone.substring(0,1)}`+' '+`(${ticket.customer.phone.substring(1,4)})`+' '+ticket.customer.phone.substring(4,7)+'-'+ticket.customer.phone.substring(7,11)%>
 <% } %>
-
+<% const linkedPayments = Object.keys(ticket.payments) %> 
 <link rel="stylesheet" href="/logged-in/ticket-profile/ticket-profile.css" />
 <link rel="stylesheet" href="/logged-in/layout/layout.css" />
 <script defer src="/logged-in/ticket-profile/ticket-profile.js"></script>
@@ -26,35 +26,31 @@
 				</div>
 				<div class="actions-wrap">
 					<div class="new-payment-btn action-style">new payment</div>
-
 					<div class="documentBtn action-style">
-						<i class="fas fa-file-pdf"></i
-						><i class="fas fa-angle-down"></i>
-					</div>
-					<div class="documentDropdown">
-						<ul>
-							<a>
-								<li
-									onclick="printCustomerLabel()"
-									id="printCustomerLabel"
-								>
-									print customer label
-								</li>
-							</a>
-							<a>
-								<li
-									onclick="pdfCustomerLabel()"
-									id="pdfCustomerLabel"
-								>
-									pdf customer label
-								</li>
-							</a>
-						</ul>
+						<i class="fas fa-file-pdf"></i>
 					</div>
 				</div>
 			</div>
 			<div class="customer-content">
-				<div class="left-container"></div>
+				<div class="left-container">
+					<div class="chat-box">
+						<div class="chat-header">
+
+						</div>
+						<div class="chat-body">
+
+						</div>
+						<div class="chat-send-wrap">
+							<div class="chat-send-content">
+								<textarea name="chatMsg" id="chat-msg" cols="30" rows="10" placeholder="Write a message..."></textarea>
+								<div>
+									<div class="canned-messages"></div>
+									<button type="button" id="send-msg"><i class="fas fa-paper-plane"></i>Send</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="right-container">
 					<div class="heading">
 						<h2><%= `Ticket #${ticketID}`%></h2>
@@ -207,6 +203,61 @@
 							</div>
 						</div>
 						<hr color="#eaeef5" size="1" />
+					</div>
+					<div class="ticket-info-wrap">
+						<div>
+							<h3>Linked Payments</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="item-style">
+								<% for(let i=0; i<linkedPayments.length; i++) { %>
+									<span><i class="fas fa-credit-card"></i></span>
+									<a href="/payments/" class="linkedPayment"><%= linkedPayments.length !== 0 ? linkedPayments[i] : "No payment linked"%></a>
+								<% } %> 
+							</div>
+						</div>
+					</div>
+					<div class="ticket-info-wrap">
+						<div>
+							<h3>Shipping Details</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="item-style">
+								<div class="tracking-field">
+									<div>
+										<label for="trackingNumber">Tracking #</label>
+										<input type="text" name="trackingNumber" id="tracking-number">
+									</div>
+									<div>
+										<label for="carrier">Carrier Name</label>
+										<select name="carrier-select" id="carrier-select">
+											<option value="Select a carrier" selected hidden>Select a carrier</option>
+											<option value="fedex">FedEx</option>
+											<option value="ups">UPS</option>
+											<option value="canada_post">Canada Post</option>
+											<option value="purolator">Purolator</option>
+											<option value="usps">USPS</option>
+											<option value="royal_mail">Royal Mail</option>
+											<option value="dhl_express">DHL Express</option>
+											<option value="hongkong_post">Hongkong Post</option>
+											<option value="russian_post">Russian Post</option>
+										</select>
+									</div>
+									<button type="button" id="confirm-tracking-details" onclick="confirmTrackingDetails()">Confirm</button>
+								</div>
+								<% if(ticket.shipping.tracking.length == 0) { %> 
+									<button id="add-tracking-info" type="button" onclick="displayTrackingDetailsForm()">Add tracking info</button>
+								<% } else {%> 
+									<div id="shipping-details">
+										<span><i class="fas fa-hashtag"></i></span>
+										<p><%= ticket.shipping.tracking %></p>
+										<span><i class="fas fa-shipping-fast"></i></span>
+										<p><%= ticket.shipping.carrier %></p>
+										<button id="add-tracking-info" type="button" onclick="displayTrackingDetailsForm()">edit</button>
+									</div>
+								<% } %> 
+							</div>
+						</div>
 					</div>
 
 					

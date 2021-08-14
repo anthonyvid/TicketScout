@@ -41,6 +41,7 @@ a:active {
 	align-items: center;
 	gap: 50px;
 	height: 75px;
+	margin-bottom: 15px;
 
 	.title-wrap {
 		width: auto;
@@ -66,7 +67,7 @@ a:active {
 
 	.actions-wrap {
 		height: 100%;
-		width: 100%;
+		width: auto;
 		display: flex;
 		align-items: center;
 		gap: 15px;
@@ -74,7 +75,7 @@ a:active {
 
 		.action-style {
 			height: 30px;
-			width: 150;
+			width: 150px;
 			border-radius: 5px;
 			background-color: darken(#f9fbfc, 2%);
 			border: 1px solid $swatch_1;
@@ -94,54 +95,6 @@ a:active {
 		.documentBtn {
 			width: 50px;
 		}
-
-		.documentDropdown {
-			display: none;
-			position: fixed;
-			width: 175px;
-			height: 80px;
-			top: 155px;
-			left: 587px;
-			background-color: #fff;
-			border-radius: 5px;
-			transition: 1s ease-in-out;
-			box-shadow: 0 2px 2px $light-grey;
-		}
-
-		.show-create-new-dd {
-			display: flex;
-			z-index: 1;
-
-			ul {
-				list-style: none;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				gap: 5px;
-
-				li {
-					color: #000;
-					display: flex;
-					align-items: center;
-					width: 175px;
-					height: 40px;
-					transition: 0.15s ease-in-out;
-					font-size: 12px;
-					font-weight: 500;
-					padding-left: 20px;
-				}
-			}
-
-			li:hover {
-				background-color: #000;
-				color: #fff;
-				transition: 0.15s ease-in-out;
-
-				span {
-					color: white;
-				}
-			}
-		}
 	}
 }
 .hidden {
@@ -150,22 +103,106 @@ a:active {
 
 .customer-content {
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-direction: row;
 	height: calc(100vh - 200px);
 	gap: 20px;
 
 	.left-container {
-		padding: 0;
 		width: 60%;
 		height: 100%;
 		display: flex;
-		align-items: center;
 		flex-direction: column;
-		gap: 25px;
+		background-color: white;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+		border-radius: 10px;
+
+		.chat-box {
+			width: 100%;
+			height: 100%;
+			border-radius: 10px;
+
+			.chat-header {
+				width: 100%;
+				height: 10%;
+				opacity: 0.5;
+				border-top-right-radius: 10px;
+				border-top-left-radius: 10px;
+				border-bottom: 1px solid lightgray;
+			}
+
+			.chat-body {
+				height: 55%;
+			}
+
+			.chat-send-wrap {
+				width: 100%;
+				height: 35%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 20px;
+
+				.chat-send-content {
+					width: 100%;
+					height: 100%;
+					border: 2px solid #eaeaec;
+					border-radius: 10px;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+
+					textarea {
+						width: 100%;
+						height: 70%;
+						border: none;
+						border-bottom: 2px solid #eaeaec;
+						border-top-right-radius: 10px;
+						border-top-left-radius: 10px;
+						outline: none;
+						text-indent: 15px;
+						padding: 10px 10px;
+					}
+
+					div {
+						width: 100%;
+						height: 30%;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-between;
+
+						.canned-messages {
+							width: 70%;
+							height: 100%;
+						}
+
+						button {
+							margin: 10px 15px 10px 0;
+							width: 85px;
+							height: 30px;
+							padding: 5px;
+							outline: none;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							gap: 7px;
+							border-radius: 5px;
+							border: none;
+							background-color: lighten(#5ab0ff, 2%);
+							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							color: white;
+							font-weight: 600;
+						}
+					}
+				}
+			}
+		}
 	}
+
 	.right-container {
+		overflow-y: auto;
 		width: 40%;
 		height: 100%;
 		display: flex;
@@ -244,6 +281,63 @@ a:active {
 					background-color: ghostwhite;
 					border: 1px solid lightgray;
 					border-radius: 5px;
+				}
+			}
+
+			.info-wrap {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 15px;
+				margin-bottom: 10px;
+
+				.item-style {
+					display: flex;
+					align-items: center;
+					gap: 12px;
+
+					span {
+						color: #95a9c6;
+					}
+
+					#shipping-details {
+						display: flex;
+						flex-direction: row;
+						gap: 10px;
+						justify-content: center;
+						align-items: center;
+					}
+
+					#add-tracking-info {
+						height: 30px;
+						width: 150px;
+						border-radius: 5px;
+						background-color: darken(#f9fbfc, 2%);
+						border: 1px solid $swatch_1;
+						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						padding: 5px;
+						display: flex;
+						gap: 5px;
+						align-items: center;
+						justify-content: space-around;
+
+						&:hover {
+							cursor: pointer;
+						}
+					}
+
+					.tracking-field {
+						display: none;
+						gap: 5px;
+
+						div {
+							display: flex;
+							justify-content: center;
+							flex-direction: column;
+						}
+					}
 				}
 			}
 		}

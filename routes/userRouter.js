@@ -115,5 +115,10 @@ router.post(
 	ensureAuthenticated,
 	userController.updateTicketInfo
 );
+router.post(
+	"/update-ticket-shipping-info",
+	ensureAuthenticated,
+	userController.updateTicketShippingInfo
+);
 
 module.exports = router;

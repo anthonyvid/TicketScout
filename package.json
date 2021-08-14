@@ -5,6 +5,7 @@
 	"main": "app.js",
 	"dependencies": {
 		"@googlemaps/js-api-loader": "^1.12.1",
+		"@vonage/server-sdk": "^2.10.10",
 		"bcryptjs": "^2.4.3",
 		"bootstrap": "^5.0.2",
 		"bootstrap-icons": "^1.5.0",
@@ -23,6 +24,7 @@
 		"nodemailer": "^6.6.2",
 		"passport": "^0.4.1",
 		"passport-local": "^1.0.0",
+		"socket.io": "^4.1.3",
 		"validator": "^13.6.0"
 	},
 	"devDependencies": {

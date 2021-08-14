@@ -167,6 +167,8 @@ for (const select of statusSelects) {
 			select.parentElement.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
 		const selection = e.target.value;
+		const phone = document.getElementById("phone").value.replace(/\D/g, "");
+		console.log(phone);
 		(async () => {
 			try {
 				const response = await fetch("/update-ticket-status", {
@@ -174,7 +176,7 @@ for (const select of statusSelects) {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ selection, id }),
+					body: JSON.stringify({ selection, id, phone }),
 				});
 				const data = await response.json();
 				location.reload();
@@ -193,6 +195,7 @@ for (const select of issueSelects) {
 			select.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
 		const selection = e.target.value;
+		const phone = document.getElementById("phone").value.replace(/\D/g, "");
 		(async () => {
 			try {
 				const response = await fetch("/update-ticket-issue", {
@@ -200,7 +203,7 @@ for (const select of issueSelects) {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ selection, id }),
+					body: JSON.stringify({ selection, id, phone }),
 				});
 				const data = await response.json();
 				location.reload();

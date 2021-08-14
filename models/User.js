@@ -40,30 +40,6 @@ class User {
 	}
 
 	async createNewpayment(formData, storename) {
-		// console.log(JSON.parse(formData.order)); covert json to regular object
-
-		//create variables for all form data
-		//get store working with
-		//check if phone number is there, if so then check if phone matches a custoemr,
-		//then check if first and lastname matches account
-		//if that info matches thenadd payment to customer payments object, also add
-		//to store payments, if no payments in stock then start payment id number at something
-		//if payments in store then get most recent number and plus one that,
-
-		// { firstname: '', lastname: '', phone: '', email: '' }
-		// [
-		// {
-		// 	category: 'No Category',
-		// 	description: 'adsasd',
-		// 	amount: 1,
-		// 	taxPercent: '0%',
-		// 	taxDollar: 0,
-		// 	quantity: 1,
-		// 	total: 1
-		// },
-		// ]
-		// Debit
-
 		const customer = JSON.parse(formData.customer);
 		const order = JSON.parse(formData.order);
 		const paymentMethod = formData.payment;
@@ -119,11 +95,26 @@ class User {
 		};
 
 		if (customer.phone.length > 0) {
+			console.log("yaa");
 			await storesCollection.updateOne(
 				{ storename: storename },
 				{
 					$set: {
 						[`storedata.customers.${[customer.phone]}.payments.${[
+							mostRecentPaymentID,
+						]}`]: payment,
+					},
+				}
+			);
+		}
+
+		if (linkedTicket.length > 3) {
+			console.log("yada");
+			await storesCollection.updateOne(
+				{ storename: storename },
+				{
+					$set: {
+						[`storedata.tickets.${[linkedTicket]}.payments.${[
 							mostRecentPaymentID,
 						]}`]: payment,
 					},
@@ -192,9 +183,9 @@ class User {
 		const phone = store.storedata.tickets[ticketID].customer.phone;
 		return phone;
 	}
-	async updateTicketStatus(selection, ticketID, storename) {
-		console.log(selection);
-		console.log(ticketID);
+	async updateTicketStatus(selection, ticketID, phone, storename) {
+		console.log(phone);
+		const latestUpdate = new Date().getTime();
 		storesCollection.updateOne(
 			{
 				storename: storename,
@@ -203,13 +194,21 @@ class User {
 				$set: {
 					[`storedata.tickets.${[ticketID]}.status`]: selection,
 					[`storedata.tickets.${[ticketID]}.lastUpdated`]:
-						new Date().getTime(),
+						latestUpdate,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.status`]: selection,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.lastUpdated`]: latestUpdate,
 				},
 			}
 		);
 		return await this.updateTicketList(storename);
 	}
-	async updateTicketIssue(selection, ticketID, storename) {
+	async updateTicketIssue(selection, ticketID, phone, storename) {
+		console.log(phone);
+		const latestUpdate = new Date().getTime();
 		storesCollection.updateOne(
 			{
 				storename: storename,
@@ -218,7 +217,13 @@ class User {
 				$set: {
 					[`storedata.tickets.${[ticketID]}.issue`]: selection,
 					[`storedata.tickets.${[ticketID]}.lastUpdated`]:
-						new Date().getTime(),
+						latestUpdate,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.issue`]: selection,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.lastUpdated`]: latestUpdate,
 				},
 			}
 		);
@@ -397,7 +402,8 @@ class User {
 	async getCustomerData(storename, phone) {
 		//get store were working with
 		const store = await storesCollection.findOne({ storename: storename });
-		console.log(phone);
+		console.log(store.storedata.customers[phone]);
+		console.log(store.storedata.customers[phone].tickets["2000"]);
 		return store.storedata.customers[phone];
 	}
 	async getTicketData(storename, ticketID) {
@@ -461,7 +467,7 @@ class User {
 		return false;
 	}
 
-	async updateTicketInfo(storename, newInfo) {
+	async updateTicketInfo(storename, newInfo, phone) {
 		const newSubject = newInfo.subject;
 		const newDescription = newInfo.description;
 		const ticketID = newInfo.ticketID;
@@ -474,6 +480,9 @@ class User {
 				$set: {
 					[`storedata.tickets.${[ticketID]}.description`]:
 						newDescription,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.description`]: newDescription,
 				},
 			}
 		);
@@ -482,6 +491,9 @@ class User {
 			{
 				$set: {
 					[`storedata.tickets.${[ticketID]}.subject`]: newSubject,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.subject`]: newSubject,
 				},
 			}
 		);
@@ -608,6 +620,30 @@ class User {
 
 		// //TODO: Return any required information needed, for now just everything
 		// return json;
+	}
+
+	async updateTicketShippingInfo(info, storename) {
+		const { trackingNumber, carrier, ticketID, phone } = info;
+
+		console.log(trackingNumber);
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$set: {
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.shipping.tracking`]: trackingNumber,
+					[`storedata.customers.${[phone]}.tickets.${[
+						ticketID,
+					]}.shipping.carrier`]: carrier,
+					[`storedata.tickets.${[ticketID]}.shipping.carrier`]:
+						carrier,
+					[`storedata.tickets.${[ticketID]}.shipping.tracking`]:
+						trackingNumber,
+				},
+			}
+		);
 	}
 
 	async forgotPassword(data) {

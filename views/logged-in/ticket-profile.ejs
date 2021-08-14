@@ -1,16 +1,245 @@
+<% const fullname = ticket.customer.firstname.charAt(0).toUpperCase()+ticket.customer.firstname.slice(1)+" "+ticket.customer.lastname.charAt(0).toUpperCase()+ticket.customer.lastname.slice(1); %> 
+<% let phone = ''; %> 
+<% if (ticket.customer.phone.length < 10 || ticket.customer.phone.length > 11) { %> 
+	<% phone = ticket.customer.phone %>
+<% } else if (ticket.customer.phone.length === 10) {%> 
+	<% phone = `(${ticket.customer.phone.substring(0,3)})`+' '+ticket.customer.phone.substring(3,6)+'-'+ticket.customer.phone.substring(6,10) %>
+<% } else if (ticket.customer.phone.length === 11) {%> 
+	<% phone = `+${ticket.customer.phone.substring(0,1)}`+' '+`(${ticket.customer.phone.substring(1,4)})`+' '+ticket.customer.phone.substring(4,7)+'-'+ticket.customer.phone.substring(7,11)%>
+<% } %>
+
 <link rel="stylesheet" href="/logged-in/ticket-profile/ticket-profile.css" />
 <link rel="stylesheet" href="/logged-in/layout/layout.css" />
 <script defer src="/logged-in/ticket-profile/ticket-profile.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
+			<%- include('../partials/messages'); %>
 			<div class="header-wrap">
 				<div class="title-wrap">
-					<h1>ticket profile</h1>
-					<small>View recent tickets</small>
+					<div>
+						<h1 id="ticketID"><%=`#${ticketID}`%></h1>
+						<h3>
+							<%= ticket.subject%>
+						</h3>
+					</div>
 				</div>
+				<div class="actions-wrap">
+					<div class="new-payment-btn action-style">new payment</div>
 
-			<div></div>
+					<div class="documentBtn action-style">
+						<i class="fas fa-file-pdf"></i
+						><i class="fas fa-angle-down"></i>
+					</div>
+					<div class="documentDropdown">
+						<ul>
+							<a>
+								<li
+									onclick="printCustomerLabel()"
+									id="printCustomerLabel"
+								>
+									print customer label
+								</li>
+							</a>
+							<a>
+								<li
+									onclick="pdfCustomerLabel()"
+									id="pdfCustomerLabel"
+								>
+									pdf customer label
+								</li>
+							</a>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="customer-content">
+				<div class="left-container"></div>
+				<div class="right-container">
+					<div class="heading">
+						<h2><%= `Ticket #${ticketID}`%></h2>
+						<span id="edit-customer-info"
+							><i class="fas fa-edit"></i
+						></span>
+					</div>
+					<div class="quick-info-wrap">
+						<div>
+							<img
+							src="/assets/customer-profile-dateJoinedIcon.svg"
+							width="40px"
+							/>
+							<p>
+								<%=`Ceated on ${ticket.dateCreated}`%>
+							</p>
+						</div>
+						<hr color="#eaeef5" size="1" />
+						<div>
+							<img
+							src="/assets/hourglass.svg"
+							width="40px"
+							/>
+							<p id="last-update-text">
+								<%=`Last Updated ${ticket.lastUpdated}`%>
+							</p>
+						</div>
+						<hr color="#eaeef5" size="1" />
+					</div>
+					<div class="ticket-info-wrap">
+						<div>
+							<h3>Subject</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="subject-of-ticket">
+								<p id="subject"> <%= ticket.subject %></p>
+								<input
+									name="newSubject"
+									form=""
+									class="hidden edit-field"
+									id="edit-subject-field"
+									type="text"
+									value="<%= ticket.subject %>"
+								/>
+							</div>
+						</div>
+					</div>
+					<div class="ticket-info-wrap">
+						<div>
+							<h3>Description</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="description-of-ticket">
+								<p id="description"><%= ticket.description %></p>
+								<input
+									name="newDescription"
+									form=""
+									class="hidden edit-field"
+									id="edit-description-field"
+									type="text"
+									value="<%= ticket.description %>"
+								/>
+							</div>
+						</div>
+					</div>
+					<div class="ticket-info-wrap">
+						<div>
+							<h3>Status</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="status-of-ticket">
+								<div>
+									<i id="icon-color" class="fas fa-circle"></i>
+									<select name="status" class="status-selects" id="status">
+										<option selected="selected" class="selected-option">
+												<%= ticket.status %>
+										</option>
+										<% for(let j=0; j<store.storeSettings.tickets.status.length; j++) { %>
+											<option class="status-options">
+												<%= store.storeSettings.tickets.status.filter(item => item[0] !== ticket.status).map(item => item[0])[j] %>
+											</option>
+										<% } %> 	
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ticket-info-wrap">
+						<div>
+							<h3>Issue</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="issue-of-ticket">
+								<select name="issue" class="issue-selects" id="issue">
+									<option selected="selected">
+											<%= ticket.issue %>
+									</option>
+									<% for(let j=0; j<store.storeSettings.tickets.issue.length; j++) { %>
+										<option class="issue-options">
+											<%= store.storeSettings.tickets.issue.filter(item=>item!==ticket.issue)[j] %>
+										</option>
+									<% } %> 	
+								</select>
+							</div>
+						</div>
+						<hr color="#eaeef5" size="1" />
+					</div>
+					<div class="contact-info-wrap">
+						<div>
+							<h3>Customer Info</h3>
+						</div>
+						<div class="info-wrap">
+							<div class="item-style">
+								<span><i class="fas fa-user"></i></span>
+								<p id="name"><%=fullname%></p>
+								<div>
+									<input name="newFirstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= ticket.customer.firstname %> ">
+									<input name="newLastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= ticket.customer.lastname %> ">
+								</div>
+							</div>
+							<div class="item-style">
+								<span><i class="fas fa-phone-alt"></i></span>
+								<p id="phone"><%=phone %></p>
+								<input
+									name="oldPhone"
+									form="editCustomerInfoForm"
+									type="hidden"
+									value="<%= phone %>"
+								/>
+								<input
+									name="newPhone"
+									form="editCustomerInfoForm"
+									class="hidden edit-field"
+									id="edit-phone-field"
+									type="text"
+									value="<%= ticket.customer.phone %>"
+								/>
+							</div>
+							<div class="item-style">
+								<span><i class="fas fa-envelope"></i></span>
+								<p id="email"><%= ticket.customer.email.length === 0 ? "No Email" : ticket.customer.email%></p>
+								<input
+									name="newEmail"
+									form="editCustomerInfoForm"
+									class="hidden edit-field"
+									id="edit-email-field"
+									type="email"
+									value="<%= ticket.customer.email.length === 0 ? "" : ticket.customer.email %>"
+								/>
+							</div>
+						</div>
+						<hr color="#eaeef5" size="1" />
+					</div>
+
+					
+					<div class="edit-info-btn-wrap">
+						<button class="hidden" id="cancel-info-change" type>
+							Cancel
+						</button>
+						<form
+							id="editCustomerInfoForm"
+							action="/update-customer-contact-info"
+							method="POST"
+						>
+							<input form="editCustomerInfoForm" type="hidden" name="sentFrom" value="<%= `ticket${ticketID}` %>">
+						</form>
+						<button
+								class="hidden"
+								id="submit-info-change"
+								type="button"
+								onclick="submitForms()"
+							>
+								Confirm Changes
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
+		<form action="/create-new-payment" method="POST" id="createNewPaymentForm">
+			<input type="hidden" name="firstname" id="firstname" value="<%=ticket.customer.firstname%>">			
+			<input type="hidden" name="lastname" id="lastname" value="<%=ticket.customer.lastname%>">			
+			<input type="hidden" name="phone" id="phone" value="<%=ticket.customer.phone%>">			
+			<input type="hidden" name="email" id="email" value="<%=ticket.customer.email%>">			
+			<input type="hidden" name="linkedTicket" id="linkedTicket" value="<%=ticketID%>">			
+			<input type="hidden" name="customerDataExists" id="customerDataExists" value="true">			
+		</form>
 	</main>
 </div>

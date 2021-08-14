@@ -195,6 +195,7 @@
 				<div class="edit-info-btn-wrap">
 					<button class="hidden" id="cancel-info-change" type>Cancel</button>
 					<form id="editCustomerInfoForm" action="/update-customer-contact-info" method="POST">
+						<input form="editCustomerInfoForm" type="hidden" name="sentFrom" value="customer">
 						<button class="hidden" id="submit-info-change" type="submit">Confirm Changes</button>
 					</form>					
 				</div>

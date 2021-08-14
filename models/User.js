@@ -67,15 +67,80 @@ class User {
 		const customer = JSON.parse(formData.customer);
 		const order = JSON.parse(formData.order);
 		const paymentMethod = formData.payment;
+		const orderTotal = formData.orderTotal;
+		const linkedTicket = formData.linkedTicket;
+
+		console.log(linkedTicket);
 
 		const store = await storesCollection.findOne({ storename: storename });
 
-		//get most recent payment number
-		
+		//if there is a number validate it
+		if (customer.phone.length > 0) {
+			if (!this.isValidPhone(customer.phone))
+				return { phoneError: "Invalid Phone Number" };
 
-		if (!customer.phone.length) {
-
+			//see if that number is in store
+			if (
+				!Object.keys(store.storedata.customers).includes(
+					customer.phone.trim()
+				)
+			)
+				return { phoneError: "Phone number not registered" };
 		}
+
+		let mostRecentPaymentID;
+
+		//see if any previous payments are in store, if not start at 99
+		if (Object.keys(store.storedata.payments).length == 0) {
+			mostRecentPaymentID = 99;
+		} else {
+			//gert most recent number
+			mostRecentPaymentID =
+				Math.max(
+					...Object.keys(store.storedata.payments).map((i) =>
+						parseInt(i)
+					)
+				) + 1;
+		}
+
+		console.log(mostRecentPaymentID);
+
+		const payment = {
+			customer: {
+				firstname: customer.firstname,
+				lastname: customer.lastname,
+				phone: customer.phone,
+				email: customer.email,
+			},
+			orderTotal: orderTotal,
+			orderItems: order,
+			paymentMethod: paymentMethod,
+			linkedTicket: linkedTicket,
+		};
+
+		if (customer.phone.length > 0) {
+			await storesCollection.updateOne(
+				{ storename: storename },
+				{
+					$set: {
+						[`storedata.customers.${[customer.phone]}.payments.${[
+							mostRecentPaymentID,
+						]}`]: payment,
+					},
+				}
+			);
+		}
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$set: {
+					[`storedata.payments.${[mostRecentPaymentID]}`]: payment,
+				},
+			}
+		);
+
+		return {};
 	}
 
 	async createNewCustomer(formData, storename) {
@@ -394,6 +459,32 @@ class User {
 	isValidEmail(email) {
 		if (validator.isEmail(email)) return true;
 		return false;
+	}
+
+	async updateTicketInfo(storename, newInfo) {
+		const newSubject = newInfo.subject;
+		const newDescription = newInfo.description;
+		const ticketID = newInfo.ticketID;
+
+		console.log(newSubject);
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$set: {
+					[`storedata.tickets.${[ticketID]}.description`]:
+						newDescription,
+				},
+			}
+		);
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$set: {
+					[`storedata.tickets.${[ticketID]}.subject`]: newSubject,
+				},
+			}
+		);
 	}
 
 	async updateCustomerContactInfo(storename, newInfo) {

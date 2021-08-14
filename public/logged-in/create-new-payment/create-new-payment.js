@@ -135,12 +135,30 @@ paymentBtn.addEventListener("click", () => {
 	paymentMethod.type = "input";
 	paymentMethod.name = "payment";
 	paymentMethod.value = paymentType;
+	const orderTotal = document.createElement("input");
+	orderTotal.type = "input";
+	orderTotal.name = "orderTotal";
+	orderTotal.value = document
+		.getElementById("po-total-after-tax")
+		.textContent.replace("$", "");
+	const linkedTicket = document.createElement("input");
+	linkedTicket.type = "input";
+	linkedTicket.name = "linkedTicket";
+	linkedTicket.value = document.getElementById("linkedTicket").value;
+
+	console.log(orderTotal.value);
+
+	paymentMethod.value = paymentType;
 
 	form.appendChild(customerField);
 	form.appendChild(orderItemsField);
 	form.appendChild(paymentMethod);
+	form.appendChild(orderTotal);
+	form.appendChild(linkedTicket);
 	document.body.appendChild(form);
 	form.submit();
+
+	console.log("after");
 });
 
 //payment options
@@ -291,7 +309,6 @@ function deleterow(el) {
 	// paymentOverviewItemsInOrder -= parseFloat(
 	// 	el.parentElement.previousElementSibling.textContent
 	// );
-
 	// // paymentOverviewTotalBeforeTax -= parseFloat(
 	// // 	el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent.replaceAll(
 	// // 		"[^0-9]",
@@ -303,9 +320,8 @@ function deleterow(el) {
 	// // 		"[^0-9]",
 	// // 		""
 	// // 	)
-	// // ); 
+	// // );
 	// // paymentOverviewTotalAfterTax -= parseFloat(el.parentElement.text)
-
 	// document.getElementById("po-items-in-order").textContent =
 	// 	paymentOverviewItemsInOrder;
 	// document.getElementById("po-total-before-tax").textContent =
@@ -315,6 +331,5 @@ function deleterow(el) {
 	// 	"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
 	// document.getElementById("po-total-after-tax").textContent =
 	// 	"$" + (Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
-
 	// $(el).closest("tr").remove();
 }

@@ -191,6 +191,7 @@ exports.getPhone = async function (req, res) {
 	res.json({ phone: phone });
 };
 exports.updateTicketStatus = async function (req, res) {
+	console.log(req.body);
 	const user = new User();
 	const [tickets, store] = await user.updateTicketStatus(
 		req.body.selection,
@@ -266,13 +267,21 @@ exports.renderTicketProfile = async function (req, res) {
 		req.user.storename,
 		req.params.ticketID
 	);
+	const store = await user.getStore(req.user.storename);
+
 	res.render("logged-in/ticket-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 		ticket: result,
+		ticketID: req.params.ticketID,
+		store: store,
 	});
 };
 
+exports.updateTicketInfo = async function (req, res) {
+	const user = new User();
+	await user.updateTicketInfo(req.user.storename, req.body);
+};
 exports.updateCustomerContactInfo = async function (req, res) {
 	const user = new User();
 	const [updateErrors, newPhone] = await user.updateCustomerContactInfo(
@@ -283,7 +292,9 @@ exports.updateCustomerContactInfo = async function (req, res) {
 	// No errors
 	if (Object.keys(updateErrors).length === 0) {
 		req.flash("success_update", "Updated Customer Information");
-		res.redirect(`/customers/${newPhone}`);
+		if (req.body.sentFrom === "customer")
+			res.redirect(`/customers/${newPhone}`);
+		res.redirect(`/tickets/${req.body.sentFrom.replace(/\D/g, "")}`);
 	} else {
 		console.log("errors");
 
@@ -292,7 +303,7 @@ exports.updateCustomerContactInfo = async function (req, res) {
 			req.body.oldPhone.trim().replace(/\D/g, "")
 		);
 
-		res.render("logged-in/customer-profile", {
+		res.render(`logged-in/${req.body.sentFrom}-profile`, {
 			layout: "layouts/logged-in-layout",
 			updateErrors: Object.values(updateErrors),
 			user: req.user,
@@ -353,8 +364,30 @@ exports.createNewPayment = async function (req, res) {
 			lastname: req.body.lastname,
 			phone: req.body.phone,
 			email: req.body.email,
+			linkedTicket:
+				typeof req.body.linkedTicket !== "undefined"
+					? req.body.linkedTicket
+					: "",
 		});
 	}
 
-	await user.createNewpayment(req.body, req.user.storename);
+	const result = await user.createNewpayment(req.body, req.user.storename);
+
+	if (Object.keys(result).length == 0) {
+		console.log("no errors");
+	} else {
+		console.log("errors");
+
+		const paymentSettings = await user.getPaymentSettings(
+			req.user.storename
+		);
+
+		res.render("logged-in/create-new-payment", {
+			layout: "layouts/logged-in-layout",
+			user: req.user,
+			ticketError: Object.values(result),
+			phone: undefined,
+			payments: paymentSettings,
+		});
+	}
 };

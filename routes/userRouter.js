@@ -110,5 +110,10 @@ router.post(
 	ensureAuthenticated,
 	userController.updateCustomerContactInfo
 );
+router.post(
+	"/update-ticket-info",
+	ensureAuthenticated,
+	userController.updateTicketInfo
+);
 
 module.exports = router;

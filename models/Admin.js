@@ -41,6 +41,13 @@ class Admin extends User {
 					tickets: {},
 					customers: {},
 					payments: {},
+					api: {
+						vonage: {
+							fromPhone: "",
+							numSmsSent: 0,
+							numSmsReceived: 0,
+						},
+					},
 				},
 				storeSettings: {
 					tickets: {
@@ -49,7 +56,7 @@ class Admin extends User {
 					},
 					payments: {
 						categories: [],
-						taxRate: ""
+						taxRate: "",
 					},
 				},
 			});

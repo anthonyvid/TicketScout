@@ -125,6 +125,6 @@ router.post("/send-sms", ensureAuthenticated, userController.sendSms);
 // 	console.log(req.body);
 // });
 
-router.post("/recieve-sms", userController.recieveSms);
+router.post("/receive-sms", userController.receiveSms);
 
 module.exports = router;

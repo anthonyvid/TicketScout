@@ -36,7 +36,11 @@
 				<div class="left-container">
 					<div class="chat-box">
 						<div class="chat-body">
-							
+							<% for (let i = 0; i < ticket.smsData.length; i++) { %>
+								<div class="message">
+									<%= ticket.smsData[i].message %> 
+								</div>
+							<% } %>
 						</div>
 						<div class="chat-send-wrap">
 							<div class="chat-send-content">

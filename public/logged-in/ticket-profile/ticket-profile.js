@@ -81,6 +81,7 @@ for (const select of statusSelects) {
 					body: JSON.stringify({ selection, id, phone }),
 				});
 				const data = await response.json();
+
 				location.reload();
 			} catch (error) {
 				console.log(error);
@@ -298,12 +299,17 @@ sendMsg.addEventListener("click", () => {
 		return;
 	}
 
+	console.log("yaa");
+
 	const message = chatBoxTextarea.value.trim();
 	const toPhone = document
 		.getElementById("phone")
 		.textContent.trim()
 		.replace(/\D/g, "");
-
+	const ticketID = document
+		.getElementById("ticketID")
+		.textContent.trim()
+		.replace("#", "");
 	(async () => {
 		try {
 			const response = await fetch("/send-sms", {
@@ -314,29 +320,18 @@ sendMsg.addEventListener("click", () => {
 				body: JSON.stringify({
 					message,
 					toPhone,
+					ticketID,
 				}),
 			});
 			const data = await response.json();
-			console.log(data);
+			const messageBox = document.createElement("div");
+			messageBox.classList.add("message");
+			const messageText = document.createTextNode(data.msg);
+			messageBox.appendChild(messageText);
+			document.querySelector(".chat-body").appendChild(messageBox);
+			chatBoxTextarea.value = "";
 		} catch (error) {
 			console.log(error);
 		}
 	})();
-
-	// const socket = io();
-	// socket.on("smsStatus", function (data) {
-	// 	if (data.error) {
-	// 		console.log("<h5>Text message sent to " + data.error + "</h5>");
-	// 	} else {
-	// 		console.log("<h5>Text message sent to " + data.number + "</h5>");
-	// 	}
-	// });
-
-	const messageBox = document.createElement("div");
-	messageBox.classList.add("message");
-	const messageText = document.createTextNode(message);
-
-	messageBox.appendChild(messageText);
-
-	chatBoxTextarea.value = "";
 });

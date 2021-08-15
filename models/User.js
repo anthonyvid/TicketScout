@@ -3,9 +3,9 @@ const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
-const Vonage = require("@vonage/server-sdk");
-const socketio = require("socket.io");
-const app = require("../app");
+const accountSid = "AC8a321be0aaaaf50e935af76cc879d895";
+const authToken = "642920c6d5d1873ce3a3aca4cbf7db72";
+const client = require("twilio")(accountSid, authToken);
 
 class User {
 	constructor(data) {
@@ -319,6 +319,7 @@ class User {
 			payments: {},
 			lastUpdated: new Date().getTime(),
 			dateCreated: new Date().toDateString(),
+			smsData: [],
 		};
 
 		//if customer info put in is not in system, then create new customer also
@@ -649,53 +650,36 @@ class User {
 		);
 	}
 
-	async recieveSms(x, y) {
-		return
+	async receiveSms(storename, smsData) {
+		console.log(storename, smsData);
 	}
 
-	async sendSms(toPhone, message) {
-		const io = socketio(app.server);
-		const fromPhone = "16135081022";
-		// const to = "16472975595";
+	async sendSms(storename, ticket, toPhone, message) {
+		const store = await storesCollection.findOne({ storename: storename });
+		// const fromPhone = store.storedata.api.vonage.fromPhone;
 
-		const vonage = new Vonage({
-			apiKey: "15df34ff",
-			apiSecret: "qcqdIaJycm5L9I5Q",
-		});
-
-		vonage.message.sendSms(
-			fromPhone,
-			"1" + toPhone,
-			message,
-			(err, responseData) => {
-				if (err) {
-					console.log(err);
-				} else {
-					if (responseData.messages[0]["status"] === "0") {
-						console.log("Message sent successfully.");
-						//Get data from response
-						const data = {
-							id: responseData.messages[0]["message-id"],
-							number: responseData.messages[0]["to"],
-						};
-
-						//Emit to client
-						io.emit("smsStatus", data);
-					} else {
-						console.log(
-							`Message failed with error: ${responseData.messages[0]["error-text"]}`
-						);
+		const msg = await client.messages
+			.create({
+				body: message,
+				messagingServiceSid: "MGabaa56724b02f929d05404486b49f897",
+				to: toPhone,
+			})
+			.then(async (message) => {
+				await storesCollection.updateOne(
+					{ storename: storename },
+					{
+						$push: {
+							[`storedata.tickets.${[ticket]}.smsData`]: {
+								timestamp: Date.now(),
+								from: "store",
+								message: message.body,
+							},
+						},
 					}
-				}
-			}
-		);
-
-		io.on("connection", (socket) => {
-			console.log("Connected");
-			io.on("disconnect", () => {
-				console.log("Disconnected");
+				);
+				return message.body;
 			});
-		});
+		return msg;
 	}
 
 	async forgotPassword(data) {

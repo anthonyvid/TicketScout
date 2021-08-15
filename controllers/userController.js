@@ -282,14 +282,19 @@ exports.renderTicketProfile = async function (req, res) {
 
 exports.sendSms = async function (req, res) {
 	const user = new User();
-	await user.sendSms(req.body.toPhone, req.body.message);
+	const msg = await user.sendSms(
+		req.user.storename,
+		req.body.ticketID,
+		req.body.toPhone,
+		req.body.message
+	);
+	res.json({ msg: msg });
 };
 
-exports.recieveSms = async function (req, res) {
+exports.receiveSms = async function (req, res) {
 	const user = new User();
-	// await user.recieveSms(req.query, req.body);
-	console.log(req.query, req.body);
-	res.status(204).json({ x: req.query, y: req.body });
+	await user.receiveSms(req.user.storename, req.body);
+	res.status(204).send();
 };
 
 exports.updateTicketShippingInfo = async function (req, res) {

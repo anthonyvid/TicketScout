@@ -125,7 +125,7 @@ router.post("/", (req, res) => {
 	console.log(req.body);
 });
 
-router.post("https://45c8b9429e11.ngrok.io", (req, res) => {
+router.post("https://ticketscout.herokuapp.com/recieveSms", (req, res) => {
 	console.log("inbound", req.body);
 });
 

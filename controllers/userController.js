@@ -288,6 +288,7 @@ exports.sendSms = async function (req, res) {
 exports.recieveSms = async function (req, res) {
 	const user = new User();
 	// await user.recieveSms(req.query, req.body);
+	console.log(req.query, req.body);
 	res.status(204).json({ x: req.query, y: req.body });
 };
 

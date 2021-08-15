@@ -317,7 +317,7 @@ sendMsg.addEventListener("click", () => {
 				}),
 			});
 			const data = await response.json();
-			console.log(data.x, data.y);
+			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}

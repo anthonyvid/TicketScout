@@ -4,10 +4,10 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const passport = require("passport");
-const socketio = require("socket.io");
-
 
 const app = express();
+const http = require("http");
+exports.server = http.createServer(app);
 
 console.log("in app.js");
 

@@ -3,6 +3,9 @@ const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
+const Vonage = require("@vonage/server-sdk");
+const socketio = require("socket.io");
+const app = require("../app");
 
 class User {
 	constructor(data) {
@@ -644,6 +647,51 @@ class User {
 				},
 			}
 		);
+	}
+
+	async sendSms(toPhone, message) {
+		const io = socketio(app.server);
+		const fromPhone = "16135081022";
+		// const to = "16472975595";
+
+		const vonage = new Vonage({
+			apiKey: "15df34ff",
+			apiSecret: "qcqdIaJycm5L9I5Q",
+		});
+
+		vonage.message.sendSms(
+			fromPhone,
+			"1" + toPhone,
+			message,
+			(err, responseData) => {
+				if (err) {
+					console.log(err);
+				} else {
+					if (responseData.messages[0]["status"] === "0") {
+						console.log("Message sent successfully.");
+						//Get data from response
+						const data = {
+							id: responseData.messages[0]["message-id"],
+							number: responseData.messages[0]["to"],
+						};
+
+						//Emit to client
+						io.emit("smsStatus", data);
+					} else {
+						console.log(
+							`Message failed with error: ${responseData.messages[0]["error-text"]}`
+						);
+					}
+				}
+			}
+		);
+
+		io.on("connection", (socket) => {
+			console.log("Connected");
+			io.on("disconnect", () => {
+				console.log("Disconnected");
+			});
+		});
 	}
 
 	async forgotPassword(data) {

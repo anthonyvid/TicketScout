@@ -280,6 +280,11 @@ exports.renderTicketProfile = async function (req, res) {
 	});
 };
 
+exports.sendSms = async function (req, res) {
+	const user = new User();
+	await user.sendSms(req.body.toPhone, req.body.message);
+};
+
 exports.updateTicketShippingInfo = async function (req, res) {
 	const user = new User();
 	await user.updateTicketShippingInfo(req.body, req.user.storename);

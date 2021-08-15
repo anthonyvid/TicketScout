@@ -285,3 +285,59 @@ const confirmTrackingDetails = () => {
 	})();
 	location.reload();
 };
+
+const chatBoxTextarea = document.getElementById("chat-msg");
+const sendMsg = document.getElementById("send-msg");
+
+sendMsg.addEventListener("click", () => {
+	if (chatBoxTextarea.value == "") {
+		chatBoxTextarea.style.backgroundColor = "#FFCCCC";
+		setTimeout(() => {
+			chatBoxTextarea.style.backgroundColor = "#fff";
+		}, 500);
+		return;
+	}
+
+	const message = chatBoxTextarea.value.trim();
+	const toPhone = document
+		.getElementById("phone")
+		.textContent.trim()
+		.replace(/\D/g, "");
+
+	(async () => {
+		try {
+			const response = await fetch("/send-sms", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					message,
+					toPhone,
+				}),
+			});
+			const data = await response.json();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+
+	const socket = io();
+	socket.on("smsStatus", function (data) {
+		if (data.error) {
+			console.log("<h5>Text message sent to " + data.error + "</h5>");
+		} else {
+			console.log("<h5>Text message sent to " + data.number + "</h5>");
+		}
+	});
+
+	const messageBox = document.createElement("div");
+	messageBox.classList.add("message");
+	const messageText = document.createTextNode(message);
+
+	messageBox.appendChild(messageText);
+
+	document.querySelector(".chat-body").appendChild(messageBox);
+
+	chatBoxTextarea.value = "";
+});

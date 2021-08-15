@@ -26,3 +26,17 @@ curl https://api.goshippo.com/tracks/fedex/281729605885 \
 
     //shippo_live_d94c55abdf656717365c634cf8182c5f5986c3db
 
+###
+POST https://4efcabf53057.ngrok.io
+Content-Type: application/json
+
+{
+    "api-key": "15df34ff",
+    "msisdn": "19057030659",
+    "to": "16135081022",
+    "messageId": "17000002BF984ECA",
+    "text": "Hello world",
+    "type": "text",
+    "keyword": "HELLO",
+    "message-timestamp": "2021-08-15 02:45:01"
+}

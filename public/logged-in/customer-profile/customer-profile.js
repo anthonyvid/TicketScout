@@ -50,6 +50,11 @@ newTicketBtn.addEventListener("click", () => {
 	createNewForm.action = "/create-new-customer";
 	createNewForm.submit();
 });
+newTicketBtn.addEventListener("click", () => {
+	document.getElementById("customerDataExists").value = "true";
+	createNewForm.action = "/create-new-customer";
+	createNewForm.submit();
+});
 const newPaymentBtn = document.querySelector(".newPaymentBtn");
 
 newPaymentBtn.addEventListener("click", () => {

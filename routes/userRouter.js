@@ -120,5 +120,13 @@ router.post(
 	ensureAuthenticated,
 	userController.updateTicketShippingInfo
 );
+router.post("/send-sms", ensureAuthenticated, userController.sendSms);
+router.post("/", (req, res) => {
+	console.log(req.body);
+});
+
+router.post("https://45c8b9429e11.ngrok.io", (req, res) => {
+	console.log("inbound", req.body);
+});
 
 module.exports = router;

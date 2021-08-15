@@ -18,6 +18,7 @@
 		"express": "^4.17.1",
 		"express-ejs-layouts": "^2.5.1",
 		"express-session": "^1.17.2",
+		"localtunnel": "^2.0.1",
 		"mongodb": "^3.6.9",
 		"mongoose": "^5.12.15",
 		"node-fetch": "^2.6.1",

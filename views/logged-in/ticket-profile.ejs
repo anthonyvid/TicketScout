@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/logged-in/ticket-profile/ticket-profile.css" />
 <link rel="stylesheet" href="/logged-in/layout/layout.css" />
 <script defer src="/logged-in/ticket-profile/ticket-profile.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -34,11 +35,8 @@
 			<div class="customer-content">
 				<div class="left-container">
 					<div class="chat-box">
-						<div class="chat-header">
-
-						</div>
 						<div class="chat-body">
-
+							
 						</div>
 						<div class="chat-send-wrap">
 							<div class="chat-send-content">
@@ -292,5 +290,6 @@
 			<input type="hidden" name="linkedTicket" id="linkedTicket" value="<%=ticketID%>">			
 			<input type="hidden" name="customerDataExists" id="customerDataExists" value="true">			
 		</form>
+		
 	</main>
 </div>

@@ -121,22 +121,32 @@ a:active {
 			height: 100%;
 			border-radius: 10px;
 
-			.chat-header {
-				width: 100%;
-				height: 10%;
-				opacity: 0.5;
-				border-top-right-radius: 10px;
-				border-top-left-radius: 10px;
-				border-bottom: 1px solid lightgray;
-			}
-
 			.chat-body {
-				height: 55%;
+				height: 70%;
+				padding: 40px;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				justify-content: flex-start;
+				overflow-y: auto;
+				gap: 20px;
+
+				.message {
+					display: flex;
+					align-items: center;
+					height: auto;
+					width: auto;
+					max-width: 600px;
+					background-color: lightcoral;
+					padding: 13px 20px 13px 20px;
+					border-radius: 20px 5px 20px 20px;
+					word-break: break-word;
+				}
 			}
 
 			.chat-send-wrap {
 				width: 100%;
-				height: 35%;
+				height: 30%;
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -160,8 +170,7 @@ a:active {
 						border-top-right-radius: 10px;
 						border-top-left-radius: 10px;
 						outline: none;
-						text-indent: 15px;
-						padding: 10px 10px;
+						padding: 10px;
 					}
 
 					div {

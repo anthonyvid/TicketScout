@@ -293,7 +293,7 @@ exports.sendSms = async function (req, res) {
 
 exports.receiveSms = async function (req, res) {
 	const user = new User();
-	await user.receiveSms(req.user.storename, req.body);
+	await user.receiveSms(req.body);
 	res.status(204).send();
 };
 

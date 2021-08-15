@@ -317,27 +317,32 @@ sendMsg.addEventListener("click", () => {
 				}),
 			});
 			const data = await response.json();
+			const messageBox = document.createElement("div");
+			messageBox.classList.add("message");
+			const messageText = document.createTextNode(
+				data.text + " " + data.y
+			);
+			messageBox.appendChild(messageText);
+			document.querySelector(".chat-body").appendChild(messageBox);
 		} catch (error) {
 			console.log(error);
 		}
 	})();
 
-	const socket = io();
-	socket.on("smsStatus", function (data) {
-		if (data.error) {
-			console.log("<h5>Text message sent to " + data.error + "</h5>");
-		} else {
-			console.log("<h5>Text message sent to " + data.number + "</h5>");
-		}
-	});
+	// const socket = io();
+	// socket.on("smsStatus", function (data) {
+	// 	if (data.error) {
+	// 		console.log("<h5>Text message sent to " + data.error + "</h5>");
+	// 	} else {
+	// 		console.log("<h5>Text message sent to " + data.number + "</h5>");
+	// 	}
+	// });
 
 	const messageBox = document.createElement("div");
 	messageBox.classList.add("message");
 	const messageText = document.createTextNode(message);
 
 	messageBox.appendChild(messageText);
-
-	document.querySelector(".chat-body").appendChild(messageBox);
 
 	chatBoxTextarea.value = "";
 });

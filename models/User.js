@@ -649,6 +649,10 @@ class User {
 		);
 	}
 
+	async recieveSms(x, y) {
+		return
+	}
+
 	async sendSms(toPhone, message) {
 		const io = socketio(app.server);
 		const fromPhone = "16135081022";

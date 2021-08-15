@@ -285,6 +285,12 @@ exports.sendSms = async function (req, res) {
 	await user.sendSms(req.body.toPhone, req.body.message);
 };
 
+exports.recieveSms = async function (req, res) {
+	const user = new User();
+	// await user.recieveSms(req.query, req.body);
+	res.status(204).json({ x: req.query, y: req.body });
+};
+
 exports.updateTicketShippingInfo = async function (req, res) {
 	const user = new User();
 	await user.updateTicketShippingInfo(req.body, req.user.storename);

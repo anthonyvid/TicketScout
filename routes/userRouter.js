@@ -125,12 +125,12 @@ router.post("/send-sms", ensureAuthenticated, userController.sendSms);
 // 	console.log(req.body);
 // });
 
-router.post("/ticketscout.herokuapp.com/recieveSms", (req, res) => {
+router.post("/recieveSms", (req, res) => {
 	const params = Object.assign(req.query, req.body);
 	console.log(params);
 	res.status(204).send();
 });
-router.get("/ticketscout.herokuapp.com/recieveSms", (req, res) => {
+router.get("/recieveSms", (req, res) => {
 	const params = Object.assign(req.query, req.body);
 	console.log(params);
 	res.status(204).send();

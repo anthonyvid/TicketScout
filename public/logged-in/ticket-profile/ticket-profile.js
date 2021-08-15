@@ -317,13 +317,7 @@ sendMsg.addEventListener("click", () => {
 				}),
 			});
 			const data = await response.json();
-			const messageBox = document.createElement("div");
-			messageBox.classList.add("message");
-			const messageText = document.createTextNode(
-				data.text + " " + data.y
-			);
-			messageBox.appendChild(messageText);
-			document.querySelector(".chat-body").appendChild(messageBox);
+			console.log(data.x, data.y);
 		} catch (error) {
 			console.log(error);
 		}

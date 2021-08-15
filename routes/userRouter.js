@@ -126,7 +126,9 @@ router.post("/send-sms", ensureAuthenticated, userController.sendSms);
 // });
 
 router.post("/ticketscout.herokuapp.com/recieveSms", (req, res) => {
-	console.log("inbound", req.body);
+	const params = Object.assign(req.query, req, body);
+	console.log(params);
+	res.status(204).send();
 });
 
 module.exports = router;

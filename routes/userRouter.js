@@ -121,11 +121,11 @@ router.post(
 	userController.updateTicketShippingInfo
 );
 router.post("/send-sms", ensureAuthenticated, userController.sendSms);
-router.post("/", (req, res) => {
-	console.log(req.body);
-});
+// router.post("/", (req, res) => {
+// 	console.log(req.body);
+// });
 
-router.post("https://ticketscout.herokuapp.com/recieveSms", (req, res) => {
+router.post("/ticketscout.herokuapp.com/recieveSms", (req, res) => {
 	console.log("inbound", req.body);
 });
 

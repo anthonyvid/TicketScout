@@ -1,12 +1,24 @@
 const User = require("./User");
 const storesCollection = require("../db").collection("stores");
 const usersCollection = require("../db").collection("users");
+const accountSid = "AC8a321be0aaaaf50e935af76cc879d895";
+const authToken = "642920c6d5d1873ce3a3aca4cbf7db72";
+const client = require("twilio")(accountSid, authToken);
 
 class Admin extends User {
 	constructor(data) {
 		super();
 		this.data = data;
 		this.errors = {};
+	}
+
+	async createTwilioSubaccount(friendlyName) {
+		//create twilio subaccount
+		return await client.api.accounts
+			.create({ friendlyName: friendlyName })
+			.then((account) => {
+				return account;
+			});
 	}
 
 	async register() {
@@ -31,6 +43,11 @@ class Admin extends User {
 			admin: true,
 		};
 
+		const twilioAccount = await this.createTwilioSubaccount(
+			this.data.storename
+		);
+		console.log(twilioAccount);
+
 		try {
 			storesCollection.insertOne({
 				storename: this.data.storename,
@@ -42,8 +59,9 @@ class Admin extends User {
 					customers: {},
 					payments: {},
 					api: {
-						vonage: {
-							fromPhone: "",
+						twilio: {
+							authToken: twilioAccount.authToken,
+							sid: twilioAccount.sid,
 							numSmsSent: 0,
 							numSmsReceived: 0,
 						},

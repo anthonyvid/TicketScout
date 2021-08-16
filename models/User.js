@@ -3,9 +3,6 @@ const validator = require("validator");
 const usersCollection = require("../db").collection("users");
 const storesCollection = require("../db").collection("stores");
 const nodemailer = require("nodemailer");
-const accountSid = "AC8a321be0aaaaf50e935af76cc879d895";
-const authToken = "642920c6d5d1873ce3a3aca4cbf7db72";
-const client = require("twilio")(accountSid, authToken);
 
 class User {
 	constructor(data) {
@@ -650,36 +647,63 @@ class User {
 		);
 	}
 
-	async receiveSms(storename, smsData) {
-		console.log(storename, smsData);
-	}
+	async receiveSms(smsData) {}
 
 	async sendSms(storename, ticket, toPhone, message) {
 		const store = await storesCollection.findOne({ storename: storename });
-		// const fromPhone = store.storedata.api.vonage.fromPhone;
 
-		const msg = await client.messages
-			.create({
-				body: message,
-				messagingServiceSid: "MGabaa56724b02f929d05404486b49f897",
-				to: toPhone,
-			})
-			.then(async (message) => {
-				await storesCollection.updateOne(
-					{ storename: storename },
-					{
-						$push: {
-							[`storedata.tickets.${[ticket]}.smsData`]: {
-								timestamp: Date.now(),
-								from: "store",
-								message: message.body,
-							},
-						},
-					}
-				);
-				return message.body;
-			});
-		return msg;
+		const accountSid = process.env.TWILIO_ACCOUNT_SID;
+		const authToken = process.env.TWILIO_AUTH_TOKEN;
+		const subaccountSid = store.storedata.api.twilio.sid;
+
+		// //find account number
+		// let client = require("twilio")(accountSid, authToken);
+		// client.api
+		// 	.accounts(subaccountSid)
+		// 	.fetch()
+		// 	.then((account) =>
+		// 		console.log(
+		// 			parseJSON(account.subresourceUris.available_phone_numbers)
+		// 		)
+		// 	);
+
+		let client = require("twilio")(accountSid, authToken, {
+			accountSid: subaccountSid,
+		});
+
+		client
+			.incomingPhoneNumbers("PNf6caad0510fdb50e63b4721f4a094075")
+			.fetch()
+			.then((incoming_phone_number) =>
+				console.log(incoming_phone_number)
+			);
+
+		//TODO: GET PHONE NUMBER FOR A SUBACCOUNT, I have
+
+		// const msg = await client.messages
+		// 	.create({
+		// 		from: "16474927343",
+		// 		body: message,
+		// 		to: "1" + toPhone,
+		// 	})
+		// 	.then(async (message) => {
+		// 		// await storesCollection.updateOne(
+		// 		// 	{ storename: storename },
+		// 		// 	{
+		// 		// 		$push: {
+		// 		// 			[`storedata.tickets.${[ticket]}.smsData`]: {
+		// 		// 				timestamp: Date.now(),
+		// 		// 				from: "store",
+		// 		// 				message: message.body,
+		// 		// 			},
+		// 		// 		},
+		// 		// 	}
+		// 		// );
+		// 		console.log(message);
+		// 		return message.body;
+		// 	});
+
+		// return msg;
 	}
 
 	async forgotPassword(data) {

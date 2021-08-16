@@ -651,7 +651,9 @@ class User {
 		const subAccountSid = smsData.accountSid;
 
 		//find subaccount to add msg to
-		const store = await storesCollection.findOne({ sid: subAccountSid });
+		const store = await storesCollection.findOne({
+			"storedata.api.twilio.sid": subAccountSid,
+		});
 		console.log(store);
 	}
 

@@ -649,7 +649,7 @@ class User {
 
 	async receiveSms(smsData) {
 		console.log(smsData);
-		const subAccountSid = smsData.accountSid;
+		const subAccountSid = smsData.AccountSid;
 		console.log(subAccountSid);
 
 		//find subaccount to add msg to

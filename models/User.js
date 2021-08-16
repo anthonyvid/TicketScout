@@ -648,15 +648,26 @@ class User {
 	}
 
 	async receiveSms(smsData) {
-		console.log(smsData);
 		const subAccountSid = smsData.AccountSid;
-		console.log(subAccountSid);
+		const message = smsData.Body;
 
 		//find subaccount to add msg to
 		const store = await storesCollection.findOne({
 			"storedata.api.twilio.sid": subAccountSid,
 		});
-		console.log(store);
+
+		await storesCollection.updateOne(
+			{ storename: store.storename },
+			{
+				$push: {
+					[`storedata.tickets.${[ticket]}.smsData`]: {
+						timestamp: Date.now(),
+						from: "client",
+						message: message,
+					},
+				},
+			}
+		);
 	}
 
 	async sendSms(storename, toPhone, message) {
@@ -684,18 +695,18 @@ class User {
 				to: "1" + toPhone,
 			})
 			.then(async (message) => {
-				// await storesCollection.updateOne(
-				// 	{ storename: storename },
-				// 	{
-				// 		$push: {
-				// 			[`storedata.tickets.${[ticket]}.smsData`]: {
-				// 				timestamp: Date.now(),
-				// 				from: "store",
-				// 				message: message.body,
-				// 			},
-				// 		},
-				// 	}
-				// );
+				await storesCollection.updateOne(
+					{ storename: storename },
+					{
+						$push: {
+							[`storedata.tickets.${[ticket]}.smsData`]: {
+								timestamp: Date.now(),
+								from: "store",
+								message: message.body,
+							},
+						},
+					}
+				);
 				return message.body;
 			});
 

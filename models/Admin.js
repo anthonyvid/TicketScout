@@ -1,8 +1,8 @@
 const User = require("./User");
 const storesCollection = require("../db").collection("stores");
 const usersCollection = require("../db").collection("users");
-const accountSid = "AC8a321be0aaaaf50e935af76cc879d895";
-const authToken = "642920c6d5d1873ce3a3aca4cbf7db72";
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
 class Admin extends User {
@@ -42,10 +42,16 @@ class Admin extends User {
 			passwordConfirm: this.data.passwordConfirm,
 			admin: true,
 		};
+		let twilioAccount = null;
 
-		const twilioAccount = await this.createTwilioSubaccount(
-			this.data.storename
-		);
+		try {
+			twilioAccount = await this.createTwilioSubaccount(
+				this.data.storename
+			);
+		} catch (error) {
+			console.log(error);
+		}
+
 		console.log(twilioAccount);
 
 		try {

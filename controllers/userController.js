@@ -284,7 +284,6 @@ exports.sendSms = async function (req, res) {
 	const user = new User();
 	const msg = await user.sendSms(
 		req.user.storename,
-		req.body.ticketID,
 		req.body.toPhone,
 		req.body.message
 	);

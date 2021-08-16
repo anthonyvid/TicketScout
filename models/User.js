@@ -647,63 +647,51 @@ class User {
 		);
 	}
 
-	async receiveSms(smsData) {}
+	async receiveSms(smsData) {
+		console.log(smsData);
+	}
 
-	async sendSms(storename, ticket, toPhone, message) {
+	async sendSms(storename, toPhone, message) {
 		const store = await storesCollection.findOne({ storename: storename });
 
-		const accountSid = process.env.TWILIO_ACCOUNT_SID;
-		const authToken = process.env.TWILIO_AUTH_TOKEN;
-		const subaccountSid = store.storedata.api.twilio.sid;
+		const subAccountSid = store.storedata.api.twilio.sid;
+		const subAccountAuthToken = store.storedata.api.twilio.authToken;
 
-		// //find account number
-		// let client = require("twilio")(accountSid, authToken);
-		// client.api
-		// 	.accounts(subaccountSid)
-		// 	.fetch()
-		// 	.then((account) =>
-		// 		console.log(
-		// 			parseJSON(account.subresourceUris.available_phone_numbers)
-		// 		)
-		// 	);
+		const client = require("twilio")(subAccountSid, subAccountAuthToken);
 
-		let client = require("twilio")(accountSid, authToken, {
-			accountSid: subaccountSid,
-		});
+		let subAccount = null;
 
-		client
-			.incomingPhoneNumbers("PNf6caad0510fdb50e63b4721f4a094075")
-			.fetch()
-			.then((incoming_phone_number) =>
-				console.log(incoming_phone_number)
-			);
+		try {
+			subAccount = await client.incomingPhoneNumbers.list({
+				limit: 20,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 
-		//TODO: GET PHONE NUMBER FOR A SUBACCOUNT, I have
+		const msg = await client.messages
+			.create({
+				from: subAccount[0].phoneNumber,
+				body: message,
+				to: "1" + toPhone,
+			})
+			.then(async (message) => {
+				// await storesCollection.updateOne(
+				// 	{ storename: storename },
+				// 	{
+				// 		$push: {
+				// 			[`storedata.tickets.${[ticket]}.smsData`]: {
+				// 				timestamp: Date.now(),
+				// 				from: "store",
+				// 				message: message.body,
+				// 			},
+				// 		},
+				// 	}
+				// );
+				return message.body;
+			});
 
-		// const msg = await client.messages
-		// 	.create({
-		// 		from: "16474927343",
-		// 		body: message,
-		// 		to: "1" + toPhone,
-		// 	})
-		// 	.then(async (message) => {
-		// 		// await storesCollection.updateOne(
-		// 		// 	{ storename: storename },
-		// 		// 	{
-		// 		// 		$push: {
-		// 		// 			[`storedata.tickets.${[ticket]}.smsData`]: {
-		// 		// 				timestamp: Date.now(),
-		// 		// 				from: "store",
-		// 		// 				message: message.body,
-		// 		// 			},
-		// 		// 		},
-		// 		// 	}
-		// 		// );
-		// 		console.log(message);
-		// 		return message.body;
-		// 	});
-
-		// return msg;
+		return msg;
 	}
 
 	async forgotPassword(data) {

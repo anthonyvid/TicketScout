@@ -306,10 +306,7 @@ sendMsg.addEventListener("click", () => {
 		.getElementById("phone")
 		.textContent.trim()
 		.replace(/\D/g, "");
-	const ticketID = document
-		.getElementById("ticketID")
-		.textContent.trim()
-		.replace("#", "");
+
 	(async () => {
 		try {
 			const response = await fetch("/send-sms", {
@@ -320,7 +317,6 @@ sendMsg.addEventListener("click", () => {
 				body: JSON.stringify({
 					message,
 					toPhone,
-					ticketID,
 				}),
 			});
 			const data = await response.json();

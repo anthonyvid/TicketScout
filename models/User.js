@@ -648,7 +648,9 @@ class User {
 	}
 
 	async receiveSms(smsData) {
+		console.log(smsData);
 		const subAccountSid = smsData.accountSid;
+		console.log(subAccountSid);
 
 		//find subaccount to add msg to
 		const store = await storesCollection.findOne({

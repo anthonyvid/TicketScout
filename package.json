@@ -12,6 +12,7 @@
 		"connect-flash": "^0.1.1",
 		"connect-mongo": "^4.4.1",
 		"connect-mongodb-session": "^2.4.1",
+		"cookie-session": "^1.4.0",
 		"dotenv": "^10.0.0",
 		"dymojs": "^1.2.0",
 		"ejs": "^3.1.6",

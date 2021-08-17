@@ -92,6 +92,7 @@ class User {
 			orderItems: order,
 			paymentMethod: paymentMethod,
 			linkedTicket: linkedTicket,
+			date: new Date().toDateString(),
 		};
 
 		if (customer.phone.length > 0) {
@@ -131,6 +132,7 @@ class User {
 			}
 		);
 
+		console.log("wow");
 		return {};
 	}
 
@@ -403,15 +405,16 @@ class User {
 	async getCustomerData(storename, phone) {
 		//get store were working with
 		const store = await storesCollection.findOne({ storename: storename });
-		console.log(store.storedata.customers[phone]);
-		console.log(store.storedata.customers[phone].tickets["2000"]);
 		return store.storedata.customers[phone];
 	}
 	async getTicketData(storename, ticketID) {
 		//get store were working with
 		const store = await storesCollection.findOne({ storename: storename });
-
 		return store.storedata.tickets[ticketID];
+	}
+	async getPaymentData(storename, paymentNumber) {
+		const store = await storesCollection.findOne({ storename: storename });
+		return store.storedata.payments[paymentNumber];
 	}
 
 	async updateTicketList(storename) {
@@ -451,6 +454,23 @@ class User {
 		});
 
 		return [sortedCustomers, store];
+	}
+	async updatePaymentsList(storename) {
+		//get store we are working with
+		const store = await storesCollection.findOne({ storename: storename });
+
+		//create array sorted by recently updated
+		const payments = store.storedata.payments;
+
+		const sortedPayments = [];
+		for (let payment in payments) {
+			sortedPayments.push([payment, payments[payment]]);
+		}
+		sortedPayments.sort(function (a, b) {
+			return a[1].firstname > b[1].firstname ? 1 : -1;
+		});
+
+		return [sortedPayments, store];
 	}
 
 	isValidPhone(phone) {
@@ -658,21 +678,11 @@ class User {
 			"storedata.api.twilio.sid": subAccountSid,
 		});
 
-		// await storesCollection.updateOne(
-		// 	{ storename: store.storename },
-		// 	{
-		// 		$push: {
-		// 			[`storedata.tickets.${[ticket]}.smsData`]: {
-		// 				timestamp: Date.now(),
-		// 				from: "client",
-		// 				message: message,
-		// 			},
-		// 		},
-		// 	}
-		// );
+		//also update the status of the ticket to CUSTOMER_REPLY
+		//maybe setup socket.io connection here to display msg if user is on that page
 	}
 
-	async sendSms(storename, toPhone, message) {
+	async sendSms(storename, ticketID, toPhone, message) {
 		const store = await storesCollection.findOne({ storename: storename });
 
 		const subAccountSid = store.storedata.api.twilio.sid;
@@ -701,10 +711,15 @@ class User {
 					{ storename: storename },
 					{
 						$push: {
-							[`storedata.tickets.${[ticket]}.smsData`]: {
-								timestamp: Date.now(),
-								from: "store",
-								message: message.body,
+							[`storedata.tickets.${[ticketID]}.smsData`]: {
+								$each: [
+									{
+										timestamp: Date.now(),
+										from: "store",
+										message: message.body,
+									},
+								],
+								$position: -1,
 							},
 						},
 					}
@@ -782,6 +797,13 @@ class User {
 		}
 	}
 
+	async clockIn(storename, clockInTime) {
+		console.log(storename, clockInTime);
+	}
+	async clockOut(storename, clockOutTime) {
+		console.log(storename, clockOutTime);
+	}
+
 	async validate(data) {
 		//validate full name
 		if (!/\s/g.test(data.fullname))
@@ -850,8 +872,12 @@ class User {
 			storename: store.storename.toLowerCase(),
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
-			connected: false,
 			admin: false,
+			timeClock: {
+				clockInTime: null,
+				clockOutTime: null,
+				clockHistory: [],
+			},
 		};
 
 		//add user into stores collection under the store they signed up for

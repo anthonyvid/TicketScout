@@ -245,7 +245,7 @@ addToOrderBtn.addEventListener("click", () => {
 	}
 
 	const item = {
-		category: categoryText,
+		category: categoryText.trim(),
 		description: document.getElementById("description").value,
 		amount: amountBeforeTax,
 		taxPercent: taxPercentage,

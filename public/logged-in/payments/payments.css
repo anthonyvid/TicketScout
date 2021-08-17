@@ -97,7 +97,7 @@ a:active {
           box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 
-.header-wrap .ticket-action-container .filter-container #search-customer-wrap {
+.header-wrap .ticket-action-container .filter-container #search-customer-wrap, .header-wrap .ticket-action-container .filter-container #search-paymentNumber-wrap {
   width: 200px;
 }
 
@@ -197,44 +197,6 @@ a:active {
   color: #575758 !important;
 }
 
-.card-scroll-box table tbody tr .issue-selects {
-  border: 2px solid #e8eaed;
-  border-radius: 5px;
-  background: white;
-  -webkit-box-shadow: 0 1px 3px -2px #9098a9;
-          box-shadow: 0 1px 3px -2px #9098a9;
-  cursor: pointer;
-  outline: none;
-}
-
-.card-scroll-box table tbody tr #icon-color {
-  font-size: 12px;
-}
-
-.card-scroll-box table tbody tr .status-selects {
-  -webkit-appearance: none;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  margin-left: 2px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.card-scroll-box table tbody tr .status-selects:hover {
-  cursor: pointer;
-}
-
-.card-scroll-box table tbody tr .status div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 2px;
-}
-
 .card-scroll-box table td {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
@@ -248,4 +210,4 @@ a:active {
 .card-scroll-box table a:hover {
   text-decoration: underline;
 }
-/*# sourceMappingURL=tickets.css.map */
+/*# sourceMappingURL=payments.css.map */

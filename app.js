@@ -1,7 +1,8 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
-const session = require("cookie-session");
+const session = require("cookie-session"); //uncomment for production
+// const session = require("express-session"); //comment for production
 const dotenv = require("dotenv");
 const passport = require("passport");
 

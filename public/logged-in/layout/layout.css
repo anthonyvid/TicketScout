@@ -262,11 +262,7 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  z-index: 1;
-}
-
-.main-content header .search-box .show-create-new-dd ul {
-  list-style: none;
+  z-index: 999;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -280,7 +276,7 @@ a {
   gap: 5px;
 }
 
-.main-content header .search-box .show-create-new-dd ul li {
+.main-content header .search-box .show-create-new-dd a {
   color: #000;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -297,20 +293,25 @@ a {
   padding-left: 20px;
 }
 
-.main-content header .search-box .show-create-new-dd li:hover {
+.main-content header .search-box .show-create-new-dd a:hover {
   background-color: #000;
   color: #fff;
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
 }
 
-.main-content header .search-box .show-create-new-dd li:hover span {
+.main-content header .search-box .show-create-new-dd a:hover span {
   color: white;
 }
 
-.main-content header .search-box .show-create-new-dd #new_payment:hover {
+.main-content header .search-box .show-create-new-dd #new-payment-link:hover {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.main-content header .search-box .show-create-new-dd #new-ticket-link:hover {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .main-content header input:focus,
@@ -368,13 +369,23 @@ a {
   border-bottom-right-radius: 0 !important;
 }
 
-.main-content header .profile-wrap div {
+.main-content header .profile-wrap .time-clock-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 80px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
-.main-content header .profile-wrap div .clock-box {
+.main-content header .profile-wrap .time-clock-wrap .clock-box,
+.main-content header .profile-wrap .time-clock-wrap .clock-in-btn,
+.main-content header .profile-wrap .time-clock-wrap .clock-out-btn {
   width: 40px;
   height: 40px;
   border-radius: 5px;
@@ -390,115 +401,47 @@ a {
           align-items: center;
   -webkit-transition: 0.15s ease-in-out;
   transition: 0.15s ease-in-out;
-  -webkit-transform: scale(1);
-          transform: scale(1);
   -webkit-box-shadow: 0 1px 1px #b1aec2;
           box-shadow: 0 1px 1px #b1aec2;
 }
 
-.main-content header .profile-wrap div .clock-box i {
-  font-size: 20px;
-}
-
-.main-content header .profile-wrap div .clock-box:hover {
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+.main-content header .profile-wrap .time-clock-wrap .clock-box:hover,
+.main-content header .profile-wrap .time-clock-wrap .clock-in-btn:hover,
+.main-content header .profile-wrap .time-clock-wrap .clock-out-btn:hover {
   cursor: pointer;
 }
 
-.main-content header .profile-wrap div .clock-settings-wrap.expanded {
-  visibility: visible;
-  opacity: 1;
-  max-width: 200;
-  -webkit-transition: 1s ease-in-out;
-  transition: 1s ease-in-out;
-  -webkit-transform: translate(-170px) !important;
-          transform: translate(-170px) !important;
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+.main-content header .profile-wrap .time-clock-wrap .clock-box i,
+.main-content header .profile-wrap .time-clock-wrap .clock-in-btn i,
+.main-content header .profile-wrap .time-clock-wrap .clock-out-btn i {
+  font-size: 20px;
 }
 
-.main-content header .profile-wrap div .clock-settings-wrap {
-  visibility: hidden;
-  opacity: 0;
-  max-width: 0;
-  width: 200px;
-  border-radius: 5px;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+.main-content header .profile-wrap .time-clock-wrap .clock-in-btn {
+  display: none;
+  background-color: lightskyblue;
 }
 
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings {
+.main-content header .profile-wrap .time-clock-wrap .clock-in-btn .fa-play-circle {
+  color: white;
+}
+
+.main-content header .profile-wrap .time-clock-wrap .clock-out-btn {
+  display: none;
+  background-color: lightcoral;
+}
+
+.main-content header .profile-wrap .time-clock-wrap .showTimeClockBtn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  background-color: #fff;
-  gap: 2px;
-  -webkit-box-shadow: 0 1px 1px #b1aec2;
-          box-shadow: 0 1px 1px #b1aec2;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings input {
-  width: 100px;
-  padding: 0 3px 0 3px;
-  border: 0;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings label {
-  font-size: 12px;
-  text-align: center;
-  font-family: "Inter";
-  font-weight: 500;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:-moz-read-only {
-  background: #eaeff1;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="time"]:read-only {
-  background: #eaeff1;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="time"][readonly]:focus {
-  background: #e6f8ff;
-  border-bottom: none;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-settings input[type="checkbox"]:focus {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: transparent;
-}
-
-.main-content header .profile-wrap div .clock-settings-wrap .time-submit button {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background-color: #fff;
-  border-radius: 5px;
-  border-bottom-left-radius: 0;
   border-top-left-radius: 0;
-  -webkit-box-shadow: 0 1px 1px #b1aec2;
-          box-shadow: 0 1px 1px #b1aec2;
+  border-bottom-left-radius: 0;
 }
 
-.main-content header .profile-wrap div .clock-settings-wrap .time-submit button:hover {
-  background-color: black;
-  color: #fff;
+.main-content header .profile-wrap .time-clock-wrap .removeBorderRightRadius {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .main-content header .profile-wrap .initial-box {
@@ -596,6 +539,7 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  z-index: 999;
 }
 
 .show-dd ul {

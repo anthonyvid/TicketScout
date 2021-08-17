@@ -1,0 +1,97 @@
+<% const fullname = payment.customer.firstname.charAt(0).toUpperCase()+payment.customer.firstname.slice(1)+" "+payment.customer.lastname.charAt(0).toUpperCase()+payment.customer.lastname.slice(1); %> 
+<% let phone = ''; %> 
+<% if (payment.customer.phone.length < 10 || payment.customer.phone.length > 11) { %> 
+	<% phone = payment.customer.phone %>
+<% } else if (payment.customer.phone.length === 10) {%> 
+	<% phone = `(${payment.customer.phone.substring(0,3)})`+' '+payment.customer.phone.substring(3,6)+'-'+payment.customer.phone.substring(6,10) %>
+<% } else if (payment.customer.phone.length === 11) {%> 
+	<% phone = `+${payment.customer.phone.substring(0,1)}`+' '+`(${payment.customer.phone.substring(1,4)})`+' '+payment.customer.phone.substring(4,7)+'-'+payment.customer.phone.substring(7,11)%>
+<% } %>
+<link rel="stylesheet" href="/logged-in/payment-profile/payment-profile.css" />
+<link rel="stylesheet" href="/logged-in/layout/layout.css" />
+<script defer src="/logged-in/payment-profile/payment-profile.js"></script>
+<div class="main-content">
+	<main>
+		<div class="page-header">
+			<%- include('../partials/messages'); %>
+			<div class="header-wrap">
+				<div class="title-wrap">
+					<h1 id="Number"><%=`Payment #${paymentNumber}`%></h1>
+				</div>
+				<div class="actions-wrap">
+                    <div class="documentBtn action-style ">
+							<i class="fas fa-file-pdf"></i>
+					</div>
+                </div>
+			</div>
+			<div class="payment-content">
+				<div class="header-info">
+					<div class="address">
+						<p><b><%=store.storename%></b></p>
+						<p><%=store.storeSettings.payments.address.primary%></p>
+						<p>
+							<%=`${store.storeSettings.payments.address.city},
+							${store.storeSettings.payments.address.province},
+							${store.storeSettings.payments.address.postal}`%>
+						</p>
+					</div>
+                    <h1><b><%=`#${paymentNumber}`%></b></h1>
+				</div>
+                <hr color="#eaeef5" size="1" />
+                <div class="info-section">
+                    <div class="order-info">
+                        <div class="client-contact-info">
+                            <p><b>Client Contact Info:</b></p>
+                            <p><%=fullname%></p>
+                            <p><%=phone%></p>
+                            <p><%=payment.customer.email%></p>
+                        </div>
+                        <div>
+                            <p><b>Payment Date:</b></p>
+                            <p><%=payment.date%></p>
+                        </div>
+                        <div>
+                            <p><b>Payment Method:</b></p>
+                            <p><%=payment.paymentMethod%></p>
+                        </div>
+                        <div>
+                            <p><b>Payment Total:</b></p>
+                            <p><%="$"+payment.orderTotal%></p>
+                        </div>
+                    </div>   
+                    <div class="items-in-order-container">
+						<h4>Items in Order</h4>
+						<table id="order-table">
+							<thead>
+								<tr>
+									<td>Category</td>
+									<td>Description</td>
+									<td>Amount</td>
+									<td>Tax %</td>
+									<td>Tax $</td>
+									<td>Qty</td>
+									<td>Total</td>
+								</tr>
+							</thead>
+							<tbody>
+                                <% for(let i=0; i<payment.orderItems.length; i++) {%> 
+                                    <tr id="tr">
+                                        <td class="category-overview"><%= payment.orderItems[i].category %> </td>
+                                        <td class="description-overview">
+                                            <%= payment.orderItems[i].description %>
+                                        </td>
+                                        <td class="amount-overview"><%= "$"+payment.orderItems[i].amount %></td>
+                                        <td class="tax-percent-overview"><%= payment.orderItems[i].taxPercent %></td>
+                                        <td class="tax-dollar-overview"><%= "$"+payment.orderItems[i].taxDollar %></td>
+                                        <td class="quantity-overview"><%= payment.orderItems[i].quantity %></td>
+                                        <td class="total-overview"><%= "$"+payment.orderItems[i].total %></td>
+                                    </tr>
+                                <% } %> 
+							</tbody>
+						</table>
+					</div>
+                </div>
+			</div>
+		</div>
+	</main>
+</div>

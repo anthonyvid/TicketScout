@@ -41,6 +41,11 @@ class Admin extends User {
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
 			admin: true,
+			timeClock: {
+				clockInTime: null,
+				clockOutTime: null,
+				clockHistory: [],
+			},
 		};
 		let twilioAccount = null;
 
@@ -75,12 +80,15 @@ class Admin extends User {
 				},
 				storeSettings: {
 					tickets: {
-						status: [["New", "88D18A"], [("Resolved", "124559")]],
+						status: [
+							["New", "88D18A"],
+							["Resolved", "124559"],
+						],
 						issue: [],
 					},
 					payments: {
 						categories: [],
-						taxRate: "",
+						taxRate: "13",
 					},
 				},
 			});

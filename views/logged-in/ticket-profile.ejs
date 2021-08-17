@@ -37,9 +37,15 @@
 					<div class="chat-box">
 						<div class="chat-body">
 							<% for (let i = 0; i < ticket.smsData.length; i++) { %>
-								<div class="message">
-									<%= ticket.smsData[i].message %> 
-								</div>
+								<% if(ticket.smsData[i].from === "store") {%>
+									<div class="message-box">
+										<p class="reply"><%= ticket.smsData[i].message %> </p>
+									</div>
+								<% } else if(ticket.smsData[i].from === "client") {%>
+									<div class="message-box">
+										<p class="received"><%= ticket.smsData[i].message %> </p>
+									</div>
+								<% } %> 
 							<% } %>
 						</div>
 						<div class="chat-send-wrap">
@@ -167,7 +173,7 @@
 						<div class="info-wrap">
 							<div class="item-style">
 								<span><i class="fas fa-user"></i></span>
-								<p id="name"><%=fullname%></p>
+								<p id="name"><a href="/customers/"><%=fullname%></a></p>
 								<div>
 									<input name="newFirstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= ticket.customer.firstname %> ">
 									<input name="newLastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= ticket.customer.lastname %> ">
@@ -175,7 +181,7 @@
 							</div>
 							<div class="item-style">
 								<span><i class="fas fa-phone-alt"></i></span>
-								<p id="phone"><%=phone %></p>
+								<p id="phone"><a href="/customers/"><%=phone%></a></p>
 								<input
 									name="oldPhone"
 									form="editCustomerInfoForm"

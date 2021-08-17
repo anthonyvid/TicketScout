@@ -227,29 +227,25 @@ a {
 
 			.show-create-new-dd {
 				display: flex;
-				z-index: 1;
+				z-index: 999;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				gap: 5px;
 
-				ul {
-					list-style: none;
-					flex-direction: column;
-					justify-content: center;
+				a {
+					color: #000;
+					display: flex;
 					align-items: center;
-					gap: 5px;
-
-					li {
-						color: #000;
-						display: flex;
-						align-items: center;
-						width: 175px;
-						height: 40px;
-						transition: 0.15s ease-in-out;
-						font-size: 12px;
-						font-weight: 500;
-						padding-left: 20px;
-					}
+					width: 175px;
+					height: 40px;
+					transition: 0.15s ease-in-out;
+					font-size: 12px;
+					font-weight: 500;
+					padding-left: 20px;
 				}
 
-				li:hover {
+				a:hover {
 					background-color: #000;
 					color: #fff;
 					transition: 0.15s ease-in-out;
@@ -259,9 +255,13 @@ a {
 					}
 				}
 
-				#new_payment:hover {
+				#new-payment-link:hover {
 					border-bottom-left-radius: 5px;
 					border-bottom-right-radius: 5px;
+				}
+				#new-ticket-link:hover {
+					border-top-left-radius: 5px;
+					border-top-right-radius: 5px;
 				}
 			}
 		}
@@ -304,10 +304,15 @@ a {
 				border-bottom-right-radius: 0 !important;
 			}
 
-			div {
+			.time-clock-wrap {
 				display: flex;
+				width: 80px;
+				flex-direction: row;
+				justify-content: flex-end;
 
-				.clock-box {
+				.clock-box,
+				.clock-in-btn,
+				.clock-out-btn {
 					width: 40px;
 					height: 40px;
 					border-radius: 5px;
@@ -316,91 +321,39 @@ a {
 					justify-content: center;
 					align-items: center;
 					transition: 0.15s ease-in-out;
-					transform: scale(1);
 					box-shadow: 0 1px 1px $light-grey;
+
+					&:hover {
+						cursor: pointer;
+					}
 
 					i {
 						font-size: 20px;
 					}
 				}
+				.clock-in-btn {
+					display: none;
+					background-color: lightskyblue;
 
-				.clock-box:hover {
-					transition: 0.15s ease-in-out;
-					transform: scale(1.1);
-					cursor: pointer;
+					.fa-play-circle {
+						color: white;
+					}
 				}
 
-				.clock-settings-wrap.expanded {
-					visibility: visible;
-					opacity: 1;
-					max-width: 200;
-					transition: 1s ease-in-out;
-					transform: translate(-170px) !important;
-					border-top-right-radius: 0 !important;
-					border-bottom-right-radius: 0 !important;
+				.clock-out-btn {
+					display: none;
+					background-color: lightcoral;
 				}
 
-				.clock-settings-wrap {
-					visibility: hidden;
-					opacity: 0;
-					max-width: 0;
-					width: 200px;
-					border-radius: 5px;
-					border-bottom-left-radius: 0;
+				.showTimeClockBtn {
+					display: flex;
 					border-top-left-radius: 0;
+					border-bottom-left-radius: 0;
+				}
 
-					.time-settings {
-						display: flex;
-						flex-direction: column;
-						background-color: #fff;
-						gap: 2px;
-						box-shadow: 0 1px 1px $light-grey;
-						input {
-							width: 100px;
-							padding: 0 3px 0 3px;
-							border: 0;
-						}
-						label {
-							font-size: 12px;
-							text-align: center;
-							font-family: "Inter";
-							font-weight: 500;
-						}
-						input[type="time"]:read-only {
-							background: #eaeff1;
-						}
-
-						input[type="time"][readonly]:focus {
-							background: #e6f8ff;
-							border-bottom: none;
-						}
-
-						input[type="checkbox"]:focus {
-							background: rgba(255, 255, 255, 0.9);
-							border-color: transparent;
-						}
-					}
-
-					.time-submit {
-						button {
-							display: flex;
-							align-items: center;
-							justify-content: center;
-							width: 40px;
-							height: 40px;
-							border: 0;
-							background-color: #fff;
-							border-radius: 5px;
-							border-bottom-left-radius: 0;
-							border-top-left-radius: 0;
-							box-shadow: 0 1px 1px $light-grey;
-						}
-
-						button:hover {
-							background-color: black;
-							color: #fff;
-						}
-					}
+				.removeBorderRightRadius {
+					border-top-right-radius: 0px;
+					border-bottom-right-radius: 0px;
 				}
 			}
 
@@ -475,6 +428,7 @@ a {
 
 .show-dd {
 	display: flex;
+	z-index: 999;
 
 	ul {
 		list-style: none;

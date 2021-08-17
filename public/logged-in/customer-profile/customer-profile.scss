@@ -125,7 +125,7 @@ a:active {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				justify-content: space-between;
+				justify-content: center;
 				padding: 10px;
 				border: 1px solid $swatch_1;
 				border-top-right-radius: 10px;
@@ -325,12 +325,9 @@ a:active {
 			flex-direction: column;
 			gap: 15px;
 
-			.tickets {
-				display: flex;
-				align-items: center;
-				gap: 20px;
-			}
-			.payments {
+			.tickets,
+			.payments,
+			.spent {
 				display: flex;
 				align-items: center;
 				gap: 20px;

@@ -4,8 +4,7 @@ const updateAccountInput = document.querySelectorAll(".update-account-input");
 const userProfileBackBtn = document.getElementById("profile-settings-back-btn");
 const navList = document.querySelector("#navList");
 const menuLinks = navList.querySelectorAll(".menu-link");
-const timeClock = document.getElementById("time-clock");
-const timeClockSettings = document.querySelector(".clock-settings-wrap");
+
 const dropDownIcon = document.querySelector(".icon-wrap");
 const currentDate = document.getElementById("current-date");
 const plusBoxIcon = document.querySelector(".create-new");
@@ -47,11 +46,6 @@ $(document).ready(function () {
 	});
 });
 
-timeClock.addEventListener("click", function () {
-	timeClock.classList.toggle("time-clock-animation");
-	document.querySelector(".clock-settings-wrap").classList.toggle("expanded");
-});
-
 dropDownIcon.addEventListener("click", () => {
 	document.getElementById("arrow").classList.toggle("rotate");
 	document.querySelector(".dropdown").classList.toggle("show-dd");
@@ -70,6 +64,7 @@ document.addEventListener("keydown", function (e) {
 			.querySelector(".create-new-dropdown")
 			.classList.contains("show-create-new-dd")
 	) {
+		console.log("ya");
 		if (keyCode === 27) {
 			document
 				.querySelector(".create-new-dropdown")
@@ -89,3 +84,49 @@ plusBoxIcon.addEventListener("click", () => {
 		plusBoxIcon.style.color = "#b1aec2";
 	}
 });
+
+const closeDropdown = () => {
+	e.target.classList.remove("show-create-new-dd");
+	document.removeEventListener("click", closeDropdown);
+};
+
+const timeClock = document.getElementById("time-clock");
+const clockBtns = document.querySelectorAll(".clockBtn");
+
+timeClock.addEventListener("click", function () {
+	timeClock.classList.toggle("removeBorderRightRadius");
+
+	for (const btn of clockBtns) {
+		btn.classList.toggle("showTimeClockBtn");
+	}
+});
+
+for (const btn of clockBtns) {
+	btn.addEventListener("click", () => {
+		if (btn.classList.contains("clock-in-btn")) {
+			(async () => {
+				const response = await fetch("/clock-in", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ clockInTime: Date.now() }),
+				});
+				const data = await response.json();
+			})();
+		} else {
+			(async () => {
+				const response = await fetch("/clock-out", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ clockOutTime: Date.now() }),
+				});
+				const data = await response.json();
+			})();
+		}
+
+		btn.classList.remove("showTimeClockBtn");
+	});
+}

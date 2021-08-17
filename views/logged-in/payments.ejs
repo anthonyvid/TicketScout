@@ -1,0 +1,84 @@
+
+
+<link rel="stylesheet" href="/logged-in/payments/payments.css" />
+<script defer src="/logged-in/payments/payments.js"></script>
+<div class="main-content">
+	<main>
+		<div class="page-header">
+			<div class="header-wrap">
+				<div class="title-wrap">
+					<h1>Payments</h1>
+					<small>View recent payments</small>
+				</div>
+				<div class="ticket-action-container">
+					<div class="filter-container">
+						<div class="search-wrap" id="search-paymentNumber-wrap">
+							<input onkeyup="searchForPaymentNumber()" id="search-payment-number" type="text" placeholder="Search payment number...">
+						</div>
+						<div class="search-wrap" id="search-customer-wrap">
+							<input onkeyup="searchForCustomer()" id="search-customer" type="text" placeholder="Search customer phone...">
+						</div>
+						<div class="search-wrap" id="search-subject-wrap">
+							<input onkeyup="searchForAmount()" id="search-amount" type="text" placeholder="Search amount...">
+						</div>
+						<div class="search-wrap">
+							<input onkeyup="searchForDate()" id="search-date" type="text" placeholder="Search date...">
+						</div>
+					</div>
+					<div class="new-ticket-wrap">
+						<form action="/new-payment" method="GET">
+							<button type="submit">New Payment</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="card-scroll-box">
+				<table>
+					<thead>
+						<tr>
+							<td class="ticket-id" id="paymentNumberHeader">
+								<a style="padding-right:7px;"> Payment #</a><i class="fas fa-sort"></i>
+							</td>
+							<td class="customer">Customer</td>
+							<td class="subject">Amount</td>
+							<td class="status">Payment Method</td>
+							<td class="status">Date</td>
+						</tr>
+					</thead>
+					<tbody>
+						<% if(payments.length === 0) {%>
+                            <tr><td style="margin-left: 2rem;">No Payments</td></tr>
+                        <% } else { %> 
+							<% for(let i=0; i<payments.length; i++) { %> 
+                                
+								<tr id="table-row">
+									<td>
+										<a class="paymentNumber" href="/payments/"><%=payments[i][0]%></a>
+									</td>
+									<td>
+										<% if (payments[i][1].customer.phone.length < 10 || payments[i][1].customer.phone.length > 11) { %> 
+                                            <a href="/customers/" class="phone">
+                                                <%=payments[i][1].customer.phone %>
+                                            </a>
+                                        <% } else if (payments[i][1].customer.phone.length === 10) {%> 
+                                            <a href="/customers/" class="phone">
+                                                <%=`(${payments[i][1].customer.phone.substring(0,3)})`+' '+payments[i][1].customer.phone.substring(3,6)+'-'+payments[i][1].customer.phone.substring(6,10) %>
+                                            </a>
+                                        <% } else if (payments[i][1].customer.phone.length === 11) {%> 
+                                            <a href="/customers/" class="phone">
+                                                <%=`+${payments[i][1].customer.phone.substring(0,1)}`+' '+`(${payments[i][1].customer.phone.substring(1,4)})`+' '+payments[i][1].customers.phone.substring(4,7)+'-'+payments[i][1].customer.phone.substring(7,11)%>
+                                            </a>
+                                        <% } %>
+									</td>
+									<td><%="$"+payments[i][1].orderTotal%></td>
+									<td><%=payments[i][1].paymentMethod%></td>
+									<td><%=payments[i][1].date %></td>
+								</tr>
+							<% } %> 
+						<% } %> 
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</div>

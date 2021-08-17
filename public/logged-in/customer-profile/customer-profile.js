@@ -99,3 +99,9 @@ function printCustomerLabel() {
 	//need to figure out how im gonna make it print labels
 	console.log("PRINT LABEL");
 }
+
+const paymentNumbers = document.querySelectorAll(".paymentNumber");
+
+for (const number of paymentNumbers) {
+	number.href += number.textContent.trim();
+}

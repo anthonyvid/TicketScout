@@ -22,6 +22,16 @@ const lastUpdated = document.getElementById("last-update-text");
 	}
 })();
 
+document.getElementById("name").firstElementChild.href += document
+	.getElementById("phone")
+	.firstElementChild.textContent.trim()
+	.replace(/\D/g, "");
+
+document.getElementById("phone").firstElementChild.href += document
+	.getElementById("phone")
+	.firstElementChild.textContent.trim()
+	.replace(/\D/g, "");
+
 editCustomerInfo.addEventListener("click", () => {
 	editCustomerInfo.classList.add("hidden");
 	document.getElementById("name").classList.add("hidden");
@@ -306,7 +316,10 @@ sendMsg.addEventListener("click", () => {
 		.getElementById("phone")
 		.textContent.trim()
 		.replace(/\D/g, "");
-
+	const ticketID = document
+		.getElementById("ticketID")
+		.textContent.trim()
+		.replace("#", "");
 	(async () => {
 		try {
 			const response = await fetch("/send-sms", {
@@ -317,14 +330,18 @@ sendMsg.addEventListener("click", () => {
 				body: JSON.stringify({
 					message,
 					toPhone,
+					ticketID,
 				}),
 			});
 			const data = await response.json();
 			const messageBox = document.createElement("div");
-			messageBox.classList.add("message");
-			const messageText = document.createTextNode(data.msg);
+			messageBox.classList.add("message-box");
+			const messageText = document.createElement("p");
+			const text = document.createTextNode(data.msg);
+			messageText.appendChild(text);
+			messageText.classList.add("reply");
 			messageBox.appendChild(messageText);
-			document.querySelector(".chat-body").appendChild(messageBox);
+			document.querySelector(".chat-body").prepend(messageBox);
 			chatBoxTextarea.value = "";
 		} catch (error) {
 			console.log(error);

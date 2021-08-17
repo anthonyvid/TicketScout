@@ -104,7 +104,7 @@ a:active {
 .customer-content {
 	display: flex;
 	flex-direction: row;
-	height: calc(100vh - 200px);
+	height: calc(100vh - 225px);
 	gap: 20px;
 
 	.left-container {
@@ -125,13 +125,17 @@ a:active {
 				height: 70%;
 				padding: 40px;
 				display: flex;
-				flex-direction: column;
-				align-items: flex-end;
-				justify-content: flex-start;
+				flex-direction: column-reverse;
 				overflow-y: auto;
 				gap: 20px;
 
-				.message {
+				.message-box {
+					width: 100%;
+					height: auto;
+				}
+
+				.reply {
+					float: right;
 					display: flex;
 					align-items: center;
 					height: auto;
@@ -140,6 +144,19 @@ a:active {
 					background-color: lightcoral;
 					padding: 13px 20px 13px 20px;
 					border-radius: 20px 5px 20px 20px;
+					word-break: break-word;
+				}
+				.received {
+					float: left;
+					display: flex;
+					align-items: center;
+					height: auto;
+					width: auto;
+					max-width: 600px;
+					background-color: $bluetext;
+					color: white;
+					padding: 13px 20px 13px 20px;
+					border-radius: 5px 20px 20px 20px;
 					word-break: break-word;
 				}
 			}
@@ -372,6 +389,13 @@ a:active {
 
 					span {
 						color: #95a9c6;
+					}
+
+					a {
+						color: black !important;
+						&:hover {
+							text-decoration: underline;
+						}
 					}
 				}
 			}

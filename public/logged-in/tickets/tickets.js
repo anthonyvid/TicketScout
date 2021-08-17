@@ -61,7 +61,9 @@ function searchForStatus() {
 	for (const row of tableRows) {
 		const status =
 			row.firstElementChild.nextElementSibling.nextElementSibling
-				.nextElementSibling.firstElementChild.firstElementChild.text;
+				.nextElementSibling.firstElementChild.firstElementChild
+				.nextElementSibling.value;
+
 		if (
 			status.toUpperCase().indexOf(statusSearchBox.value.toUpperCase()) >
 			-1

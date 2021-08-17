@@ -45,9 +45,7 @@
 				<div class="tickets-table table-style ">
 					<div>
 						<div class="table-title">
-							<span></span>
 							<p>TICKETS</p>
-							<button class="new-btn">new</button>
 						</div>
 						<table>
 							<thead>
@@ -80,26 +78,32 @@
 				<div class="payments-table table-style">
 					<div>
 						<div class="table-title">
-							<span></span>
 							<p>PAYMENTS</p>
-							<button class="new-btn">new</button>
 						</div>
 						<table>
 							<thead>
 								<tr>
-									<td class="">Ticket ID</td>
-									<td class="">Subject</td>
-									<td class="">Date Created</td>
-									<td class="">Status</td>
+									<td class="">Payment #</td>
+									<td class="">Amount</td>
+									<td class="">Payment Method</td>
+									<td class="">Date</td>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><a href=""> hello</a></td>
-									<td><a href=""> hello</a></td>
-									<td><a href=""> hello</a></td>
-									<td><a href=""> hello</a></td>
-								</tr>
+								<% if(Object.keys(customer.payments).length == 0) {%>
+									<tr>
+										<td>No Payments</td>
+									</tr>
+								<% } else {%> 
+									<% for(let i=0; i<Object.keys(customer.payments).length; i++) {%>
+									<tr>
+										<td><a href="/payments/" class="paymentNumber"> <%=Object.keys(customer.payments)[i]%></a></td>
+										<td><%= "$"+Object.values(customer.payments)[i].orderTotal %></td>
+										<td><%= Object.values(customer.payments)[i].paymentMethod %></td>
+										<td><%= Object.values(customer.payments)[i].date %></td>
+									</tr>
+									<% } %> 
+								<% } %> 
 							</tbody>
 						</table>
 					</div>
@@ -171,6 +175,15 @@
 						<% } %> 
 					</div>
 					<hr color="#eaeef5" size="1" />
+					<div class="spent">
+						<img src="/assets/money.svg" width="40px"/>
+						<% let total = 0; %> 
+						<% for(const payment in customer.payments) {%>
+							<% total += parseFloat(customer.payments[payment].orderTotal) %> 
+						<% } %> 
+						<%= "Spent $"+total.toFixed(2) %> 
+						
+					</div>
 				</div>
 				<div class="edit-info-btn-wrap">
 					<button class="hidden" id="cancel-info-change" type>Cancel</button>

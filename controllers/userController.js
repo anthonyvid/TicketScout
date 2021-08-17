@@ -16,6 +16,17 @@ exports.login = async function (req, res, next) {
 	})(req, res, next);
 };
 
+exports.clockIn = async function (req, res) {
+	const user = new User();
+	await user.clockIn(req.user.storename, req.body.clockInTime);
+	res.status(204).send();
+};
+exports.clockOut = async function (req, res) {
+	const user = new User();
+	await user.clockOut(req.user.storename, req.body.clockOutTime);
+	res.status(204).send();
+};
+
 // Employee Register Page
 exports.renderEmployeeRegister = function (req, res) {
 	res.render("logged-out/employeeRegister", {
@@ -174,6 +185,17 @@ exports.renderStoreTickets = async function (req, res) {
 	});
 };
 
+exports.renderStorePayments = async function (req, res) {
+	const user = new User();
+	const [result, store] = await user.updatePaymentsList(req.user.storename);
+	res.render("logged-in/payments", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		payments: result,
+		store: store,
+	});
+};
+
 exports.renderStoreCustomers = async function (req, res) {
 	const user = new User();
 	const [result, store] = await user.updateCustomerList(req.user.storename);
@@ -280,10 +302,29 @@ exports.renderTicketProfile = async function (req, res) {
 	});
 };
 
+exports.renderPaymentProfile = async function (req, res) {
+	const user = new User();
+	const result = await user.getPaymentData(
+		req.user.storename,
+		req.params.paymentNumber
+	);
+
+	const store = await user.getStore(req.user.storename);
+	console.log(result);
+	res.render("logged-in/payment-profile", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		payment: result,
+		paymentNumber: req.params.paymentNumber,
+		store: store,
+	});
+};
+
 exports.sendSms = async function (req, res) {
 	const user = new User();
 	const msg = await user.sendSms(
 		req.user.storename,
+		req.body.ticketID,
 		req.body.toPhone,
 		req.body.message
 	);

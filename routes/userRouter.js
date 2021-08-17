@@ -36,6 +36,12 @@ router.get(
 	ensureAuthenticated,
 	userController.renderStoreCustomers
 );
+//payments page
+router.get(
+	"/payments",
+	ensureAuthenticated,
+	userController.renderStorePayments
+);
 // Customers Page
 // router.get("/customers", userController.renderCustomers);
 // Track a shipment Handle
@@ -100,6 +106,12 @@ router.get(
 	ensureAuthenticated,
 	userController.renderTicketProfile
 );
+//dynamic payments page
+router.get(
+	"/payments/:paymentNumber",
+	ensureAuthenticated,
+	userController.renderPaymentProfile
+);
 router.post("/get-phone", userController.getPhone);
 router.post("/update-ticket-status", userController.updateTicketStatus);
 router.post("/update-ticket-issue", userController.updateTicketIssue);
@@ -124,6 +136,9 @@ router.post("/send-sms", ensureAuthenticated, userController.sendSms);
 // router.post("/", (req, res) => {
 // 	console.log(req.body);
 // });
+
+router.post("/clock-in", ensureAuthenticated, userController.clockIn);
+router.post("/clock-out", ensureAuthenticated, userController.clockOut);
 
 router.post("/receive-sms", userController.receiveSms);
 

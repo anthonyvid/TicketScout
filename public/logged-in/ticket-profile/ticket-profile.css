@@ -115,7 +115,7 @@ a:active {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 225px);
   gap: 20px;
 }
 
@@ -148,20 +148,20 @@ a:active {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
   overflow-y: auto;
   gap: 20px;
 }
 
-.customer-content .left-container .chat-box .chat-body .message {
+.customer-content .left-container .chat-box .chat-body .message-box {
+  width: 100%;
+  height: auto;
+}
+
+.customer-content .left-container .chat-box .chat-body .reply {
+  float: right;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -174,6 +174,24 @@ a:active {
   background-color: lightcoral;
   padding: 13px 20px 13px 20px;
   border-radius: 20px 5px 20px 20px;
+  word-break: break-word;
+}
+
+.customer-content .left-container .chat-box .chat-body .received {
+  float: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+  width: auto;
+  max-width: 600px;
+  background-color: #0d2238;
+  color: white;
+  padding: 13px 20px 13px 20px;
+  border-radius: 5px 20px 20px 20px;
   word-break: break-word;
 }
 
@@ -534,6 +552,14 @@ a:active {
 
 .customer-content .right-container .contact-info-wrap .info-wrap .item-style span {
   color: #95a9c6;
+}
+
+.customer-content .right-container .contact-info-wrap .info-wrap .item-style a {
+  color: black !important;
+}
+
+.customer-content .right-container .contact-info-wrap .info-wrap .item-style a:hover {
+  text-decoration: underline;
 }
 
 .customer-content .right-container .edit-info-btn-wrap {

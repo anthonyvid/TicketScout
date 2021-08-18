@@ -169,19 +169,6 @@ a:active {
   color: #717375 !important;
 }
 
-.customer-content .left-container .table-style .table-title button {
-  width: 55px;
-  height: 25px;
-  background-color: black;
-  border: none;
-  border-radius: 3px;
-  border-top-right-radius: 10px;
-  color: white;
-  font-weight: 600;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-}
-
 .customer-content .left-container .table-style table {
   font-family: "Inter";
   border-collapse: collapse;

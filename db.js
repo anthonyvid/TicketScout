@@ -14,7 +14,6 @@ mongoose
 	.then((response) => {
 		console.log("Connected to Mongoose");
 		const app = require("./app");
-		app.listen(process.env.PORT);
 	})
 	.catch((err) => {
 		console.log("Mongodb is not connected: ", err);

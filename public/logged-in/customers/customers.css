@@ -183,6 +183,8 @@ a:active {
   padding: 18px 0;
   border: 1px solid #e8edf5;
   background: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .card-scroll-box table tbody tr:hover {

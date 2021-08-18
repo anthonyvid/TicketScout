@@ -22,9 +22,13 @@
 						<div class="search-wrap">
 							<input onkeyup="searchForStatus()" id="search-status" type="text" placeholder="Search status...">
 						</div>
+						<div class="checkbox-wrap">
+							<p>Hide resolved tickets</p>
+							<input id="hide-resolved-tickets" type="checkbox" checked>
+						</div>
 					</div>
 					<div class="new-ticket-wrap">
-						<form action="/new-ticket" method="GET">
+						<form action="/new-ticket" method="POST">
 							<button type="submit">New Ticket</button>
 						</form>
 					</div>

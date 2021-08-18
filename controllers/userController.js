@@ -18,13 +18,21 @@ exports.login = async function (req, res, next) {
 
 exports.clockIn = async function (req, res) {
 	const user = new User();
-	await user.clockIn(req.user.storename, req.body.clockInTime);
+	await user.clockIn(req.user, req.body.clockInTime);
 	res.status(204).send();
 };
 exports.clockOut = async function (req, res) {
 	const user = new User();
-	await user.clockOut(req.user.storename, req.body.clockOutTime);
+	await user.clockOut(req.user, req.body.clockOutTime);
 	res.status(204).send();
+};
+exports.liveSearchResults = async function (req, res) {
+	const user = new User();
+	const results = await user.liveSearchResults(
+		req.user.storename,
+		req.body.search
+	);
+	res.json({ results });
 };
 
 // Employee Register Page
@@ -123,22 +131,44 @@ exports.forgotPassword = async function (req, res) {
 	}
 };
 exports.renderAccountSettings = function (req, res) {
+	const user = new User();
+	const store = user.getStore(req.user.storename);
+
 	res.render(`logged-in/account-settings`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		store,
 	});
+};
+
+exports.updateAccountInfo = async function (req, res) {
+	const user = new User();
+	const emailError = await user.updateAccountInfo(req.user.email, req.body);
+
+	if (Object.keys(emailError).length === 0) {
+		req.flash("success_update", "Successfully Updated Information");
+		res.redirect("/account-settings");
+	} else {
+		res.render("logged-in/account-settings", {
+			layout: "layouts/logged-in-layout",
+			errors: Object.values(emailError),
+			user: req.user,
+		});
+	}
 };
 
 exports.renderCreateNewTicket = function (req, res) {
 	res.render(`logged-in/create-new-ticket`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
 	});
 };
 exports.renderCreateNewCustomer = function (req, res) {
 	res.render(`logged-in/create-new-customer`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
+		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
 	});
 };
 exports.renderCreateNewPayment = async function (req, res) {
@@ -149,6 +179,7 @@ exports.renderCreateNewPayment = async function (req, res) {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 		payments: paymentSettings,
+		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
 	});
 };
 
@@ -341,6 +372,27 @@ exports.receiveSms = async function (req, res) {
 exports.updateTicketShippingInfo = async function (req, res) {
 	const user = new User();
 	await user.updateTicketShippingInfo(req.body, req.user.storename);
+};
+
+exports.changeAccountPassword = async function (req, res) {
+	const user = new User();
+	const passwordError = await user.changeAccountPassword(
+		req.user.password,
+		req.body
+	);
+
+	console.log(passwordError);
+
+	if (Object.keys(passwordError).length == 0) {
+		req.flash("success_update", "Successfully Updated Information");
+		res.redirect("/account-settings");
+	} else {
+		res.render("logged-in/account-settings", {
+			layout: "layouts/logged-in-layout",
+			errors: Object.values(passwordError),
+			user: req.user,
+		});
+	}
 };
 
 exports.updateTicketInfo = async function (req, res) {

@@ -52,19 +52,19 @@ router.post(
 );
 
 // Create new ticket page
-router.get(
+router.post(
 	"/new-ticket",
 	ensureAuthenticated,
 	userController.renderCreateNewTicket
 );
 // create new customer page
-router.get(
+router.post(
 	"/new-customer",
 	ensureAuthenticated,
 	userController.renderCreateNewCustomer
 );
 //create new payment page
-router.get(
+router.post(
 	"/new-payment",
 	ensureAuthenticated,
 	userController.renderCreateNewPayment
@@ -141,5 +141,8 @@ router.post("/clock-in", ensureAuthenticated, userController.clockIn);
 router.post("/clock-out", ensureAuthenticated, userController.clockOut);
 
 router.post("/receive-sms", userController.receiveSms);
+router.post("/live-search-results", userController.liveSearchResults);
+router.post("/update-account-info", userController.updateAccountInfo);
+router.post("/change-account-password", userController.changeAccountPassword);
 
 module.exports = router;

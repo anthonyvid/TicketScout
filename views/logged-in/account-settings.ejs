@@ -2,9 +2,11 @@
 	rel="stylesheet"
 	href="/logged-in/account-settings/account-settings.css"
 />
+<script src="/logged-in/account-settings/account-settings.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
+			<%- include('../partials/messages'); %>
 			<div class="header-wrap">
 				<div class="title-wrap">
 					<h1>Account Settings</h1>
@@ -12,6 +14,65 @@
 				</div>
 			</div>
 		</div>
-		<div class="account-settings-container"></div>
+		<div class="account-settings-container">
+			<div class="settings-sidebar">
+				<a href="#account" class="menu-item"
+					><i class="fas fa-user"></i>Account</a
+				>
+				<a href="#password" class="menu-item"
+					><i class="fas fa-lock"></i>Password</a
+				>
+				<a href="#timeclock" class="menu-item"
+					><i class="fas fa-lock"></i>Time Clock</a
+				>
+			</div>
+			<div class="section-content">
+				<div id="account" class="section">
+					<h2>Personal Info</h2>
+					<form action="update-account-info" method="POST">
+						<div>
+							<% const firstname = user.fullname.split(" ")[0].charAt(0).toUpperCase() + user.fullname.split(" ")[0].slice(1) %> 
+							<label for="">Firstname</label>
+							<input type="text" name="firstname" value="<%= firstname %>">
+						</div>
+						<div>
+							<% const lastname = user.fullname.split(" ")[1].charAt(0).toUpperCase() + user.fullname.split(" ")[1].slice(1) %> 
+							<label for="">Lastname</label>
+							<input type="text" name="lastname" value="<%= lastname %>">
+						</div>
+						<div>
+							<label for="">Email</label>
+							<input type="email" name="email" value="<%= user.email %>">
+						</div>
+						<div class="btn-wrap">
+							<button type="submit">Save Changes</button>
+						</div>
+					</form>
+				</div>
+				<div id="password" class="section">
+					<h2>Change Password</h2>
+					<form action="change-account-password" method="POST">
+						<div>
+							<label for="">Old Password</label>
+							<input type="password" name="oldPlainTextPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+						</div>
+						<div>
+							<label for="">New password</label>
+							<input type="password" name="newPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+						</div>
+						<div>
+							<label for="">Confirm new password</label>
+							<input type="password" name="confirmNewPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+						</div>
+						<div class="btn-wrap">
+							<button type="submit">Save Changes</button>
+						</div>
+					</form>
+				</div>
+				<div id="timeclock" class="section">
+					<h2>Time Clock</h2>
+				</div>
+			</div>
+		</div>
 	</main>
 </div>

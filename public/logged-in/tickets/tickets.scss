@@ -94,6 +94,14 @@ a:active {
 			#search-customer-wrap {
 				width: 200px;
 			}
+
+			.checkbox-wrap {
+				display: flex;
+				flex-direction: row;
+				gap: 5px;
+				align-items: center;
+				color: #7e8082 !important;
+			}
 		}
 
 		.new-ticket-wrap {
@@ -161,6 +169,7 @@ a:active {
 			padding: ($half-spacing-unit * 1.5) 0;
 			border: 1px solid $swatch_1;
 			background: white;
+			transition: 0.3s ease-in-out;
 
 			&:hover {
 				background-color: #f5f5f5;

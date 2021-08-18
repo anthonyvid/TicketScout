@@ -19,14 +19,171 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   border-radius: 10px;
   margin-top: 20px;
   background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-  padding: 20px 0 20px 0;
+}
+
+.account-settings-container .settings-sidebar {
+  height: 100%;
+  width: 300px;
+  padding-top: 25px;
+  overflow-y: auto;
+  border-right: 1px solid #e8edf5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.account-settings-container .settings-sidebar a {
+  width: 100%;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 40px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #7e8082;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.account-settings-container .settings-sidebar a:hover {
+  color: black;
+  background-color: #f5f5f5;
+}
+
+.account-settings-container .settings-sidebar .color-menu-item {
+  color: black;
+  background-color: #f5f5f5;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.account-settings-container .section-content {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  padding: 50px;
+  scroll-behavior: smooth;
+  scrollbar-width: 0px;
+  -ms-overflow-style: none;
+}
+
+.account-settings-container .section-content::-webkit-scrollbar {
+  display: none;
+}
+
+.account-settings-container .section-content .section {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.account-settings-container .section-content .section:last-child {
+  margin-bottom: 0px !important;
+}
+
+.account-settings-container .section-content #account form,
+.account-settings-container .section-content #password form {
+  width: 100%;
+  height: 100%;
+  padding: 50px 0 50px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 50px;
+}
+
+.account-settings-container .section-content #account form div,
+.account-settings-container .section-content #password form div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.account-settings-container .section-content #account form div label,
+.account-settings-container .section-content #password form div label {
+  text-transform: uppercase;
+  color: #717987;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Padauk" bold;
+}
+
+.account-settings-container .section-content #account form div input,
+.account-settings-container .section-content #password form div input {
+  height: 50px;
+  border-radius: 8px;
+  outline: none;
+  text-indent: 25px;
+  font-size: 16px;
+  border: 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+
+.account-settings-container .section-content #account form .btn-wrap,
+.account-settings-container .section-content #password form .btn-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.account-settings-container .section-content #account form .btn-wrap button,
+.account-settings-container .section-content #password form .btn-wrap button {
+  width: 15%;
+  height: 50px;
+  border-radius: 5px;
+  border: 0;
+  background-color: black;
+  color: white;
+  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.account-settings-container .section-content #account form .btn-wrap button:hover,
+.account-settings-container .section-content #password form .btn-wrap button:hover {
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 /*# sourceMappingURL=account-settings.css.map */

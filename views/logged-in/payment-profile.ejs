@@ -58,6 +58,14 @@
                             <p><b>Payment Total:</b></p>
                             <p><%="$"+payment.orderTotal%></p>
                         </div>
+                        <div>
+                            <p><b>Linked Ticket:</b></p>
+							<% if(payment.linkedTicket.length == 0) {%> 
+								<p>No ticket linked</p>
+							<% } else {%>
+								<p><a href="<%=`/tickets/${payment.linkedTicket}`%>"><%="#"+payment.linkedTicket%></a></p>
+							<% } %> 
+                        </div>
                     </div>   
                     <div class="items-in-order-container">
 						<h4>Items in Order</h4>

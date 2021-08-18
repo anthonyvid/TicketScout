@@ -101,6 +101,21 @@ a:active {
   width: 200px;
 }
 
+.header-wrap .ticket-action-container .filter-container .checkbox-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #7e8082 !important;
+}
+
 .header-wrap .ticket-action-container .new-ticket-wrap {
   height: 100%;
   width: 190px;
@@ -186,6 +201,8 @@ a:active {
   padding: 18px 0;
   border: 1px solid #e8edf5;
   background: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .card-scroll-box table tbody tr:hover {

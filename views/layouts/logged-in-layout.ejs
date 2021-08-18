@@ -82,32 +82,31 @@
 		<div class="main-content">
 			<header>
 				<div class="search-box">
-					<form
-						action="/create-new"
-						method="POST"
-						id="search-result-form"
-					>
-						<input
-							type="text"
-							placeholder="Search for anything"
-							name="search"
-							id="search-for-anything"
-						/>
-					</form>
+					<input
+						type="text"
+						placeholder="Search for anything"
+						name="search"
+						id="search-for-anything"
+						onkeyup="liveSearch(this)"
+						autocomplete="off"
+					/>
 					<span><i class="fa fa-search"></i></span>
 					<div class="create-new">
 						<i class="fas fa-plus-square"></i>
 					</div>
 					<div class="create-new-dropdown">
-							<a href="/new-ticket" id="new-ticket-link">
+							<div id="new-ticket-link" class="new-btn">
 								Ticket
-							</a>
-							<a href="/new-customer" id="new-customer-link">
+							</div>
+							<div id="new-customer-link" class="new-btn">
 								Customer
-							</a>
-							<a href="/new-payment" id="new-payment-link">
+							</div>
+							<div id="new-payment-link" class="new-btn">
 								Payment
-							</a>
+							</div>
+					</div>
+					<div class="search-results-dropdown">
+						
 					</div>
 				</div>
 				<div class="date-wrap">
@@ -140,14 +139,12 @@
 					</div>
 				</div>
 				<div class="dropdown">
-					<ul>
-						<a href="account-settings" class="">
-							<li id="acc-settings">Account Settings</li>
-						</a>
-						<a href="logout">
-							<li id="logout">Logout</li>
-						</a>
-					</ul>
+					<a href="/account-settings" class="">
+						Account Settings
+					</a>
+					<a href="/logout">
+						Logout
+					</a>
 				</div>
 			</header>
 		</div>

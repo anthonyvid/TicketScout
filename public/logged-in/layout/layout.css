@@ -198,6 +198,7 @@ a {
   height: 35px;
   width: 190px;
   border: 0;
+  border-bottom: 1px solid lightgray;
   outline: 0;
   background-color: transparent;
   font-size: 0.9em;
@@ -250,12 +251,7 @@ a {
   height: 120px;
   top: 55px;
   left: 300px;
-  background-color: #fff;
   border-radius: 5px;
-  -webkit-transition: 1s ease-in-out;
-  transition: 1s ease-in-out;
-  -webkit-box-shadow: 0 2px 2px #b1aec2;
-          box-shadow: 0 2px 2px #b1aec2;
 }
 
 .main-content header .search-box .show-create-new-dd {
@@ -273,57 +269,106 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 5px;
+  border: 1px solid #e8edf5;
+  background-color: white;
 }
 
-.main-content header .search-box .show-create-new-dd a {
-  color: #000;
+.main-content header .search-box .show-create-new-dd div {
+  width: 100%;
+  height: 40px;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 175px;
-  height: 40px;
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
-  font-size: 12px;
-  font-weight: 500;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   padding-left: 20px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  font-size: 0.9rem;
+  color: #7e8082 !important;
+  border: 1px solid #e8edf5;
 }
 
-.main-content header .search-box .show-create-new-dd a:hover {
-  background-color: #000;
-  color: #fff;
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
+.main-content header .search-box .show-create-new-dd div:hover {
+  background-color: #f5f5f5;
+  color: #575758 !important;
+  cursor: pointer;
 }
 
-.main-content header .search-box .show-create-new-dd a:hover span {
-  color: white;
-}
-
-.main-content header .search-box .show-create-new-dd #new-payment-link:hover {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.main-content header .search-box .show-create-new-dd #new-ticket-link:hover {
+.main-content header .search-box .show-create-new-dd div:first-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
-.main-content header input:focus,
-.main-content header input:focus {
-  -webkit-transition: 0.3s ease-in;
-  transition: 0.3s ease-in;
-  color: #000;
-  font-family: "Inter";
+.main-content header .search-box .show-create-new-dd div:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.main-content header .search-box .search-results-dropdown {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: fixed;
+  width: 250px;
+  height: auto;
+  top: 60px;
+  border: 1px solid #e8edf5;
+  border-radius: 5px;
   background-color: #fff;
-  -webkit-box-shadow: 0 1px 1px #b1aec2;
-          box-shadow: 0 1px 1px #b1aec2;
-  border-radius: 3px;
+  z-index: 998;
+}
+
+.main-content header .search-box .search-results-dropdown .result {
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  font-size: 0.9rem;
+  color: #7e8082 !important;
+  border: 1px solid #e8edf5;
+}
+
+.main-content header .search-box .search-results-dropdown .result:hover {
+  background-color: #f5f5f5;
+  color: #575758 !important;
+}
+
+.main-content header .search-box .search-results-dropdown .result:hover a {
+  color: #575758 !important;
+}
+
+.main-content header .search-box .search-results-dropdown .result:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.main-content header .search-box .search-results-dropdown .result:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .main-content header .date-wrap {
@@ -529,70 +574,57 @@ a {
   right: 30px;
   background-color: #fff;
   border-radius: 5px;
-  -webkit-box-shadow: 0 2px 2px #b1aec2;
-          box-shadow: 0 2px 2px #b1aec2;
-  -webkit-transition: 1s ease-in-out;
-  transition: 1s ease-in-out;
 }
 
 .show-dd {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  z-index: 999;
-}
-
-.show-dd ul {
-  list-style: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 5px;
+  z-index: 999;
 }
 
-.show-dd ul li {
-  color: #000;
+.show-dd a {
+  width: 100%;
+  height: 40px;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 175px;
-  height: 40px;
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
-  font-size: 12px;
-  font-weight: 500;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
   padding-left: 20px;
+  font-size: 0.9rem;
+  color: #7e8082 !important;
+  border: 1px solid #e8edf5;
 }
 
-.show-dd li:hover {
-  background-color: #000;
-  color: #fff;
-  -webkit-transition: 0.15s ease-in-out;
-  transition: 0.15s ease-in-out;
+.show-dd a:hover {
+  background-color: #f5f5f5;
+  color: #575758 !important;
 }
 
-.show-dd li:hover span {
-  color: white;
+.show-dd a:hover a {
+  color: #575758 !important;
 }
 
-.show-dd #logout:hover {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.show-dd #acc-settings:hover {
+.show-dd a:first-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.show-dd a:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 main {

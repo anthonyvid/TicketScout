@@ -1,14 +1,11 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
-const session = require("cookie-session"); //uncomment for production
-// const session = require("express-session"); //comment for production
+const session = require("cookie-session");
 const dotenv = require("dotenv");
 const passport = require("passport");
 
 const app = express();
-const http = require("http");
-exports.server = http.createServer(app);
 
 console.log("in app.js");
 
@@ -51,12 +48,12 @@ app.use((req, res, next) => {
 
 //EJS
 app.use(expressLayouts);
-// app.set("views", "views");
 app.set("view engine", "ejs");
-// app.set("layout", "layouts/logged-out-layout");
 
 //Routes
 app.use("/", require("./routes/userRouter"));
 app.use("/admin", require("./routes/adminRouter"));
+
+app.listen(process.env.PORT);
 
 module.exports = app;

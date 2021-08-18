@@ -14,11 +14,46 @@ lastUpdatedHeader.firstElementChild.addEventListener("click", () => {
 	tbody.html($("tr", tbody).get().reverse());
 });
 
+const clearResolvedTickets = () => {
+	for (const row of tableRows) {
+		const status =
+			row.firstElementChild.nextElementSibling.nextElementSibling
+				.nextElementSibling.firstElementChild.firstElementChild
+				.nextElementSibling.value;
+		if (status == "Resolved") {
+			row.style.display = "none";
+		}
+	}
+};
+
+const showResolvedTickets = () => {
+	for (const row of tableRows) {
+		const status =
+			row.firstElementChild.nextElementSibling.nextElementSibling
+				.nextElementSibling.firstElementChild.firstElementChild
+				.nextElementSibling.value;
+		if (status == "Resolved") {
+			row.style.display = "flex";
+		}
+	}
+};
+
+const hideResolvedTickets = document.getElementById("hide-resolved-tickets");
+clearResolvedTickets();
+hideResolvedTickets.addEventListener("click", () => {
+	if (hideResolvedTickets.checked) {
+		clearResolvedTickets();
+	} else {
+		showResolvedTickets();
+	}
+});
+
 function searchForID() {
 	for (const row of tableRows) {
 		const id = row.firstElementChild.firstElementChild.text;
 		if (id.indexOf(idSearchBox.value) > -1) {
 			row.style.display = "flex";
+			clearResolvedTickets();
 		} else {
 			row.style.display = "none";
 		}
@@ -34,6 +69,7 @@ function searchForCustomer() {
 			-1
 		) {
 			row.style.display = "flex";
+			clearResolvedTickets();
 		} else {
 			row.style.display = "none";
 		}
@@ -51,6 +87,7 @@ function searchForSubject() {
 				.indexOf(subjectSearchBox.value.toUpperCase()) > -1
 		) {
 			row.style.display = "flex";
+			clearResolvedTickets();
 		} else {
 			row.style.display = "none";
 		}
@@ -69,6 +106,7 @@ function searchForStatus() {
 			-1
 		) {
 			row.style.display = "flex";
+			hideResolvedTickets.checked = false;
 		} else {
 			row.style.display = "none";
 		}

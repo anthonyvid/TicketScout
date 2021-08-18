@@ -34,6 +34,39 @@ class User {
 		});
 	}
 
+	async updateAccountInfo(storename, oldEmail, newInfo) {
+		const { firstname, lastname, email } = newInfo;
+
+		//validate email
+		if (!validator.isEmail(email))
+			return { emailError: "Not a valid email" };
+
+		if (firstname.length == 0 || lastname.length == 0)
+			return { emailError: "Invalid firstname or lastname" };
+
+		const store = storesCollection.findOne({ storename: storename });
+
+		const fullname =
+			firstname.trim().toLowerCase() +
+			" " +
+			lastname.trim().toLowerCase();
+
+		email = email.trim().toLowerCase();
+
+		//update db
+		await usersCollection.updateOne(
+			{ email: oldEmail },
+			{
+				$set: {
+					["fullname"]: fullname,
+					["email"]: email,
+				},
+			}
+		);
+
+		return {};
+	}
+
 	async getPaymentSettings(storename) {
 		const store = await storesCollection.findOne({ storename: storename });
 		return store.storeSettings.payments;
@@ -92,6 +125,7 @@ class User {
 			orderItems: order,
 			paymentMethod: paymentMethod,
 			linkedTicket: linkedTicket,
+			status: "approved",
 			date: new Date().toDateString(),
 		};
 
@@ -134,6 +168,38 @@ class User {
 
 		console.log("wow");
 		return {};
+	}
+
+	async liveSearchResults(storename, search) {
+		const store = await storesCollection.findOne({ storename: storename });
+
+		search = search.trim();
+
+		const storeTickets = Object.keys(store.storedata.tickets);
+		const storeCustomers = Object.keys(store.storedata.customers);
+		const storePayments = Object.keys(store.storedata.payments);
+		let resultsFound = {
+			tickets: [],
+			customers: [],
+			payments: [],
+		};
+
+		for (let i = 0; i < storeTickets.length; i++) {
+			if (storeTickets[i].indexOf(search) > -1) {
+				resultsFound.tickets.push(storeTickets[i]);
+			}
+		}
+		for (let i = 0; i < storeCustomers.length; i++) {
+			if (storeCustomers[i].indexOf(search) > -1) {
+				resultsFound.customers.push(storeCustomers[i]);
+			}
+		}
+		for (let i = 0; i < storePayments.length; i++) {
+			if (storePayments[i].indexOf(search) > -1) {
+				resultsFound.payments.push(storePayments[i]);
+			}
+		}
+		return resultsFound;
 	}
 
 	async createNewCustomer(formData, storename) {
@@ -797,11 +863,43 @@ class User {
 		}
 	}
 
-	async clockIn(storename, clockInTime) {
-		console.log(storename, clockInTime);
+	async clockIn(user, clockInTime) {
+		console.log("user clock in");
+
+		await usersCollection.updateOne(
+			{ email: user.email },
+			{
+				$set: {
+					[`timeClock.clockInTime`]: clockInTime,
+					[`timeClock.clockOutTime`]: null,
+				},
+			}
+		);
 	}
-	async clockOut(storename, clockOutTime) {
-		console.log(storename, clockOutTime);
+	async clockOut(user, clockOutTime) {
+		console.log("user clock Out");
+
+		const userData = await usersCollection.findOne({ email: user.email });
+
+		const timeClockedIn = clockOutTime - userData.timeClock.clockInTime;
+
+		let hours = timeClockedIn / (1000 * 60 * 60);
+
+		await usersCollection.updateOne(
+			{ email: userData.email },
+			{
+				$set: {
+					[`timeClock.clockOutTime`]: clockOutTime,
+					[`timeClock.clockInTime`]: null,
+				},
+				$push: {
+					[`timeClock.clockHistory`]: {
+						date: new Date().toDateString(),
+						hoursWorked: hours,
+					},
+				},
+			}
+		);
 	}
 
 	async validate(data) {
@@ -832,8 +930,8 @@ class User {
 		if (data.password.length < 8)
 			this.errors["password"] = "Password must be at least 8 characters";
 
-		if (data.password.length > 50)
-			this.errors["password"] = "Password cannot exceed 50 characters";
+		if (data.password.length > 100)
+			this.errors["password"] = "Password cannot exceed 100 characters";
 
 		//validate passwordConfirm
 		if (data.passwordConfirm !== data.password)
@@ -847,6 +945,53 @@ class User {
 			if (result == null)
 				this.errors["signUpCode"] = "Store you are joining not found";
 		}
+	}
+
+	async changeAccountPassword(actualOldHashedPassword, newInfo) {
+		const { oldPlainTextPassword, newPassword, confirmNewPassword } =
+			newInfo;
+
+		const passwordMatch = await this.compareAsync(
+			oldPlainTextPassword,
+			actualOldHashedPassword
+		);
+
+		if (!passwordMatch)
+			return { passwordError: "Old password is incorrect" };
+
+		if (newPassword.length < 8)
+			return { passwordError: "Password must be at least 8 characters" };
+
+		if (newPassword.length > 100)
+			return { passwordError: "Password cannot exceed 100 characters" };
+
+		if (newPassword !== confirmNewPassword)
+			return { passwordError: "New Passwords do not match" };
+
+		const newHashedPassword = this.hashPrivateInfo(newPassword);
+
+		await usersCollection.updateOne(
+			{ password: actualOldHashedPassword },
+			{
+				$set: {
+					password: newHashedPassword,
+					passwordConfirm: newHashedPassword,
+				},
+			}
+		);
+		return {};
+	}
+
+	async compareAsync(param1, param2) {
+		return new Promise(function (resolve, reject) {
+			bcrypt.compare(param1, param2, function (err, res) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(res);
+				}
+			});
+		});
 	}
 
 	async employeeRegister() {
@@ -880,15 +1025,16 @@ class User {
 			},
 		};
 
-		//add user into stores collection under the store they signed up for
-		storesCollection.updateOne(
-			{ signUpCode: this.data.signUpCode },
-			{
-				$push: {
-					employees: employee,
-				},
-			}
-		);
+		//TODO:DO I even need employees array??
+		// //add user into stores collection under the store they signed up for
+		// storesCollection.updateOne(
+		// 	{ signUpCode: this.data.signUpCode },
+		// 	{
+		// 		$push: {
+		// 			employees: employee,
+		// 		},
+		// 	}
+		// );
 
 		//add user into users collection
 		usersCollection.insertOne(employee);

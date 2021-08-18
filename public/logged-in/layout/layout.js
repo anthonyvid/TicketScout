@@ -64,7 +64,6 @@ document.addEventListener("keydown", function (e) {
 			.querySelector(".create-new-dropdown")
 			.classList.contains("show-create-new-dd")
 	) {
-		console.log("ya");
 		if (keyCode === 27) {
 			document
 				.querySelector(".create-new-dropdown")
@@ -112,6 +111,7 @@ for (const btn of clockBtns) {
 					},
 					body: JSON.stringify({ clockInTime: Date.now() }),
 				});
+				location.reload();
 				const data = await response.json();
 			})();
 		} else {
@@ -123,10 +123,107 @@ for (const btn of clockBtns) {
 					},
 					body: JSON.stringify({ clockOutTime: Date.now() }),
 				});
-				const data = await response.json();
+				location.reload();
+				// const data = await response.json();
 			})();
 		}
 
 		btn.classList.remove("showTimeClockBtn");
+	});
+}
+const resultDropdown = document.querySelector(".search-results-dropdown");
+
+const liveSearch = (e) => {
+	if (e.value.length < 2) {
+		resultDropdown.style.display = "none";
+		return;
+	}
+	(async () => {
+		const response = await fetch("/live-search-results", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ search: e.value }),
+		});
+		const data = await response.json();
+		while (resultDropdown.firstChild) {
+			resultDropdown.removeChild(resultDropdown.lastChild);
+		}
+		showSearchResults(data.results);
+	})();
+};
+
+$("#search-result-form").on("keypress", function (event) {
+	var keyPressed = event.keyCode || event.which;
+	if (keyPressed === 13) {
+		event.preventDefault();
+		return false;
+	}
+});
+
+const showSearchResults = (results) => {
+	const { tickets, customers, payments } = results;
+
+	if (tickets.length == 0 && customers.length == 0 && payments.length == 0) {
+		console.log("No results found");
+		return;
+	}
+
+	resultDropdown.style.display = "flex";
+
+	for (let i = 0; i < tickets.length; i++) {
+		let resultBox = document.createElement("a");
+		resultBox.classList.add("result");
+		resultBox.href = "/tickets/" + tickets[i];
+		let text = document.createTextNode(`Ticket: ${tickets[i]}`);
+		resultBox.appendChild(text);
+		resultDropdown.appendChild(resultBox);
+	}
+	for (let i = 0; i < customers.length; i++) {
+		let resultBox = document.createElement("a");
+		resultBox.classList.add("result");
+		resultBox.href = "/customers/" + customers[i];
+		let text = document.createTextNode(`Customer: ${customers[i]}`);
+		resultBox.appendChild(text);
+		resultDropdown.appendChild(resultBox);
+	}
+	for (let i = 0; i < payments.length; i++) {
+		let resultBox = document.createElement("a");
+		resultBox.classList.add("result");
+		resultBox.href = "/payments/" + payments[i];
+		let text = document.createTextNode(`Payment: ${payments[i]}`);
+		resultBox.appendChild(text);
+		resultDropdown.appendChild(resultBox);
+	}
+};
+
+const newBtns = document.querySelectorAll(".new-btn");
+
+for (const btn of newBtns) {
+	btn.addEventListener("click", () => {
+		const form = document.createElement("form");
+		form.setAttribute("method", "post");
+		form.setAttribute(
+			"action",
+			`/new-${btn.textContent.trim().toLowerCase()}`
+		);
+
+		const searchValue = document.getElementById(
+			"search-for-anything"
+		).value;
+		var rx = /^\d{3}\-?\d{3}\-?\d{4}$/;
+
+		if (rx.test(searchValue)) {
+			console.log("valid");
+			let phone = document.createElement("input");
+			phone.setAttribute("type", "hidden");
+			phone.setAttribute("value", searchValue);
+			phone.setAttribute("name", "phone");
+			form.appendChild(phone);
+		}
+
+		document.getElementsByTagName("body")[0].appendChild(form);
+		form.submit();
 	});
 }

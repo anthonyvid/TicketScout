@@ -37,10 +37,129 @@ $bluetext: #0d2238;
 	height: calc(100vh - 220px);
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	border-radius: 10px;
 	margin-top: 20px;
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-	padding: 20px 0 20px 0;
+
+	.settings-sidebar {
+		height: 100%;
+		width: 300px;
+		padding-top: 25px;
+		overflow-y: auto;
+		border-right: 1px solid $card-pool;
+		display: flex;
+		flex-direction: column;
+
+		a {
+			width: 100%;
+			height: 50px;
+			display: flex;
+			gap: 20px;
+			align-items: center;
+			padding-left: 40px;
+			font-weight: 500;
+			text-decoration: none;
+			color: #7e8082;
+			transition: 0.3s ease-in-out;
+
+			&:hover {
+				color: black;
+				background-color: #f5f5f5;
+			}
+		}
+
+		.color-menu-item {
+			color: black;
+			background-color: #f5f5f5;
+			transition: 0.3s ease-in-out;
+		}
+	}
+
+	.section-content {
+		height: 100%;
+		width: 100%;
+		overflow-y: auto;
+		padding: 50px;
+		scroll-behavior: smooth;
+		scrollbar-width: 0px;
+		-ms-overflow-style: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.section {
+			width: 100%;
+			height: 100%;
+			margin-bottom: 50px;
+			display: flex;
+			flex-direction: column;
+
+			&:last-child {
+				margin-bottom: 0px !important;
+			}
+		}
+
+		#account,
+		#password {
+			form {
+				width: 100%;
+				height: 100%;
+				padding: 50px 0 50px 0;
+				display: flex;
+				flex-direction: column;
+				gap: 50px;
+
+				div {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+
+					label {
+						text-transform: uppercase;
+						color: $swatch_5;
+						font-size: 13px;
+						font-weight: 500;
+						font-family: "Padauk" bold;
+					}
+
+					input {
+						height: 50px;
+						border-radius: 8px;
+						outline: none;
+						text-indent: 25px;
+						font-size: 16px;
+						border: 0;
+						box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+							rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+					}
+				}
+
+				.btn-wrap {
+					display: flex;
+					align-items: flex-end;
+
+					button {
+						width: 15%;
+						height: 50px;
+						border-radius: 5px;
+						border: 0;
+						background-color: black;
+						color: white;
+						box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+							rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+						transition: 0.2s ease-in-out;
+						transform: scale(1);
+					}
+
+					button:hover {
+						transition: 0.3s ease-in-out;
+						transform: scale(1.1);
+					}
+				}
+			}
+		}
+	}
 }

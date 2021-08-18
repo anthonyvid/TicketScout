@@ -144,5 +144,9 @@ router.post("/receive-sms", userController.receiveSms);
 router.post("/live-search-results", userController.liveSearchResults);
 router.post("/update-account-info", userController.updateAccountInfo);
 router.post("/change-account-password", userController.changeAccountPassword);
+router.get(
+	"/get-employees-timeclock-history",
+	userController.getEmployeesTimeclockHistory
+);
 
 module.exports = router;

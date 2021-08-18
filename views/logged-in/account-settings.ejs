@@ -1,8 +1,10 @@
+<% let email = user.email; %> 
+
 <link
 	rel="stylesheet"
 	href="/logged-in/account-settings/account-settings.css"
 />
-<script src="/logged-in/account-settings/account-settings.js"></script>
+<script defer src="/logged-in/account-settings/account-settings.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -23,7 +25,7 @@
 					><i class="fas fa-lock"></i>Password</a
 				>
 				<a href="#timeclock" class="menu-item"
-					><i class="fas fa-lock"></i>Time Clock</a
+					><i class="fas fa-user-clock"></i>Time Clock</a
 				>
 			</div>
 			<div class="section-content">
@@ -70,7 +72,47 @@
 					</form>
 				</div>
 				<div id="timeclock" class="section">
-					<h2>Time Clock</h2>
+					<h2>Time Clock History</h2>
+					<input type="hidden" id="user-clock-history" value="<%= JSON.stringify(user.timeClock.clockHistory) %>">
+					<div class="clock-filters">
+						<p>From <input type="date" id="fromDate"></p>
+						<p>To <input type="date" id="toDate"></p>
+						<button type="button" id="filter-dates-btn">Filter</button>
+						<button type="button" id="reset-dates-btn">Reset</button>
+						<p id="hours-worked-text"> </p>
+						<% if(user.admin) { %> 
+							<div class="admin-view">
+								<p>Employee Totals:</p>
+								<input type="checkbox" id="totalUpEmployeeHours">
+							</div>
+							<p id="pay-period"></p>
+						<% } %> 
+					</div>
+					<table id="table">
+						<thead>
+							<tr>
+								<td>Date</td>
+								<td>Clock In Time</td>
+								<td>Clock Out Time</td>
+								<td>Hours Worked</td>
+							</tr>
+						</thead>
+						<tbody id="tbodyref">
+							
+						</tbody>
+					</table>
+					<table class="admin-table hide">
+						<thead>
+							<tr>
+								<td>Employee</td>
+								<td>Hours Worked</td>
+								<td>Pay Period</td>
+							</tr>
+						</thead>
+						<tbody id="adminTBodyRed">
+
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

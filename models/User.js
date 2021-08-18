@@ -34,8 +34,9 @@ class User {
 		});
 	}
 
-	async updateAccountInfo(storename, oldEmail, newInfo) {
-		const { firstname, lastname, email } = newInfo;
+	async updateAccountInfo(oldEmail, newInfo) {
+		console.log(newInfo);
+		let { firstname, lastname, email } = newInfo;
 
 		//validate email
 		if (!validator.isEmail(email))
@@ -43,8 +44,6 @@ class User {
 
 		if (firstname.length == 0 || lastname.length == 0)
 			return { emailError: "Invalid firstname or lastname" };
-
-		const store = storesCollection.findOne({ storename: storename });
 
 		const fullname =
 			firstname.trim().toLowerCase() +
@@ -881,6 +880,8 @@ class User {
 
 		const userData = await usersCollection.findOne({ email: user.email });
 
+		const clockInTime = userData.timeClock.clockInTime;
+
 		const timeClockedIn = clockOutTime - userData.timeClock.clockInTime;
 
 		let hours = timeClockedIn / (1000 * 60 * 60);
@@ -894,7 +895,9 @@ class User {
 				},
 				$push: {
 					[`timeClock.clockHistory`]: {
-						date: new Date().toDateString(),
+						date: new Date().toISOString().split("T")[0],
+						clockInTime: clockInTime,
+						clockOutTime: clockOutTime,
 						hoursWorked: hours,
 					},
 				},
@@ -945,6 +948,27 @@ class User {
 			if (result == null)
 				this.errors["signUpCode"] = "Store you are joining not found";
 		}
+	}
+
+	async getEmployeesTimeclockHistory(storename) {
+		const employees = await usersCollection
+			.find({ storename: storename })
+			.toArray();
+
+		const employeesClockHistory = [];
+
+		for (let i = 0; i < employees.length; i++) {
+			employeesClockHistory.push([
+				employees[i].fullname,
+				employees[i].timeClock.clockHistory,
+			]);
+		}
+
+		const store = await storesCollection.findOne({ storename: storename });
+		return {
+			employeesClockHistory,
+			payPeriod: store.storeSettings.payPeriod,
+		};
 	}
 
 	async changeAccountPassword(actualOldHashedPassword, newInfo) {

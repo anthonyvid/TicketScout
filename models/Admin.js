@@ -90,6 +90,7 @@ class Admin extends User {
 						categories: [],
 						taxRate: "13",
 					},
+					payPeriod: "Bi-weekly"
 				},
 			});
 			usersCollection.insertOne(user);

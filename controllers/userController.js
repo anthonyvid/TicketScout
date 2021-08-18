@@ -141,6 +141,14 @@ exports.renderAccountSettings = function (req, res) {
 	});
 };
 
+exports.getEmployeesTimeclockHistory = async function (req, res) {
+	const user = new User();
+	const { employeesClockHistory, payPeriod } =
+		await user.getEmployeesTimeclockHistory(req.user.storename);
+
+	res.json({ employeesClockHistory, payPeriod });
+};
+
 exports.updateAccountInfo = async function (req, res) {
 	const user = new User();
 	const emailError = await user.updateAccountInfo(req.user.email, req.body);
@@ -149,10 +157,13 @@ exports.updateAccountInfo = async function (req, res) {
 		req.flash("success_update", "Successfully Updated Information");
 		res.redirect("/account-settings");
 	} else {
+		const store = user.getStore(req.user.storename);
+
 		res.render("logged-in/account-settings", {
 			layout: "layouts/logged-in-layout",
 			errors: Object.values(emailError),
 			user: req.user,
+			store,
 		});
 	}
 };
@@ -387,10 +398,12 @@ exports.changeAccountPassword = async function (req, res) {
 		req.flash("success_update", "Successfully Updated Information");
 		res.redirect("/account-settings");
 	} else {
+		const store = user.getStore(req.user.storename);
 		res.render("logged-in/account-settings", {
 			layout: "layouts/logged-in-layout",
 			errors: Object.values(passwordError),
 			user: req.user,
+			store,
 		});
 	}
 };

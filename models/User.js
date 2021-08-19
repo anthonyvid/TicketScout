@@ -739,9 +739,9 @@ class User {
 		const fromNumber = smsData.From.substring(2);
 
 		//find subaccount to add msg to
-		const store = await storesCollection.findOne({
-			"storedata.api.twilio.sid": subAccountSid,
-		});
+		// const store = await storesCollection.findOne({
+		// 	"storedata.api.twilio.sid": subAccountSid,
+		// });
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page
@@ -791,7 +791,7 @@ class User {
 				);
 				return message.body;
 			});
-
+		console.log(msg);
 		return msg;
 	}
 

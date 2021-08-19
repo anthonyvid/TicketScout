@@ -307,3 +307,119 @@ document
 			}
 		})();
 	});
+
+const ticketStatuses = document.querySelectorAll(".status");
+const statusNameInput = document.getElementById("status-name-input");
+const statusColorInput = document.getElementById("status-color-input");
+const colorPreview = document.getElementById("color-preview");
+
+const showColorPreview = (e) => {
+	colorPreview.style.backgroundColor = e.value;
+};
+
+for (const status of ticketStatuses) {
+	const statusColor = JSON.parse(status.lastElementChild.value);
+	const colorCircle = status.firstElementChild.nextElementSibling;
+	colorCircle.style.backgroundColor = `#${statusColor}`;
+
+	status.addEventListener("click", () => {
+		statusNameInput.value = status.firstElementChild.textContent.trim();
+		statusColorInput.value = "#" + statusColor;
+		colorPreview.style.backgroundColor = "#" + statusColor;
+	});
+}
+
+const addOrUpdateStatusBtn = document.getElementById(
+	"update-ticket-status-settings"
+);
+
+addOrUpdateStatusBtn.addEventListener("click", () => {
+	if (!statusNameInput.value) {
+		showInvalidColour(statusNameInput);
+		return;
+	} else if (
+		statusColorInput.value.length < 2 ||
+		!statusColorInput.value.startsWith("#")
+	) {
+		showInvalidColour(statusColorInput);
+		return;
+	}
+	for (const status of ticketStatuses) {
+		if (
+			status.firstElementChild.textContent.toUpperCase().trim() ===
+			statusNameInput.value.toUpperCase()
+		) {
+			showInvalidColour(statusNameInput);
+			return;
+		}
+	}
+
+	(async () => {
+		try {
+			await fetch("/update-ticket-status-settings", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					statusName: statusNameInput.value.trim(),
+					statusColor: statusColorInput.value.trim().substring(1),
+				}),
+			});
+			location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+});
+
+const deleteTicketStatusBtn = document.getElementById(
+	"delete-ticket-status-settings"
+);
+
+deleteTicketStatusBtn.addEventListener("click", () => {
+	if (!statusNameInput.value) {
+		showInvalidColour(statusNameInput);
+		return;
+	}
+	let statusNames = [];
+	[...ticketStatuses].forEach((item) => {
+		statusNames.push(item.textContent.trim().toUpperCase());
+	});
+
+	if (!statusNames.includes(statusNameInput.value.toUpperCase())) {
+		showInvalidColour(statusNameInput);
+		return;
+	}
+
+	(async () => {
+		try {
+			await fetch("/delete-ticket-status-settings", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					statusName: statusNameInput.value.trim(),
+					statusColor: statusColorInput.value.trim().substring(1),
+				}),
+			});
+			location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+});
+
+const colorCopy = document.querySelectorAll(".color-copy");
+
+for (color of colorCopy) {
+	color.addEventListener("click", () => {
+		const elemToCopy = document.createElement("p");
+		elemToCopy.textContent = window
+			.getComputedStyle(color)
+			.getPropertyValue("background-color");
+
+		
+	});
+}

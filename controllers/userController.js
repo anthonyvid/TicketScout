@@ -141,6 +141,17 @@ exports.renderAccountSettings = async function (req, res) {
 	});
 };
 
+exports.updateTicketStatusSettings = async function (req, res) {
+	const user = new User();
+	await user.updateTicketStatusSettings(req.user.storename, req.body);
+	res.status(204).send();
+};
+exports.deleteTicketStatusSettings = async function (req, res) {
+	const user = new User();
+	await user.deleteTicketStatusSettings(req.user.storename, req.body);
+	res.status(204).send();
+};
+
 exports.updateStoreAddress = async function (req, res) {
 	const user = new User();
 	await user.updateStoreAddress(req.user.storename, req.body);

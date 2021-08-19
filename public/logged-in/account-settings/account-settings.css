@@ -503,4 +503,267 @@
 .account-settings-container .section-content #tickets h2 {
   margin-bottom: 5px;
 }
+
+.account-settings-container .section-content #tickets .ticket-settings {
+  width: 100%;
+  height: 100%;
+  margin-top: 15px;
+  padding: 35px 0 35px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 15px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container {
+  width: 65%;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  height: 75%;
+  gap: 10px;
+  margin: 30px 0 50px 0;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .statuses {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-y: scroll;
+  border: 1px solid #e8edf5;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .statuses .status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  min-height: 50px;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 15px;
+  border: 1px solid #e8edf5;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .statuses .status p {
+  color: #7e8082;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .statuses .status .color {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .statuses .status:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status {
+  width: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 15px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status div label {
+  text-transform: uppercase;
+  color: #717987;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Padauk" bold;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status div input {
+  height: 40px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  text-indent: 15px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status div div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status div div input {
+  width: 70%;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status div div div {
+  height: 40px;
+  width: 30%;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .button-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .button-wrap button {
+  background-color: #f2f6f9;
+  width: 50%;
+  margin-top: -10px;
+  height: 40px;
+  outline: none;
+  text-indent: 0;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .button-wrap #delete-ticket-status-settings {
+  background-color: lightcoral;
+  color: white;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div span {
+  display: none;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div:hover {
+  cursor: pointer;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div:hover span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div:active span {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #new {
+  background-color: #56f000;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #alert {
+  background-color: #ff3838;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #attention {
+  background-color: #ffb302;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #standby {
+  background-color: #2dccff;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #resolved {
+  background-color: #9ea7ad;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #caution {
+  background-color: #fce83a;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .right-container {
+  width: 35%;
+}
 /*# sourceMappingURL=account-settings.css.map */

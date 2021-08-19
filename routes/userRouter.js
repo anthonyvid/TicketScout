@@ -5,6 +5,7 @@ const {
 	ensureAuthenticated,
 	checkNotAuthenticated,
 } = require("../config/auth");
+const { route } = require("./adminRouter");
 
 //- Routes That Dont Require Middleware -//
 // Login Handle
@@ -163,6 +164,17 @@ router.post(
 	"/update-store-address",
 	ensureAuthenticated,
 	userController.updateStoreAddress
+);
+
+router.post(
+	"/update-ticket-status-settings",
+	ensureAuthenticated,
+	userController.updateTicketStatusSettings
+);
+router.post(
+	"/delete-ticket-status-settings",
+	ensureAuthenticated,
+	userController.deleteTicketStatusSettings
 );
 
 module.exports = router;

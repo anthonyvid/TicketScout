@@ -1,6 +1,6 @@
 <% let email = user.email; %> 
 <% let storePaymentSettings = store.storeSettings.payments %> 
-
+<% let ticketSettings = store.storeSettings.tickets %> 
 <link
 	rel="stylesheet"
 	href="/logged-in/account-settings/account-settings.css"
@@ -189,7 +189,66 @@
 					<div id="tickets" class="section">
 						<h2>Tickets</h2>
 						<p>Configure your store ticket settings</p>
-						.
+						<div class="ticket-settings">
+							<div class="left-container">
+								<h4>Ticket Status</h4>
+								<small>
+									Add status options to organize your tickets.<br>
+									By default your store comes with a <b>New</b> and <b>Resolved</b> status.
+								</small>
+								<div class="statuses-wrap">
+									<div class="statuses">
+										<% for(let i =0; i<ticketSettings.status.length; i++) { %> 
+										<div class="status">
+											<p><%= ticketSettings.status[i][0] %></p>
+											<div class="color"></div>
+											<input type="hidden" id="status-color" value="<%=JSON.stringify(ticketSettings.status[i][1])%>">
+										</div>	
+										<% } %> 						
+									</div>
+									<div class="add-remove-status">
+										<div>
+											<label>Name</label>
+											<input type="text" id="status-name-input">
+										</div>
+										<div>
+											<label>Colour (hex values)</label>
+											<div>
+												<input type="text" id="status-color-input" onkeyup="showColorPreview(this)">
+												<div id="color-preview">preview<i class="fas fa-fill-drip"></i></div>
+											</div>
+										</div>
+										<div class="button-wrap">
+											<button type="button" id="update-ticket-status-settings">Add</button>
+											<button type="button" id="delete-ticket-status-settings">Delete</button>
+										</div>
+										<div class="default-colors-wrap">
+											<div id="new" class="color-copy">
+												<span><i class="far fa-copy"></i></span>
+											</div>
+											<div id="alert" class="color-copy">
+												<span><i class="far fa-copy"></i></span>
+											</div>
+											<div id="attention" class="color-copy">
+												<span><i class="far fa-copy"></i></span>
+											</div>
+											<div id="standby" class="color-copy">
+												<span><i class="far fa-copy"></i></span>
+											</div>
+											<div id="caution" class="color-copy">
+												<span><i class="far fa-copy"></i></span>
+											</div>
+											<div id="resolved" class="color-copy">
+												<span><i class="far fa-copy"></i></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<hr color="#eaeef5" size="1" />
+							<div class="right-container"></div>
+						</div>
 					</div>
 					<div id="sms" class="section">
 

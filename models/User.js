@@ -950,6 +950,41 @@ class User {
 		}
 	}
 
+	async updateTicketStatusSettings(storename, newData) {
+		let { statusName, statusColor } = newData;
+		console.log(statusColor);
+
+		statusName =
+			statusName.charAt(0).toUpperCase() + statusName.substring(1);
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$push: {
+					"storeSettings.tickets.status": [statusName, statusColor],
+				},
+			}
+		);
+	}
+	async deleteTicketStatusSettings(storename, newData) {
+		let { statusName, statusColor } = newData;
+
+		statusName =
+			statusName.charAt(0).toUpperCase() + statusName.substring(1);
+		console.log(statusName);
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$pull: {
+					"storeSettings.tickets.status": {
+						$in: [statusName],
+					},
+				},
+			}
+		);
+	}
+
 	async getEmployeesTimeclockHistory(storename, fromDate, toDate) {
 		const employees = await usersCollection
 			.find({ storename: storename })

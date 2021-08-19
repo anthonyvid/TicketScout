@@ -35,8 +35,8 @@
 					<a href="#tickets" class="menu-item"
 						><i class="fas fa-ticket-alt"></i>Tickets</a
 					>
-					<a href="#sms" class="menu-item"
-						><i class="fas fa-comment-dots"></i>Sms</a
+					<a href="#deletedata" class="menu-item"
+						><i class="fas fa-comment-dots"></i>Delete Data</a
 					>
 				<% } %> 
 			</div>
@@ -223,23 +223,46 @@
 											<button type="button" id="delete-ticket-status-settings">Delete</button>
 										</div>
 										<div class="default-colors-wrap">
-											<div id="new" class="color-copy">
-												<span><i class="far fa-copy"></i></span>
+											<label for="">color palette</label>
+											<div class="row">
+												<div id="new" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="alert" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="attention" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="standby" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="caution" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="resolved" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
 											</div>
-											<div id="alert" class="color-copy">
-												<span><i class="far fa-copy"></i></span>
-											</div>
-											<div id="attention" class="color-copy">
-												<span><i class="far fa-copy"></i></span>
-											</div>
-											<div id="standby" class="color-copy">
-												<span><i class="far fa-copy"></i></span>
-											</div>
-											<div id="caution" class="color-copy">
-												<span><i class="far fa-copy"></i></span>
-											</div>
-											<div id="resolved" class="color-copy">
-												<span><i class="far fa-copy"></i></span>
+											<div class="row">
+												<div id="new2" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="alert2" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="attention2" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="standby2" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="caution2" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
+												<div id="resolved2" class="color-copy">
+													<span><i class="far fa-copy"></i></span>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -247,11 +270,52 @@
 							</div>
 							
 							<hr color="#eaeef5" size="1" />
-							<div class="right-container"></div>
+							<div class="right-container">
+								<h4>Ticket Issue</h4>
+								<small>No default ticket issue, add some!</small>
+								<select name="issues" id="">
+									<% if(ticketSettings.issue.length == 0) {%>
+										<option hidden selected>Add your first issue</option>
+									<% } else { %>
+										<option selected>View your issues</option>
+										<% for(let i=0;i<ticketSettings.issue.length;i++) {%> 
+											<option value=""><%=ticketSettings.issue[i]%></option>
+										<% } %> 
+									<% } %> 
+								</select>
+								<div>
+									<button type="button" id="create-issue">Create</button>
+									<button type="button" id="remove-issue">Remove</button>
+									<input type="text" id="issue-input" placeholder="Issue name...">
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="sms" class="section">
-
+					<div id="deletedata" class="section">
+						<h2>Delete data within your store</h2>
+						<p>All actions cannot be undone</p>
+						<div class="options">
+							<div class="remove-wrap">
+								<label>Delete a ticket</label>
+								<input type="text" placeholder="Enter ticket ID" >
+								<div>
+									<button class="delete-store-data">Delete</button>
+									<button class="confirm-removal">Remove Ticket</button>
+								</div>
+							</div>
+							<div class="remove-wrap">
+								<label>Delete a payment</label>
+								<input type="text" placeholder="Enter payment number">
+								<div>
+									<button class="delete-store-data">Delete</button>
+									<button class="confirm-removal">Remove Payment</button>
+								</div>
+							</div>
+							<div class="remove-wrap">
+								<label>Delete a customer account</label>
+								<p>Please contact support for this action</p>
+							</div>
+						</div>
 					</div>
 				<% } %> 
 			</div>

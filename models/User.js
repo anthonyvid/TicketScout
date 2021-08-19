@@ -955,7 +955,8 @@ class User {
 		console.log(statusColor);
 
 		statusName =
-			statusName.charAt(0).toUpperCase() + statusName.substring(1);
+			statusName.charAt(0).toUpperCase() +
+			statusName.substring(1).toLowerCase();
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -970,7 +971,8 @@ class User {
 		let { statusName, statusColor } = newData;
 
 		statusName =
-			statusName.charAt(0).toUpperCase() + statusName.substring(1);
+			statusName.charAt(0).toUpperCase() +
+			statusName.substring(1).toLowerCase();
 		console.log(statusName);
 
 		await storesCollection.updateOne(
@@ -1039,6 +1041,84 @@ class User {
 					"storeSettings.payments.address.city": city,
 					"storeSettings.payments.address.province": province,
 					"storeSettings.payments.address.postal": postalCode,
+				},
+			}
+		);
+	}
+	async addIssue(storename, issue) {
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$addToSet: {
+					"storeSettings.tickets.issue": issue,
+				},
+			}
+		);
+	}
+
+	async deleteTicket(storename, ticketID) {
+		const store = await storesCollection.findOne({ storename: storename });
+
+		const storeTickets = Object.keys(store.storedata.tickets);
+
+		if (!storeTickets.includes(ticketID)) return;
+
+		const phoneOnTicket = store.storedata.tickets[ticketID].customer.phone;
+		const paymentsOnTicket = Object.keys(
+			store.storedata.tickets[ticketID].payments
+		);
+
+		paymentsOnTicket.forEach(async (item) => {
+			await storesCollection.updateOne(
+				{ storename: storename },
+				{
+					$set: {
+						[`storedata.payments.${item}.linkedTicket`]: "",
+						[`storedata.customers.${phoneOnTicket}.payments.${item}.linkedTicket`]:
+							"",
+					},
+				}
+			);
+		});
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$unset: {
+					[`storedata.tickets.${ticketID}`]: "",
+					[`storedata.customers.${phoneOnTicket}.tickets.${ticketID}`]:
+						"",
+				},
+			}
+		);
+	}
+	async deletePayment(storename, paymentNumber) {
+		const store = await storesCollection.findOne({ storename: storename });
+		const storePayments = Object.keys(store.storedata.payments);
+
+		if (!storePayments.includes(paymentNumber)) return;
+
+		const phoneOnPayment =
+			store.storedata.payments[paymentNumber].customer.phone;
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$unset: {
+					[`storedata.payments.${paymentNumber}`]: "",
+					[`storedata.customers.${phoneOnPayment}.payments.${paymentNumber}`]:
+						"",
+				},
+			}
+		);
+	}
+
+	async removeIssue(storename, issue) {
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$pull: {
+					"storeSettings.tickets.issue": issue,
 				},
 			}
 		);

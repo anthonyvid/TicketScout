@@ -210,7 +210,7 @@ createCategoryBtn.addEventListener("click", () => {
 					category: categoryInput.value,
 				}),
 			});
-			location.reload();
+			document.location.reload();
 			console.log("yaa");
 		} catch (error) {
 			console.log(error);
@@ -238,7 +238,7 @@ removeCategoryBtn.addEventListener("click", () => {
 					category: categoryInput.value,
 				}),
 			});
-			location.reload();
+			document.location.reload();
 		} catch (error) {
 			console.log(error);
 		}
@@ -264,7 +264,7 @@ document.getElementById("taxRateBtn").addEventListener("click", () => {
 					taxRate: taxRateInput.value,
 				}),
 			});
-			location.reload();
+			document.location.reload();
 		} catch (error) {
 			console.log(error);
 		}
@@ -301,7 +301,7 @@ document
 						postalCode: postalCode.value,
 					}),
 				});
-				location.reload();
+				document.location.reload();
 			} catch (error) {
 				console.log(error);
 			}
@@ -366,7 +366,7 @@ addOrUpdateStatusBtn.addEventListener("click", () => {
 					statusColor: statusColorInput.value.trim().substring(1),
 				}),
 			});
-			location.reload();
+			document.location.reload();
 		} catch (error) {
 			console.log(error);
 		}
@@ -377,49 +377,171 @@ const deleteTicketStatusBtn = document.getElementById(
 	"delete-ticket-status-settings"
 );
 
-deleteTicketStatusBtn.addEventListener("click", () => {
-	if (!statusNameInput.value) {
-		showInvalidColour(statusNameInput);
-		return;
-	}
-	let statusNames = [];
-	[...ticketStatuses].forEach((item) => {
-		statusNames.push(item.textContent.trim().toUpperCase());
-	});
+deleteTicketStatusBtn.addEventListener(
+	"click",
+	() => {
+		if (!statusNameInput.value) {
+			showInvalidColour(statusNameInput);
+			return;
+		}
+		let statusNames = [];
+		[...ticketStatuses].forEach((item) => {
+			statusNames.push(item.textContent.trim().toUpperCase());
+		});
 
-	if (!statusNames.includes(statusNameInput.value.toUpperCase())) {
-		showInvalidColour(statusNameInput);
+		if (!statusNames.includes(statusNameInput.value.toUpperCase())) {
+			showInvalidColour(statusNameInput);
+			return;
+		}
+
+		(async () => {
+			try {
+				await fetch("/delete-ticket-status-settings", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						statusName: statusNameInput.value.trim(),
+						statusColor: statusColorInput.value.trim().substring(1),
+					}),
+				});
+				document.location.reload();
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	},
+	{ passive: true }
+);
+
+const rgb2hex = (rgb) =>
+	`#${rgb
+		.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+		.slice(1)
+		.map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
+		.join("")}`;
+
+const colorCopy = document.querySelectorAll(".color-copy");
+
+for (color of colorCopy) {
+	const colorRGB = window
+		.getComputedStyle(color)
+		.getPropertyValue("background-color");
+	color.addEventListener("click", async () => {
+		await navigator.clipboard.writeText(rgb2hex(colorRGB));
+	});
+}
+
+const createIssueBtn = document.getElementById("create-issue");
+const deleteIssueBtn = document.getElementById("remove-issue");
+const issueInput = document.getElementById("issue-input");
+
+createIssueBtn.addEventListener("click", () => {
+	deleteIssueBtn.style.display = "none";
+	issueInput.style.display = "flex";
+	createIssueBtn.style.width = "25%";
+
+	if (issueInput.value == "") {
+		showInvalidColour(issueInput);
 		return;
 	}
 
 	(async () => {
 		try {
-			await fetch("/delete-ticket-status-settings", {
+			await fetch("/add-issue", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					statusName: statusNameInput.value.trim(),
-					statusColor: statusColorInput.value.trim().substring(1),
+					issue: issueInput.value.trim().toLowerCase(),
 				}),
 			});
-			location.reload();
+			document.location.reload();
+			console.log("yaa");
 		} catch (error) {
 			console.log(error);
 		}
 	})();
 });
 
-const colorCopy = document.querySelectorAll(".color-copy");
+deleteIssueBtn.addEventListener("click", () => {
+	createIssueBtn.style.display = "none";
+	issueInput.style.display = "flex";
+	deleteIssueBtn.style.width = "25%";
+	if (issueInput.value == "") {
+		showInvalidColour(issueInput);
+		return;
+	}
 
-for (color of colorCopy) {
-	color.addEventListener("click", () => {
-		const elemToCopy = document.createElement("p");
-		elemToCopy.textContent = window
-			.getComputedStyle(color)
-			.getPropertyValue("background-color");
+	(async () => {
+		try {
+			await fetch("/remove-issue", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					issue: issueInput.value.trim().toLowerCase(),
+				}),
+			});
+			document.location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+});
 
-		
+const deleteStoreDataBtns = document.querySelectorAll(".delete-store-data");
+const confirmRemovalBtns = document.querySelectorAll(".confirm-removal");
+
+for (const btn of deleteStoreDataBtns) {
+	btn.addEventListener("click", () => {
+		if (btn.parentElement.previousElementSibling.value < 2) {
+			showInvalidColour(btn.parentElement.previousElementSibling);
+			return;
+		}
+
+		btn.style.width = "30%";
+		btn.nextElementSibling.style.display = "flex";
+	});
+}
+
+for (const btn of confirmRemovalBtns) {
+	btn.addEventListener("click", () => {
+		if (btn.parentElement.previousElementSibling.value < 2) {
+			showInvalidColour(btn.parentElement.previousElementSibling);
+			return;
+		}
+
+		const url = btn.textContent.trim().split(" ")[1].toLowerCase();
+		const deletionItem =
+			btn.parentElement.previousElementSibling.value.replace(
+				/[^0-9]/g,
+				""
+			);
+
+		if (!deletionItem) {
+			showInvalidColour(btn.parentElement.previousElementSibling);
+			return;
+		}
+
+		(async () => {
+			try {
+				await fetch(`/delete-${url}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						item: deletionItem,
+					}),
+				});
+				document.location.reload();
+			} catch (error) {
+				console.log(error);
+			}
+		})();
 	});
 }

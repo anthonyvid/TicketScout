@@ -22,6 +22,7 @@ $bluetext: #0d2238;
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .page-header {
+	margin-top: -10px;
 	h1 {
 		color: #000;
 		margin-bottom: 5px;
@@ -36,12 +37,12 @@ $bluetext: #0d2238;
 
 .account-settings-container {
 	width: 100%;
-	height: calc(100vh - 220px);
+	height: calc(100vh - 200px);
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	border-radius: 10px;
-	margin-top: 20px;
+	margin-top: 10px;
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
 
@@ -133,13 +134,16 @@ $bluetext: #0d2238;
 
 					input {
 						height: 50px;
-						border-radius: 8px;
+						// border-radius: 8px;
 						outline: none;
 						text-indent: 25px;
 						font-size: 16px;
-						border: 0;
-						box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-							rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+						// border: 0;
+						// box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+						// 	rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+						border: 1px solid $swatch_1;
+						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 					}
 				}
 
@@ -486,7 +490,6 @@ $bluetext: #0d2238;
 								}
 
 								input {
-									// margin-bottom: 13px;
 									height: 40px;
 									border: 1px solid $swatch_1;
 									box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px
@@ -544,11 +547,18 @@ $bluetext: #0d2238;
 
 							.default-colors-wrap {
 								display: flex;
-								flex-direction: row;
-								justify-content: space-around;
-								gap: 5px;
+								flex-direction: column;
+								gap: 15px;
 
-								div {
+								.row {
+									display: flex;
+									flex-direction: row;
+									justify-content: space-around;
+									align-items: center;
+									width: 100%;
+								}
+
+								.color-copy {
 									display: flex;
 									justify-content: center;
 									align-items: center;
@@ -578,20 +588,38 @@ $bluetext: #0d2238;
 								#new {
 									background-color: #56f000;
 								}
+								#new2 {
+									background-color: #36b37e;
+								}
 								#alert {
 									background-color: #ff3838;
+								}
+								#alert2 {
+									background-color: #ff5630;
 								}
 								#attention {
 									background-color: #ffb302;
 								}
+								#attention2 {
+									background-color: #ffab00;
+								}
 								#standby {
 									background-color: #2dccff;
+								}
+								#standby2 {
+									background-color: #00b8d9;
 								}
 								#resolved {
 									background-color: #9ea7ad;
 								}
+								#resolved2 {
+									background-color: #505f79;
+								}
 								#caution {
 									background-color: #fce83a;
+								}
+								#caution2 {
+									background-color: #6554c0;
 								}
 							}
 						}
@@ -600,6 +628,109 @@ $bluetext: #0d2238;
 
 				.right-container {
 					width: 35%;
+					display: flex;
+					flex-direction: column;
+					gap: 5px;
+
+					select {
+						margin-top: 15px;
+						height: 40px;
+						width: 250px;
+						border: 1px solid $swatch_1;
+						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+					}
+
+					div {
+						display: flex;
+						gap: 5px;
+						width: 250px;
+						height: 40px;
+
+						button {
+							width: 50%;
+							transition: 0.3s ease-in-out;
+							background-color: darken(#f9fbfc, 2%);
+							border: 1px solid $swatch_1;
+							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						}
+
+						input {
+							display: none;
+							width: 100%;
+							outline: none;
+							text-indent: 10px;
+							background-color: darken(#f9fbfc, 2%);
+							border: 1px solid $swatch_1;
+							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						}
+					}
+				}
+			}
+		}
+
+		#deletedata {
+			h2 {
+				margin-bottom: 5px;
+			}
+
+			.options {
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				height: 100%;
+				margin-top: 50px;
+				justify-content: space-around;
+
+				.remove-wrap {
+					display: flex;
+					flex-direction: column;
+					gap: 5px;
+
+					label {
+						text-transform: uppercase;
+						color: $swatch_5;
+						font-size: 13px;
+						font-weight: 500;
+						font-family: "Padauk" bold;
+					}
+
+					input {
+						height: 40px;
+						width: 250px;
+						border: 1px solid $swatch_1;
+						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						text-indent: 10px;
+					}
+
+					div {
+						display: flex;
+						flex-direction: row;
+						gap: 5px;
+
+						button {
+							width: 100%;
+							height: 40px;
+							transition: 0.3s ease-in-out;
+							background-color: darken(#f9fbfc, 2%);
+							border: 1px solid $swatch_1;
+							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+							&:last-child {
+								display: none;
+								width: 70%;
+								justify-content: center;
+								align-items: center;
+								transition: 0.3s ease-in-out;
+								background-color: #ff3838;
+								color: white;
+							}
+						}
+					}
 				}
 			}
 		}

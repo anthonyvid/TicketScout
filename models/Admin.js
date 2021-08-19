@@ -81,8 +81,8 @@ class Admin extends User {
 				storeSettings: {
 					tickets: {
 						status: [
-							["New", "88D18A"],
-							["Resolved", "124559"],
+							["New", "36b37e"],
+							["Resolved", "505f79"],
 						],
 						issue: [],
 					},
@@ -90,7 +90,7 @@ class Admin extends User {
 						categories: [],
 						taxRate: "13",
 					},
-					payPeriod: "Bi-weekly"
+					payPeriod: "Bi-weekly",
 				},
 			});
 			usersCollection.insertOne(user);

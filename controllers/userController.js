@@ -141,6 +141,17 @@ exports.renderAccountSettings = async function (req, res) {
 	});
 };
 
+exports.addIssue = async function (req, res) {
+	const user = new User();
+	await user.addIssue(req.user.storename, req.body.issue);
+	res.status(204).send();
+};
+exports.removeIssue = async function (req, res) {
+	const user = new User();
+	await user.removeIssue(req.user.storename, req.body.issue);
+	res.status(204).send();
+};
+
 exports.updateTicketStatusSettings = async function (req, res) {
 	const user = new User();
 	await user.updateTicketStatusSettings(req.user.storename, req.body);
@@ -436,14 +447,27 @@ exports.changeAccountPassword = async function (req, res) {
 		req.flash("success_update", "Successfully Updated Information");
 		res.redirect("/account-settings");
 	} else {
-		const store = user.getStore(req.user.storename);
-		res.render("logged-in/account-settings", {
-			layout: "layouts/logged-in-layout",
-			errors: Object.values(passwordError),
-			user: req.user,
-			store,
-		});
+		req.flash("logout_msg", Object.values(passwordError));
+		res.redirect("/account-settings");
 	}
+};
+
+exports.deleteTicket = async function (req, res) {
+	const user = new User();
+	await user.deleteTicket(req.user.storename, req.body.item);
+	res.status(204).send();
+};
+
+exports.deletePayment = async function (req, res) {
+	const user = new User();
+	await user.deletePayment(req.user.storename, req.body.item);
+	res.status(204).send();
+};
+
+exports.deleteCustomer = async function (req, res) {
+	const user = new User();
+	await user.deleteCustomer(req.user.storename, req.body.item);
+	res.status(204).send();
 };
 
 exports.updateTicketInfo = async function (req, res) {

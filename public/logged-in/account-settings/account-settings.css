@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+.page-header {
+  margin-top: -10px;
+}
+
 .page-header h1 {
   color: #000;
   margin-bottom: 5px;
@@ -12,7 +16,7 @@
 
 .account-settings-container {
   width: 100%;
-  height: calc(100vh - 220px);
+  height: calc(100vh - 200px);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -23,7 +27,7 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
@@ -148,13 +152,12 @@
 .account-settings-container .section-content #account form div input,
 .account-settings-container .section-content #password form div input {
   height: 50px;
-  border-radius: 8px;
   outline: none;
   text-indent: 25px;
   font-size: 16px;
-  border: 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .account-settings-container .section-content #account form .btn-wrap,
@@ -694,16 +697,30 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
 }
 
-.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div {
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap .color-copy {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -720,21 +737,21 @@
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
-.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div span {
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap .color-copy span {
   display: none;
 }
 
-.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div:hover {
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap .color-copy:hover {
   cursor: pointer;
 }
 
-.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div:hover span {
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap .color-copy:hover span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap div:active span {
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap .color-copy:active span {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
@@ -743,27 +760,182 @@
   background-color: #56f000;
 }
 
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #new2 {
+  background-color: #36b37e;
+}
+
 .account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #alert {
   background-color: #ff3838;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #alert2 {
+  background-color: #ff5630;
 }
 
 .account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #attention {
   background-color: #ffb302;
 }
 
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #attention2 {
+  background-color: #ffab00;
+}
+
 .account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #standby {
   background-color: #2dccff;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #standby2 {
+  background-color: #00b8d9;
 }
 
 .account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #resolved {
   background-color: #9ea7ad;
 }
 
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #resolved2 {
+  background-color: #505f79;
+}
+
 .account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #caution {
   background-color: #fce83a;
 }
 
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .default-colors-wrap #caution2 {
+  background-color: #6554c0;
+}
+
 .account-settings-container .section-content #tickets .ticket-settings .right-container {
   width: 35%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .right-container select {
+  margin-top: 15px;
+  height: 40px;
+  width: 250px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .right-container div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 5px;
+  width: 250px;
+  height: 40px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .right-container div button {
+  width: 50%;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background-color: #f2f6f9;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #tickets .ticket-settings .right-container div input {
+  display: none;
+  width: 100%;
+  outline: none;
+  text-indent: 10px;
+  background-color: #f2f6f9;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #deletedata h2 {
+  margin-bottom: 5px;
+}
+
+.account-settings-container .section-content #deletedata .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.account-settings-container .section-content #deletedata .options .remove-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #deletedata .options .remove-wrap label {
+  text-transform: uppercase;
+  color: #717987;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Padauk" bold;
+}
+
+.account-settings-container .section-content #deletedata .options .remove-wrap input {
+  height: 40px;
+  width: 250px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  text-indent: 10px;
+}
+
+.account-settings-container .section-content #deletedata .options .remove-wrap div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #deletedata .options .remove-wrap div button {
+  width: 100%;
+  height: 40px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background-color: #f2f6f9;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #deletedata .options .remove-wrap div button:last-child {
+  display: none;
+  width: 70%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background-color: #ff3838;
+  color: white;
 }
 /*# sourceMappingURL=account-settings.css.map */

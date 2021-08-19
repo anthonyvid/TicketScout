@@ -176,5 +176,19 @@ router.post(
 	ensureAuthenticated,
 	userController.deleteTicketStatusSettings
 );
+router.post("/add-issue", ensureAuthenticated, userController.addIssue);
+router.post("/remove-issue", ensureAuthenticated, userController.removeIssue);
+
+router.post("/delete-ticket", ensureAuthenticated, userController.deleteTicket);
+router.post(
+	"/delete-payment",
+	ensureAuthenticated,
+	userController.deletePayment
+);
+router.post(
+	"/delete-customer",
+	ensureAuthenticated,
+	userController.deleteCustomer
+);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 <% let email = user.email; %> 
+<% let storePaymentSettings = store.storeSettings.payments %> 
 
 <link
 	rel="stylesheet"
@@ -27,6 +28,17 @@
 				<a href="#timeclock" class="menu-item"
 					><i class="fas fa-user-clock"></i>Time Clock</a
 				>
+				<% if(user.admin) {%> 
+					<a href="#payments" class="menu-item"
+						><i class="fas fa-file-invoice"></i>Payments</a
+					>
+					<a href="#tickets" class="menu-item"
+						><i class="fas fa-ticket-alt"></i>Tickets</a
+					>
+					<a href="#sms" class="menu-item"
+						><i class="fas fa-comment-dots"></i>Sms</a
+					>
+				<% } %> 
 			</div>
 			<div class="section-content">
 				<div id="account" class="section">
@@ -114,6 +126,75 @@
 						</tbody>
 					</table>
 				</div>
+				<% if(user.admin) {%> 
+					<div id="payments" class="section">
+						<h2>Payments</h2>
+						<p>Configure your store payment settings</p>
+						<div class="payment-settings">
+							<div class="left-container">
+								<div class="category-wrap">
+									<h4>Categories</h4>
+									<small>Keeps your payments organized</small>
+									<select name="categories" id="">
+										<% if(storePaymentSettings.categories.length == 0) {%>
+											<option hidden selected >Add your first category</option>
+										<% } else { %>
+											<option selected>View your categories</option>
+											<% for(let i=0;i<storePaymentSettings.categories.length;i++) {%> 
+												<option value=""><%=storePaymentSettings.categories[i]%></option>
+											<% } %> 
+										<% } %> 
+									</select>
+									<div>
+										<button type="button" id="create-category">Create</button>
+										<button type="button" id="remove-category">Remove</button>
+										<input type="text" id="category-input" placeholder="Category name...">
+									</div>
+								</div>	
+								<div class="tax-rate-wrap">
+									<h4>Tax Rate</h4>
+									<small>Edit your store tax rate (digits only)</small>
+									<div>
+										<input type="text" name="taxRate" id="taxRateInput" value="<%= `${storePaymentSettings.taxRate}%` %>">
+										<button type="button" id="taxRateBtn">Update</button>
+									</div>
+								</div>
+							</div>
+							<div class="address-form">
+								<h4>Store Address</h4>
+								<small>Shown on payments</small>
+								<div>
+									<label for="">Primary Address</label>
+									<input class="address-input" id="primary-address" type="text" value="<%=typeof storePaymentSettings.address.primary != "undefined" ? storePaymentSettings.address.primary : " " %>">
+								</div>
+								<div>
+									<label for="">City</label>
+									<input class="address-input" id="city" type="text" value="<%=typeof storePaymentSettings.address.city != "undefined" ? storePaymentSettings.address.city : " " %>">
+								</div>
+								<div>
+									<label for="">Province</label>
+									<input class="address-input" id="province" type="text" value="<%=typeof storePaymentSettings.address.province != "undefined" ? storePaymentSettings.address.province : " " %>">
+								</div>
+								<div>
+									<label for="" >Postal Code</label>
+									<input class="address-input" id="postal-code" type="text" value="<%=typeof storePaymentSettings.address.postal != "undefined" ? storePaymentSettings.address.postal : " " %>">
+								</div>
+								<div>
+									<button id="update-address-button" type="button">Update</button>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div id="tickets" class="section">
+						<h2>Tickets</h2>
+						<p>Configure your store ticket settings</p>
+						.
+					</div>
+					<div id="sms" class="section">
+
+					</div>
+				<% } %> 
 			</div>
 		</div>
 	</main>

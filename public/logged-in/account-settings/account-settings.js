@@ -119,9 +119,7 @@ const showInvalidColour = (element) => {
 
 const employeeTotalCheckbox = document.getElementById("totalUpEmployeeHours");
 
-const showEmployeeTotals = (data) => {
-	console.log(data);
-
+const showEmployeeTotals = (data, payPeriod) => {
 	const adminTBodyRed = document.getElementById("adminTBodyRed");
 
 	for (let i = 0; i < data.length; i++) {
@@ -132,22 +130,11 @@ const showEmployeeTotals = (data) => {
 		td1.appendChild(tdContent);
 
 		const td2 = newRow.insertCell();
-		let hoursWorked = 0;
-
-		data[i][1].forEach((item) => {
-			hoursWorked += item.hoursWorked;
-		});
-
-		tdContent = document.createTextNode(hoursWorked.toFixed(5));
+		tdContent = document.createTextNode(data[i][1].toFixed(5));
 		td2.appendChild(tdContent);
 
 		const td3 = newRow.insertCell();
-		tdContent = document.createTextNode(
-			document
-				.getElementById("pay-period")
-				.textContent.trim()
-				.split(" ")[2]
-		);
+		tdContent = document.createTextNode(payPeriod);
 		td3.appendChild(tdContent);
 	}
 };
@@ -160,21 +147,163 @@ employeeTotalCheckbox.addEventListener("click", () => {
 		document.querySelector(".admin-table").classList.add("hide");
 		$(".admin-table tbody tr").remove();
 	} else {
+		if (!fromDateFilter.value) {
+			showInvalidColour(fromDateFilter);
+			employeeTotalCheckbox.checked = false;
+			return;
+		} else if (!toDateFilter.value) {
+			showInvalidColour(toDateFilter);
+			employeeTotalCheckbox.checked = false;
+			return;
+		}
 		document.getElementById("table").style.display = "none";
 		hoursWorkedText.style.display = "none";
 		document.querySelector(".admin-table").classList.remove("hide");
 		(async () => {
 			try {
 				const response = await fetch(
-					"/get-employees-timeclock-history"
+					"/get-employees-timeclock-history",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							fromDate: fromDateFilter.value,
+							toDate: toDateFilter.value,
+						}),
+					}
 				);
 				const data = await response.json();
 				document.getElementById("pay-period").textContent =
 					"Pay period: " + data.payPeriod;
-				showEmployeeTotals(data.employeesClockHistory);
+				showEmployeeTotals(data.employeesClockHistory, data.payPeriod);
 			} catch (error) {
 				console.log(error);
 			}
 		})();
 	}
 });
+
+const createCategoryBtn = document.getElementById("create-category");
+const removeCategoryBtn = document.getElementById("remove-category");
+const categoryInput = document.getElementById("category-input");
+
+createCategoryBtn.addEventListener("click", () => {
+	removeCategoryBtn.style.display = "none";
+	categoryInput.style.display = "flex";
+	createCategoryBtn.style.width = "25%";
+
+	if (categoryInput.value == "") {
+		showInvalidColour(categoryInput);
+		return;
+	}
+
+	(async () => {
+		try {
+			await fetch("/add-category", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					category: categoryInput.value,
+				}),
+			});
+			location.reload();
+			console.log("yaa");
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+});
+
+removeCategoryBtn.addEventListener("click", () => {
+	createCategoryBtn.style.display = "none";
+	categoryInput.style.display = "flex";
+	removeCategoryBtn.style.width = "25%";
+	if (categoryInput.value == "") {
+		showInvalidColour(categoryInput);
+		return;
+	}
+
+	(async () => {
+		try {
+			await fetch("/remove-category", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					category: categoryInput.value,
+				}),
+			});
+			location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+});
+
+const taxRateInput = document.getElementById("taxRateInput");
+
+document.getElementById("taxRateBtn").addEventListener("click", () => {
+	if (taxRateInput.value == "" || !/^\d+$/.test(taxRateInput.value)) {
+		showInvalidColour(taxRateInput);
+		return;
+	}
+
+	(async () => {
+		try {
+			await fetch("/update-store-taxRate", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					taxRate: taxRateInput.value,
+				}),
+			});
+			location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+});
+
+const primaryAddress = document.getElementById("primary-address");
+const city = document.getElementById("city");
+const province = document.getElementById("province");
+const postalCode = document.getElementById("postal-code");
+const addressInputs = document.querySelectorAll(".address-input");
+
+document
+	.getElementById("update-address-button")
+	.addEventListener("click", () => {
+		for (const input of addressInputs) {
+			if (!input.value) {
+				showInvalidColour(input);
+				return;
+			}
+		}
+
+		(async () => {
+			try {
+				await fetch("/update-store-address", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						primary: primaryAddress.value,
+						city: city.value,
+						province: province.value,
+						postalCode: postalCode.value,
+					}),
+				});
+				location.reload();
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	});

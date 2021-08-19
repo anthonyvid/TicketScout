@@ -130,9 +130,9 @@ exports.forgotPassword = async function (req, res) {
 		}
 	}
 };
-exports.renderAccountSettings = function (req, res) {
+exports.renderAccountSettings = async function (req, res) {
 	const user = new User();
-	const store = user.getStore(req.user.storename);
+	const store = await user.getStore(req.user.storename);
 
 	res.render(`logged-in/account-settings`, {
 		layout: "layouts/logged-in-layout",
@@ -141,10 +141,37 @@ exports.renderAccountSettings = function (req, res) {
 	});
 };
 
+exports.updateStoreAddress = async function (req, res) {
+	const user = new User();
+	await user.updateStoreAddress(req.user.storename, req.body);
+	res.status(204).send();
+};
+
+exports.updateStoreTaxRate = async function (req, res) {
+	const user = new User();
+	await user.updateStoreTaxRate(req.user.storename, req.body.taxRate);
+	res.status(204).send();
+};
+
+exports.addCategory = async function (req, res) {
+	const user = new User();
+	await user.addCategory(req.user.storename, req.body.category);
+	res.status(204).send();
+};
+exports.removeCategory = async function (req, res) {
+	const user = new User();
+	await user.removeCategory(req.user.storename, req.body.category);
+	res.status(204).send();
+};
+
 exports.getEmployeesTimeclockHistory = async function (req, res) {
 	const user = new User();
 	const { employeesClockHistory, payPeriod } =
-		await user.getEmployeesTimeclockHistory(req.user.storename);
+		await user.getEmployeesTimeclockHistory(
+			req.user.storename,
+			req.body.fromDate,
+			req.body.toDate
+		);
 
 	res.json({ employeesClockHistory, payPeriod });
 };

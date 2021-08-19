@@ -950,18 +950,25 @@ class User {
 		}
 	}
 
-	async getEmployeesTimeclockHistory(storename) {
+	async getEmployeesTimeclockHistory(storename, fromDate, toDate) {
 		const employees = await usersCollection
 			.find({ storename: storename })
 			.toArray();
 
 		const employeesClockHistory = [];
 
+		console.log(employees);
+
 		for (let i = 0; i < employees.length; i++) {
-			employeesClockHistory.push([
-				employees[i].fullname,
-				employees[i].timeClock.clockHistory,
-			]);
+			let totalHours = 0;
+			employees[i].timeClock.clockHistory.forEach((item) => {
+				if (item.date >= fromDate && item.date <= toDate) {
+					totalHours += item.hoursWorked;
+				}
+			});
+			if (totalHours > 0) {
+				employeesClockHistory.push([employees[i].fullname, totalHours]);
+			}
 		}
 
 		const store = await storesCollection.findOne({ storename: storename });
@@ -969,6 +976,58 @@ class User {
 			employeesClockHistory,
 			payPeriod: store.storeSettings.payPeriod,
 		};
+	}
+
+	async updateStoreTaxRate(storename, taxRate) {
+		console.log(taxRate);
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$set: {
+					"storeSettings.payments.taxRate": taxRate.replace(
+						/^\D+/g,
+						""
+					),
+				},
+			}
+		);
+	}
+
+	async updateStoreAddress(storename, newData) {
+		const { primary, city, province, postalCode } = newData;
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$set: {
+					"storeSettings.payments.address.primary": primary,
+					"storeSettings.payments.address.city": city,
+					"storeSettings.payments.address.province": province,
+					"storeSettings.payments.address.postal": postalCode,
+				},
+			}
+		);
+	}
+
+	async addCategory(storename, category) {
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$addToSet: {
+					"storeSettings.payments.categories": category,
+				},
+			}
+		);
+	}
+	async removeCategory(storename, category) {
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$pull: {
+					"storeSettings.payments.categories": category,
+				},
+			}
+		);
 	}
 
 	async changeAccountPassword(actualOldHashedPassword, newInfo) {

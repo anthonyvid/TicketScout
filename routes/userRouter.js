@@ -144,9 +144,25 @@ router.post("/receive-sms", userController.receiveSms);
 router.post("/live-search-results", userController.liveSearchResults);
 router.post("/update-account-info", userController.updateAccountInfo);
 router.post("/change-account-password", userController.changeAccountPassword);
-router.get(
+router.post(
 	"/get-employees-timeclock-history",
 	userController.getEmployeesTimeclockHistory
+);
+router.post("/add-category", ensureAuthenticated, userController.addCategory);
+router.post(
+	"/remove-category",
+	ensureAuthenticated,
+	userController.removeCategory
+);
+router.post(
+	"/update-store-taxRate",
+	ensureAuthenticated,
+	userController.updateStoreTaxRate
+);
+router.post(
+	"/update-store-address",
+	ensureAuthenticated,
+	userController.updateStoreAddress
 );
 
 module.exports = router;

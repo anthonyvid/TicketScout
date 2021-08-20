@@ -25,19 +25,13 @@
 				<div class="sidebar-brand">
 					<div class="brand-flex">
 						<h2>TicketScout</h2>
-						<!--ADD SVG LOGO HERE-->
-						<!-- <div class="brand-icons">
-							<span
-								id="user-profile-icon"
-								class="las la-user-circle"
-							></span>
-						</div> -->
+						
 					</div>
 				</div>
 
 				<div class="sidebar-menu">
 					<nav>
-						<ul id="nav_list">
+						<ul>
 							<li class="menu-item">
 								<a href="/dashboard" class="menu-link">
 									<span>
@@ -86,7 +80,7 @@
 						type="text"
 						placeholder="Search for anything"
 						name="search"
-						id="search-for-anything"
+						id="search_for_anything"
 						onkeyup="liveSearch(this)"
 						autocomplete="off"
 					/>
@@ -95,13 +89,13 @@
 						<i class="fas fa-plus-square"></i>
 					</div>
 					<div class="create-new-dropdown">
-							<div id="new-ticket-link" class="new-btn">
+							<div class="new-btn">
 								Ticket
 							</div>
-							<div id="new-customer-link" class="new-btn">
+							<div class="new-btn">
 								Customer
 							</div>
-							<div id="new-payment-link" class="new-btn">
+							<div class="new-btn">
 								Payment
 							</div>
 					</div>
@@ -111,11 +105,11 @@
 				</div>
 				<div class="date-wrap">
 					<i class="far fa-calendar-alt"></i>
-					<p>Today <span id="current-date"></span></p>
+					<p>Today <span id="current_date"></span></p>
 				</div>
 				<div class="profile-wrap">
 					<div class="time-clock-wrap">
-						<div id="time-clock" class="clock-box">
+						<div id="time_clock" class="clock-box">
 							<i class="fas fa-user-clock"></i>
 						</div>
 						<% if(user.timeClock.clockInTime == null) {%> 
@@ -139,7 +133,7 @@
 					</div>
 				</div>
 				<div class="dropdown">
-					<a href="/account-settings" class="">
+					<a href="/account-settings">
 						Account Settings
 					</a>
 					<a href="/logout">

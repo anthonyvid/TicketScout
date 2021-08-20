@@ -29,6 +29,10 @@ $swatch_4: #354250;
 $swatch_5: #717987;
 $bluetext: #0d2238;
 
+body {
+	background-color: $swatch_5;
+}
+
 input[type="search"]::-ms-clear {
 	display: none;
 	width: 0;

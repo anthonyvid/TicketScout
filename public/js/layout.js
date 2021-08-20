@@ -1,13 +1,10 @@
-const userProfileIcon = document.getElementById("user-profile-icon");
-const modelContainer = document.getElementById("model_container");
-const updateAccountInput = document.querySelectorAll(".update-account-input");
-const userProfileBackBtn = document.getElementById("profile-settings-back-btn");
-const navList = document.querySelector("#nav_list");
-const menuLinks = navList.querySelectorAll(".menu-link");
-
 const dropDownIcon = document.querySelector(".icon-wrap");
-const currentDate = document.getElementById("current-date");
+const currentDate = document.getElementById("current_date");
 const plusBoxIcon = document.querySelector(".create-new");
+const timeClock = document.getElementById("time_clock");
+const clockBtns = document.querySelectorAll(".clockBtn");
+const resultDropdown = document.querySelector(".search-results-dropdown");
+const newBtns = document.querySelectorAll(".new-btn");
 
 let date = new Date();
 let month = date.getMonth();
@@ -89,9 +86,6 @@ const closeDropdown = () => {
 	document.removeEventListener("click", closeDropdown);
 };
 
-const timeClock = document.getElementById("time-clock");
-const clockBtns = document.querySelectorAll(".clockBtn");
-
 timeClock.addEventListener("click", function () {
 	timeClock.classList.toggle("removeBorderRightRadius");
 
@@ -131,7 +125,6 @@ for (const btn of clockBtns) {
 		btn.classList.remove("showTimeClockBtn");
 	});
 }
-const resultDropdown = document.querySelector(".search-results-dropdown");
 
 const liveSearch = (e) => {
 	if (e.value.length < 2) {
@@ -198,8 +191,6 @@ const showSearchResults = (results) => {
 	}
 };
 
-const newBtns = document.querySelectorAll(".new-btn");
-
 for (const btn of newBtns) {
 	btn.addEventListener("click", () => {
 		const form = document.createElement("form");
@@ -210,7 +201,7 @@ for (const btn of newBtns) {
 		);
 
 		const searchValue = document.getElementById(
-			"search-for-anything"
+			"search_for_anything"
 		).value;
 		var rx = /^\d{3}\-?\d{3}\-?\d{4}$/;
 

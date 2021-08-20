@@ -7,9 +7,9 @@
 <% } else if (payment.customer.phone.length === 11) {%> 
 	<% phone = `+${payment.customer.phone.substring(0,1)}`+' '+`(${payment.customer.phone.substring(1,4)})`+' '+payment.customer.phone.substring(4,7)+'-'+payment.customer.phone.substring(7,11)%>
 <% } %>
-<link rel="stylesheet" href="/logged-in/payment-profile/payment-profile.css" />
-<link rel="stylesheet" href="/logged-in/layout/layout.css" />
-<script defer src="/logged-in/payment-profile/payment-profile.js"></script>
+<link rel="stylesheet" href="/scss/logged-in/payment-profile/payment-profile.css" />
+<link rel="stylesheet" href="/scss/logged-in/layout/layout.css" />
+<script defer src="/js/payment-profile.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">

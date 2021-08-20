@@ -102,7 +102,7 @@ a {
           align-items: center;
 }
 
-.sidebar-menu #navList {
+.sidebar-menu #nav_list {
   background-color: transparent;
   list-style: none;
   display: -webkit-box;

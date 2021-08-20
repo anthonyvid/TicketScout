@@ -2,7 +2,7 @@ const userProfileIcon = document.getElementById("user-profile-icon");
 const modelContainer = document.getElementById("model_container");
 const updateAccountInput = document.querySelectorAll(".update-account-input");
 const userProfileBackBtn = document.getElementById("profile-settings-back-btn");
-const navList = document.querySelector("#navList");
+const navList = document.querySelector("#nav_list");
 const menuLinks = navList.querySelectorAll(".menu-link");
 
 const dropDownIcon = document.querySelector(".icon-wrap");
@@ -36,7 +36,7 @@ $(document).ready(function () {
 	var CurrentUrl = document.URL;
 	var CurrentUrlEnd = CurrentUrl.split("/").filter(Boolean).pop();
 	console.log(CurrentUrlEnd);
-	$("#navList li a").each(function () {
+	$("#nav_list li a").each(function () {
 		var ThisUrl = $(this).attr("href");
 		var ThisUrlEnd = ThisUrl.split("/").filter(Boolean).pop();
 

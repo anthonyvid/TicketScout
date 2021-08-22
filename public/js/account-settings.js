@@ -1,3 +1,5 @@
+"use strict";
+
 import * as helper from "./helper/helper.js";
 
 /**
@@ -40,8 +42,6 @@ const rgb2hex = (rgb) =>
 		.map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
 		.join("")}`;
 
-
-
 //////////////////////////////////
 /* ACCOUNT SETTINGS: Time Clock */
 //////////////////////////////////
@@ -70,9 +70,15 @@ for (const item of userClockHistory) {
 	// Date of clock
 	helper.addCellToRow(newRow, item.date);
 	// Clock In time of clock
-	helper.addCellToRow(newRow, new Date(item.clockInTime).toLocaleTimeString());
+	helper.addCellToRow(
+		newRow,
+		new Date(item.clockInTime).toLocaleTimeString()
+	);
 	// Clock Out time of clock
-	helper.addCellToRow(newRow, new Date(item.clockOutTime).toLocaleTimeString());
+	helper.addCellToRow(
+		newRow,
+		new Date(item.clockOutTime).toLocaleTimeString()
+	);
 	// Number of Hours worked for clock
 	helper.addCellToRow(newRow, item.hoursWorked.toFixed(3));
 
@@ -82,91 +88,103 @@ for (const item of userClockHistory) {
 hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked}`;
 
 // Clear from and to date inputs, as well as hours worked for that period
-clearDateBtn.addEventListener("click", () => {
-	hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked.toFixed(
-		2
-	)}`;
-	const tableRows = document.querySelectorAll(".table-row");
-	for (const row of tableRows) {
-		row.style.display = "flex";
-	}
-	fromDateFilter.value = "";
-	toDateFilter.value = "";
-});
-
-filterDateBtn.addEventListener("click", () => {
-	if (!fromDateFilter.value) {
-		helper.showInvalidColour(fromDateFilter);
-		return;
-	} else if (!toDateFilter.value) {
-		helper.showInvalidColour(toDateFilter);
-		return;
-	}
-
-	let hoursWorkedForPeriod = 0;
-	const tableRows = document.querySelectorAll(".table-row");
-
-	// Show clocks on table for the selected period
-	for (const row of tableRows) {
-		let dateOnRow = row.firstElementChild.textContent.trim();
-		if (
-			dateOnRow < fromDateFilter.value ||
-			dateOnRow > toDateFilter.value
-		) {
-			row.style.display = "none";
-		} else {
-			hoursWorkedForPeriod += parseFloat(
-				row.lastElementChild.textContent
-			);
+clearDateBtn.addEventListener(
+	"click",
+	() => {
+		hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked.toFixed(
+			2
+		)}`;
+		const tableRows = document.querySelectorAll(".table-row");
+		for (const row of tableRows) {
+			row.style.display = "flex";
 		}
-	}
-	hoursWorkedText.textContent = `Hours worked for selected period: ${hoursWorkedForPeriod.toFixed(
-		2
-	)}`;
-});
+		fromDateFilter.value = "";
+		toDateFilter.value = "";
+	},
+	{ passive: true }
+);
 
-employeeTotalCheckbox.addEventListener("click", () => {
-	if (!employeeTotalCheckbox.checked) {
-		userClockTable.style.display = "table";
-		hoursWorkedText.style.display = "flex";
-		document.getElementById("pay_period").textContent = "";
-		document.querySelector(".admin-table").classList.add("hide");
-		$(".admin-table tbody tr").remove();
-	} else {
-		// Employee Totals checkbox selected, validate from and to date inputs
+filterDateBtn.addEventListener(
+	"click",
+	() => {
 		if (!fromDateFilter.value) {
 			helper.showInvalidColour(fromDateFilter);
-			employeeTotalCheckbox.checked = false;
 			return;
 		} else if (!toDateFilter.value) {
 			helper.showInvalidColour(toDateFilter);
-			employeeTotalCheckbox.checked = false;
 			return;
 		}
-		userClockTable.style.display = "none";
-		hoursWorkedText.style.display = "none";
-		document.querySelector(".admin-table").classList.remove("hide");
-		(async () => {
-			const data = await helper.postReq(
-				"/get-employees-timeclock-history",
-				{
-					fromDate: fromDateFilter.value,
-					toDate: toDateFilter.value,
-				}
-			);
-			// Display each employees time clock history for selected period
-			for (let i = 0; i < data.employeesClockHistory.length; i++) {
-				const newRow = adminTableBodyRef.insertRow();
-				newRow.classList.add("table-row");
-				addCellToRow(newRow, data.employeesClockHistory[i][0]);
-				addCellToRow(
-					newRow,
-					data.employeesClockHistory[i][1].toFixed(3)
+
+		let hoursWorkedForPeriod = 0;
+		const tableRows = document.querySelectorAll(".table-row");
+
+		// Show clocks on table for the selected period
+		for (const row of tableRows) {
+			let dateOnRow = row.firstElementChild.textContent.trim();
+			if (
+				dateOnRow < fromDateFilter.value ||
+				dateOnRow > toDateFilter.value
+			) {
+				row.style.display = "none";
+			} else {
+				hoursWorkedForPeriod += parseFloat(
+					row.lastElementChild.textContent
 				);
 			}
-		})();
-	}
-});
+		}
+		hoursWorkedText.textContent = `Hours worked for selected period: ${hoursWorkedForPeriod.toFixed(
+			2
+		)}`;
+	},
+	{ passive: true }
+);
+
+employeeTotalCheckbox.addEventListener(
+	"click",
+	() => {
+		if (!employeeTotalCheckbox.checked) {
+			userClockTable.style.display = "table";
+			hoursWorkedText.style.display = "flex";
+			document.getElementById("pay_period").textContent = "";
+			document.querySelector(".admin-table").classList.add("hide");
+			$(".admin-table tbody tr").remove();
+		} else {
+			// Employee Totals checkbox selected, validate from and to date inputs
+			if (!fromDateFilter.value) {
+				helper.showInvalidColour(fromDateFilter);
+				employeeTotalCheckbox.checked = false;
+				return;
+			} else if (!toDateFilter.value) {
+				helper.showInvalidColour(toDateFilter);
+				employeeTotalCheckbox.checked = false;
+				return;
+			}
+			userClockTable.style.display = "none";
+			hoursWorkedText.style.display = "none";
+			document.querySelector(".admin-table").classList.remove("hide");
+			(async () => {
+				const data = await helper.postReq(
+					"/get-employees-timeclock-history",
+					{
+						fromDate: fromDateFilter.value,
+						toDate: toDateFilter.value,
+					}
+				);
+				// Display each employees time clock history for selected period
+				for (let i = 0; i < data.employeesClockHistory.length; i++) {
+					const newRow = adminTableBodyRef.insertRow();
+					newRow.classList.add("table-row");
+					addCellToRow(newRow, data.employeesClockHistory[i][0]);
+					addCellToRow(
+						newRow,
+						data.employeesClockHistory[i][1].toFixed(3)
+					);
+				}
+			})();
+		}
+	},
+	{ passive: true }
+);
 
 ////////////////////////////////
 /* ACCOUNT SETTINGS: Payments */
@@ -181,57 +199,69 @@ const province = document.getElementById("province");
 const postalCode = document.getElementById("postal_code");
 const addressInputs = document.querySelectorAll(".address-input");
 
-createCategoryBtn.addEventListener("click", () => {
-	// Show Input with animation
-	removeCategoryBtn.style.display = "none";
-	categoryInput.style.display = "flex";
-	createCategoryBtn.style.width = "25%";
+createCategoryBtn.addEventListener(
+	"click",
+	() => {
+		// Show Input with animation
+		removeCategoryBtn.style.display = "none";
+		categoryInput.style.display = "flex";
+		createCategoryBtn.style.width = "25%";
 
-	if (!categoryInput.value) {
-		helper.showInvalidColour(categoryInput);
-		return;
-	}
-	// send post and add category
-	(async () => {
-		await helper.postReq("/add-category", {
-			category: categoryInput.value,
-		});
-		document.location.reload();
-	})();
-});
+		if (!categoryInput.value) {
+			helper.showInvalidColour(categoryInput);
+			return;
+		}
+		// send post and add category
+		(async () => {
+			await helper.postReq("/add-category", {
+				category: categoryInput.value,
+			});
+			document.location.reload();
+		})();
+	},
+	{ passive: true }
+);
 
-removeCategoryBtn.addEventListener("click", () => {
-	// Show Input with animation
-	createCategoryBtn.style.display = "none";
-	categoryInput.style.display = "flex";
-	removeCategoryBtn.style.width = "25%";
+removeCategoryBtn.addEventListener(
+	"click",
+	() => {
+		// Show Input with animation
+		createCategoryBtn.style.display = "none";
+		categoryInput.style.display = "flex";
+		removeCategoryBtn.style.width = "25%";
 
-	if (!categoryInput.value) {
-		helper.showInvalidColour(categoryInput);
-		return;
-	}
-	// Send post and remove category
-	(async () => {
-		await helper.postReq("/remove-category", {
-			category: categoryInput.value,
-		});
-		document.location.reload();
-	})();
-});
+		if (!categoryInput.value) {
+			helper.showInvalidColour(categoryInput);
+			return;
+		}
+		// Send post and remove category
+		(async () => {
+			await helper.postReq("/remove-category", {
+				category: categoryInput.value,
+			});
+			document.location.reload();
+		})();
+	},
+	{ passive: true }
+);
 
-document.getElementById("tax_rate_btn").addEventListener("click", () => {
-	if (!taxRateInput.value || !/^\d+$/.test(taxRateInput.value)) {
-		helper.showInvalidColour(taxRateInput);
-		return;
-	}
-	// Send post request to add new tax rate
-	(async () => {
-		await helper.postReq("/update-store-taxRate", {
-			taxRate: taxRateInput.value,
-		});
-		document.location.reload();
-	})();
-});
+document.getElementById("tax_rate_btn").addEventListener(
+	"click",
+	() => {
+		if (!taxRateInput.value || !/^\d+$/.test(taxRateInput.value)) {
+			helper.showInvalidColour(taxRateInput);
+			return;
+		}
+		// Send post request to add new tax rate
+		(async () => {
+			await helper.postReq("/update-store-taxRate", {
+				taxRate: taxRateInput.value,
+			});
+			document.location.reload();
+		})();
+	},
+	{ passive: true }
+);
 
 document
 	.getElementById("update_address_button")
@@ -338,13 +368,17 @@ deleteTicketStatusBtn.addEventListener(
 			helper.showInvalidColour(statusNameInput);
 			return;
 		}
+		const defaultStatusNames = ["new", "reply", "resolved", "priority"]; // Default statuses
 		let statusNames = []; // Contains existing statuses
 		[...ticketStatuses].forEach((item) => {
 			statusNames.push(item.textContent.trim().toUpperCase());
 		});
 
-		// If status that is being deleted doesnt exist
-		if (!statusNames.includes(statusNameInput.value.toUpperCase())) {
+		// If status that is being deleted doesnt exist, or if its a default status
+		if (
+			!statusNames.includes(statusNameInput.value.toUpperCase()) ||
+			defaultStatusNames.includes(statusNameInput.value.toLowerCase())
+		) {
 			helper.showInvalidColour(statusNameInput);
 			return;
 		}
@@ -375,44 +409,52 @@ for (const color of colorCopy) {
 	);
 }
 
-createIssueBtn.addEventListener("click", () => {
-	// Show input with animation
-	deleteIssueBtn.style.display = "none";
-	issueInput.style.display = "flex";
-	createIssueBtn.style.width = "25%";
+createIssueBtn.addEventListener(
+	"click",
+	() => {
+		// Show input with animation
+		deleteIssueBtn.style.display = "none";
+		issueInput.style.display = "flex";
+		createIssueBtn.style.width = "25%";
 
-	if (!issueInput.value) {
-		helper.showInvalidColour(issueInput);
-		return;
-	}
-	// Send post request to add issue to settings
-	(async () => {
-		await helper.postReq("/add-issue", {
-			issue: issueInput.value.trim().toLowerCase(),
-		});
-		document.location.reload();
-	})();
-});
+		if (!issueInput.value) {
+			helper.showInvalidColour(issueInput);
+			return;
+		}
+		// Send post request to add issue to settings
+		(async () => {
+			await helper.postReq("/add-issue", {
+				issue: issueInput.value.trim().toLowerCase(),
+			});
+			document.location.reload();
+		})();
+	},
+	{ passive: true }
+);
 
-deleteIssueBtn.addEventListener("click", () => {
-	// Show input with animation
-	createIssueBtn.style.display = "none";
-	issueInput.style.display = "flex";
-	deleteIssueBtn.style.width = "25%";
+deleteIssueBtn.addEventListener(
+	"click",
+	() => {
+		// Show input with animation
+		createIssueBtn.style.display = "none";
+		issueInput.style.display = "flex";
+		deleteIssueBtn.style.width = "25%";
 
-	if (issueInput.value == "") {
-		helper.showInvalidColour(issueInput);
-		return;
-	}
+		if (issueInput.value == "") {
+			helper.showInvalidColour(issueInput);
+			return;
+		}
 
-	// Send post request to remove issue from settings
-	(async () => {
-		await helper.postReq("/remove-issue", {
-			issue: issueInput.value.trim().toLowerCase(),
-		});
-		document.location.reload();
-	})();
-});
+		// Send post request to remove issue from settings
+		(async () => {
+			await helper.postReq("/remove-issue", {
+				issue: issueInput.value.trim().toLowerCase(),
+			});
+			document.location.reload();
+		})();
+	},
+	{ passive: true }
+);
 
 ////////////////////////////////
 /* ACCOUNT SETTINGS: Delete Data */
@@ -421,43 +463,57 @@ const deleteStoreDataBtns = document.querySelectorAll(".delete-store-data");
 const confirmRemovalBtns = document.querySelectorAll(".confirm-removal");
 
 for (const btn of deleteStoreDataBtns) {
-	btn.addEventListener("click", () => {
-		if (btn.parentElement.previousElementSibling.value < 2) {
-			helper.showInvalidColour(btn.parentElement.previousElementSibling);
-			return;
-		}
+	btn.addEventListener(
+		"click",
+		() => {
+			if (btn.parentElement.previousElementSibling.value < 2) {
+				helper.showInvalidColour(
+					btn.parentElement.previousElementSibling
+				);
+				return;
+			}
 
-		// Show input
-		btn.style.width = "30%";
-		btn.nextElementSibling.style.display = "flex";
-	});
+			// Show input
+			btn.style.width = "30%";
+			btn.nextElementSibling.style.display = "flex";
+		},
+		{ passive: true }
+	);
 }
 
 for (const btn of confirmRemovalBtns) {
-	btn.addEventListener("click", () => {
-		if (btn.parentElement.previousElementSibling.value < 2) {
-			helper.showInvalidColour(btn.parentElement.previousElementSibling);
-			return;
-		}
+	btn.addEventListener(
+		"click",
+		() => {
+			if (btn.parentElement.previousElementSibling.value < 2) {
+				helper.showInvalidColour(
+					btn.parentElement.previousElementSibling
+				);
+				return;
+			}
 
-		const url = btn.textContent.trim().split(" ")[1].toLowerCase();
-		const deletionItem =
-			btn.parentElement.previousElementSibling.value.replace(
-				/[^0-9]/g,
-				""
-			);
+			const url = btn.textContent.trim().split(" ")[1].toLowerCase();
+			const deletionItem =
+				btn.parentElement.previousElementSibling.value.replace(
+					/[^0-9]/g,
+					""
+				);
 
-		if (!deletionItem) {
-			helper.showInvalidColour(btn.parentElement.previousElementSibling);
-			return;
-		}
+			if (!deletionItem) {
+				helper.showInvalidColour(
+					btn.parentElement.previousElementSibling
+				);
+				return;
+			}
 
-		// Send post request to delete data
-		(async () => {
-			await helper.postReq(`/delete-${url}`, {
-				item: deletionItem,
-			});
-			document.location.reload();
-		})();
-	});
+			// Send post request to delete data
+			(async () => {
+				await helper.postReq(`/delete-${url}`, {
+					item: deletionItem,
+				});
+				document.location.reload();
+			})();
+		},
+		{ passive: true }
+	);
 }

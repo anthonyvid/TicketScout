@@ -83,24 +83,12 @@ export const employeeRegister = async function (req, res) {
 // Track shipment handle
 export const trackShipment = async function (req, res) {
 	const user = new User();
-	const result = await user.trackShipment(req.body, req.user);
-
-	// // If errors found when tracking shipment
-	// if (result.hasOwnProperty("tracking_error")) {
-	// 	console.log("invalid tracking ");
-	// 	res.redirect("logged-in/dashboard", {
-	// 		layout: "layouts/logged-in-layout",
-	// 		user: req.user,
-	// 		result: Object.values(result),
-	// 	});
-	// }
-
-	// // No errors found
-	// console.log("passed tracking");
-	// res.redirect("logged-in/dashboard", {
-	// 	layout: "layouts/logged-in-layout",
-	// 	user: req.user,
-	// });
+	const result = await user.trackShipment(
+		req.body.ticketID,
+		req.user.storename
+	);
+	console.log(result);
+	res.json({ result });
 };
 
 // Password Recovery Page
@@ -251,6 +239,18 @@ export const logout = async function (req, res) {
 // Dashboard Page
 export const renderDashboard = async function (req, res) {
 	const user = new User();
+	const totalNewTickets = await user.getTotalTicketsForStatus(
+		req.user.storename,
+		"New"
+	);
+	const totalReplyTickets = await user.getTotalTicketsForStatus(
+		req.user.storename,
+		"Reply"
+	);
+	const totalPriorityTickets = await user.getTotalTicketsForStatus(
+		req.user.storename,
+		"Priority"
+	);
 	const [result, store] = await user.updateTicketList(req.user.storename);
 
 	res.render("logged-in/dashboard", {
@@ -258,6 +258,9 @@ export const renderDashboard = async function (req, res) {
 		user: req.user,
 		tickets: result,
 		store: store,
+		totalNewTickets,
+		totalPriorityTickets,
+		totalReplyTickets,
 	});
 };
 

@@ -133,6 +133,7 @@ a {
 		font-size: 1rem;
 
 		span {
+			margin-top: 5px;
 			font-size: 16px;
 			height: 20px;
 			width: 20px;
@@ -144,7 +145,10 @@ a {
 
 	.active,
 	.menu-link:hover {
-		background-color: #5bb0ff;
+		// background-color: #5bb0ff;
+		// background-color: black;
+		// background-color: #91A6FF;
+		background-color: #57b8ff;
 		color: white !important;
 
 		span {

@@ -1,3 +1,5 @@
+"use strict";
+
 import * as helper from "./helper/helper.js";
 
 const statusSelects = document.querySelectorAll(".status-selects");
@@ -52,24 +54,30 @@ $(window).on("load", async () => {
 	}
 });
 
-document.getElementById("submit_info_change").addEventListener("click", () => {
-	const description = document.getElementById("edit_description_field").value;
-	const subject = editSubjectInput.value;
-	const id = ticketID.textContent.trim().replace("#", "");
-	const customerPhone = phone.textContent.trim().replace(/\D/g, "");
+document.getElementById("submit_info_change").addEventListener(
+	"click",
+	() => {
+		const description = document.getElementById(
+			"edit_description_field"
+		).value;
+		const subject = editSubjectInput.value;
+		const id = ticketID.textContent.trim().replace("#", "");
+		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
 
-	// Send post request to update ticket information
-	(async () => {
-		await helper.postReq("/update-ticket-info", {
-			subject,
-			description,
-			ticketID: id,
-			phone: customerPhone,
-		});
-	})();
+		// Send post request to update ticket information
+		(async () => {
+			await helper.postReq("/update-ticket-info", {
+				subject,
+				description,
+				ticketID: id,
+				phone: customerPhone,
+			});
+		})();
 
-	document.getElementById("edit_customer_info_form").submit();
-});
+		document.getElementById("edit_customer_info_form").submit();
+	},
+	{ passive: true }
+);
 
 /**
  * Prints customer label
@@ -80,56 +88,68 @@ function printCustomerLabel() {
 	console.log("PRINT LABEL");
 }
 
-editCustomerInfo.addEventListener("click", () => {
-	editCustomerInfo.classList.add("hidden");
-	name.classList.add("hidden");
-	phone.classList.add("hidden");
-	email.classList.add("hidden");
-	subject.classList.add("hidden");
-	description.classList.add("hidden");
-	editFirstnameInput.classList.remove("hidden");
-	editLastnameInput.classList.remove("hidden");
-	editPhoneInput.classList.remove("hidden");
-	editEmailInput.classList.remove("hidden");
-	editSubjectInput.classList.remove("hidden");
-	description.classList.remove("hidden");
-	cancelChangeBtn.classList.remove("hidden");
-	submitChangeBtn.classList.remove("hidden");
-});
+editCustomerInfo.addEventListener(
+	"click",
+	() => {
+		editCustomerInfo.classList.add("hidden");
+		name.classList.add("hidden");
+		phone.classList.add("hidden");
+		email.classList.add("hidden");
+		subject.classList.add("hidden");
+		description.classList.add("hidden");
+		editFirstnameInput.classList.remove("hidden");
+		editLastnameInput.classList.remove("hidden");
+		editPhoneInput.classList.remove("hidden");
+		editEmailInput.classList.remove("hidden");
+		editSubjectInput.classList.remove("hidden");
+		description.classList.remove("hidden");
+		cancelChangeBtn.classList.remove("hidden");
+		submitChangeBtn.classList.remove("hidden");
+	},
+	{ passive: true }
+);
 
-cancelChangeBtn.addEventListener("click", () => {
-	editCustomerInfo.classList.remove("hidden");
-	name.classList.remove("hidden");
-	phone.classList.remove("hidden");
-	email.classList.remove("hidden");
-	subject.classList.remove("hidden");
-	description.classList.remove("hidden");
-	editFirstnameInput.classList.add("hidden");
-	editLastnameInput.classList.add("hidden");
-	editPhoneInput.classList.add("hidden");
-	editEmailInput.classList.add("hidden");
-	editSubjectInput.classList.add("hidden");
-	description.classList.add("hidden");
-	cancelChangeBtn.classList.add("hidden");
-	submitChangeBtn.classList.add("hidden");
-});
+cancelChangeBtn.addEventListener(
+	"click",
+	() => {
+		editCustomerInfo.classList.remove("hidden");
+		name.classList.remove("hidden");
+		phone.classList.remove("hidden");
+		email.classList.remove("hidden");
+		subject.classList.remove("hidden");
+		description.classList.remove("hidden");
+		editFirstnameInput.classList.add("hidden");
+		editLastnameInput.classList.add("hidden");
+		editPhoneInput.classList.add("hidden");
+		editEmailInput.classList.add("hidden");
+		editSubjectInput.classList.add("hidden");
+		description.classList.add("hidden");
+		cancelChangeBtn.classList.add("hidden");
+		submitChangeBtn.classList.add("hidden");
+	},
+	{ passive: true }
+);
 
 for (const select of statusSelects) {
-	select.addEventListener("change", (e) => {
-		const id = ticketID.textContent.trim().replace("#", "");
-		const selection = e.target.value;
-		const phone = phone.textContent.trim().replace(/\D/g, "");
+	select.addEventListener(
+		"change",
+		(e) => {
+			const id = ticketID.textContent.trim().replace("#", "");
+			const selection = e.target.value;
+			const phone = phone.textContent.trim().replace(/\D/g, "");
 
-		// Send post request to update ticket status for ticket that was changed
-		(async () => {
-			await helper.postReq("/update-ticket-status", {
-				selection,
-				id,
-				phone,
-			});
-			location.reload();
-		})();
-	});
+			// Send post request to update ticket status for ticket that was changed
+			(async () => {
+				await helper.postReq("/update-ticket-status", {
+					selection,
+					id,
+					phone,
+				});
+				location.reload();
+			})();
+		},
+		{ passive: true }
+	);
 }
 
 document.querySelector(".new-payment-btn").addEventListener("click", () => {
@@ -137,21 +157,25 @@ document.querySelector(".new-payment-btn").addEventListener("click", () => {
 });
 
 for (const select of issueSelects) {
-	select.addEventListener("change", (e) => {
-		const id = ticketID.textContent.trim().replace("#", "");
-		const selection = e.target.value;
-		const phone = phone.textContent.trim().replace(/\D/g, "");
+	select.addEventListener(
+		"change",
+		(e) => {
+			const id = ticketID.textContent.trim().replace("#", "");
+			const selection = e.target.value;
+			const phone = phone.textContent.trim().replace(/\D/g, "");
 
-		// Send post request to update ticket issue for ticket that was changed
-		(async () => {
-			await helper.postReq("/update-ticket-issue", {
-				selection,
-				id,
-				phone,
-			});
-			location.reload();
-		})();
-	});
+			// Send post request to update ticket issue for ticket that was changed
+			(async () => {
+				await helper.postReq("/update-ticket-issue", {
+					selection,
+					id,
+					phone,
+				});
+				location.reload();
+			})();
+		},
+		{ passive: true }
+	);
 }
 
 // Clears empty status, for bugs
@@ -195,9 +219,13 @@ if (timeDiffInSec < 60) {
 	)} months ago`;
 }
 
-documentBtn.addEventListener("click", () => {
-	printCustomerLabel();
-});
+documentBtn.addEventListener(
+	"click",
+	() => {
+		printCustomerLabel();
+	},
+	{ passive: true }
+);
 
 for (const btn of addTrackingInfo) {
 	btn.addEventListener("click", () => {
@@ -207,9 +235,9 @@ for (const btn of addTrackingInfo) {
 	});
 }
 
-document
-	.getElementById("confirm_tracking_details")
-	.addEventListener("click", () => {
+document.getElementById("confirm_tracking_details").addEventListener(
+	"click",
+	() => {
 		// Validate tracking details
 		if (!trackingNumber.value) {
 			helper.showInvalidColour(trackingNumber);
@@ -236,39 +264,45 @@ document
 			});
 		})();
 		location.reload();
-	});
+	},
+	{ passive: true }
+);
 
-sendMsg.addEventListener("click", () => {
-	if (!chatBoxTextarea.value) {
-		helper.showInvalidColour(chatBoxTextarea);
-		return;
-	}
-
-	const message = chatBoxTextarea.value.trim();
-	const toPhone = phone.textContent.trim().replace(/\D/g, "");
-	const id = ticketID.textContent.trim().replace("#", "");
-
-	// Send post request when message sent to customer
-	(async () => {
-		try {
-			const data = await helper.postReq("/send-sms", {
-				message,
-				toPhone,
-				ticketID: id,
-			});
-
-			// Add message text to chatbox
-			const messageBox = document.createElement("div");
-			messageBox.classList.add("message-box");
-			const messageText = document.createElement("p");
-			const text = document.createTextNode(data.msg);
-			messageText.appendChild(text);
-			messageText.classList.add("reply");
-			messageBox.appendChild(messageText);
-			document.querySelector(".chat-body").prepend(messageBox);
-			chatBoxTextarea.value = "";
-		} catch (error) {
-			console.log(error);
+sendMsg.addEventListener(
+	"click",
+	() => {
+		if (!chatBoxTextarea.value) {
+			helper.showInvalidColour(chatBoxTextarea);
+			return;
 		}
-	})();
-});
+
+		const message = chatBoxTextarea.value.trim();
+		const toPhone = phone.textContent.trim().replace(/\D/g, "");
+		const id = ticketID.textContent.trim().replace("#", "");
+
+		// Send post request when message sent to customer
+		(async () => {
+			try {
+				const data = await helper.postReq("/send-sms", {
+					message,
+					toPhone,
+					ticketID: id,
+				});
+
+				// Add message text to chatbox
+				const messageBox = document.createElement("div");
+				messageBox.classList.add("message-box");
+				const messageText = document.createElement("p");
+				const text = document.createTextNode(data.msg);
+				messageText.appendChild(text);
+				messageText.classList.add("reply");
+				messageBox.appendChild(messageText);
+				document.querySelector(".chat-body").prepend(messageBox);
+				chatBoxTextarea.value = "";
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	},
+	{ passive: true }
+);

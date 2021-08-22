@@ -1,3 +1,5 @@
+"use strict";
+
 const paymentNumbers = document.querySelectorAll(".paymentNumber");
 const phones = document.querySelectorAll(".phone");
 const tableRows = document.querySelectorAll("#table_row");

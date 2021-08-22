@@ -86,6 +86,8 @@ class Admin extends User {
 						status: [
 							["New", "36b37e"],
 							["Resolved", "505f79"],
+							["Priority", "ff3838"],
+							["Reply", "ffab00"],
 						],
 						issue: [],
 					},

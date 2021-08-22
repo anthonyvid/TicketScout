@@ -1,3 +1,5 @@
+"use strict";
+
 import * as helper from "./helper/helper.js";
 
 const lastUpdated = document.querySelectorAll(".last-update-text");

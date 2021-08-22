@@ -1,3 +1,5 @@
+"use strict";
+
 import * as helper from "./helper/helper.js";
 
 const cardOptions = document.querySelectorAll(".type");
@@ -155,110 +157,130 @@ const resetItemPaymentOptions = () => {
 };
 
 cardOptions.forEach((cardType) =>
-	cardType.addEventListener("click", () => {
-		for (const card of cardOptions) {
-			// If there was a previously selected payment method, remove color and class
-			if (card.classList.contains(".selected")) {
-				card.classList.remove(".selected");
-				card.value = "false";
-				card.firstElementChild.value = "false";
-				card.style.backgroundColor = "white";
-				card.style.border = "1px solid lightgrey";
-				card.style.color = "black";
+	cardType.addEventListener(
+		"click",
+		() => {
+			for (const card of cardOptions) {
+				// If there was a previously selected payment method, remove color and class
+				if (card.classList.contains(".selected")) {
+					card.classList.remove(".selected");
+					card.value = "false";
+					card.firstElementChild.value = "false";
+					card.style.backgroundColor = "white";
+					card.style.border = "1px solid lightgrey";
+					card.style.color = "black";
+				}
 			}
-		}
 
-		// Add selected class and colours to the new selected payment method
-		cardType.classList.add(".selected");
-		cardType.firstElementChild.value = "true";
-		cardType.style.backgroundColor = "#9ecaed";
-		cardType.style.border = "none";
-		cardType.style.color = "white";
-		cardChoice = cardType.textContent.trim();
-	})
+			// Add selected class and colours to the new selected payment method
+			cardType.classList.add(".selected");
+			cardType.firstElementChild.value = "true";
+			cardType.style.backgroundColor = "#9ecaed";
+			cardType.style.border = "none";
+			cardType.style.color = "white";
+			cardChoice = cardType.textContent.trim();
+		},
+		{ passive: true }
+	)
 );
 
-card.addEventListener("click", () => {
-	paymentBtnTransition(); // Show payment methods
-	card.classList.add(".selected");
-	cardInput.value = "true";
-	cash.classList.remove(".selected");
-	cashInput.value = "false";
+card.addEventListener(
+	"click",
+	() => {
+		paymentBtnTransition(); // Show payment methods
+		card.classList.add(".selected");
+		cardInput.value = "true";
+		cash.classList.remove(".selected");
+		cashInput.value = "false";
 
-	card.style.backgroundColor = "#9ecaed";
-	card.style.border = "none";
-	card.style.color = "white";
+		card.style.backgroundColor = "#9ecaed";
+		card.style.border = "none";
+		card.style.color = "white";
 
-	cash.style.backgroundColor = "white";
-	cash.style.border = "1px solid lightgrey";
-	cash.style.color = "black";
-});
+		cash.style.backgroundColor = "white";
+		cash.style.border = "1px solid lightgrey";
+		cash.style.color = "black";
+	},
+	{ passive: true }
+);
 
-cash.addEventListener("click", () => {
-	cash.classList.add(".selected");
-	cashInput.value = "true";
-	card.classList.remove(".selected");
-	cardInput.value = "false";
+cash.addEventListener(
+	"click",
+	() => {
+		cash.classList.add(".selected");
+		cashInput.value = "true";
+		card.classList.remove(".selected");
+		cardInput.value = "false";
 
-	cash.style.backgroundColor = "#9ecaed";
-	cash.style.border = "none";
-	cash.style.color = "white";
+		cash.style.backgroundColor = "#9ecaed";
+		cash.style.border = "none";
+		cash.style.color = "white";
 
-	card.style.backgroundColor = "white";
-	card.style.border = "1px solid lightgrey";
-	card.style.color = "black";
+		card.style.backgroundColor = "white";
+		card.style.border = "1px solid lightgrey";
+		card.style.color = "black";
 
-	completePaymentBtn.style.width = "100%";
-	document.querySelector(".card-options").style.display = "none";
-});
+		completePaymentBtn.style.width = "100%";
+		document.querySelector(".card-options").style.display = "none";
+	},
+	{ passive: true }
+);
 
-completePaymentBtn.addEventListener("click", () => {
-	let paymentType = null;
+completePaymentBtn.addEventListener(
+	"click",
+	() => {
+		let paymentType = null;
 
-	if (!isPaymentMethodSelected()) return;
+		if (!isPaymentMethodSelected()) return;
 
-	if (card.classList.contains(".selected")) {
-		paymentType = cardChoice;
-	} else {
-		paymentType = "cash";
-	}
+		if (card.classList.contains(".selected")) {
+			paymentType = cardChoice;
+		} else {
+			paymentType = "cash";
+		}
 
-	const customer = {
-		firstname: document.getElementById("firstname").value,
-		lastname: document.getElementById("lastname").value,
-		phone: document.getElementById("phone").value,
-		email: document.getElementById("email").value,
-	};
+		const customer = {
+			firstname: document.getElementById("firstname").value,
+			lastname: document.getElementById("lastname").value,
+			phone: document.getElementById("phone").value,
+			email: document.getElementById("email").value,
+		};
 
-	const form = createForm("POST", "/create-new-payment");
-	createInputForForm(form, "input", "customer", JSON.stringify(customer));
-	createInputForForm(form, "input", "order", JSON.stringify(orderItems));
-	createInputForForm(form, "input", "payment", paymentType);
-	createInputForForm(
-		form,
-		"input",
-		"orderTotal",
-		orderTotalAfterTax.textContent.replace("$", "")
-	);
-	createInputForForm(
-		form,
-		"input",
-		"linkedTicket",
-		document.getElementById("linked_ticket").value
-	);
+		const form = createForm("POST", "/create-new-payment");
+		createInputForForm(form, "input", "customer", JSON.stringify(customer));
+		createInputForForm(form, "input", "order", JSON.stringify(orderItems));
+		createInputForForm(form, "input", "payment", paymentType);
+		createInputForForm(
+			form,
+			"input",
+			"orderTotal",
+			orderTotalAfterTax.textContent.replace("$", "")
+		);
+		createInputForForm(
+			form,
+			"input",
+			"linkedTicket",
+			document.getElementById("linked_ticket").value
+		);
 
-	document.body.appendChild(form);
-	form.submit();
-});
+		document.body.appendChild(form);
+		form.submit();
+	},
+	{ passive: true }
+);
 
-taxOption.addEventListener("input", () => {
-	if (helper.getSelectTagCurrentValue(taxOption) === "No") {
-		taxPercent.value = "0%";
-		calculateItemAmount();
-	} else {
-		taxPercent.value = initialStoreTaxRate;
-	}
-});
+taxOption.addEventListener(
+	"input",
+	() => {
+		if (helper.getSelectTagCurrentValue(taxOption) === "No") {
+			taxPercent.value = "0%";
+			calculateItemAmount();
+		} else {
+			taxPercent.value = initialStoreTaxRate;
+		}
+	},
+	{ passive: true }
+);
 
 amount.addEventListener("input", calculateItemAmount, false);
 quantity.addEventListener("input", calculateItemAmount, false);
@@ -268,53 +290,58 @@ let paymentOverviewTotalBeforeTax = 0;
 let paymentOverviewTaxAmount = 0;
 let paymentOverviewTotalAfterTax = 0;
 
-addToOrderBtn.addEventListener("click", () => {
-	if (!isValidOrderItem()) return;
+addToOrderBtn.addEventListener(
+	"click",
+	() => {
+		if (!isValidOrderItem()) return;
 
-	const qty = Number(quantity.value);
-	const amountBeforeTax = Number(amount.value) * qty;
-	const taxPercentage = taxPercent.value;
-	const taxDollarValue = Number(taxDollar.value);
-	const totalAfterTax = Number(itemTotalAfterTax.value);
+		const qty = Number(quantity.value);
+		const amountBeforeTax = Number(amount.value) * qty;
+		const taxPercentage = taxPercent.value;
+		const taxDollarValue = Number(taxDollar.value);
+		const totalAfterTax = Number(itemTotalAfterTax.value);
 
-	let categoryText = helper.getSelectTagCurrentValue(
-		document.getElementById("category_select")
-	);
+		let categoryText = helper.getSelectTagCurrentValue(
+			document.getElementById("category_select")
+		);
 
-	if (categoryText === "Choose Category") {
-		categoryText = "No Category";
-	}
+		if (categoryText === "Choose Category") {
+			categoryText = "No Category";
+		}
 
-	// Order item being added
-	const item = {
-		category: categoryText.trim(),
-		description: itemDescription.value,
-		amount: amountBeforeTax,
-		taxPercent: taxPercentage,
-		taxDollar: taxDollarValue,
-		quantity: qty,
-		total: totalAfterTax,
-	};
+		// Order item being added
+		const item = {
+			category: categoryText.trim(),
+			description: itemDescription.value,
+			amount: amountBeforeTax,
+			taxPercent: taxPercentage,
+			taxDollar: taxDollarValue,
+			quantity: qty,
+			total: totalAfterTax,
+		};
 
-	orderItems.push(item);
-	addLineitem(item);
+		orderItems.push(item);
+		addLineitem(item);
 
-	// Remove default table row
-	table.firstElementChild.nextElementSibling.firstElementChild.remove();
+		// Remove default table row
+		table.firstElementChild.nextElementSibling.firstElementChild.remove();
 
-	paymentOverviewItemsInOrder += qty;
-	paymentOverviewTotalBeforeTax += amountBeforeTax;
-	paymentOverviewTaxAmount += taxDollarValue;
-	paymentOverviewTotalAfterTax += totalAfterTax;
+		paymentOverviewItemsInOrder += qty;
+		paymentOverviewTotalBeforeTax += amountBeforeTax;
+		paymentOverviewTaxAmount += taxDollarValue;
+		paymentOverviewTotalAfterTax += totalAfterTax;
 
-	itemsInOrder.textContent = paymentOverviewItemsInOrder;
-	orderTotalBeforeTax.textContent =
-		"$" +
-		(Math.round(paymentOverviewTotalBeforeTax * 100) / 100).toFixed(2);
-	orderTaxAmount.textContent =
-		"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
-	orderTotalAfterTax.textContent =
-		"$" + (Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
+		itemsInOrder.textContent = paymentOverviewItemsInOrder;
+		orderTotalBeforeTax.textContent =
+			"$" +
+			(Math.round(paymentOverviewTotalBeforeTax * 100) / 100).toFixed(2);
+		orderTaxAmount.textContent =
+			"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
+		orderTotalAfterTax.textContent =
+			"$" +
+			(Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
 
-	resetItemPaymentOptions();
-});
+		resetItemPaymentOptions();
+	},
+	{ passive: true }
+);

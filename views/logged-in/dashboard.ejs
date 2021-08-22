@@ -9,7 +9,7 @@
 						<%= user.fullname.split(" ")[0].charAt(0).toUpperCase()+user.fullname.split(" ")[0].substring(1)%>
 					</h1>
 					<small
-						>See whats happening in your ticketScout account
+						>See whats happening in your account
 						today</small
 					>
 				</div>
@@ -39,7 +39,7 @@
 
 							<div class="info-wrap">
 								<p>NEW TICKETS</p>
-								<h4>24</h4>
+								<h4><%=totalNewTickets%></h4>
 							</div>
 						</div>
 						<div class="card2 top-card-style">
@@ -62,16 +62,16 @@
 							</svg>
 							<div class="info-wrap">
 								<p>REPLIES</p>
-								<h4>24</h4>
+								<h4><%=totalReplyTickets%></h4>
 							</div>
 						</div>
 						<div class="card3 top-card-style">
-							<span
-								><i class="fas fa-concierge-bell fa-3x"></i
-							></span>
+							<span>
+								<i class="las la-exclamation-circle"></i>
+							</span>
 							<div class="info-wrap">
 								<p>PRIORITY</p>
-								<h4>24</h4>
+								<h4><%=totalPriorityTickets%></h4>
 							</div>
 						</div>
 					</div>
@@ -117,24 +117,24 @@
 					<div class="changeMyName-layout">1</div>
 				</div>
 				<div class="cards-master-right">
+					
+					<div id="tracking_cover">
+						<!-- <h3>Click to Start tracking</h3> -->
+					</div>
 					<div class="map-layout" id="map"></div>
 					<div class="tracking-settings">
 						<div class="search-wrap">
-							<form
-								action="/track-shipment"
-								method="POST"
-								id="track_form"
-							>
-								<div class="input-wrap">
-									<input
-										type="text"
-										placeholder="Ticket ID"
-										required
-										name="ticketID"
-									/>
-									<button type="submit">Track</button>
-								</div>
-							</form>
+							<div class="input-wrap">
+								<input
+									type="text"
+									placeholder="Ticket ID"
+									required
+									name="ticketID"
+									id="ticket_ID_input"
+								/>
+								<button id="track_btn" type="submit">Track</button>
+							</div>
+							
 						</div>
 					</div>
 				</div>

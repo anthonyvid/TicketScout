@@ -1,3 +1,8 @@
+
+
+
+"use strict";
+
 /**
  * Send an async POST request to the url.
  * @param {string} url The url to post to

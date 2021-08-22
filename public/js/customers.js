@@ -1,18 +1,8 @@
-const names = document.querySelectorAll(".name_link");
-const phones = document.querySelectorAll(".phone_link");
+"use strict";
+
 const tableRows = document.querySelectorAll("#table_row");
 const nameSearchBox = document.getElementById("search_name");
 const phoneSearchBox = document.getElementById("search_phone");
-
-for (const name of names) {
-	const phone =
-		name.parentElement.nextElementSibling.firstElementChild.textContent;
-	name.href += phone.trim().replace(/\D/g, "");
-}
-
-for (const phone of phones) {
-	phone.href += phone.textContent.trim().replace(/\D/g, "");
-}
 
 /**
  * Filters out customer name based on search

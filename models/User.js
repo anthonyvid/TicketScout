@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import validator from "validator";
 import { db } from "../db.js";
 import nodemailer from "nodemailer";
+import fetch from "node-fetch";
 import client from "twilio";
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
@@ -66,6 +67,18 @@ class User {
 		);
 
 		return {};
+	}
+
+	async getTotalTicketsForStatus(storename, status) {
+		const store = await storesCollection.findOne({ storename: storename });
+		const storeTickets = Object.values(store.storedata.tickets);
+		let total = 0;
+
+		storeTickets.forEach((item) => {
+			if (item.status === status) total++;
+		});
+
+		return total;
 	}
 
 	async getPaymentSettings(storename) {
@@ -680,34 +693,42 @@ class User {
 		return [{}, newPhone];
 	}
 
-	async trackShipment(ticketID, user) {
-		const storename = user.storename;
+	async trackShipment(ticketID, storename) {
+		const store = await storesCollection.findOne({ storename: storename });
 
-		/* 1. need to get trackingObj from the store->tickets->ticket.trackingObj
-		//
-		*/
+		if (!Object.keys(store.storedata.tickets).includes(ticketID))
+			return { tracking_error: "Tracking Info Invalid" };
 
-		// const { tracking_number, carrier } = trackingObj;
+		console.log("valid");
+
+		const { tracking, carrier } =
+			store.storedata.tickets[ticketID].shipping;
+		console.log(tracking, carrier);
 
 		// Fetch API Call for tracking and carrier
-		// const url = `https://api.goshippo.com/tracks/${carrier}/${tracking_number}`;
-		// const response = await fetch(url, {
-		// 	headers: {
-		// 		Authorization: `ShippoToken ${process.env.SHIPPO_API_TOKEN}`,
-		// 	},
-		// });
-		// const json = await response.json();
+		const url = `https://api.goshippo.com/tracks/${carrier}/${tracking}`;
+		const response = await fetch(url, {
+			headers: {
+				Authorization: `ShippoToken ${process.env.SHIPPO_API_TOKEN}`,
+			},
+		});
+		const json = await response.json();
 
-		// // If tracking is invalid return with errors
-		// if (json.servicelevel.token == null) {
-		// 	this.errors["tracking_error"] = "Tracking number invalid";
-		// 	return this.errors;
-		// }
+		// If tracking is invalid return with errors
+		if (json.servicelevel.token == null) {
+			return { tracking_error: "Tracking Info Invalid" };
+		}
 
 		// //TODO: when JSON OBJECT IS DONE THEN WE CAN GET MOST RECENT ADDRESS AND USE FOR GEOLOCATOPN API
 
 		// //TODO: Return any required information needed, for now just everything
-		// return json;
+		return {
+			from: json.address_from,
+			to: json.address_to,
+			eta: json.eta,
+			status: json.tracking_status.status,
+			location: json.tracking_history.location,
+		};
 	}
 
 	async updateTicketShippingInfo(info, storename) {

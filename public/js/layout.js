@@ -1,11 +1,17 @@
-const dropDownIcon = document.querySelector(".icon-wrap");
-const currentDate = document.getElementById("current_date");
+"use strict";
+
+import * as helper from "../js/helper/helper.js";
+
 const plusBoxIcon = document.querySelector(".create-new");
 const timeClock = document.getElementById("time_clock");
-const clockBtns = document.querySelectorAll(".clockBtn");
+const clockBtns = document.querySelectorAll(".clock-btn");
 const resultDropdown = document.querySelector(".search-results-dropdown");
+const createNewDropdown = document.querySelector(".create-new-dropdown");
+const accountSettingsDropdown = document.querySelector(".dropdown");
+const arrowIcon = document.getElementById("arrow");
 const newBtns = document.querySelectorAll(".new-btn");
-
+const searchInput = document.getElementById("search_for_anything");
+console.log(searchInput);
 let date = new Date();
 let month = date.getMonth();
 let day = date.getDate();
@@ -26,144 +32,38 @@ let monthNames = [
 ];
 
 const today = monthNames[month] + " " + day;
+document.getElementById("current_date").insertAdjacentHTML("afterbegin", today);
 
-currentDate.insertAdjacentHTML("afterbegin", today);
-
-$(document).ready(function () {
-	var CurrentUrl = document.URL;
-	var CurrentUrlEnd = CurrentUrl.split("/").filter(Boolean).pop();
-	console.log(CurrentUrlEnd);
+/**
+ * Adds the 'active' class to the active sidebar item.
+ * @param: None
+ * @returns: None
+ */
+(() => {
+	var currentUrl = document.URL;
+	var currentUrlEnd = currentUrl.split("/").filter(Boolean).pop();
+	console.log(currentUrlEnd);
 	$("#nav_list li a").each(function () {
-		var ThisUrl = $(this).attr("href");
-		var ThisUrlEnd = ThisUrl.split("/").filter(Boolean).pop();
+		var thisUrl = $(this).attr("href");
+		var thisUrlEnd = thisUrl.split("/").filter(Boolean).pop();
 
-		if (ThisUrlEnd == CurrentUrlEnd) {
+		if (thisUrlEnd == currentUrlEnd) {
 			$(this).closest("li a").addClass("active");
 		}
 	});
-});
+})();
 
-dropDownIcon.addEventListener("click", () => {
-	document.getElementById("arrow").classList.toggle("rotate");
-	document.querySelector(".dropdown").classList.toggle("show-dd");
-});
-
-document.addEventListener("keydown", function (e) {
-	let keyCode = e.keyCode;
-	if (document.querySelector(".dropdown").classList.contains("show-dd")) {
-		if (keyCode === 27) {
-			document.querySelector(".dropdown").classList.toggle("show-dd");
-			document.getElementById("arrow").classList.toggle("rotate");
-		}
-	}
-	if (
-		document
-			.querySelector(".create-new-dropdown")
-			.classList.contains("show-create-new-dd")
-	) {
-		if (keyCode === 27) {
-			document
-				.querySelector(".create-new-dropdown")
-				.classList.toggle("show-create-new-dd");
-			plusBoxIcon.style.color = "#b1aec2";
-		}
-	}
-});
-
-plusBoxIcon.addEventListener("click", () => {
-	document
-		.querySelector(".create-new-dropdown")
-		.classList.toggle("show-create-new-dd");
-	if (plusBoxIcon.style.color != "black") {
-		plusBoxIcon.style.color = "black";
-	} else {
-		plusBoxIcon.style.color = "#b1aec2";
-	}
-});
-
-const closeDropdown = () => {
-	e.target.classList.remove("show-create-new-dd");
-	document.removeEventListener("click", closeDropdown);
-};
-
-timeClock.addEventListener("click", function () {
-	timeClock.classList.toggle("removeBorderRightRadius");
-
-	for (const btn of clockBtns) {
-		btn.classList.toggle("showTimeClockBtn");
-	}
-});
-
-for (const btn of clockBtns) {
-	btn.addEventListener("click", () => {
-		if (btn.classList.contains("clock-in-btn")) {
-			(async () => {
-				const response = await fetch("/clock-in", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ clockInTime: Date.now() }),
-				});
-				location.reload();
-				const data = await response.json();
-			})();
-		} else {
-			(async () => {
-				const response = await fetch("/clock-out", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ clockOutTime: Date.now() }),
-				});
-				location.reload();
-				// const data = await response.json();
-			})();
-		}
-
-		btn.classList.remove("showTimeClockBtn");
-	});
-}
-
-const liveSearch = (e) => {
-	if (e.value.length < 2) {
-		resultDropdown.style.display = "none";
-		return;
-	}
-	(async () => {
-		const response = await fetch("/live-search-results", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ search: e.value }),
-		});
-		const data = await response.json();
-		while (resultDropdown.firstChild) {
-			resultDropdown.removeChild(resultDropdown.lastChild);
-		}
-		showSearchResults(data.results);
-	})();
-};
-
-$("#search-result-form").on("keypress", function (event) {
-	var keyPressed = event.keyCode || event.which;
-	if (keyPressed === 13) {
-		event.preventDefault();
-		return false;
-	}
-});
-
+/**
+ * Displays a result is the search is found/valid
+ * @param {Object} results Object containing 3 possible arrays of data
+ * @returns none
+ */
 const showSearchResults = (results) => {
 	const { tickets, customers, payments } = results;
 
-	if (tickets.length == 0 && customers.length == 0 && payments.length == 0) {
-		console.log("No results found");
-		return;
-	}
+	if (!tickets && !customers && !payments) return;
 
-	resultDropdown.style.display = "flex";
+	resultDropdown.style.display = "flex"; // Show dropdown
 
 	for (let i = 0; i < tickets.length; i++) {
 		let resultBox = document.createElement("a");
@@ -191,30 +91,141 @@ const showSearchResults = (results) => {
 	}
 };
 
-for (const btn of newBtns) {
-	btn.addEventListener("click", () => {
-		const form = document.createElement("form");
-		form.setAttribute("method", "post");
-		form.setAttribute(
-			"action",
-			`/new-${btn.textContent.trim().toLowerCase()}`
-		);
-
-		const searchValue = document.getElementById(
-			"search_for_anything"
-		).value;
-		var rx = /^\d{3}\-?\d{3}\-?\d{4}$/;
-
-		if (rx.test(searchValue)) {
-			console.log("valid");
-			let phone = document.createElement("input");
-			phone.setAttribute("type", "hidden");
-			phone.setAttribute("value", searchValue);
-			phone.setAttribute("name", "phone");
-			form.appendChild(phone);
+/**
+ * Displays search results if any are found
+ * @param {EventListenerObject}
+ * @returns none
+ */
+const liveSearch = (e) => {
+	if (e.target.value.length < 2) {
+		resultDropdown.style.display = "none";
+		return;
+	}
+	(async () => {
+		const data = await helper.postReq("/live-search-results", {
+			search: e.target.value,
+		});
+		while (resultDropdown.firstChild) {
+			resultDropdown.removeChild(resultDropdown.lastChild);
 		}
+		showSearchResults(data.results);
+	})();
+};
 
-		document.getElementsByTagName("body")[0].appendChild(form);
-		form.submit();
-	});
+searchInput.addEventListener("input", liveSearch, { passive: true });
+
+// Icon that opens and closes account settings dropdown
+document.querySelector(".icon-wrap").addEventListener(
+	"click",
+	() => {
+		console.log("ya");
+		arrowIcon.classList.toggle("rotate");
+		accountSettingsDropdown.classList.toggle("show-dd");
+	},
+	{ passive: true }
+);
+
+document.addEventListener(
+	"keydown",
+	(e) => {
+		let keyCode = e.keyCode;
+
+		// if 'ESC' pressed, close account settings dropdown
+		if (accountSettingsDropdown.classList.contains("show-dd")) {
+			if (keyCode === 27) {
+				accountSettingsDropdown.classList.toggle("show-dd");
+				arrowIcon.classList.toggle("rotate");
+			}
+		}
+		// if 'ESC' pressed, close create new dropdown
+		if (createNewDropdown.classList.contains("show-create-new-dd")) {
+			if (keyCode === 27) {
+				createNewDropdown.classList.toggle("show-create-new-dd");
+				plusBoxIcon.style.color = "#b1aec2";
+			}
+		}
+	},
+	{ passive: true }
+);
+
+plusBoxIcon.addEventListener(
+	"click",
+	() => {
+		createNewDropdown.classList.toggle("show-create-new-dd");
+		if (plusBoxIcon.style.color != "black") {
+			plusBoxIcon.style.color = "black";
+		} else {
+			plusBoxIcon.style.color = "#b1aec2";
+		}
+	},
+	{ passive: true }
+);
+
+timeClock.addEventListener(
+	"click",
+	() => {
+		timeClock.classList.toggle("remove-border-right-radius");
+
+		for (const btn of clockBtns) {
+			btn.classList.toggle("show-time-clock-btn");
+		}
+	},
+	{ passive: true }
+);
+
+// Sends a post request to clock user in/out
+for (const btn of clockBtns) {
+	btn.addEventListener(
+		"click",
+		() => {
+			if (btn.classList.contains("clock-in-btn")) {
+				(async () => {
+					await helper.postReq("/clock-in", {
+						clockInTime: Date.now(),
+					});
+					location.reload();
+				})();
+			} else {
+				(async () => {
+					await helperpostReq("/clock-out", {
+						clockOutTime: Date.now(),
+					});
+					location.reload();
+				})();
+			}
+
+			btn.classList.remove("show-time-clock-btn");
+		},
+		{ passive: true }
+	);
+}
+
+// Create form and post for each button clicked beside search bar
+for (const btn of newBtns) {
+	btn.addEventListener(
+		"click",
+		() => {
+			const form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute(
+				"action",
+				`/new-${btn.textContent.trim().toLowerCase()}`
+			);
+
+			var rx = /^\d{3}\-?\d{3}\-?\d{4}$/;
+
+			// If a phone is put in the search bar, send it with POST req
+			if (rx.test(searchInput.value)) {
+				let phone = document.createElement("input");
+				phone.setAttribute("type", "hidden");
+				phone.setAttribute("value", searchInput.value);
+				phone.setAttribute("name", "phone");
+				form.appendChild(phone);
+			}
+
+			document.getElementsByTagName("body")[0].appendChild(form);
+			form.submit();
+		},
+		{ passive: true }
+	);
 }

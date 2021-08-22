@@ -1,8 +1,10 @@
-const bcrypt = require("bcryptjs");
-const validator = require("validator");
-const usersCollection = require("../db").collection("users");
-const storesCollection = require("../db").collection("stores");
-const nodemailer = require("nodemailer");
+import bcrypt from "bcryptjs";
+import validator from "validator";
+import { db } from "../db.js";
+import nodemailer from "nodemailer";
+
+const usersCollection = db.collection("users");
+const storesCollection = db.collection("stores");
 
 class User {
 	constructor(data) {
@@ -1241,4 +1243,4 @@ class User {
 	}
 }
 
-module.exports = User;
+export default User;

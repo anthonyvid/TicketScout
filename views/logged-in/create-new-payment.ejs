@@ -3,7 +3,7 @@
 	href="/scss/logged-in/create-new-payment/create-new-payment.css"
 />
 <script
-	defer
+	type="module" 
 	src="/js/create-new-payment.js"
 ></script>
 <link rel="stylesheet" href="/messages.css" />
@@ -26,14 +26,14 @@
 				<form
 					action="/create-new-payment"
 					method="POST"
-					id="paymentForm"
+					id="payment_form"
 				>
 					<div class="form-style">
 						<div class="info-container">
 							<h3>Customer Information <i>leave blank for general checkout</i></h3>
 							<div class="input-wrap">
 								<div class="optional-wrap">
-									<label for="">First name</label>
+									<label>First name</label>
 									<small>Optional</small>
 								</div>
 								<input
@@ -47,7 +47,7 @@
 							</div>
 							<div class="input-wrap">
 								<div class="optional-wrap">
-									<label for="">Last name</label>
+									<label>Last name</label>
 									<small>Optional</small>
 								</div>
 								<input
@@ -61,7 +61,7 @@
 							</div>
 							<div class="input-wrap">
 								<div class="optional-wrap">
-									<label for="">Phone number</label>
+									<label>Phone number</label>
 									<small>Optional</small>
 								</div>
 								<input
@@ -75,7 +75,7 @@
 							</div>
 							<div class="input-wrap">
 								<div class="optional-wrap">
-									<label for="">Email</label>
+									<label>Email</label>
 									<small>Optional</small>
 								</div>
 								<input
@@ -88,12 +88,12 @@
 							</div>
 							<div class="input-wrap">
 								<div class="optional-wrap">
-									<label for="">Linked Ticket</label>
+									<label>Linked Ticket</label>
 								</div>
 								<input
 									type="text"
 									name="linkedTicket"
-									id="linkedTicket"
+									id="linked_ticket"
 									value="<%= typeof linkedTicket != 'undefined' ? linkedTicket : 'Payment not linked to ticket' %>"
 									readonly
 								/>
@@ -102,7 +102,7 @@
 						<div class="info-container">
 							<h3>Payment Information</h3>
 							<div class="input-wrap">
-								<label for="">Category</label>
+								<label>Category</label>
 								<select name="categorySelect" id="categorySelect">
 								<% if(payments.categories.length === 0) {%>
 									<option selected hidden>
@@ -117,7 +117,7 @@
 								</select>
 							</div>
 							<div class="input-wrap">
-								<label for="">Description</label>
+								<label>Description</label>
 								<input
 									type="text"
 									name="description"
@@ -128,7 +128,7 @@
 								/>
 							</div>
 							<div class="input-wrap">
-								<label for="">Payment Options</label>
+								<label>Payment Options</label>
 								<div class="payment-options-wrap">
 									<div class="amount">
 										<input
@@ -137,12 +137,12 @@
 											placeholder="Amount"
 											required
 											autocomplete="nope"
-											id="payment-amount"
+											id="payment_amount"
 										/>
 									</div>
 									<div class="tax-options">
 										<div class="tax-choice">
-											<label for="">Tax</label>
+											<label>Tax</label>
 											<select
 												name="tax"
 												id="tax"
@@ -160,7 +160,7 @@
 											<input
 												type="text"
 												value="<%= `${payments.taxRate}%` %>"
-												id="tax-percent"
+												id="tax_percent"
 												readonly
 											/>
 										</div>
@@ -198,14 +198,14 @@
 													required
 													readonly
 													autocomplete="nope"
-													id="total-after-tax"
+													id="item_total_after_tax"
 												/>
 											</span>
 										</div>
 										<div class="add-item">
 											<button
 												type="button"
-												id="add-to-order"
+												id="add_to_order"
 											>
 												Add to order
 											</button>
@@ -217,7 +217,7 @@
 					</div>
 					<div class="items-in-order-container">
 						<h4>Items in Order</h4>
-						<table id="order-table">
+						<table id="order_table">
 							<thead>
 								<tr>
 									<td>Category</td>
@@ -248,13 +248,13 @@
 						<div class="container">
 							<h4>Payment Overview</h4>
 							<div class="complete-order-style overview-container">
-								<div><span>Items in order: </span><p id="po-items-in-order">0</p></div>
+								<div><span>Items in order: </span><p id="items_in_order">0</p></div>
 								<hr color="#eaeef5" size="1" />
-								<div><span>Total before tax:</span><p id="po-total-before-tax">0</p></div>
+								<div><span>Total before tax:</span><p id="total_before_tax">0</p></div>
 								<hr color="#eaeef5" size="1" />
-								<div><span>Tax amount:</span><p id="po-tax-amount">0</p></div>
+								<div><span>Tax amount:</span><p id="tax_amount">0</p></div>
 								<hr color="#eaeef5" size="1" />
-								<div><span>Total after tax:</span><p id="po-total-after-tax">$0</p></div>
+								<div><span>Total after tax:</span><p id="total_after_tax">$0</p></div>
 							</div>
 						</div>
 
@@ -322,7 +322,7 @@
 											<span>Amex</span>
 										</div>
 									</div>
-									<button type="button" id="complete-payment-btn">
+									<button type="button" id="complete_payment_btn">
 										Complete Payment
 									</button>
 								</div>

@@ -1,14 +1,12 @@
-const User = require("../models/User");
-const passport = require("passport");
-const { json } = require("express");
-const fetch = require("node-fetch");
+import User from "../models/User.js";
+import passport from "passport";
 
 // Login Page
-exports.renderLogin = function (req, res) {
+export const renderLogin = function (req, res) {
 	res.render("logged-out/login", { layout: "layouts/logged-out-layout" });
 };
 // Login Handle
-exports.login = async function (req, res, next) {
+export const login = async function (req, res, next) {
 	passport.authenticate("local", {
 		successRedirect: "/dashboard",
 		failureRedirect: "/",
@@ -16,17 +14,17 @@ exports.login = async function (req, res, next) {
 	})(req, res, next);
 };
 
-exports.clockIn = async function (req, res) {
+export const clockIn = async function (req, res) {
 	const user = new User();
 	await user.clockIn(req.user, req.body.clockInTime);
 	res.status(204).send();
 };
-exports.clockOut = async function (req, res) {
+export const clockOut = async function (req, res) {
 	const user = new User();
 	await user.clockOut(req.user, req.body.clockOutTime);
 	res.status(204).send();
 };
-exports.liveSearchResults = async function (req, res) {
+export const liveSearchResults = async function (req, res) {
 	const user = new User();
 	const results = await user.liveSearchResults(
 		req.user.storename,
@@ -36,13 +34,13 @@ exports.liveSearchResults = async function (req, res) {
 };
 
 // Employee Register Page
-exports.renderEmployeeRegister = function (req, res) {
+export const renderEmployeeRegister = function (req, res) {
 	res.render("logged-out/employeeRegister", {
 		layout: "layouts/logged-out-layout",
 	});
 };
 // Employee Register Handle
-exports.employeeRegister = async function (req, res) {
+export const employeeRegister = async function (req, res) {
 	const user = new User(req.body);
 	const result = await user.employeeRegister();
 
@@ -83,7 +81,7 @@ exports.employeeRegister = async function (req, res) {
 };
 
 // Track shipment handle
-exports.trackShipment = async function (req, res) {
+export const trackShipment = async function (req, res) {
 	const user = new User();
 	const result = await user.trackShipment(req.body, req.user);
 
@@ -106,11 +104,11 @@ exports.trackShipment = async function (req, res) {
 };
 
 // Password Recovery Page
-exports.renderRecovery = function (req, res) {
+export const renderRecovery = function (req, res) {
 	res.render("logged-out/recovery", { layout: "layouts/logged-out-layout" });
 };
 // Password Recovery Handle
-exports.forgotPassword = async function (req, res) {
+export const forgotPassword = async function (req, res) {
 	let user = new User();
 	const result = await user.forgotPassword(req.body);
 
@@ -130,7 +128,7 @@ exports.forgotPassword = async function (req, res) {
 		}
 	}
 };
-exports.renderAccountSettings = async function (req, res) {
+export const renderAccountSettings = async function (req, res) {
 	const user = new User();
 	const store = await user.getStore(req.user.storename);
 
@@ -141,52 +139,52 @@ exports.renderAccountSettings = async function (req, res) {
 	});
 };
 
-exports.addIssue = async function (req, res) {
+export const addIssue = async function (req, res) {
 	const user = new User();
 	await user.addIssue(req.user.storename, req.body.issue);
 	res.status(204).send();
 };
-exports.removeIssue = async function (req, res) {
+export const removeIssue = async function (req, res) {
 	const user = new User();
 	await user.removeIssue(req.user.storename, req.body.issue);
 	res.status(204).send();
 };
 
-exports.updateTicketStatusSettings = async function (req, res) {
+export const updateTicketStatusSettings = async function (req, res) {
 	const user = new User();
 	await user.updateTicketStatusSettings(req.user.storename, req.body);
 	res.status(204).send();
 };
-exports.deleteTicketStatusSettings = async function (req, res) {
+export const deleteTicketStatusSettings = async function (req, res) {
 	const user = new User();
 	await user.deleteTicketStatusSettings(req.user.storename, req.body);
 	res.status(204).send();
 };
 
-exports.updateStoreAddress = async function (req, res) {
+export const updateStoreAddress = async function (req, res) {
 	const user = new User();
 	await user.updateStoreAddress(req.user.storename, req.body);
 	res.status(204).send();
 };
 
-exports.updateStoreTaxRate = async function (req, res) {
+export const updateStoreTaxRate = async function (req, res) {
 	const user = new User();
 	await user.updateStoreTaxRate(req.user.storename, req.body.taxRate);
 	res.status(204).send();
 };
 
-exports.addCategory = async function (req, res) {
+export const addCategory = async function (req, res) {
 	const user = new User();
 	await user.addCategory(req.user.storename, req.body.category);
 	res.status(204).send();
 };
-exports.removeCategory = async function (req, res) {
+export const removeCategory = async function (req, res) {
 	const user = new User();
 	await user.removeCategory(req.user.storename, req.body.category);
 	res.status(204).send();
 };
 
-exports.getEmployeesTimeclockHistory = async function (req, res) {
+export const getEmployeesTimeclockHistory = async function (req, res) {
 	const user = new User();
 	const { employeesClockHistory, payPeriod } =
 		await user.getEmployeesTimeclockHistory(
@@ -198,7 +196,7 @@ exports.getEmployeesTimeclockHistory = async function (req, res) {
 	res.json({ employeesClockHistory, payPeriod });
 };
 
-exports.updateAccountInfo = async function (req, res) {
+export const updateAccountInfo = async function (req, res) {
 	const user = new User();
 	const emailError = await user.updateAccountInfo(req.user.email, req.body);
 
@@ -217,21 +215,21 @@ exports.updateAccountInfo = async function (req, res) {
 	}
 };
 
-exports.renderCreateNewTicket = function (req, res) {
+export const renderCreateNewTicket = function (req, res) {
 	res.render(`logged-in/create-new-ticket`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
 	});
 };
-exports.renderCreateNewCustomer = function (req, res) {
+export const renderCreateNewCustomer = function (req, res) {
 	res.render(`logged-in/create-new-customer`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
 	});
 };
-exports.renderCreateNewPayment = async function (req, res) {
+export const renderCreateNewPayment = async function (req, res) {
 	const user = new User();
 	const paymentSettings = await user.getPaymentSettings(req.user.storename);
 
@@ -244,14 +242,14 @@ exports.renderCreateNewPayment = async function (req, res) {
 };
 
 // Logout Handle
-exports.logout = async function (req, res) {
+export const logout = async function (req, res) {
 	req.logout();
 	req.flash("logout_msg", "You are logged out");
 	res.redirect("/");
 };
 
 // Dashboard Page
-exports.renderDashboard = async function (req, res) {
+export const renderDashboard = async function (req, res) {
 	const user = new User();
 	const [result, store] = await user.updateTicketList(req.user.storename);
 
@@ -264,7 +262,7 @@ exports.renderDashboard = async function (req, res) {
 };
 
 // Tickets Page
-exports.renderStoreTickets = async function (req, res) {
+export const renderStoreTickets = async function (req, res) {
 	const user = new User();
 	const [result, store] = await user.updateTicketList(req.user.storename);
 
@@ -276,7 +274,7 @@ exports.renderStoreTickets = async function (req, res) {
 	});
 };
 
-exports.renderStorePayments = async function (req, res) {
+export const renderStorePayments = async function (req, res) {
 	const user = new User();
 	const [result, store] = await user.updatePaymentsList(req.user.storename);
 	res.render("logged-in/payments", {
@@ -287,7 +285,7 @@ exports.renderStorePayments = async function (req, res) {
 	});
 };
 
-exports.renderStoreCustomers = async function (req, res) {
+export const renderStoreCustomers = async function (req, res) {
 	const user = new User();
 	const [result, store] = await user.updateCustomerList(req.user.storename);
 	res.render("logged-in/customers", {
@@ -298,12 +296,12 @@ exports.renderStoreCustomers = async function (req, res) {
 	});
 };
 
-exports.getPhone = async function (req, res) {
+export const getPhone = async function (req, res) {
 	const user = new User();
 	const phone = await user.getPhone(req.body.id, req.user.storename);
 	res.json({ phone: phone });
 };
-exports.updateTicketStatus = async function (req, res) {
+export const updateTicketStatus = async function (req, res) {
 	console.log(req.body);
 	const user = new User();
 	const [tickets, store] = await user.updateTicketStatus(
@@ -315,7 +313,7 @@ exports.updateTicketStatus = async function (req, res) {
 
 	res.json({ tickets, store });
 };
-exports.updateTicketIssue = async function (req, res) {
+export const updateTicketIssue = async function (req, res) {
 	const user = new User();
 	const tickets = await user.updateTicketIssue(
 		req.body.selection,
@@ -326,13 +324,13 @@ exports.updateTicketIssue = async function (req, res) {
 	res.json({ tickets });
 };
 
-exports.getStore = async function (req, res) {
+export const getStore = async function (req, res) {
 	const user = new User();
 	const store = await user.getStore(req.user.storename);
 	res.json({ store });
 };
 // Customers Page
-// exports.renderStoreCustomers = function (req, res) {
+// const renderStoreCustomers = function (req, res) {
 // 	res.render("logged-in/customers", {
 // 		layout: "layouts/logged-in-layout",
 // 		user: req.user,
@@ -340,7 +338,7 @@ exports.getStore = async function (req, res) {
 // };
 
 //Create new ticket handle
-exports.createNewTicket = async function (req, res, next) {
+export const createNewTicket = async function (req, res, next) {
 	const user = new User();
 	const result = await user.createNewTicket(req.body, req.user.storename);
 	const [ticketError, data, ticketID] = result;
@@ -364,7 +362,7 @@ exports.createNewTicket = async function (req, res, next) {
 	}
 };
 
-exports.renderCustomerProfile = async function (req, res) {
+export const renderCustomerProfile = async function (req, res) {
 	const user = new User();
 	const result = await user.getCustomerData(
 		req.user.storename,
@@ -376,7 +374,7 @@ exports.renderCustomerProfile = async function (req, res) {
 		customer: result,
 	});
 };
-exports.renderTicketProfile = async function (req, res) {
+export const renderTicketProfile = async function (req, res) {
 	const user = new User();
 	const result = await user.getTicketData(
 		req.user.storename,
@@ -393,7 +391,7 @@ exports.renderTicketProfile = async function (req, res) {
 	});
 };
 
-exports.renderPaymentProfile = async function (req, res) {
+export const renderPaymentProfile = async function (req, res) {
 	const user = new User();
 	const result = await user.getPaymentData(
 		req.user.storename,
@@ -411,7 +409,7 @@ exports.renderPaymentProfile = async function (req, res) {
 	});
 };
 
-exports.sendSms = async function (req, res) {
+export const sendSms = async function (req, res) {
 	const user = new User();
 	const msg = await user.sendSms(
 		req.user.storename,
@@ -422,19 +420,19 @@ exports.sendSms = async function (req, res) {
 	res.json({ msg: msg });
 };
 
-exports.receiveSms = async function (req, res) {
+export const receiveSms = async function (req, res) {
 	const user = new User();
 	console.log(req.client);
 	await user.receiveSms(req.body);
 	res.status(204).send();
 };
 
-exports.updateTicketShippingInfo = async function (req, res) {
+export const updateTicketShippingInfo = async function (req, res) {
 	const user = new User();
 	await user.updateTicketShippingInfo(req.body, req.user.storename);
 };
 
-exports.changeAccountPassword = async function (req, res) {
+export const changeAccountPassword = async function (req, res) {
 	const user = new User();
 	const passwordError = await user.changeAccountPassword(
 		req.user.password,
@@ -452,29 +450,29 @@ exports.changeAccountPassword = async function (req, res) {
 	}
 };
 
-exports.deleteTicket = async function (req, res) {
+export const deleteTicket = async function (req, res) {
 	const user = new User();
 	await user.deleteTicket(req.user.storename, req.body.item);
 	res.status(204).send();
 };
 
-exports.deletePayment = async function (req, res) {
+export const deletePayment = async function (req, res) {
 	const user = new User();
 	await user.deletePayment(req.user.storename, req.body.item);
 	res.status(204).send();
 };
 
-exports.deleteCustomer = async function (req, res) {
+export const deleteCustomer = async function (req, res) {
 	const user = new User();
 	await user.deleteCustomer(req.user.storename, req.body.item);
 	res.status(204).send();
 };
 
-exports.updateTicketInfo = async function (req, res) {
+export const updateTicketInfo = async function (req, res) {
 	const user = new User();
 	await user.updateTicketInfo(req.user.storename, req.body, req.body.phone);
 };
-exports.updateCustomerContactInfo = async function (req, res) {
+export const updateCustomerContactInfo = async function (req, res) {
 	const user = new User();
 	const [updateErrors, newPhone] = await user.updateCustomerContactInfo(
 		req.user.storename,
@@ -484,9 +482,11 @@ exports.updateCustomerContactInfo = async function (req, res) {
 	// No errors
 	if (Object.keys(updateErrors).length === 0) {
 		req.flash("success_update", "Successfully Updated Information");
-		if (req.body.sentFrom === "customer")
+		if (req.body.sentFrom === "customer") {
 			res.redirect(`/customers/${newPhone}`);
-		res.redirect(`/tickets/${req.body.sentFrom.replace(/\D/g, "")}`);
+		} else {
+			res.redirect(`/tickets/${req.body.sentFrom.replace(/\D/g, "")}`);
+		}
 	} else {
 		console.log("errors");
 
@@ -505,7 +505,7 @@ exports.updateCustomerContactInfo = async function (req, res) {
 };
 
 //Create new customer handle
-exports.createNewCustomer = async function (req, res) {
+export const createNewCustomer = async function (req, res) {
 	if (req.body.customerDataExists == "true") {
 		res.render("logged-in/create-new-ticket", {
 			layout: "layouts/logged-in-layout",
@@ -540,7 +540,7 @@ exports.createNewCustomer = async function (req, res) {
 	}
 };
 
-exports.createNewPayment = async function (req, res) {
+export const createNewPayment = async function (req, res) {
 	const user = new User();
 
 	if (req.body.customerDataExists == "true") {

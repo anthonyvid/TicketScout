@@ -1,11 +1,7 @@
-const express = require("express");
+import * as userController from "../controllers/userController.js";
+import { ensureAuthenticated, checkNotAuthenticated } from "../config/auth.js";
+import express from "express";
 const router = express.Router();
-const userController = require("../controllers/userController");
-const {
-	ensureAuthenticated,
-	checkNotAuthenticated,
-} = require("../config/auth");
-const { route } = require("./adminRouter");
 
 //- Routes That Dont Require Middleware -//
 // Login Handle
@@ -191,4 +187,4 @@ router.post(
 	userController.deleteCustomer
 );
 
-module.exports = router;
+export default router;

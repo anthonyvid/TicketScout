@@ -1,8 +1,8 @@
 const names = document.querySelectorAll(".name_link");
 const phones = document.querySelectorAll(".phone_link");
-const tableRows = document.querySelectorAll("#table-row");
-const nameSearchBox = document.getElementById("search-name");
-const phoneSearchBox = document.getElementById("search-phone");
+const tableRows = document.querySelectorAll("#table_row");
+const nameSearchBox = document.getElementById("search_name");
+const phoneSearchBox = document.getElementById("search_phone");
 
 for (const name of names) {
 	const phone =
@@ -14,6 +14,9 @@ for (const phone of phones) {
 	phone.href += phone.textContent.trim().replace(/\D/g, "");
 }
 
+/**
+ * Filters out customer name based on search
+ */
 function searchForName() {
 	for (const row of tableRows) {
 		const name = row.firstElementChild.firstElementChild.text;
@@ -27,6 +30,9 @@ function searchForName() {
 	}
 }
 
+/**
+ * Filters out customers phone based on search
+ */
 function searchForPhone() {
 	for (const row of tableRows) {
 		const phone =
@@ -42,3 +48,6 @@ function searchForPhone() {
 		}
 	}
 }
+
+nameSearchBox.addEventListener("input", searchForName);
+phoneSearchBox.addEventListener("input", searchForPhone);

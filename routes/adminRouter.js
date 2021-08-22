@@ -1,11 +1,7 @@
-const express = require("express");
+import * as adminController from "../controllers/adminController.js";
+import { ensureAuthenticated, checkNotAuthenticated } from "../config/auth.js";
+import express from "express";
 const router = express.Router();
-const adminController = require("../controllers/adminController");
-const {
-	ensureAuthenticated,
-	forwardAuthenticated,
-	checkNotAuthenticated,
-} = require("../config/auth");
 
 // Admin Register Page
 router.get("/register", checkNotAuthenticated, adminController.renderRegister);
@@ -14,4 +10,4 @@ router.post("/register", adminController.register);
 
 // router.post("/invite-employee", adminController.inviteEmployee);
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/scss/logged-in/customers/customers.css" />
-<script defer src="/js/customers.js"></script>
+<script type="module" defer src="/js/customers.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -11,10 +11,10 @@
 				<div class="ticket-action-container">
 					<div class="filter-container">
 						<div class="search-wrap">
-							<input onkeyup="searchForName()" id="search-name" type="text" placeholder="Search for name">
+							<input id="search_name" type="text" placeholder="Search for name" autocomplete="no">
 						</div>
 						<div class="search-wrap">
-							<input onkeyup="searchForPhone()" id="search-phone" type="text" placeholder="Search for phone">
+							<input id="search_phone" type="text" placeholder="Search for phone" autocomplete="no">
 						</div>
 					</div>
 					<div class="new-customer-wrap">
@@ -36,10 +36,10 @@
 					</thead>
 					<tbody>
                         <% if(customers.length === 0) {%>
-                            <tr id="noCustomers"><td>No Customers</td></tr>
+                            <tr id="no_customers"><td>No Customers</td></tr>
                         <% } else { %> 
                             <% for(let i=0; i<customers.length; i++) { %> 
-                                <tr id="table-row">
+                                <tr id="table_row">
                                     <td class="name">
                                         <a class="name_link" id="name" href="/customers/"
                                             ><%=customers[i][1].firstname.charAt(0).toUpperCase() + customers[i][1].firstname.slice(1) +" "+ customers[i][1].lastname.charAt(0).toUpperCase() + customers[i][1].lastname.slice(1)%></a

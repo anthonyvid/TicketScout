@@ -1,14 +1,14 @@
-const Admin = require("../models/Admin");
+import Admin from "../models/Admin.js";
 
 // Admin Register Page
-exports.renderRegister = function (req, res) {
+export const renderRegister = function (req, res) {
 	res.render("logged-out/adminRegister", {
 		layout: "layouts/logged-out-layout",
 	});
 };
 
 // Admin Register Handle
-exports.register = async function (req, res) {
+export const register = async function (req, res) {
 	let admin = new Admin(req.body);
 	const result = await admin.register();
 
@@ -48,8 +48,9 @@ exports.register = async function (req, res) {
 	}
 };
 
-// exports.inviteEmployee = async function (req, res) {
+// const inviteEmployee = async function (req, res) {
 // 	console.log(req.body);
 // 	let admin = new Admin(req.body);
 // 	await admin.inviteEmployee(req.body);
 // };
+

@@ -2,10 +2,7 @@
 	rel="stylesheet"
 	href="/scss/logged-in/create-new-customer/create-new-customer.css"
 />
-<script
-	defer
-	src="/js/create-new-customer.js"
-></script>
+<script type="module" src="/js/create-new-customer.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -27,7 +24,6 @@
 							<input
 								type="text"
 								name="firstname"
-								id=""
 								placeholder="John"
 								required
 								autocomplete="nope"
@@ -39,7 +35,6 @@
 							<input
 								type="text"
 								name="lastname"
-								id=""
 								placeholder="Smith"
 								required
 								autocomplete="nope"
@@ -51,7 +46,6 @@
 							<input
 								type="text"
 								name="phone"
-								id=""
 								placeholder="123-356-7890"
 								required
 								autocomplete="nope"
@@ -67,7 +61,6 @@
 							<input
 								type="email"
 								name="email"
-								id="email"
 								placeholder="example@hello.com"
 								value="<%= typeof email != 'undefined' ? email : '' %>"
 							/>
@@ -75,11 +68,11 @@
 						<input
 							type="hidden"
 							name="customerDataExists"
-							id="customerDataExists"
+							id="customer_data_exists"
 							value="false"
 						/>
 						<div class="buttons-wrap">
-							<button id="ct" type="submit">
+							<button id="create_customer_and_ticket" type="submit">
 								Create customer and ticket
 							</button>
 							<button type="submit">Create customer</button>

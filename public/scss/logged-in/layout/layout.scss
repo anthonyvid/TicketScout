@@ -145,7 +145,7 @@ a {
 	.active,
 	.menu-link:hover {
 		background-color: #5bb0ff;
-		color: white;
+		color: white !important;
 
 		span {
 			color: white;
@@ -377,13 +377,13 @@ a {
 					background-color: lightcoral;
 				}
 
-				.showTimeClockBtn {
+				.show-time-clock-btn {
 					display: flex;
 					border-top-left-radius: 0;
 					border-bottom-left-radius: 0;
 				}
 
-				.removeBorderRightRadius {
+				.remove-border-right-radius {
 					border-top-right-radius: 0px;
 					border-bottom-right-radius: 0px;
 				}

@@ -1,19 +1,20 @@
-const express = require("express");
-const expressLayouts = require("express-ejs-layouts");
-const flash = require("connect-flash");
-const session = require("cookie-session");
-const dotenv = require("dotenv");
-const passport = require("passport");
-
+import express from "express";
+import expressLayouts from "express-ejs-layouts";
+import flash from "connect-flash";
+import session from "cookie-session";
+import passport from "passport";
+import { db, configMongoConnection } from "./db.js";
 const app = express();
 
-console.log("in app.js");
+//Connect to mongoDB
+configMongoConnection();
 
 app.use(express.json());
 app.use(express.static("public"));
 
 // Passport Config
-require("./config/passport")(passport);
+import passportConfig from "./config/passport.js";
+passportConfig(passport);
 
 //Bodyparser
 app.use(express.urlencoded({ extended: false }));
@@ -51,9 +52,12 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 
 //Routes
-app.use("/", require("./routes/userRouter"));
-app.use("/admin", require("./routes/adminRouter"));
+import userRouter from "./routes/userRouter.js";
+import adminRouter from "./routes/adminRouter.js";
+app.use("/", userRouter);
+app.use("/admin", adminRouter);
+
 
 app.listen(process.env.PORT);
 
-module.exports = app;
+export default app;

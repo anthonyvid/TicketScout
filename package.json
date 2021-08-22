@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "app.js",
+	"type": "module",
 	"dependencies": {
 		"@googlemaps/js-api-loader": "^1.12.1",
 		"@vonage/server-sdk": "^2.10.10",
@@ -38,8 +39,8 @@
 		"nodemon": "^2.0.7"
 	},
 	"scripts": {
-		"start": "node db.js",
-		"devStart": "nodemon db.js",
+		"start": "node app.js",
+		"devStart": "nodemon -r dotenv/config app.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],

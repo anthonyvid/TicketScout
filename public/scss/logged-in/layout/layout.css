@@ -150,7 +150,7 @@ a {
 .sidebar-menu .active,
 .sidebar-menu .menu-link:hover {
   background-color: #5bb0ff;
-  color: white;
+  color: white !important;
 }
 
 .sidebar-menu .active span,
@@ -476,7 +476,7 @@ a {
   background-color: lightcoral;
 }
 
-.main-content header .profile-wrap .time-clock-wrap .showTimeClockBtn {
+.main-content header .profile-wrap .time-clock-wrap .show-time-clock-btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -484,7 +484,7 @@ a {
   border-bottom-left-radius: 0;
 }
 
-.main-content header .profile-wrap .time-clock-wrap .removeBorderRightRadius {
+.main-content header .profile-wrap .time-clock-wrap .remove-border-right-radius {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }

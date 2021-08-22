@@ -11,9 +11,9 @@
 	rel="stylesheet"
 	href="/scss/logged-in/customer-profile/customer-profile.css"
 />
-<link rel="stylesheet" href="/logged-in/layout/layout.css" />
+<!-- <link rel="stylesheet" href="/logged-in/layout/layout.css" /> -->
 <link rel="stylesheet" href="/messages.css" />
-<script defer src="/js/customer-profile.js"></script>
+<script type="module" defer src="/js/customer-profile.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -27,13 +27,13 @@
 						</h1>
 					</div>
 					<div class="actions-wrap">
-						<div class="newTicketBtn action-style ">
+						<div class="new-ticket-btn action-style ">
 							new ticket<i class="fas fa-ticket-alt"></i>
 						</div>
-						<div class="newPaymentBtn action-style ">
+						<div class="new-payment-btn action-style ">
 							new payment<i class="fas fa-credit-card"></i>
 						</div>					
-						<div class="documentBtn action-style ">
+						<div class="document-btn action-style ">
 							<i class="fas fa-file-pdf"></i>
 						</div>
 					</div>
@@ -64,8 +64,8 @@
 								<% } else {%> 
 									<% for(const ticket in customer.tickets) { %>
 										<tr>
-											<td class="ticketID"><a href="/tickets/"><%= ticket %></a></td>
-											<td class="ticket_subject"><a href="/tickets/"><%= customer.tickets[ticket].subject %></a></td>
+											<td class="ticketID"><a href=<%= `/tickets/${ticket}` %>><%= ticket %></a></td>
+											<td class="ticket_subject"><a href=<%= `/tickets/${ticket}`%>><%= customer.tickets[ticket].subject %></a></td>
 											<td class="ticket_status"><%= customer.tickets[ticket].status %></td>
 											<td class="ticket_date"><%= customer.tickets[ticket].dateCreated %></td>
 										</tr>
@@ -97,7 +97,7 @@
 								<% } else {%> 
 									<% for(let i=0; i<Object.keys(customer.payments).length; i++) {%>
 									<tr>
-										<td><a href="/payments/" class="paymentNumber"> <%=Object.keys(customer.payments)[i]%></a></td>
+										<td><a href=<%=`/payments/${Object.keys(customer.payments)[i]}`%>> <%=Object.keys(customer.payments)[i]%></a></td>
 										<td><%= "$"+Object.values(customer.payments)[i].orderTotal %></td>
 										<td><%= Object.values(customer.payments)[i].paymentMethod %></td>
 										<td><%= Object.values(customer.payments)[i].date %></td>
@@ -112,15 +112,15 @@
 			<div class="right-container">
 				<div class="heading">
 					<h2>Customer</h2>
-					<span id="edit-customer-info"><i class="fas fa-edit" ></i></span>
+					<span id="edit_customer_info"><i class="fas fa-edit" ></i></span>
 				</div>
 				<div class="quick-info-wrap">
 					<div class="name">
 						<img src="/assets/customer-profile-userIcon.svg" width="40px"/>
 						<p id="name"><%= fullname %></p>
 						<div>
-							<input name="newFirstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= customer.firstname %> ">
-							<input name="newLastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= customer.lastname %> ">
+							<input name="newFirstname" form="edit_customer_info_form" class="hidden edit-field" id="edit_firstname_field" type="text" value="<%= customer.firstname %> ">
+							<input name="newLastname" form="edit_customer_info_form" class="hidden edit-field" id="edit_lastname_field" type="text" value="<%= customer.lastname %> ">
 						</div>
 						
 					</div>
@@ -139,13 +139,13 @@
 						<div class="item-style">
 							<span><i class="fas fa-phone-alt"></i></span>
 							<p id="phone"><%= phone %> </p> 
-							<input name="oldPhone" form="editCustomerInfoForm" type="hidden" value="<%= phone %> ">
-							<input name="newPhone" form="editCustomerInfoForm" class="hidden edit-field" id="edit-phone-field" type="text" value="<%= customer.phone %>">
+							<input name="oldPhone" form="edit_customer_info_form" type="hidden" value="<%= phone %> ">
+							<input name="newPhone" form="edit_customer_info_form" class="hidden edit-field" id="edit_phone_field" type="text" value="<%= customer.phone %>">
 						</div>
 						<div class="item-style">
 							<span><i class="fas fa-envelope"></i></span>
 							<p id="email"><%= customer.email.length === 0 ? "No Email" : customer.email%> </p>
-							<input name="newEmail" form="editCustomerInfoForm" class="hidden edit-field" id="edit-email-field" type="email" value="<%= customer.email.length === 0 ? "" : customer.email %>">
+							<input name="newEmail" form="edit_customer_info_form" class="hidden edit-field" id="edit_email_field" type="email" value="<%= customer.email.length === 0 ? "" : customer.email %>">
 						</div>
 					</div>
 					<hr color="#eaeef5" size="1" />
@@ -186,20 +186,20 @@
 					</div>
 				</div>
 				<div class="edit-info-btn-wrap">
-					<button class="hidden" id="cancel-info-change" type>Cancel</button>
-					<form id="editCustomerInfoForm" action="/update-customer-contact-info" method="POST">
-						<input form="editCustomerInfoForm" type="hidden" name="sentFrom" value="customer">
-						<button class="hidden" id="submit-info-change" type="submit">Confirm Changes</button>
+					<button class="hidden" id="cancel_info_change" type>Cancel</button>
+					<form id="edit_customer_info_form" action="/update-customer-contact-info" method="POST">
+						<input form="edit_customer_info_form" type="hidden" name="sentFrom" value="customer">
+						<button class="hidden" id="submit_info_change" type="submit">Confirm Changes</button>
 					</form>					
 				</div>
 			</div>
 		</div>
-		<form action="/create-new-" method="POST" id="createNewForm">
+		<form action="/create-new-" method="POST" id="create_new_form">
 			<input type="hidden" name="firstname" id="firstname" value="<%=customer.firstname%>">			
 			<input type="hidden" name="lastname" id="lastname" value="<%=customer.lastname%>">			
 			<input type="hidden" name="phone" id="phone" value="<%=customer.phone%>">			
 			<input type="hidden" name="email" id="email" value="<%=customer.email%>">			
-			<input type="hidden" name="customerDataExists" id="customerDataExists" value="">			
+			<input type="hidden" name="customerDataExists" id="customer_data_exists" value="">			
 		</form>
 	</main>
 </div>

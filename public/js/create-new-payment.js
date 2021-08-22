@@ -1,17 +1,175 @@
+import * as helper from "./helper/helper.js";
+
+const cardOptions = document.querySelectorAll(".type");
 const card = document.querySelector(".card");
 const cardInput = document.querySelector(".card-input");
 const cash = document.querySelector(".cash");
 const cashInput = document.querySelector(".cash-input");
-const paymentBtn = document.getElementById("complete-payment-btn");
-const paymentForm = document.getElementById("paymentForm");
-const cardOptions = document.querySelectorAll(".type");
-let cardChoice = "";
+const completePaymentBtn = document.getElementById("complete_payment_btn");
+const table = document.getElementById("order_table");
+const itemsInOrder = document.getElementById("items_in_order");
+const orderTotalBeforeTax = document.getElementById("total_before_tax");
+const orderTaxAmount = document.getElementById("tax_amount");
+const orderTotalAfterTax = document.getElementById("total_after_tax");
+const addToOrderBtn = document.getElementById("add_to_order");
+const itemDescription = document.getElementById("description");
+let amount = document.getElementById("payment_amount");
+let taxOption = document.getElementById("tax");
+let taxPercent = document.getElementById("tax_percent");
+let taxDollar = document.getElementById("tax_dollar_amount");
+let quantity = document.getElementById("quantity");
+let itemTotalAfterTax = document.getElementById("item_total_after_tax");
 
 let orderItems = [];
+let cardChoice = "";
+const initialStoreTaxRate = taxPercent.value;
+
+/**
+ * Create a form element and assigns given method and action
+ * @param {string} method method type for form
+ * @param {string} action url to submit form to
+ * @returns a form element
+ */
+const createForm = (method, action) => {
+	const form = document.createElement("form");
+	form.method = method;
+	form.action = action;
+	return form;
+};
+
+/**
+ * Creates input element and appends it to given form
+ * @param {element} form the form to add the input to
+ * @param {string} type type of input
+ * @param {string} name name of input
+ * @param {string} value value of input
+ */
+const createInputForForm = (form, type, name, value) => {
+	const input = document.createElement("input");
+	input.type = type;
+	input.name = name;
+	input.value = value;
+	form.appendChild(input);
+};
+
+/**
+ * Transition for complete payment button
+ */
+const paymentBtnTransition = () => {
+	completePaymentBtn.style.width = "50%";
+	setTimeout(() => {
+		document.querySelector(".card-options").style.display = "flex";
+	}, 200);
+};
+
+/**
+ * Given a select element, find the current value
+ * @param {element} element to get value from
+ * @returns currently selected value
+ */
+const getSelectTagCurrentValue = (element) => {
+	return Array.from(
+		element.selectedOptions,
+		({ textContent }) => textContent
+	)[0].trim();
+};
+
+/**
+ * Validates a single order item
+ * @returns true if valid, false if not
+ */
+const isValidOrderItem = () => {
+	if (!itemDescription.value) {
+		helper.showInvalidColour(itemDescription);
+		return false;
+	} else if (!amount.value) {
+		helper.showInvalidColour(amount);
+		return false;
+	}
+	return true;
+};
+
+/**
+ * Checks if a payment method has been selected
+ * @returns true if selected, false if not
+ */
+const isPaymentMethodSelected = () => {
+	if (!orderItems.length) {
+		helper.showInvalidColour(document.getElementById("tr"));
+		return false;
+	}
+	if (
+		!card.classList.contains(".selected") &&
+		!cash.classList.contains(".selected")
+	) {
+		helper.showInvalidColour(card);
+		helper.showInvalidColour(cash);
+		return false;
+	}
+	if (card.classList.contains(".selected")) {
+		let chosen = false;
+		for (const card of cardOptions) {
+			if (card.classList.contains(".selected")) {
+				chosen = true;
+			}
+		}
+		if (!chosen) {
+			cardOptions.forEach((card) => helper.showInvalidColour(card));
+			return false;
+		}
+	}
+	return true;
+};
+
+/**
+ * Adds a row to items in order table with given data
+ * @param {Object} item row data
+ */
+const addLineitem = (item) => {
+	let row = table.insertRow();
+	helper.addCellToRow(row, item.category);
+	helper.addCellToRow(row, item.description);
+	helper.addCellToRow(row, `$ ${parseFloat(item.amount).toFixed(2)}`);
+	helper.addCellToRow(row, item.taxPercent);
+	helper.addCellToRow(row, `$ ${parseFloat(item.taxDollar).toFixed(2)}`);
+	helper.addCellToRow(row, item.quantity);
+	helper.addCellToRow(row, `$ ${parseFloat(item.total).toFixed(2)}`);
+};
+
+/**
+ * Calculates a single items amount
+ */
+const calculateItemAmount = () => {
+	let amountBeforeTax = amount.value * quantity.value;
+	let taxDollarAmount =
+		amountBeforeTax * (parseFloat(taxPercent.value) / 100.0);
+
+	let totalAfterTax = amountBeforeTax + taxDollarAmount;
+
+	taxDollar.value = (Math.round(taxDollarAmount * 100) / 100).toFixed(2);
+
+	itemTotalAfterTax.value = (Math.round(totalAfterTax * 100) / 100).toFixed(
+		2
+	);
+};
+
+/**
+ * Resets item payment option values
+ */
+const resetItemPaymentOptions = () => {
+	amount.value = 0;
+	quantity.value = 1;
+	itemTotalAfterTax.value = 0;
+	taxDollar.value = 0;
+	document.getElementById("description").value = "";
+	amount.value = "";
+	document.getElementById("total_after_tax").value = "";
+};
 
 cardOptions.forEach((cardType) =>
 	cardType.addEventListener("click", () => {
 		for (const card of cardOptions) {
+			// If there was a previously selected payment method, remove color and class
 			if (card.classList.contains(".selected")) {
 				card.classList.remove(".selected");
 				card.value = "false";
@@ -22,6 +180,7 @@ cardOptions.forEach((cardType) =>
 			}
 		}
 
+		// Add selected class and colours to the new selected payment method
 		cardType.classList.add(".selected");
 		cardType.firstElementChild.value = "true";
 		cardType.style.backgroundColor = "#9ecaed";
@@ -31,15 +190,8 @@ cardOptions.forEach((cardType) =>
 	})
 );
 
-function btnTransition() {
-	document.getElementById("complete-payment-btn").style.width = "50%";
-	setTimeout(() => {
-		document.querySelector(".card-options").style.display = "flex";
-	}, 200);
-}
-
 card.addEventListener("click", () => {
-	btnTransition();
+	paymentBtnTransition(); // Show payment methods
 	card.classList.add(".selected");
 	cardInput.value = "true";
 	cash.classList.remove(".selected");
@@ -53,6 +205,7 @@ card.addEventListener("click", () => {
 	cash.style.border = "1px solid lightgrey";
 	cash.style.color = "black";
 });
+
 cash.addEventListener("click", () => {
 	cash.classList.add(".selected");
 	cashInput.value = "true";
@@ -67,54 +220,20 @@ cash.addEventListener("click", () => {
 	card.style.border = "1px solid lightgrey";
 	card.style.color = "black";
 
-	document.getElementById("complete-payment-btn").style.width = "100%";
+	completePaymentBtn.style.width = "100%";
 	document.querySelector(".card-options").style.display = "none";
 });
 
-paymentBtn.addEventListener("click", () => {
-	if (orderItems.length === 0) {
-		document.getElementById("tr").style.backgroundColor = "#FFCCCC";
-		setTimeout(() => {
-			document.getElementById("tr").style.backgroundColor = "#f7f7f7";
-		}, 500);
-		console.log("no items in order");
-		return;
-	}
+completePaymentBtn.addEventListener("click", () => {
+	let paymentType = null;
 
-	if (
-		!card.classList.contains(".selected") &&
-		!cash.classList.contains(".selected")
-	) {
-		console.log("no payment method selected");
-		return;
-	}
-	if (card.classList.contains(".selected")) {
-		let x = 0;
-		for (const card of cardOptions) {
-			if (card.classList.contains(".selected")) {
-				x = 1;
-			}
-		}
-		if (x === 0) {
-			console.log("no card option chosen");
-			return;
-		}
-	}
-
-	let paymentType;
+	if (!isPaymentMethodSelected()) return;
 
 	if (card.classList.contains(".selected")) {
 		paymentType = cardChoice;
 	} else {
 		paymentType = "cash";
 	}
-
-	console.log(paymentType);
-	console.log("maaede it through");
-
-	const form = document.createElement("form");
-	form.method = "POST";
-	form.action = "/create-new-payment";
 
 	const customer = {
 		firstname: document.getElementById("firstname").value,
@@ -123,61 +242,29 @@ paymentBtn.addEventListener("click", () => {
 		email: document.getElementById("email").value,
 	};
 
-	const customerField = document.createElement("input");
-	customerField.type = "input";
-	customerField.name = "customer";
-	customerField.value = JSON.stringify(customer);
-	const orderItemsField = document.createElement("input");
-	orderItemsField.type = "input";
-	orderItemsField.name = "order";
-	orderItemsField.value = JSON.stringify(orderItems);
-	const paymentMethod = document.createElement("input");
-	paymentMethod.type = "input";
-	paymentMethod.name = "payment";
-	paymentMethod.value = paymentType;
-	const orderTotal = document.createElement("input");
-	orderTotal.type = "input";
-	orderTotal.name = "orderTotal";
-	orderTotal.value = document
-		.getElementById("po-total-after-tax")
-		.textContent.replace("$", "");
-	const linkedTicket = document.createElement("input");
-	linkedTicket.type = "input";
-	linkedTicket.name = "linkedTicket";
-	linkedTicket.value = document.getElementById("linkedTicket").value;
+	const form = createForm("POST", "/create-new-payment");
+	createInputForForm(form, "input", "customer", JSON.stringify(customer));
+	createInputForForm(form, "input", "order", JSON.stringify(orderItems));
+	createInputForForm(form, "input", "payment", paymentType);
+	createInputForForm(
+		form,
+		"input",
+		"orderTotal",
+		orderTotalAfterTax.textContent.replace("$", "")
+	);
+	createInputForForm(
+		form,
+		"input",
+		"linkedTicket",
+		document.getElementById("linked_ticket").value
+	);
 
-	console.log(orderTotal.value);
-
-	paymentMethod.value = paymentType;
-
-	form.appendChild(customerField);
-	form.appendChild(orderItemsField);
-	form.appendChild(paymentMethod);
-	form.appendChild(orderTotal);
-	form.appendChild(linkedTicket);
 	document.body.appendChild(form);
 	form.submit();
-
-	console.log("after");
 });
 
-//payment options
-let amount = document.getElementById("payment-amount");
-let taxOption = document.getElementById("tax");
-let taxPercent = document.getElementById("tax-percent");
-const initialStoreTaxRate = document.getElementById("tax-percent").value;
-let taxDollar = document.getElementById("tax_dollar_amount");
-let quantity = document.getElementById("quantity");
-let itemTotalAfterTax = document.getElementById("total-after-tax");
-const table = document.getElementById("order-table");
-
 taxOption.addEventListener("input", () => {
-	if (
-		Array.from(
-			taxOption.selectedOptions,
-			({ textContent }) => textContent
-		)[0].trim() === "No"
-	) {
+	if (getSelectTagCurrentValue(taxOption) === "No") {
 		taxPercent.value = "0%";
 		calculateItemAmount();
 	} else {
@@ -185,68 +272,33 @@ taxOption.addEventListener("input", () => {
 	}
 });
 
-function calculateItemAmount() {
-	let amountBeforeTax = amount.value * quantity.value;
-	let taxDollarAmount =
-		amountBeforeTax * (parseFloat(taxPercent.value) / 100.0);
-
-	let totalAfterTax = amountBeforeTax + taxDollarAmount;
-
-	taxDollar.value = (Math.round(taxDollarAmount * 100) / 100).toFixed(2);
-
-	itemTotalAfterTax.value = (Math.round(totalAfterTax * 100) / 100).toFixed(
-		2
-	);
-}
-
 amount.addEventListener("input", calculateItemAmount, false);
 quantity.addEventListener("input", calculateItemAmount, false);
 
-const addToOrderBtn = document.getElementById("add-to-order");
-let itemSlot = 0;
 let paymentOverviewItemsInOrder = 0;
 let paymentOverviewTotalBeforeTax = 0;
 let paymentOverviewTaxAmount = 0;
 let paymentOverviewTotalAfterTax = 0;
-const trashIcon = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
-const newIcon = document.createElement("i").classList.add("fa", "fa-trash-o");
 
 addToOrderBtn.addEventListener("click", () => {
-	if (document.getElementById("description").value == "") {
-		document.getElementById("description").style.backgroundColor =
-			"#FFCCCC";
-		setTimeout(() => {
-			document.getElementById("description").style.backgroundColor =
-				"#f7f7f7";
-		}, 500);
-		console.log("no description added");
-		return;
-	} else if (amount.value == "") {
-		amount.style.backgroundColor = "#FFCCCC";
-		setTimeout(() => {
-			amount.style.backgroundColor = "#f7f7f7";
-		}, 500);
-		console.log("no amount added");
-		return;
-	}
+	if (!isValidOrderItem()) return;
+
 	const qty = Number(quantity.value);
 	const amountBeforeTax = Number(amount.value) * qty;
 	const taxPercentage = taxPercent.value;
 	const taxDollarValue = Number(taxDollar.value);
 	const totalAfterTax = Number(itemTotalAfterTax.value);
 
-	let categoryText = Array.from(
-		categorySelect.selectedOptions,
-		({ textContent }) => textContent
-	)[0];
+	let categoryText = getSelectTagCurrentValue(categorySelect);
 
 	if (categoryText === "Choose Category") {
 		categoryText = "No Category";
 	}
 
+	// Order item being added
 	const item = {
 		category: categoryText.trim(),
-		description: document.getElementById("description").value,
+		description: itemDescription.value,
 		amount: amountBeforeTax,
 		taxPercent: taxPercentage,
 		taxDollar: taxDollarValue,
@@ -254,82 +306,25 @@ addToOrderBtn.addEventListener("click", () => {
 		total: totalAfterTax,
 	};
 
-	console.log("TOTAL:" + totalAfterTax);
-
 	orderItems.push(item);
+	addLineitem(item);
 
-	let row = table.insertRow();
-	row.insertCell(0).innerHTML = orderItems[itemSlot].category;
-	row.insertCell(1).innerHTML = orderItems[itemSlot].description;
-	row.insertCell(2).innerHTML =
-		"$" + parseFloat(orderItems[itemSlot].amount).toFixed(2);
-	row.insertCell(3).innerHTML = orderItems[itemSlot].taxPercent;
-	row.insertCell(4).innerHTML =
-		"$" + parseFloat(orderItems[itemSlot].taxDollar).toFixed(2);
-	row.insertCell(5).innerHTML = orderItems[itemSlot].quantity;
-	row.insertCell(6).innerHTML =
-		"$" +
-		parseFloat(orderItems[itemSlot].total).toFixed(2) +
-		'<i class="fa fa-trash-o" aria-hidden="true" onclick="deleterow(this)"></i>';
-
-	itemSlot++;
-
-	if (
-		table.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.textContent.trim() ==
-		"No Items in Order"
-	) {
-		table.firstElementChild.nextElementSibling.firstElementChild.remove();
-	}
+	// Remove default table row
+	table.firstElementChild.nextElementSibling.firstElementChild.remove();
 
 	paymentOverviewItemsInOrder += qty;
 	paymentOverviewTotalBeforeTax += amountBeforeTax;
 	paymentOverviewTaxAmount += taxDollarValue;
 	paymentOverviewTotalAfterTax += totalAfterTax;
 
-	document.getElementById("po-items-in-order").textContent =
-		paymentOverviewItemsInOrder;
-	document.getElementById("po-total-before-tax").textContent =
+	itemsInOrder.textContent = paymentOverviewItemsInOrder;
+	orderTotalBeforeTax.textContent =
 		"$" +
 		(Math.round(paymentOverviewTotalBeforeTax * 100) / 100).toFixed(2);
-	document.getElementById("po-tax-amount").textContent =
+	orderTaxAmount.textContent =
 		"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
-	document.getElementById("po-total-after-tax").textContent =
+	orderTotalAfterTax.textContent =
 		"$" + (Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
 
-	amount.value = 0;
-	quantity.value = 1;
-	itemTotalAfterTax.value = 0;
-	taxDollar.value = 0;
-	document.getElementById("description").value = "";
-	amount.value = "";
-	document.getElementById("total-after-tax").value = "";
+	resetItemPaymentOptions();
 });
-
-function deleterow(el) {
-	// paymentOverviewItemsInOrder -= parseFloat(
-	// 	el.parentElement.previousElementSibling.textContent
-	// );
-	// // paymentOverviewTotalBeforeTax -= parseFloat(
-	// // 	el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent.replaceAll(
-	// // 		"[^0-9]",
-	// // 		""
-	// // 	)
-	// // );
-	// // paymentOverviewTaxAmount -= parseFloat(
-	// // 	el.parentElement.previousElementSibling.previousElementSibling.textContent.replaceAll(
-	// // 		"[^0-9]",
-	// // 		""
-	// // 	)
-	// // );
-	// // paymentOverviewTotalAfterTax -= parseFloat(el.parentElement.text)
-	// document.getElementById("po-items-in-order").textContent =
-	// 	paymentOverviewItemsInOrder;
-	// document.getElementById("po-total-before-tax").textContent =
-	// 	"$" +
-	// 	(Math.round(paymentOverviewTotalBeforeTax * 100) / 100).toFixed(2);
-	// document.getElementById("po-tax-amount").textContent =
-	// 	"$" + (Math.round(paymentOverviewTaxAmount * 100) / 100).toFixed(2);
-	// document.getElementById("po-total-after-tax").textContent =
-	// 	"$" + (Math.round(paymentOverviewTotalAfterTax * 100) / 100).toFixed(2);
-	// $(el).closest("tr").remove();
-}

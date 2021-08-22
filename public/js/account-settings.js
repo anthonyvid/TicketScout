@@ -1,3 +1,9 @@
+import * as helper from "./helper/helper.js";
+
+/**
+ * Scrollspy effect on account settings sidebar
+ * @returns none
+ */
 window.onload = () => {
 	const sections = document.querySelectorAll(".section");
 	const menuItems = document.querySelectorAll(".menu-item");
@@ -27,52 +33,58 @@ window.onload = () => {
 	for (let i = 0; i < sections.length; i++) observer.observe(sections[i]);
 };
 
-let totalhoursWorked = 0;
+const rgb2hex = (rgb) =>
+	`#${rgb
+		.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+		.slice(1)
+		.map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
+		.join("")}`;
+
+
+
+//////////////////////////////////
+/* ACCOUNT SETTINGS: Time Clock */
+//////////////////////////////////
 const userClockHistory = JSON.parse(
 	document.getElementById("user-clock-history").value
 );
+const tableBodyRef = document.getElementById("table_body_ref");
+const adminTableBodyRef = document.getElementById("admin_table_body_ref");
+const fromDateFilter = document.getElementById("from_date");
+const toDateFilter = document.getElementById("to_date");
+const filterDateBtn = document.getElementById("filter_dates_btn");
+const clearDateBtn = document.getElementById("reset_dates_btn");
+const hoursWorkedText = document.getElementById("hours_worked_text");
+const userClockTable = document.getElementById("user_clock_table");
+const employeeTotalCheckbox = document.getElementById(
+	"total_up_employee_hours"
+);
 
-const tbodyref = document.getElementById("tbodyref");
+let totalHoursWorked = 0;
 
-for (let i = userClockHistory.length - 1; i > -1; i--) {
-	const newRow = tbodyref.insertRow();
+// Add row to table for each of users clock in clock history
+for (const item of userClockHistory) {
+	const newRow = tableBodyRef.insertRow();
 	newRow.classList.add("table-row");
-	const td1 = newRow.insertCell();
-	let tdContent = document.createTextNode(userClockHistory[i].date);
-	td1.appendChild(tdContent);
-	const td2 = newRow.insertCell();
-	tdContent = document.createTextNode(
-		new Date(userClockHistory[i].clockInTime).toLocaleTimeString()
-	);
-	td2.appendChild(tdContent);
-	const td3 = newRow.insertCell();
-	tdContent = document.createTextNode(
-		new Date(userClockHistory[i].clockOutTime).toLocaleTimeString()
-	);
-	td3.appendChild(tdContent);
-	const td4 = newRow.insertCell();
-	tdContent = document.createTextNode(
-		Number(userClockHistory[i].hoursWorked).toFixed(5)
-	);
-	totalhoursWorked += Number(parseFloat(tdContent.wholeText));
 
-	td4.appendChild(tdContent);
+	// Date of clock
+	helper.addCellToRow(newRow, item.date);
+	// Clock In time of clock
+	helper.addCellToRow(newRow, new Date(item.clockInTime).toLocaleTimeString());
+	// Clock Out time of clock
+	helper.addCellToRow(newRow, new Date(item.clockOutTime).toLocaleTimeString());
+	// Number of Hours worked for clock
+	helper.addCellToRow(newRow, item.hoursWorked.toFixed(3));
+
+	totalHoursWorked += Number(item.hoursWorked.toFixed(3));
 }
 
-const fromDateFilter = document.getElementById("fromDate");
-const toDateFilter = document.getElementById("toDate");
+hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked}`;
 
-const filterDateBtn = document.getElementById("filter-dates-btn");
-const clearDateBtn = document.getElementById("reset-dates-btn");
-
-const hoursWorkedText = document.getElementById("hours-worked-text");
-hoursWorkedText.textContent = `Total hours worked: ${totalhoursWorked.toFixed(
-	5
-)}`;
-
+// Clear from and to date inputs, as well as hours worked for that period
 clearDateBtn.addEventListener("click", () => {
-	hoursWorkedText.textContent = `Total hours worked: ${totalhoursWorked.toFixed(
-		5
+	hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked.toFixed(
+		2
 	)}`;
 	const tableRows = document.querySelectorAll(".table-row");
 	for (const row of tableRows) {
@@ -84,14 +96,17 @@ clearDateBtn.addEventListener("click", () => {
 
 filterDateBtn.addEventListener("click", () => {
 	if (!fromDateFilter.value) {
-		showInvalidColour(fromDateFilter);
+		helper.showInvalidColour(fromDateFilter);
 		return;
 	} else if (!toDateFilter.value) {
-		showInvalidColour(toDateFilter);
+		helper.showInvalidColour(toDateFilter);
 		return;
 	}
+
 	let hoursWorkedForPeriod = 0;
 	const tableRows = document.querySelectorAll(".table-row");
+
+	// Show clocks on table for the selected period
 	for (const row of tableRows) {
 		let dateOnRow = row.firstElementChild.textContent.trim();
 		if (
@@ -106,403 +121,313 @@ filterDateBtn.addEventListener("click", () => {
 		}
 	}
 	hoursWorkedText.textContent = `Hours worked for selected period: ${hoursWorkedForPeriod.toFixed(
-		5
+		2
 	)}`;
 });
 
-const showInvalidColour = (element) => {
-	element.style.backgroundColor = "#FFCCCC";
-	setTimeout(() => {
-		element.style.backgroundColor = "#fff";
-	}, 500);
-};
-
-const employeeTotalCheckbox = document.getElementById("totalUpEmployeeHours");
-
-const showEmployeeTotals = (data, payPeriod) => {
-	const adminTBodyRed = document.getElementById("adminTBodyRed");
-
-	for (let i = 0; i < data.length; i++) {
-		const newRow = adminTBodyRed.insertRow();
-		newRow.classList.add("table-row");
-		const td1 = newRow.insertCell();
-		let tdContent = document.createTextNode(data[i][0]);
-		td1.appendChild(tdContent);
-
-		const td2 = newRow.insertCell();
-		tdContent = document.createTextNode(data[i][1].toFixed(5));
-		td2.appendChild(tdContent);
-
-		const td3 = newRow.insertCell();
-		tdContent = document.createTextNode(payPeriod);
-		td3.appendChild(tdContent);
-	}
-};
-
 employeeTotalCheckbox.addEventListener("click", () => {
 	if (!employeeTotalCheckbox.checked) {
-		document.getElementById("table").style.display = "table";
+		userClockTable.style.display = "table";
 		hoursWorkedText.style.display = "flex";
-		document.getElementById("pay-period").textContent = "";
+		document.getElementById("pay_period").textContent = "";
 		document.querySelector(".admin-table").classList.add("hide");
 		$(".admin-table tbody tr").remove();
 	} else {
+		// Employee Totals checkbox selected, validate from and to date inputs
 		if (!fromDateFilter.value) {
-			showInvalidColour(fromDateFilter);
+			helper.showInvalidColour(fromDateFilter);
 			employeeTotalCheckbox.checked = false;
 			return;
 		} else if (!toDateFilter.value) {
-			showInvalidColour(toDateFilter);
+			helper.showInvalidColour(toDateFilter);
 			employeeTotalCheckbox.checked = false;
 			return;
 		}
-		document.getElementById("table").style.display = "none";
+		userClockTable.style.display = "none";
 		hoursWorkedText.style.display = "none";
 		document.querySelector(".admin-table").classList.remove("hide");
 		(async () => {
-			try {
-				const response = await fetch(
-					"/get-employees-timeclock-history",
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							fromDate: fromDateFilter.value,
-							toDate: toDateFilter.value,
-						}),
-					}
+			const data = await helper.postReq(
+				"/get-employees-timeclock-history",
+				{
+					fromDate: fromDateFilter.value,
+					toDate: toDateFilter.value,
+				}
+			);
+			// Display each employees time clock history for selected period
+			for (let i = 0; i < data.employeesClockHistory.length; i++) {
+				const newRow = adminTableBodyRef.insertRow();
+				newRow.classList.add("table-row");
+				addCellToRow(newRow, data.employeesClockHistory[i][0]);
+				addCellToRow(
+					newRow,
+					data.employeesClockHistory[i][1].toFixed(3)
 				);
-				const data = await response.json();
-				document.getElementById("pay-period").textContent =
-					"Pay period: " + data.payPeriod;
-				showEmployeeTotals(data.employeesClockHistory, data.payPeriod);
-			} catch (error) {
-				console.log(error);
 			}
 		})();
 	}
 });
 
-const createCategoryBtn = document.getElementById("create-category");
-const removeCategoryBtn = document.getElementById("remove-category");
-const categoryInput = document.getElementById("category-input");
+////////////////////////////////
+/* ACCOUNT SETTINGS: Payments */
+////////////////////////////////
+const createCategoryBtn = document.getElementById("create_category");
+const removeCategoryBtn = document.getElementById("remove_category");
+const categoryInput = document.getElementById("category_input");
+const taxRateInput = document.getElementById("tax_rate_input");
+const primaryAddress = document.getElementById("primary_address");
+const city = document.getElementById("city");
+const province = document.getElementById("province");
+const postalCode = document.getElementById("postal_code");
+const addressInputs = document.querySelectorAll(".address-input");
 
 createCategoryBtn.addEventListener("click", () => {
+	// Show Input with animation
 	removeCategoryBtn.style.display = "none";
 	categoryInput.style.display = "flex";
 	createCategoryBtn.style.width = "25%";
 
-	if (categoryInput.value == "") {
-		showInvalidColour(categoryInput);
+	if (!categoryInput.value) {
+		helper.showInvalidColour(categoryInput);
 		return;
 	}
-
+	// send post and add category
 	(async () => {
-		try {
-			await fetch("/add-category", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					category: categoryInput.value,
-				}),
-			});
-			document.location.reload();
-			console.log("yaa");
-		} catch (error) {
-			console.log(error);
-		}
+		await helper.postReq("/add-category", {
+			category: categoryInput.value,
+		});
+		document.location.reload();
 	})();
 });
 
 removeCategoryBtn.addEventListener("click", () => {
+	// Show Input with animation
 	createCategoryBtn.style.display = "none";
 	categoryInput.style.display = "flex";
 	removeCategoryBtn.style.width = "25%";
-	if (categoryInput.value == "") {
-		showInvalidColour(categoryInput);
+
+	if (!categoryInput.value) {
+		helper.showInvalidColour(categoryInput);
 		return;
 	}
-
+	// Send post and remove category
 	(async () => {
-		try {
-			await fetch("/remove-category", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					category: categoryInput.value,
-				}),
-			});
-			document.location.reload();
-		} catch (error) {
-			console.log(error);
-		}
+		await helper.postReq("/remove-category", {
+			category: categoryInput.value,
+		});
+		document.location.reload();
 	})();
 });
 
-const taxRateInput = document.getElementById("taxRateInput");
-
-document.getElementById("taxRateBtn").addEventListener("click", () => {
-	if (taxRateInput.value == "" || !/^\d+$/.test(taxRateInput.value)) {
-		showInvalidColour(taxRateInput);
+document.getElementById("tax_rate_btn").addEventListener("click", () => {
+	if (!taxRateInput.value || !/^\d+$/.test(taxRateInput.value)) {
+		helper.showInvalidColour(taxRateInput);
 		return;
 	}
-
+	// Send post request to add new tax rate
 	(async () => {
-		try {
-			await fetch("/update-store-taxRate", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					taxRate: taxRateInput.value,
-				}),
-			});
-			document.location.reload();
-		} catch (error) {
-			console.log(error);
-		}
+		await helper.postReq("/update-store-taxRate", {
+			taxRate: taxRateInput.value,
+		});
+		document.location.reload();
 	})();
 });
-
-const primaryAddress = document.getElementById("primary-address");
-const city = document.getElementById("city");
-const province = document.getElementById("province");
-const postalCode = document.getElementById("postal-code");
-const addressInputs = document.querySelectorAll(".address-input");
 
 document
-	.getElementById("update-address-button")
+	.getElementById("update_address_button")
 	.addEventListener("click", () => {
 		for (const input of addressInputs) {
 			if (!input.value) {
-				showInvalidColour(input);
+				helper.showInvalidColour(input);
 				return;
 			}
 		}
 
+		// Send post request to update store address
 		(async () => {
-			try {
-				await fetch("/update-store-address", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						primary: primaryAddress.value,
-						city: city.value,
-						province: province.value,
-						postalCode: postalCode.value,
-					}),
-				});
-				document.location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+			await helper.postReq("/update-store-address", {
+				primary: primaryAddress.value,
+				city: city.value,
+				province: province.value,
+				postalCode: postalCode.value,
+			});
+			document.location.reload();
 		})();
 	});
 
+////////////////////////////////
+/* ACCOUNT SETTINGS: Tickets */
+////////////////////////////////
 const ticketStatuses = document.querySelectorAll(".status");
-const statusNameInput = document.getElementById("status-name-input");
-const statusColorInput = document.getElementById("status-color-input");
-const colorPreview = document.getElementById("color-preview");
+const statusNameInput = document.getElementById("status_name_input");
+const statusColorInput = document.getElementById("status_color_input");
+const colorPreview = document.getElementById("color_preview");
+const addOrUpdateStatusBtn = document.getElementById(
+	"update_ticket_status_settings"
+);
+const deleteTicketStatusBtn = document.getElementById(
+	"delete_ticket_status_settings"
+);
+const colorCopy = document.querySelectorAll(".color-copy");
+const createIssueBtn = document.getElementById("create_issue");
+const deleteIssueBtn = document.getElementById("remove_issue");
+const issueInput = document.getElementById("issue_input");
 
-const showColorPreview = (e) => {
-	colorPreview.style.backgroundColor = e.value;
-};
+// Change color of colorPreview when input is changed
+statusColorInput.addEventListener(
+	"input",
+	(e) => {
+		colorPreview.style.backgroundColor = e.target.value;
+	},
+	{ passive: true }
+);
 
+// For any status, input name and color into inputs if clicked
 for (const status of ticketStatuses) {
 	const statusColor = JSON.parse(status.lastElementChild.value);
 	const colorCircle = status.firstElementChild.nextElementSibling;
 	colorCircle.style.backgroundColor = `#${statusColor}`;
 
-	status.addEventListener("click", () => {
-		statusNameInput.value = status.firstElementChild.textContent.trim();
-		statusColorInput.value = "#" + statusColor;
-		colorPreview.style.backgroundColor = "#" + statusColor;
-	});
+	status.addEventListener(
+		"click",
+		() => {
+			statusNameInput.value = status.firstElementChild.textContent.trim();
+			statusColorInput.value = "#" + statusColor;
+			colorPreview.style.backgroundColor = "#" + statusColor;
+		},
+		{ passive: true }
+	);
 }
-
-const addOrUpdateStatusBtn = document.getElementById(
-	"update-ticket-status-settings"
-);
 
 addOrUpdateStatusBtn.addEventListener("click", () => {
 	if (!statusNameInput.value) {
-		showInvalidColour(statusNameInput);
+		helper.showInvalidColour(statusNameInput);
 		return;
 	} else if (
 		statusColorInput.value.length < 2 ||
 		!statusColorInput.value.startsWith("#")
 	) {
-		showInvalidColour(statusColorInput);
+		helper.showInvalidColour(statusColorInput);
 		return;
 	}
 	for (const status of ticketStatuses) {
+		// If a status already exists
 		if (
 			status.firstElementChild.textContent.toUpperCase().trim() ===
 			statusNameInput.value.toUpperCase()
 		) {
-			showInvalidColour(statusNameInput);
+			helper.showInvalidColour(statusNameInput);
 			return;
 		}
 	}
 
+	// Send post request to add a ticket status
 	(async () => {
-		try {
-			await fetch("/update-ticket-status-settings", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					statusName: statusNameInput.value.trim(),
-					statusColor: statusColorInput.value.trim().substring(1),
-				}),
-			});
-			document.location.reload();
-		} catch (error) {
-			console.log(error);
-		}
+		await helper.postReq("/update-ticket-status-settings", {
+			statusName: statusNameInput.value.trim(),
+			statusColor: statusColorInput.value.trim().substring(1),
+		});
+		document.location.reload();
 	})();
 });
-
-const deleteTicketStatusBtn = document.getElementById(
-	"delete-ticket-status-settings"
-);
 
 deleteTicketStatusBtn.addEventListener(
 	"click",
 	() => {
 		if (!statusNameInput.value) {
-			showInvalidColour(statusNameInput);
+			helper.showInvalidColour(statusNameInput);
 			return;
 		}
-		let statusNames = [];
+		let statusNames = []; // Contains existing statuses
 		[...ticketStatuses].forEach((item) => {
 			statusNames.push(item.textContent.trim().toUpperCase());
 		});
 
+		// If status that is being deleted doesnt exist
 		if (!statusNames.includes(statusNameInput.value.toUpperCase())) {
-			showInvalidColour(statusNameInput);
+			helper.showInvalidColour(statusNameInput);
 			return;
 		}
 
+		// Send post request to delete a ticket status
 		(async () => {
-			try {
-				await fetch("/delete-ticket-status-settings", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						statusName: statusNameInput.value.trim(),
-						statusColor: statusColorInput.value.trim().substring(1),
-					}),
-				});
-				document.location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+			await helper.postReq("/delete-ticket-status-settings", {
+				statusName: statusNameInput.value.trim(),
+				statusColor: statusColorInput.value.trim().substring(1),
+			});
+			document.location.reload();
 		})();
 	},
 	{ passive: true }
 );
 
-const rgb2hex = (rgb) =>
-	`#${rgb
-		.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
-		.slice(1)
-		.map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
-		.join("")}`;
-
-const colorCopy = document.querySelectorAll(".color-copy");
-
-for (color of colorCopy) {
+// If a color in palette is pressed, copy to clipboard
+for (const color of colorCopy) {
 	const colorRGB = window
 		.getComputedStyle(color)
 		.getPropertyValue("background-color");
-	color.addEventListener("click", async () => {
-		await navigator.clipboard.writeText(rgb2hex(colorRGB));
-	});
+	color.addEventListener(
+		"click",
+		async () => {
+			await navigator.clipboard.writeText(rgb2hex(colorRGB));
+		},
+		{ passive: true }
+	);
 }
 
-const createIssueBtn = document.getElementById("create-issue");
-const deleteIssueBtn = document.getElementById("remove-issue");
-const issueInput = document.getElementById("issue-input");
-
 createIssueBtn.addEventListener("click", () => {
+	// Show input with animation
 	deleteIssueBtn.style.display = "none";
 	issueInput.style.display = "flex";
 	createIssueBtn.style.width = "25%";
 
-	if (issueInput.value == "") {
-		showInvalidColour(issueInput);
+	if (!issueInput.value) {
+		helper.showInvalidColour(issueInput);
 		return;
 	}
-
+	// Send post request to add issue to settings
 	(async () => {
-		try {
-			await fetch("/add-issue", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					issue: issueInput.value.trim().toLowerCase(),
-				}),
-			});
-			document.location.reload();
-			console.log("yaa");
-		} catch (error) {
-			console.log(error);
-		}
+		await helper.postReq("/add-issue", {
+			issue: issueInput.value.trim().toLowerCase(),
+		});
+		document.location.reload();
 	})();
 });
 
 deleteIssueBtn.addEventListener("click", () => {
+	// Show input with animation
 	createIssueBtn.style.display = "none";
 	issueInput.style.display = "flex";
 	deleteIssueBtn.style.width = "25%";
+
 	if (issueInput.value == "") {
-		showInvalidColour(issueInput);
+		helper.showInvalidColour(issueInput);
 		return;
 	}
 
+	// Send post request to remove issue from settings
 	(async () => {
-		try {
-			await fetch("/remove-issue", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					issue: issueInput.value.trim().toLowerCase(),
-				}),
-			});
-			document.location.reload();
-		} catch (error) {
-			console.log(error);
-		}
+		await helper.postReq("/remove-issue", {
+			issue: issueInput.value.trim().toLowerCase(),
+		});
+		document.location.reload();
 	})();
 });
 
+////////////////////////////////
+/* ACCOUNT SETTINGS: Delete Data */
+////////////////////////////////
 const deleteStoreDataBtns = document.querySelectorAll(".delete-store-data");
 const confirmRemovalBtns = document.querySelectorAll(".confirm-removal");
 
 for (const btn of deleteStoreDataBtns) {
 	btn.addEventListener("click", () => {
 		if (btn.parentElement.previousElementSibling.value < 2) {
-			showInvalidColour(btn.parentElement.previousElementSibling);
+			helper.showInvalidColour(btn.parentElement.previousElementSibling);
 			return;
 		}
 
+		// Show input
 		btn.style.width = "30%";
 		btn.nextElementSibling.style.display = "flex";
 	});
@@ -511,7 +436,7 @@ for (const btn of deleteStoreDataBtns) {
 for (const btn of confirmRemovalBtns) {
 	btn.addEventListener("click", () => {
 		if (btn.parentElement.previousElementSibling.value < 2) {
-			showInvalidColour(btn.parentElement.previousElementSibling);
+			helper.showInvalidColour(btn.parentElement.previousElementSibling);
 			return;
 		}
 
@@ -523,25 +448,16 @@ for (const btn of confirmRemovalBtns) {
 			);
 
 		if (!deletionItem) {
-			showInvalidColour(btn.parentElement.previousElementSibling);
+			helper.showInvalidColour(btn.parentElement.previousElementSibling);
 			return;
 		}
 
+		// Send post request to delete data
 		(async () => {
-			try {
-				await fetch(`/delete-${url}`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						item: deletionItem,
-					}),
-				});
-				document.location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+			await helper.postReq(`/delete-${url}`, {
+				item: deletionItem,
+			});
+			document.location.reload();
 		})();
 	});
 }

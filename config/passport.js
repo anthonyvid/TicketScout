@@ -1,9 +1,13 @@
-const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
-const usersCollection = require("../db").collection("users");
-const ObjectId = require("mongodb").ObjectId;
+import {db} from "../db.js";
+import bcrypt from "bcryptjs";
+import mongodb from "mongodb";
+import passportLocal from "passport-local";
 
-module.exports = function (passport) {
+const LocalStrategy = passportLocal.Strategy;
+const ObjectId = mongodb.ObjectId;
+const usersCollection = db.collection("users");
+
+export default function (passport) {
 	passport.use(
 		new LocalStrategy(
 			{ usernameField: "email" },

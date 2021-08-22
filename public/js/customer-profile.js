@@ -1,16 +1,29 @@
-const editCustomerInfo = document.getElementById("edit-customer-info");
-const cancelChangeBtn = document.getElementById("cancel-info-change");
-const submitChangeBtn = document.getElementById("submit-info-change");
+const editCustomerInfo = document.getElementById("edit_customer_info");
+const cancelChangeBtn = document.getElementById("cancel_info_change");
+const submitChangeBtn = document.getElementById("submit_info_change");
+const createNewForm = document.getElementById("create_new_form");
+const newTicketBtn = document.querySelector(".new-ticket-btn");
+const newPaymentBtn = document.querySelector(".new-payment-btn");
+const documentBtn = document.querySelector(".document-btn");
+
+/**
+ * Prints a customer label
+ * TODO: Not yet setup
+ */
+function printCustomerLabel() {
+	//need to figure out how im gonna make it print labels
+	console.log("PRINT LABEL");
+}
 
 editCustomerInfo.addEventListener("click", () => {
 	editCustomerInfo.classList.add("hidden");
 	document.getElementById("name").classList.add("hidden");
 	document.getElementById("phone").classList.add("hidden");
 	document.getElementById("email").classList.add("hidden");
-	document.getElementById("edit-firstname-field").classList.remove("hidden");
-	document.getElementById("edit-lastname-field").classList.remove("hidden");
-	document.getElementById("edit-phone-field").classList.remove("hidden");
-	document.getElementById("edit-email-field").classList.remove("hidden");
+	document.getElementById("edit_firstname_field").classList.remove("hidden");
+	document.getElementById("edit_lastname_field").classList.remove("hidden");
+	document.getElementById("edit_phone_field").classList.remove("hidden");
+	document.getElementById("edit_email_field").classList.remove("hidden");
 	cancelChangeBtn.classList.remove("hidden");
 	submitChangeBtn.classList.remove("hidden");
 });
@@ -20,88 +33,26 @@ cancelChangeBtn.addEventListener("click", () => {
 	document.getElementById("name").classList.remove("hidden");
 	document.getElementById("phone").classList.remove("hidden");
 	document.getElementById("email").classList.remove("hidden");
-	document.getElementById("edit-firstname-field").classList.add("hidden");
-	document.getElementById("edit-lastname-field").classList.add("hidden");
-	document.getElementById("edit-phone-field").classList.add("hidden");
-	document.getElementById("edit-email-field").classList.add("hidden");
+	document.getElementById("edit_firstname_field").classList.add("hidden");
+	document.getElementById("edit_lastname_field").classList.add("hidden");
+	document.getElementById("edit_phone_field").classList.add("hidden");
+	document.getElementById("edit_email_field").classList.add("hidden");
 	cancelChangeBtn.classList.add("hidden");
 	submitChangeBtn.classList.add("hidden");
 });
 
-const ticketIDs = document.querySelectorAll(".ticketID");
-const ticketSubjects = document.querySelectorAll(".ticket_subject");
-
-for (ticket of ticketIDs) {
-	const id = ticket.firstElementChild.textContent.trim();
-	ticket.firstElementChild.href += id;
-}
-
-for (subject of ticketSubjects) {
-	const id =
-		subject.previousElementSibling.firstElementChild.textContent.trim();
-	subject.firstElementChild.href += id;
-}
-
-const createNewForm = document.getElementById("createNewForm");
-const newTicketBtn = document.querySelector(".newTicketBtn");
-
 newTicketBtn.addEventListener("click", () => {
-	document.getElementById("customerDataExists").value = "true";
+	document.getElementById("customer_data_exists").value = "true";
 	createNewForm.action = "/create-new-customer";
 	createNewForm.submit();
 });
-newTicketBtn.addEventListener("click", () => {
-	document.getElementById("customerDataExists").value = "true";
-	createNewForm.action = "/create-new-customer";
-	createNewForm.submit();
-});
-const newPaymentBtn = document.querySelector(".newPaymentBtn");
 
 newPaymentBtn.addEventListener("click", () => {
-	document.getElementById("customerDataExists").value = "true";
+	document.getElementById("customer_data_exists").value = "true";
 	createNewForm.action = "/create-new-payment";
 	createNewForm.submit();
 });
 
-const documentBtn = document.querySelector(".documentBtn");
-
 documentBtn.addEventListener("click", () => {
 	printCustomerLabel();
 });
-
-document.addEventListener("keydown", function (e) {
-	let keyCode = e.keyCode;
-	if (
-		document
-			.querySelector(".newActionDropdown")
-			.classList.contains("show-create-new-dd")
-	) {
-		if (keyCode === 27) {
-			document
-				.querySelector(".newActionDropdown")
-				.classList.toggle("show-create-new-dd");
-		}
-	}
-	if (
-		document
-			.querySelector(".documentDropdown")
-			.classList.contains("show-create-new-dd")
-	) {
-		if (keyCode === 27) {
-			document
-				.querySelector(".documentDropdown")
-				.classList.toggle("show-create-new-dd");
-		}
-	}
-});
-
-function printCustomerLabel() {
-	//need to figure out how im gonna make it print labels
-	console.log("PRINT LABEL");
-}
-
-const paymentNumbers = document.querySelectorAll(".paymentNumber");
-
-for (const number of paymentNumbers) {
-	number.href += number.textContent.trim();
-}

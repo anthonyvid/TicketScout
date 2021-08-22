@@ -1,9 +1,12 @@
-const User = require("./User");
-const storesCollection = require("../db").collection("stores");
-const usersCollection = require("../db").collection("users");
+import client from "twilio";
+import User from "./User.js";
+import { db } from "../db.js";
+
+const usersCollection = db.collection("users");
+const storesCollection = db.collection("stores");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require("twilio")(accountSid, authToken);
+client(accountSid, authToken);
 
 class Admin extends User {
 	constructor(data) {
@@ -119,4 +122,4 @@ class Admin extends User {
 	}
 }
 
-module.exports = Admin;
+export default Admin;

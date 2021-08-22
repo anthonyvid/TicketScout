@@ -1,11 +1,13 @@
 <% let email = user.email; %> 
 <% let storePaymentSettings = store.storeSettings.payments %> 
 <% let ticketSettings = store.storeSettings.tickets %> 
+<% const firstname = user.fullname.split(" ")[0].charAt(0).toUpperCase() + user.fullname.split(" ")[0].slice(1) %> 
+<% const lastname = user.fullname.split(" ")[1].charAt(0).toUpperCase() + user.fullname.split(" ")[1].slice(1) %> 
 <link
 	rel="stylesheet"
 	href="/scss/logged-in/account-settings/account-settings.css"
 />
-<script defer src="/js/account-settings.js"></script>
+<script type="module" src="/js/account-settings.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -45,12 +47,10 @@
 					<h2>Personal Info</h2>
 					<form action="update-account-info" method="POST">
 						<div>
-							<% const firstname = user.fullname.split(" ")[0].charAt(0).toUpperCase() + user.fullname.split(" ")[0].slice(1) %> 
 							<label for="">Firstname</label>
 							<input type="text" name="firstname" value="<%= firstname %>">
 						</div>
 						<div>
-							<% const lastname = user.fullname.split(" ")[1].charAt(0).toUpperCase() + user.fullname.split(" ")[1].slice(1) %> 
 							<label for="">Lastname</label>
 							<input type="text" name="lastname" value="<%= lastname %>">
 						</div>
@@ -87,20 +87,20 @@
 					<h2>Time Clock History</h2>
 					<input type="hidden" id="user-clock-history" value="<%= JSON.stringify(user.timeClock.clockHistory) %>">
 					<div class="clock-filters">
-						<p>From <input type="date" id="fromDate"></p>
-						<p>To <input type="date" id="toDate"></p>
-						<button type="button" id="filter-dates-btn">Filter</button>
-						<button type="button" id="reset-dates-btn">Reset</button>
-						<p id="hours-worked-text"> </p>
+						<p>From <input type="date" id="from_date"></p>
+						<p>To <input type="date" id="to_date"></p>
+						<button type="button" id="filter_dates_btn">Filter</button>
+						<button type="button" id="reset_dates_btn">Reset</button>
+						<p id="hours_worked_text"> </p>
 						<% if(user.admin) { %> 
 							<div class="admin-view">
 								<p>Employee Totals:</p>
-								<input type="checkbox" id="totalUpEmployeeHours">
+								<input type="checkbox" id="total_up_employee_hours">
 							</div>
-							<p id="pay-period"></p>
+							<p id="pay_period"></p>
 						<% } %> 
 					</div>
-					<table id="table">
+					<table id="user_clock_table">
 						<thead>
 							<tr>
 								<td>Date</td>
@@ -109,7 +109,7 @@
 								<td>Hours Worked</td>
 							</tr>
 						</thead>
-						<tbody id="tbodyref">
+						<tbody id="table_body_ref">
 							
 						</tbody>
 					</table>
@@ -118,10 +118,9 @@
 							<tr>
 								<td>Employee</td>
 								<td>Hours Worked</td>
-								<td>Pay Period</td>
 							</tr>
 						</thead>
-						<tbody id="adminTBodyRed">
+						<tbody id="admin_table_body_ref">
 
 						</tbody>
 					</table>
@@ -135,7 +134,7 @@
 								<div class="category-wrap">
 									<h4>Categories</h4>
 									<small>Keeps your payments organized</small>
-									<select name="categories" id="">
+									<select name="categories">
 										<% if(storePaymentSettings.categories.length == 0) {%>
 											<option hidden selected >Add your first category</option>
 										<% } else { %>
@@ -146,17 +145,17 @@
 										<% } %> 
 									</select>
 									<div>
-										<button type="button" id="create-category">Create</button>
-										<button type="button" id="remove-category">Remove</button>
-										<input type="text" id="category-input" placeholder="Category name...">
+										<button type="button" id="create_category">Create</button>
+										<button type="button" id="remove_category">Remove</button>
+										<input type="text" id="category_input" placeholder="Category name...">
 									</div>
 								</div>	
 								<div class="tax-rate-wrap">
 									<h4>Tax Rate</h4>
 									<small>Edit your store tax rate (digits only)</small>
 									<div>
-										<input type="text" name="taxRate" id="taxRateInput" value="<%= `${storePaymentSettings.taxRate}%` %>">
-										<button type="button" id="taxRateBtn">Update</button>
+										<input type="text" name="taxRate" id="tax_rate_input" value="<%= `${storePaymentSettings.taxRate}%` %>">
+										<button type="button" id="tax_rate_btn">Update</button>
 									</div>
 								</div>
 							</div>
@@ -165,7 +164,7 @@
 								<small>Shown on payments</small>
 								<div>
 									<label for="">Primary Address</label>
-									<input class="address-input" id="primary-address" type="text" value="<%=typeof storePaymentSettings.address.primary != "undefined" ? storePaymentSettings.address.primary : " " %>">
+									<input class="address-input" id="primary_address" type="text" value="<%=typeof storePaymentSettings.address.primary != "undefined" ? storePaymentSettings.address.primary : " " %>">
 								</div>
 								<div>
 									<label for="">City</label>
@@ -177,10 +176,10 @@
 								</div>
 								<div>
 									<label for="" >Postal Code</label>
-									<input class="address-input" id="postal-code" type="text" value="<%=typeof storePaymentSettings.address.postal != "undefined" ? storePaymentSettings.address.postal : " " %>">
+									<input class="address-input" id="postal_code" type="text" value="<%=typeof storePaymentSettings.address.postal != "undefined" ? storePaymentSettings.address.postal : " " %>">
 								</div>
 								<div>
-									<button id="update-address-button" type="button">Update</button>
+									<button id="update_address_button" type="button">Update</button>
 								</div>
 							</div>
 							
@@ -202,25 +201,25 @@
 										<div class="status">
 											<p><%= ticketSettings.status[i][0] %></p>
 											<div class="color"></div>
-											<input type="hidden" id="status-color" value="<%=JSON.stringify(ticketSettings.status[i][1])%>">
+											<input type="hidden" value="<%=JSON.stringify(ticketSettings.status[i][1])%>">
 										</div>	
 										<% } %> 						
 									</div>
 									<div class="add-remove-status">
 										<div>
 											<label>Name</label>
-											<input type="text" id="status-name-input">
+											<input type="text" id="status_name_input">
 										</div>
 										<div>
 											<label>Colour (hex values)</label>
 											<div>
-												<input type="text" id="status-color-input" onkeyup="showColorPreview(this)">
-												<div id="color-preview">preview<i class="fas fa-fill-drip"></i></div>
+												<input type="text" id="status_color_input">
+												<div id="color_preview">preview<i class="fas fa-fill-drip"></i></div>
 											</div>
 										</div>
 										<div class="button-wrap">
-											<button type="button" id="update-ticket-status-settings">Add</button>
-											<button type="button" id="delete-ticket-status-settings">Delete</button>
+											<button type="button" id="update_ticket_status_settings">Add</button>
+											<button type="button" id="delete_ticket_status_settings">Delete</button>
 										</div>
 										<div class="default-colors-wrap">
 											<label for="">color palette</label>
@@ -273,7 +272,7 @@
 							<div class="right-container">
 								<h4>Ticket Issue</h4>
 								<small>No default ticket issue, add some!</small>
-								<select name="issues" id="">
+								<select name="issues">
 									<% if(ticketSettings.issue.length == 0) {%>
 										<option hidden selected>Add your first issue</option>
 									<% } else { %>
@@ -284,9 +283,9 @@
 									<% } %> 
 								</select>
 								<div>
-									<button type="button" id="create-issue">Create</button>
-									<button type="button" id="remove-issue">Remove</button>
-									<input type="text" id="issue-input" placeholder="Issue name...">
+									<button type="button" id="create_issue">Create</button>
+									<button type="button" id="remove_issue">Remove</button>
+									<input type="text" id="issue_input" placeholder="Issue name...">
 								</div>
 							</div>
 						</div>

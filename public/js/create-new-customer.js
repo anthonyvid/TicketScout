@@ -1,5 +1,8 @@
-const ticketAndCustomerBtn = document.getElementById("ct");
+const ticketAndCustomerBtn = document.getElementById(
+	"create_customer_and_ticket"
+);
 
 ticketAndCustomerBtn.addEventListener("click", () => {
-	document.getElementById("customerDataExists").value = "true";
+	// Set input value to "true" string, not boolean
+	document.getElementById("customer_data_exists").value = "true";
 });

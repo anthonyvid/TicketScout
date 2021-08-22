@@ -12,17 +12,17 @@
 				</div>
 				<div class="ticket-action-container">
 					<div class="filter-container">
-						<div class="search-wrap" id="search-paymentNumber-wrap">
-							<input onkeyup="searchForPaymentNumber()" id="search-payment-number" type="text" placeholder="Search payment number...">
+						<div class="search-wrap" id="search_payment_number_wrap">
+							<input id="search_payment_number" type="text" placeholder="Search payment number...">
 						</div>
-						<div class="search-wrap" id="search-customer-wrap">
-							<input onkeyup="searchForCustomer()" id="search-customer" type="text" placeholder="Search customer phone...">
-						</div>
-						<div class="search-wrap" id="search-subject-wrap">
-							<input onkeyup="searchForAmount()" id="search-amount" type="text" placeholder="Search amount...">
+						<div class="search-wrap" id="search_customer_wrap">
+							<input id="search_customer" type="text" placeholder="Search customer phone...">
 						</div>
 						<div class="search-wrap">
-							<input onkeyup="searchForDate()" id="search-date" type="text" placeholder="Search date...">
+							<input id="search_amount" type="text" placeholder="Search amount...">
+						</div>
+						<div class="search-wrap">
+							<input id="search_date" type="text" placeholder="Search date...">
 						</div>
 					</div>
 					<div class="new-ticket-wrap">
@@ -36,7 +36,7 @@
 				<table>
 					<thead>
 						<tr>
-							<td class="ticket-id" id="paymentNumberHeader">
+							<td class="ticket-id" id="payment_number_header">
 								<a style="padding-right:7px;"> Payment #</a><i class="fas fa-sort"></i>
 							</td>
 							<td class="customer">Customer</td>
@@ -51,21 +51,21 @@
                         <% } else { %> 
 							<% for(let i=0; i<payments.length; i++) { %> 
                                 
-								<tr id="table-row">
+								<tr id="table_row">
 									<td>
-										<a class="paymentNumber" href="/payments/"><%=payments[i][0]%></a>
+										<a class="paymentNumber" href=<%=`/payments/${payments[i][0]}`%>><%=payments[i][0]%></a>
 									</td>
 									<td>
 										<% if (payments[i][1].customer.phone.length < 10 || payments[i][1].customer.phone.length > 11) { %> 
-                                            <a href="/customers/" class="phone">
+                                            <a href= <%=`/customers/${payments[i][1].customer.phone}`%> class="phone">
                                                 <%=payments[i][1].customer.phone %>
                                             </a>
                                         <% } else if (payments[i][1].customer.phone.length === 10) {%> 
-                                            <a href="/customers/" class="phone">
+                                            <a href=<%=`/customers/${payments[i][1].customer.phone}`%> class="phone">
                                                 <%=`(${payments[i][1].customer.phone.substring(0,3)})`+' '+payments[i][1].customer.phone.substring(3,6)+'-'+payments[i][1].customer.phone.substring(6,10) %>
                                             </a>
                                         <% } else if (payments[i][1].customer.phone.length === 11) {%> 
-                                            <a href="/customers/" class="phone">
+                                            <a href=<%=`/customers/${payments[i][1].customer.phone}`%> class="phone">
                                                 <%=`+${payments[i][1].customer.phone.substring(0,1)}`+' '+`(${payments[i][1].customer.phone.substring(1,4)})`+' '+payments[i][1].customers.phone.substring(4,7)+'-'+payments[i][1].customer.phone.substring(7,11)%>
                                             </a>
                                         <% } %>

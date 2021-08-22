@@ -1,19 +1,21 @@
-const ticketIDs = document.querySelectorAll(".ticket_link");
-const customers = document.querySelectorAll(".customer_link");
-const subjects = document.querySelectorAll(".subject_link");
+import * as helper from "./helper/helper.js";
+
 const lastUpdated = document.querySelectorAll(".last-update-text");
-const idSearchBox = document.getElementById("search-ID");
-const customerSearchBox = document.getElementById("search-customer");
-const subjectSearchBox = document.getElementById("search-subject");
-const statusSearchBox = document.getElementById("search-status");
-const tableRows = document.querySelectorAll("#table-row");
-const lastUpdatedHeader = document.getElementById("lastUpdatedHeader");
+const tableRows = document.querySelectorAll("#table_row");
+const statusOptions = document.querySelectorAll(".status-options");
+const issueOptions = document.querySelectorAll(".issue-options");
+const statusSelects = document.querySelectorAll(".status-selects");
+const issueSelects = document.querySelectorAll(".issue-selects");
+const idSearchBox = document.getElementById("search_ID");
+const customerSearchBox = document.getElementById("search_customer");
+const subjectSearchBox = document.getElementById("search_subject");
+const statusSearchBox = document.getElementById("search_status");
+const lastUpdatedHeader = document.getElementById("last_updated_header");
+const hideResolvedTickets = document.getElementById("hide_resolved_tickets");
 
-lastUpdatedHeader.firstElementChild.addEventListener("click", () => {
-	let tbody = $("table tbody");
-	tbody.html($("tr", tbody).get().reverse());
-});
-
+/**
+ * Will hide all tickets with status as "Resolved"
+ */
 const clearResolvedTickets = () => {
 	for (const row of tableRows) {
 		const status =
@@ -25,7 +27,11 @@ const clearResolvedTickets = () => {
 		}
 	}
 };
+clearResolvedTickets(); // Run asap
 
+/**
+ * Will show all tickets marked with status as "Resolved"
+ */
 const showResolvedTickets = () => {
 	for (const row of tableRows) {
 		const status =
@@ -38,17 +44,10 @@ const showResolvedTickets = () => {
 	}
 };
 
-const hideResolvedTickets = document.getElementById("hide-resolved-tickets");
-clearResolvedTickets();
-hideResolvedTickets.addEventListener("click", () => {
-	if (hideResolvedTickets.checked) {
-		clearResolvedTickets();
-	} else {
-		showResolvedTickets();
-	}
-});
-
-function searchForID() {
+/**
+ * Filter table by ticket IDs
+ */
+const searchForID = () => {
 	for (const row of tableRows) {
 		const id = row.firstElementChild.firstElementChild.text;
 		if (id.indexOf(idSearchBox.value) > -1) {
@@ -58,9 +57,12 @@ function searchForID() {
 			row.style.display = "none";
 		}
 	}
-}
+};
 
-function searchForCustomer() {
+/**
+ * Filter table by customer name
+ */
+const searchForCustomer = () => {
 	for (const row of tableRows) {
 		const name =
 			row.firstElementChild.nextElementSibling.firstElementChild.text;
@@ -70,13 +72,17 @@ function searchForCustomer() {
 		) {
 			row.style.display = "flex";
 			clearResolvedTickets();
+			1;
 		} else {
 			row.style.display = "none";
 		}
 	}
-}
+};
 
-function searchForSubject() {
+/**
+ * Filter table by ticket subject
+ */
+const searchForSubject = () => {
 	for (const row of tableRows) {
 		const subject =
 			row.firstElementChild.nextElementSibling.nextElementSibling
@@ -92,9 +98,12 @@ function searchForSubject() {
 			row.style.display = "none";
 		}
 	}
-}
+};
 
-function searchForStatus() {
+/**
+ * Filter table by ticket status
+ */
+const searchForStatus = () => {
 	for (const row of tableRows) {
 		const status =
 			row.firstElementChild.nextElementSibling.nextElementSibling
@@ -111,37 +120,32 @@ function searchForStatus() {
 			row.style.display = "none";
 		}
 	}
-}
+};
 
-for (const ID of ticketIDs) {
-	ID.href += ID.textContent;
-}
+// Table filters
+idSearchBox.addEventListener("input", searchForID, { passive: true });
+customerSearchBox.addEventListener("input", searchForCustomer, {
+	passive: true,
+});
+subjectSearchBox.addEventListener("input", searchForSubject, { passive: true });
+statusSearchBox.addEventListener("input", searchForStatus, { passive: true });
 
-for (const subject of subjects) {
-	const id =
-		subject.parentElement.parentElement.firstElementChild.firstElementChild
-			.textContent;
+// Hide tickets with 'Resolved' Status if checkbox checked
+hideResolvedTickets.addEventListener("click", () => {
+	if (hideResolvedTickets.checked) {
+		clearResolvedTickets();
+	} else {
+		showResolvedTickets();
+	}
+});
 
-	subject.href += id;
-}
+// Reverse table by last updated if selected
+lastUpdatedHeader.firstElementChild.addEventListener("click", () => {
+	let tbody = $("table tbody");
+	tbody.html($("tr", tbody).get().reverse());
+});
 
-for (const customer of customers) {
-	const id =
-		customer.parentElement.parentElement.firstElementChild.firstElementChild
-			.textContent;
-	(async () => {
-		const response = await fetch("/get-phone", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ id }),
-		});
-		const data = await response.json();
-		customer.href += data.phone;
-	})();
-}
-
+// Convert all last updated values from ms to readable format
 for (const element of lastUpdated) {
 	const currentTime = new Date().getTime();
 	const lastUpdateTime = Number(element.textContent);
@@ -168,15 +172,13 @@ for (const element of lastUpdated) {
 	}
 }
 
-const statusOptions = document.querySelectorAll(".status-options");
-const issueOptions = document.querySelectorAll(".issue-options");
-const statusSelects = document.querySelectorAll(".status-selects");
-
-(async () => {
+// Sets status colour after page loads
+$(window).on("load", async () => {
 	try {
 		const response = await fetch("/get-store");
 		const data = await response.json();
 		const statusArray = data.store.storeSettings.tickets.status;
+		// For each status, if selected, give it matched colour from settings
 		for (const select of statusSelects) {
 			for (let i = 0; i < statusArray.length; i++) {
 				if (select.firstElementChild.text === statusArray[i][0]) {
@@ -188,19 +190,23 @@ const statusSelects = document.querySelectorAll(".status-selects");
 	} catch (error) {
 		console.log(error);
 	}
-})();
+});
 
+// Clears empty status, helps with bugs
 for (const option of statusOptions) {
-	if (option.text.trim().length == 0) {
-		option.setAttribute("hidden", true);
-	}
-}
-for (const option of issueOptions) {
-	if (option.text.trim().length == 0) {
+	if (!option.text.trim().length) {
 		option.setAttribute("hidden", true);
 	}
 }
 
+// Clears empty issue, helps with bugs
+for (const option of issueOptions) {
+	if (!option.text.trim().length) {
+		option.setAttribute("hidden", true);
+	}
+}
+
+// If a status is changed, send post request to sort and update table, then refresh page
 for (const select of statusSelects) {
 	select.addEventListener("change", (e) => {
 		const id =
@@ -208,27 +214,20 @@ for (const select of statusSelects) {
 				.firstElementChild.textContent;
 		const selection = e.target.value;
 		const phone = document.getElementById("phone").value.replace(/\D/g, "");
-		console.log(phone);
+
+		// Post request to update ticket status for updated ticket, and also update/sort table order
 		(async () => {
-			try {
-				const response = await fetch("/update-ticket-status", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ selection, id, phone }),
-				});
-				const data = await response.json();
-				location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+			await helper.postReq("/update-ticket-status", {
+				selection,
+				id,
+				phone,
+			});
+			location.reload();
 		})();
 	});
 }
 
-const issueSelects = document.querySelectorAll(".issue-selects");
-
+// If an issue is changed, send post request to sort and update table, then refresh page
 for (const select of issueSelects) {
 	select.addEventListener("change", (e) => {
 		const id =
@@ -236,20 +235,15 @@ for (const select of issueSelects) {
 				.firstElementChild.textContent;
 		const selection = e.target.value;
 		const phone = document.getElementById("phone").value.replace(/\D/g, "");
+
+		// Post request to update ticket issue for updated ticket, and also update/sort table order
 		(async () => {
-			try {
-				const response = await fetch("/update-ticket-issue", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ selection, id, phone }),
-				});
-				const data = await response.json();
-				location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+			await helper.postReq("/update-ticket-issue", {
+				selection,
+				id,
+				phone,
+			});
+			location.reload();
 		})();
 	});
 }

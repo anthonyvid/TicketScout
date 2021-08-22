@@ -90,7 +90,7 @@
 							</thead>
 							<tbody>
 								<% for(let i=0; i<tickets.slice(0,5).length; i++) { %> 
-							<tr id="table-row">
+							<tr id="table_row">
 								<td class="ticket-id">
 									<a class="ticket_link" id="ticket" href="/tickets/"
 										><%=tickets[i][0]%></a
@@ -123,7 +123,7 @@
 							<form
 								action="/track-shipment"
 								method="POST"
-								id="trackform"
+								id="track_form"
 							>
 								<div class="input-wrap">
 									<input

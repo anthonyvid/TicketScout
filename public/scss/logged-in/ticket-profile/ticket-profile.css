@@ -99,7 +99,7 @@ a:active {
   cursor: pointer;
 }
 
-.header-wrap .actions-wrap .documentBtn {
+.header-wrap .actions-wrap .document-btn {
   width: 50px;
 }
 
@@ -453,7 +453,7 @@ a:active {
   color: #95a9c6;
 }
 
-.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #shipping-details {
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #shipping_details {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -470,7 +470,7 @@ a:active {
           align-items: center;
 }
 
-.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add-tracking-info {
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add_tracking_info {
   height: 30px;
   width: 150px;
   border-radius: 5px;
@@ -490,7 +490,7 @@ a:active {
       justify-content: space-around;
 }
 
-.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add-tracking-info:hover {
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add_tracking_info:hover {
   cursor: pointer;
 }
 

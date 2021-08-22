@@ -97,7 +97,7 @@ a:active {
           box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 
-.header-wrap .ticket-action-container .filter-container #search-customer-wrap, .header-wrap .ticket-action-container .filter-container #search-paymentNumber-wrap {
+.header-wrap .ticket-action-container .filter-container #search_customer_wrap, .header-wrap .ticket-action-container .filter-container #search_payment_number_wrap {
   width: 200px;
 }
 

@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import validator from "validator";
 import { db } from "../db.js";
 import nodemailer from "nodemailer";
-
+import client from "twilio";
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
@@ -755,19 +755,19 @@ class User {
 		const subAccountSid = store.storedata.api.twilio.sid;
 		const subAccountAuthToken = store.storedata.api.twilio.authToken;
 
-		const client = require("twilio")(subAccountSid, subAccountAuthToken);
+		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
 
 		try {
-			subAccount = await client.incomingPhoneNumbers.list({
+			subAccount = await twilioClient.incomingPhoneNumbers.list({
 				limit: 20,
 			});
 		} catch (error) {
 			console.log(error);
 		}
 
-		const msg = await client.messages
+		const msg = await twilioClient.messages
 			.create({
 				from: subAccount[0].phoneNumber,
 				body: message,

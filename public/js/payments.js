@@ -1,18 +1,15 @@
 const paymentNumbers = document.querySelectorAll(".paymentNumber");
-
-for (const number of paymentNumbers) {
-	number.href += number.textContent.trim();
-}
 const phones = document.querySelectorAll(".phone");
+const tableRows = document.querySelectorAll("#table_row");
+const paymentNumberSearchBox = document.getElementById("search_payment_number");
+const customerPhoneSearchBox = document.getElementById("search_customer");
+const amountSearchBox = document.getElementById("search_amount");
+const dateSearchBox = document.getElementById("search_date");
+const paymentNumberHeader = document.getElementById("payment_number_header");
 
-for (const phone of phones) {
-	phone.href += phone.textContent.trim().replace(/\D/g, "");
-}
-
-const tableRows = document.querySelectorAll("#table-row");
-
-const paymentNumberSearchBox = document.getElementById("search-payment-number");
-
+/**
+ * Filters payment number based on search
+ */
 function searchForPaymentNumber() {
 	for (const row of tableRows) {
 		const number = row.firstElementChild.firstElementChild.text;
@@ -24,8 +21,9 @@ function searchForPaymentNumber() {
 	}
 }
 
-const customerPhoneSearchBox = document.getElementById("search-customer");
-
+/**
+ * Filters customer phone number based on search
+ */
 function searchForCustomer() {
 	for (const row of tableRows) {
 		const number =
@@ -44,8 +42,9 @@ function searchForCustomer() {
 	}
 }
 
-const amountSearchBox = document.getElementById("search-amount");
-
+/**
+ * Filters payment amount based on search
+ */
 function searchForAmount() {
 	for (const row of tableRows) {
 		const amount =
@@ -59,14 +58,14 @@ function searchForAmount() {
 	}
 }
 
-const dateSearchBox = document.getElementById("search-date");
-
+/**
+ * Filters payment date based on search
+ */
 function searchForDate() {
 	for (const row of tableRows) {
 		const date =
 			row.firstElementChild.nextElementSibling.nextElementSibling
 				.nextElementSibling.nextElementSibling.textContent;
-		console.log(date);
 
 		if (
 			date.toUpperCase().indexOf(dateSearchBox.value.toUpperCase()) > -1
@@ -78,10 +77,27 @@ function searchForDate() {
 	}
 }
 
-const paymentNumberHeader = document.getElementById("paymentNumberHeader");
-
-paymentNumberHeader.firstElementChild.addEventListener("click", () => {
-	let tbody = $("table tbody");
-	tbody.html($("tr", tbody).get().reverse());
+paymentNumberSearchBox.addEventListener("input", searchForPaymentNumber, {
+	passive: true,
+});
+customerPhoneSearchBox.addEventListener("input", searchForCustomer, {
+	passive: true,
+});
+amountSearchBox.addEventListener("input", searchForAmount, {
+	passive: true,
+});
+dateSearchBox.addEventListener("input", searchForDate, {
+	passive: true,
 });
 
+// Reverses order of table based on payment number
+paymentNumberHeader.firstElementChild.addEventListener(
+	"click",
+	() => {
+		let tbody = $("table tbody");
+		tbody.html($("tr", tbody).get().reverse());
+	},
+	{
+		passive: true,
+	}
+);

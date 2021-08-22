@@ -6,7 +6,7 @@ const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-client(accountSid, authToken);
+const twilioClient = client(accountSid, authToken);
 
 class Admin extends User {
 	constructor(data) {
@@ -17,7 +17,7 @@ class Admin extends User {
 
 	async createTwilioSubaccount(friendlyName) {
 		//create twilio subaccount
-		return await client.api.accounts
+		return await twilioClient.api.accounts
 			.create({ friendlyName: friendlyName })
 			.then((account) => {
 				return account;

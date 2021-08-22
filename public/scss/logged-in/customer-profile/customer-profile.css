@@ -92,8 +92,8 @@ a:active {
   cursor: pointer;
 }
 
-.header-wrap .title-wrap .actions-wrap .documentBtn {
-  width: 50px;
+.header-wrap .title-wrap .actions-wrap .document-btn {
+  width: 50px !important;
 }
 
 .hidden {

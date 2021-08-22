@@ -1,14 +1,44 @@
-const statusSelects = document.querySelectorAll(".status-selects");
-const editCustomerInfo = document.getElementById("edit-customer-info");
-const cancelChangeBtn = document.getElementById("cancel-info-change");
-const submitChangeBtn = document.getElementById("submit-info-change");
-const lastUpdated = document.getElementById("last-update-text");
+import * as helper from "./helper/helper.js";
 
-(async () => {
+const statusSelects = document.querySelectorAll(".status-selects");
+const addTrackingInfo = document.querySelectorAll(".add_tracking_info");
+const issueSelects = document.querySelectorAll(".issue-selects");
+const statusOptions = document.querySelectorAll(".status-options");
+const issueOptions = document.querySelectorAll(".issue-options");
+const editCustomerInfo = document.getElementById("edit_customer_info");
+const cancelChangeBtn = document.getElementById("cancel_info_change");
+const submitChangeBtn = document.getElementById("submit_info_change");
+const lastUpdated = document.getElementById("last_update_text");
+const name = document.getElementById("name");
+const phone = document.getElementById("customer_phone");
+const email = document.getElementById("email");
+const subject = document.getElementById("subject");
+const description = document.getElementById("description");
+const editFirstnameInput = document.getElementById("edit_firstname_field");
+const editLastnameInput = document.getElementById("edit_lastname_field");
+const editPhoneInput = document.getElementById("edit_phone_field");
+const editEmailInput = document.getElementById("edit_email_field");
+const editSubjectInput = document.getElementById("edit_subject_field");
+const ticketID = document.getElementById("ticket_ID");
+const documentBtn = document.querySelector(".document-btn");
+const chatBoxTextarea = document.getElementById("chat_msg");
+const sendMsg = document.getElementById("send_msg");
+const trackingNumber = document.getElementById("tracking_number");
+const carrierSelect = document.getElementById("carrier_select");
+
+const currentTime = new Date().getTime();
+const lastUpdateTime = Number(lastUpdated.textContent.replace(/\D/g, ""));
+const timeDiffInSec = (currentTime - lastUpdateTime) / 1000;
+const timeDiffInDays = timeDiffInSec / 60 / 60 / 24;
+const timeDiffInMonths = timeDiffInDays * 30.417;
+
+// Sets status colour after page loads
+$(window).on("load", async () => {
 	try {
 		const response = await fetch("/get-store");
 		const data = await response.json();
 		const statusArray = data.store.storeSettings.tickets.status;
+		// For each status, if selected, give it matched colour from settings
 		for (const select of statusSelects) {
 			for (let i = 0; i < statusArray.length; i++) {
 				if (select.firstElementChild.text === statusArray[i][0]) {
@@ -20,141 +50,125 @@ const lastUpdated = document.getElementById("last-update-text");
 	} catch (error) {
 		console.log(error);
 	}
-})();
+});
 
-document.getElementById("name").firstElementChild.href += document
-	.getElementById("phone")
-	.firstElementChild.textContent.trim()
-	.replace(/\D/g, "");
+document.getElementById("submit_info_change").addEventListener("click", () => {
+	const description = document.getElementById("edit_description_field").value;
+	const subject = editSubjectInput.value;
+	const id = ticketID.textContent.trim().replace("#", "");
+	const customerPhone = phone.textContent.trim().replace(/\D/g, "");
 
-document.getElementById("phone").firstElementChild.href += document
-	.getElementById("phone")
-	.firstElementChild.textContent.trim()
-	.replace(/\D/g, "");
+	// Send post request to update ticket information
+	(async () => {
+		await helper.postReq("/update-ticket-info", {
+			subject,
+			description,
+			ticketID: id,
+			phone: customerPhone,
+		});
+	})();
+
+	document.getElementById("edit_customer_info_form").submit();
+});
+
+/**
+ * Prints customer label
+ * TODO: Not setup yet
+ */
+function printCustomerLabel() {
+	//need to figure out how im gonna make it print labels
+	console.log("PRINT LABEL");
+}
 
 editCustomerInfo.addEventListener("click", () => {
 	editCustomerInfo.classList.add("hidden");
-	document.getElementById("name").classList.add("hidden");
-	document.getElementById("phone").classList.add("hidden");
-	document.getElementById("email").classList.add("hidden");
-	document.getElementById("subject").classList.add("hidden");
-	document.getElementById("description").classList.add("hidden");
-	document.getElementById("edit-firstname-field").classList.remove("hidden");
-	document.getElementById("edit-lastname-field").classList.remove("hidden");
-	document.getElementById("edit-phone-field").classList.remove("hidden");
-	document.getElementById("edit-email-field").classList.remove("hidden");
-	document.getElementById("edit-subject-field").classList.remove("hidden");
-	document
-		.getElementById("edit-description-field")
-		.classList.remove("hidden");
+	name.classList.add("hidden");
+	phone.classList.add("hidden");
+	email.classList.add("hidden");
+	subject.classList.add("hidden");
+	description.classList.add("hidden");
+	editFirstnameInput.classList.remove("hidden");
+	editLastnameInput.classList.remove("hidden");
+	editPhoneInput.classList.remove("hidden");
+	editEmailInput.classList.remove("hidden");
+	editSubjectInput.classList.remove("hidden");
+	description.classList.remove("hidden");
 	cancelChangeBtn.classList.remove("hidden");
 	submitChangeBtn.classList.remove("hidden");
 });
 
 cancelChangeBtn.addEventListener("click", () => {
 	editCustomerInfo.classList.remove("hidden");
-	document.getElementById("name").classList.remove("hidden");
-	document.getElementById("phone").classList.remove("hidden");
-	document.getElementById("email").classList.remove("hidden");
-	document.getElementById("subject").classList.remove("hidden");
-	document.getElementById("description").classList.remove("hidden");
-	document.getElementById("edit-firstname-field").classList.add("hidden");
-	document.getElementById("edit-lastname-field").classList.add("hidden");
-	document.getElementById("edit-phone-field").classList.add("hidden");
-	document.getElementById("edit-email-field").classList.add("hidden");
-	document.getElementById("edit-subject-field").classList.add("hidden");
-	document.getElementById("edit-description-field").classList.add("hidden");
+	name.classList.remove("hidden");
+	phone.classList.remove("hidden");
+	email.classList.remove("hidden");
+	subject.classList.remove("hidden");
+	description.classList.remove("hidden");
+	editFirstnameInput.classList.add("hidden");
+	editLastnameInput.classList.add("hidden");
+	editPhoneInput.classList.add("hidden");
+	editEmailInput.classList.add("hidden");
+	editSubjectInput.classList.add("hidden");
+	description.classList.add("hidden");
 	cancelChangeBtn.classList.add("hidden");
 	submitChangeBtn.classList.add("hidden");
 });
 
-console.log(document.getElementById("ticketID").textContent.trim());
-
 for (const select of statusSelects) {
 	select.addEventListener("change", (e) => {
-		const id = document
-			.getElementById("ticketID")
-			.textContent.trim()
-			.replace("#", "");
+		const id = ticketID.textContent.trim().replace("#", "");
 		const selection = e.target.value;
-		const phone = document
-			.getElementById("phone")
-			.textContent.trim()
-			.replace(/\D/g, "");
-		(async () => {
-			try {
-				const response = await fetch("/update-ticket-status", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ selection, id, phone }),
-				});
-				const data = await response.json();
+		const phone = phone.textContent.trim().replace(/\D/g, "");
 
-				location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+		// Send post request to update ticket status for ticket that was changed
+		(async () => {
+			await helper.postReq("/update-ticket-status", {
+				selection,
+				id,
+				phone,
+			});
+			location.reload();
 		})();
 	});
 }
 
 document.querySelector(".new-payment-btn").addEventListener("click", () => {
-	document.getElementById("createNewPaymentForm").submit();
+	document.getElementById("create_new_payment_form").submit();
 });
-
-const issueSelects = document.querySelectorAll(".issue-selects");
 
 for (const select of issueSelects) {
 	select.addEventListener("change", (e) => {
-		const id = document
-			.getElementById("ticketID")
-			.textContent.trim()
-			.replace("#", "");
+		const id = ticketID.textContent.trim().replace("#", "");
 		const selection = e.target.value;
-		const phone = document
-			.getElementById("phone")
-			.textContent.trim()
-			.replace(/\D/g, "");
+		const phone = phone.textContent.trim().replace(/\D/g, "");
+
+		// Send post request to update ticket issue for ticket that was changed
 		(async () => {
-			try {
-				const response = await fetch("/update-ticket-issue", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ selection, id, phone }),
-				});
-				const data = await response.json();
-				location.reload();
-			} catch (error) {
-				console.log(error);
-			}
+			await helper.postReq("/update-ticket-issue", {
+				selection,
+				id,
+				phone,
+			});
+			location.reload();
 		})();
 	});
 }
 
-const statusOptions = document.querySelectorAll(".status-options");
-const issueOptions = document.querySelectorAll(".issue-options");
-
+// Clears empty status, for bugs
 for (const option of statusOptions) {
 	if (option.text.trim().length == 0) {
 		option.setAttribute("hidden", true);
 	}
 }
+
+// Clears empty issue, for bugs
 for (const option of issueOptions) {
 	if (option.text.trim().length == 0) {
 		option.setAttribute("hidden", true);
 	}
 }
 
-const currentTime = new Date().getTime();
-const lastUpdateTime = Number(lastUpdated.textContent.replace(/\D/g, ""));
-const timeDiffInSec = (currentTime - lastUpdateTime) / 1000;
-const timeDiffInDays = timeDiffInSec / 60 / 60 / 24;
-const timeDiffInMonths = timeDiffInDays * 30.417;
-
+// Calculates the last updated time for ticket
 if (timeDiffInSec < 60) {
 	lastUpdated.textContent = "Last updated: a minute ago";
 } else if (timeDiffInSec > 59 && timeDiffInSec < 3600) {
@@ -181,159 +195,69 @@ if (timeDiffInSec < 60) {
 	)} months ago`;
 }
 
-const submitForms = () => {
-	const description = document.getElementById("edit-description-field").value;
-	const subject = document.getElementById("edit-subject-field").value;
-	const ticketID = document
-		.getElementById("ticketID")
-		.textContent.trim()
-		.replace("#", "");
-	const phone = document
-		.getElementById("phone")
-		.textContent.trim()
-		.replace(/\D/g, "");
-	(async () => {
-		try {
-			const response = await fetch("/update-ticket-info", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ subject, description, ticketID, phone }),
-			});
-			const data = await response.json();
-		} catch (error) {
-			console.log(error);
-		}
-	})();
-
-	document.getElementById("editCustomerInfoForm").submit();
-};
-
-const documentBtn = document.querySelector(".documentBtn");
-
 documentBtn.addEventListener("click", () => {
 	printCustomerLabel();
 });
 
-function printCustomerLabel() {
-	//need to figure out how im gonna make it print labels
-	console.log("PRINT LABEL");
+for (const btn of addTrackingInfo) {
+	btn.addEventListener("click", () => {
+		btn.style.display = "none";
+		document.querySelector(".tracking-field").style.display = "flex";
+		document.getElementById("shipping_details").style.display = "none";
+	});
 }
 
-const linkedPayments = document.querySelectorAll(".linkedPayment");
-
-for (const payment of linkedPayments) {
-	const paymentID = payment.textContent.trim();
-	payment.href += paymentID;
-}
-
-const displayTrackingDetailsForm = () => {
-	document.getElementById("add-tracking-info").style.display = "none";
-	document.querySelector(".tracking-field").style.display = "flex";
-	document.getElementById("shipping-details").style.display = "none";
-};
-
-const confirmTrackingDetails = () => {
-	if (document.getElementById("tracking-number").value == "") {
-		document.getElementById("tracking-number").style.backgroundColor =
-			"#FFCCCC";
-		setTimeout(() => {
-			document.getElementById("tracking-number").style.backgroundColor =
-				"#fff";
-		}, 500);
-		return;
-	} else if (
-		Array.from(
-			document.getElementById("carrier-select").selectedOptions,
-			({ textContent }) => textContent
-		)[0].trim() === "Select a carrier"
-	) {
-		document.getElementById("carrier-select").style.backgroundColor =
-			"#FFCCCC";
-		setTimeout(() => {
-			document.getElementById("carrier-select").style.backgroundColor =
-				"#fff";
-		}, 500);
-		return;
-	}
-
-	const trackingNumber = document.getElementById("tracking-number").value;
-
-	const carrier = Array.from(
-		document.getElementById("carrier-select").selectedOptions,
-		({ textContent }) => textContent
-	)[0].trim();
-
-	const ticketID = document
-		.getElementById("ticketID")
-		.textContent.trim()
-		.replace("#", "");
-
-	const phone = document
-		.getElementById("phone")
-		.textContent.trim()
-		.replace(/\D/g, "");
-
-	(async () => {
-		try {
-			const response = await fetch("/update-ticket-shipping-info", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					trackingNumber,
-					carrier,
-					ticketID,
-					phone,
-				}),
-			});
-			const data = await response.json();
-		} catch (error) {
-			console.log(error);
+document
+	.getElementById("confirm_tracking_details")
+	.addEventListener("click", () => {
+		// Validate tracking details
+		if (!trackingNumber.value) {
+			helper.showInvalidColour(trackingNumber);
+			return;
+		} else if (
+			helper.getSelectTagCurrentValue(carrierSelect) ===
+			"Select a carrier"
+		) {
+			helper.showInvalidColour(carrierSelect);
+			return;
 		}
-	})();
-	location.reload();
-};
 
-const chatBoxTextarea = document.getElementById("chat-msg");
-const sendMsg = document.getElementById("send-msg");
+		const carrier = helper.getSelectTagCurrentValue(carrierSelect);
+		const id = ticketID.textContent.trim().replace("#", "");
+		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
+
+		// Send post request to update tracking details
+		(async () => {
+			await helper.postReq("/update-ticket-shipping-info", {
+				trackingNumber: trackingNumber.value,
+				carrier,
+				ticketID: id,
+				phone: customerPhone,
+			});
+		})();
+		location.reload();
+	});
 
 sendMsg.addEventListener("click", () => {
-	if (chatBoxTextarea.value == "") {
-		chatBoxTextarea.style.backgroundColor = "#FFCCCC";
-		setTimeout(() => {
-			chatBoxTextarea.style.backgroundColor = "#fff";
-		}, 500);
+	if (!chatBoxTextarea.value) {
+		helper.showInvalidColour(chatBoxTextarea);
 		return;
 	}
 
-	console.log("yaa");
-
 	const message = chatBoxTextarea.value.trim();
-	const toPhone = document
-		.getElementById("phone")
-		.textContent.trim()
-		.replace(/\D/g, "");
-	const ticketID = document
-		.getElementById("ticketID")
-		.textContent.trim()
-		.replace("#", "");
+	const toPhone = phone.textContent.trim().replace(/\D/g, "");
+	const id = ticketID.textContent.trim().replace("#", "");
+
+	// Send post request when message sent to customer
 	(async () => {
 		try {
-			const response = await fetch("/send-sms", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					message,
-					toPhone,
-					ticketID,
-				}),
+			const data = await helper.postReq("/send-sms", {
+				message,
+				toPhone,
+				ticketID: id,
 			});
-			const data = await response.json();
+
+			// Add message text to chatbox
 			const messageBox = document.createElement("div");
 			messageBox.classList.add("message-box");
 			const messageText = document.createElement("p");

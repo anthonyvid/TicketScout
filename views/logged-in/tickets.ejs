@@ -11,20 +11,20 @@
 				<div class="ticket-action-container">
 					<div class="filter-container">
 						<div class="search-wrap">
-							<input onkeyup="searchForID()" id="search-ID" type="text" placeholder="Search ticket ID...">
+							<input id="search_ID" type="text" placeholder="Search ticket ID...">
 						</div>
-						<div class="search-wrap" id="search-customer-wrap">
-							<input onkeyup="searchForCustomer()" id="search-customer" type="text" placeholder="Search customer name...">
+						<div class="search-wrap" id="search_customer_wrap">
+							<input id="search_customer" type="text" placeholder="Search customer name...">
 						</div>
-						<div class="search-wrap" id="search-subject-wrap">
-							<input onkeyup="searchForSubject()" id="search-subject" type="text" placeholder="Search subject...">
+						<div class="search-wrap" id="search_subject_wrap">
+							<input id="search_subject" type="text" placeholder="Search subject...">
 						</div>
 						<div class="search-wrap">
-							<input onkeyup="searchForStatus()" id="search-status" type="text" placeholder="Search status...">
+							<input id="search_status" type="text" placeholder="Search status...">
 						</div>
 						<div class="checkbox-wrap">
 							<p>Hide resolved tickets</p>
-							<input id="hide-resolved-tickets" type="checkbox" checked>
+							<input id="hide_resolved_tickets" type="checkbox" checked>
 						</div>
 					</div>
 					<div class="new-ticket-wrap">
@@ -42,7 +42,7 @@
 							<td class="customer">Customer</td>
 							<td class="subject">Subject</td>
 							<td class="status">Status</td>
-							<td class="last-update" id="lastUpdatedHeader">
+							<td class="last-update" id="last_updated_header">
 								<a>Last Updated   </a><i class="fas fa-sort"></i>
 							</td>
 							<td class="issue">Issue</td>
@@ -53,26 +53,26 @@
                             <tr><td style="margin-left: 2rem;">No Tickets</td></tr>
                         <% } else { %> 
 							<% for(let i=0; i<tickets.length; i++) { %> 
-								<input type="hidden" id="phone" value="<%= tickets[i][1].customer.phone %>">								
-								<tr id="table-row">
+								<input type="hidden" id="phone" value=<%= `${tickets[i][1].customer.phone}` %>>
+								<tr id="table_row">
 									<td class="ticket-id">
-										<a class="ticket_link" id="ticket" href="/tickets/"
+										<a id="ticket" href=<%=`/tickets/${tickets[i][0]}`%>
 											><%=tickets[i][0]%></a
 										>
 									</td>
 									<td class="customer">
-										<a href="/customers/" class="customer_link"
-											><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
+										<a href=<%=`/customers/${tickets[i][1].customer.phone}`%>>
+											<%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
 										>
 									</td>
 									<td class="subject">
-										<a class="subject_link" href="/tickets/"
+										<a class="subject_link" href=<%=`/tickets/${tickets[i][0]}`%>
 											> <%= tickets[i][1].subject %> </a
 										>
 									</td>
 									<td class="status">
 										<div>
-											<i id="icon-color" class="fas fa-circle"></i>
+											<i id="icon_color" class="fas fa-circle"></i>
 											<select name="status" class="status-selects" id="status">
 												<option selected="selected" class="selected-option">
 														<%= tickets[i][1].status %>

@@ -1,4 +1,4 @@
-const documentBtn = document.querySelector(".documentBtn");
+const documentBtn = document.querySelector(".document-btn");
 
 documentBtn.addEventListener("click", () => {
 	printCustomerLabel();

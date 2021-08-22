@@ -10,7 +10,7 @@
 <% const linkedPayments = Object.keys(ticket.payments) %> 
 <link rel="stylesheet" href="/scss/logged-in/ticket-profile/ticket-profile.css" />
 <link rel="stylesheet" href="/scss/logged-in/layout/layout.css" />
-<script type="module" defer src="/js/ticket-profile.js"></script>
+<script type="module" src="/js/ticket-profile.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -18,7 +18,7 @@
 			<div class="header-wrap">
 				<div class="title-wrap">
 					<div>
-						<h1 id="ticketID"><%=`#${ticketID}`%></h1>
+						<h1 id="ticket_ID"><%=`#${ticketID}`%></h1>
 						<h3>
 							<%= ticket.subject%>
 						</h3>
@@ -26,7 +26,7 @@
 				</div>
 				<div class="actions-wrap">
 					<div class="new-payment-btn action-style">new payment</div>
-					<div class="documentBtn action-style">
+					<div class="document-btn action-style">
 						<i class="fas fa-file-pdf"></i>
 					</div>
 				</div>
@@ -49,10 +49,10 @@
 						</div>
 						<div class="chat-send-wrap">
 							<div class="chat-send-content">
-								<textarea name="chatMsg" id="chat-msg" cols="30" rows="10" placeholder="Write a message..."></textarea>
+								<textarea name="chatMsg" id="chat_msg" cols="30" rows="10" placeholder="Write a message..."></textarea>
 								<div>
 									<div class="canned-messages"></div>
-									<button type="button" id="send-msg"><i class="fas fa-paper-plane"></i>Send</button>
+									<button type="button" id="send_msg"><i class="fas fa-paper-plane"></i>Send</button>
 								</div>
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 				<div class="right-container">
 					<div class="heading">
 						<h2><%= `Ticket #${ticketID}`%></h2>
-						<span id="edit-customer-info"
+						<span id="edit_customer_info"
 							><i class="fas fa-edit"></i
 						></span>
 					</div>
@@ -81,7 +81,7 @@
 							src="/assets/hourglass.svg"
 							width="40px"
 							/>
-							<p id="last-update-text">
+							<p id="last_update_text">
 								<%=`Last Updated ${ticket.lastUpdated}`%>
 							</p>
 						</div>
@@ -96,9 +96,8 @@
 								<p id="subject"> <%= ticket.subject %></p>
 								<input
 									name="newSubject"
-									form=""
 									class="hidden edit-field"
-									id="edit-subject-field"
+									id="edit_subject_field"
 									type="text"
 									value="<%= ticket.subject %>"
 								/>
@@ -114,9 +113,8 @@
 								<p id="description"><%= ticket.description %></p>
 								<input
 									name="newDescription"
-									form=""
 									class="hidden edit-field"
-									id="edit-description-field"
+									id="edit_description_field"
 									type="text"
 									value="<%= ticket.description %>"
 								/>
@@ -130,7 +128,7 @@
 						<div class="info-wrap">
 							<div class="status-of-ticket">
 								<div>
-									<i id="icon-color" class="fas fa-circle"></i>
+									<i id="icon_color" class="fas fa-circle"></i>
 									<select name="status" class="status-selects" id="status">
 										<option selected="selected" class="selected-option">
 												<%= ticket.status %>
@@ -172,26 +170,26 @@
 						<div class="info-wrap">
 							<div class="item-style">
 								<span><i class="fas fa-user"></i></span>
-								<p id="name"><a href="/customers/"><%=fullname%></a></p>
+								<p id="name"><a href=<%=`/customers/${ticket.customer.phone}`%>><%=fullname%></a></p>
 								<div>
-									<input name="newFirstname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-firstname-field" type="text" value="<%= ticket.customer.firstname %> ">
-									<input name="newLastname" form="editCustomerInfoForm" class="hidden edit-field" id="edit-lastname-field" type="text" value="<%= ticket.customer.lastname %> ">
+									<input name="newFirstname" form="edit_customer_info_form" class="hidden edit-field" id="edit_firstname_field" type="text" value="<%= ticket.customer.firstname %> ">
+									<input name="newLastname" form="edit_customer_info_form" class="hidden edit-field" id="edit_lastname_field" type="text" value="<%= ticket.customer.lastname %> ">
 								</div>
 							</div>
 							<div class="item-style">
 								<span><i class="fas fa-phone-alt"></i></span>
-								<p id="phone"><a href="/customers/"><%=phone%></a></p>
+								<p id="customer_phone"><a href=<%=`/customers/${ticket.customer.phone}`%>><%=phone%></a></p>
 								<input
 									name="oldPhone"
-									form="editCustomerInfoForm"
+									form="edit_customer_info_form"
 									type="hidden"
 									value="<%= phone %>"
 								/>
 								<input
 									name="newPhone"
-									form="editCustomerInfoForm"
+									form="edit_customer_info_form"
 									class="hidden edit-field"
-									id="edit-phone-field"
+									id="edit_phone_field"
 									type="text"
 									value="<%= ticket.customer.phone %>"
 								/>
@@ -201,9 +199,9 @@
 								<p id="email"><%= ticket.customer.email.length === 0 ? "No Email" : ticket.customer.email%></p>
 								<input
 									name="newEmail"
-									form="editCustomerInfoForm"
+									form="edit_customer_info_form"
 									class="hidden edit-field"
-									id="edit-email-field"
+									id="edit_email_field"
 									type="email"
 									value="<%= ticket.customer.email.length === 0 ? "" : ticket.customer.email %>"
 								/>
@@ -219,7 +217,7 @@
 							<div class="item-style">
 								<% for(let i=0; i<linkedPayments.length; i++) { %>
 									<span><i class="fas fa-credit-card"></i></span>
-									<a href="/payments/" class="linkedPayment"><%= linkedPayments.length !== 0 ? linkedPayments[i] : "No payment linked"%></a>
+									<a href=<%=`/payments/${linkedPayments[i]}`%> class="linked-payment"><%= linkedPayments.length !== 0 ? linkedPayments[i] : "No payment linked"%></a>
 								<% } %> 
 							</div>
 						</div>
@@ -233,11 +231,11 @@
 								<div class="tracking-field">
 									<div>
 										<label for="trackingNumber">Tracking #</label>
-										<input type="text" name="trackingNumber" id="tracking-number">
+										<input type="text" name="trackingNumber" id="tracking_number">
 									</div>
 									<div>
 										<label for="carrier">Carrier Name</label>
-										<select name="carrier-select" id="carrier-select">
+										<select name="carrier-select" id="carrier_select">
 											<option value="Select a carrier" selected hidden>Select a carrier</option>
 											<option value="fedex">FedEx</option>
 											<option value="ups">UPS</option>
@@ -250,17 +248,17 @@
 											<option value="russian_post">Russian Post</option>
 										</select>
 									</div>
-									<button type="button" id="confirm-tracking-details" onclick="confirmTrackingDetails()">Confirm</button>
+									<button type="button" id="confirm_tracking_details">Confirm</button>
 								</div>
 								<% if(ticket.shipping.tracking.length == 0) { %> 
-									<button id="add-tracking-info" type="button" onclick="displayTrackingDetailsForm()">Add tracking info</button>
+									<button class="add_tracking_info" type="button">Add tracking info</button>
 								<% } else {%> 
-									<div id="shipping-details">
+									<div id="shipping_details">
 										<span><i class="fas fa-hashtag"></i></span>
 										<p><%= ticket.shipping.tracking %></p>
 										<span><i class="fas fa-shipping-fast"></i></span>
 										<p><%= ticket.shipping.carrier %></p>
-										<button id="add-tracking-info" type="button" onclick="displayTrackingDetailsForm()">edit</button>
+										<button class="add_tracking_info" type="button">edit</button>
 									</div>
 								<% } %> 
 							</div>
@@ -269,21 +267,20 @@
 
 					
 					<div class="edit-info-btn-wrap">
-						<button class="hidden" id="cancel-info-change" type>
+						<button class="hidden" id="cancel_info_change" type>
 							Cancel
 						</button>
 						<form
-							id="editCustomerInfoForm"
+							id="edit_customer_info_form"
 							action="/update-customer-contact-info"
 							method="POST"
 						>
-							<input form="editCustomerInfoForm" type="hidden" name="sentFrom" value="<%= `ticket${ticketID}` %>">
+							<input form="edit_customer_info_form" type="hidden" name="sentFrom" value="<%= `ticket${ticketID}` %>">
 						</form>
 						<button
 								class="hidden"
-								id="submit-info-change"
+								id="submit_info_change"
 								type="button"
-								onclick="submitForms()"
 							>
 								Confirm Changes
 						</button>
@@ -291,13 +288,13 @@
 				</div>
 			</div>
 		</div>
-		<form action="/create-new-payment" method="POST" id="createNewPaymentForm">
+		<form action="/create-new-payment" method="POST" id="create_new_payment_form">
 			<input type="hidden" name="firstname" id="firstname" value="<%=ticket.customer.firstname%>">			
 			<input type="hidden" name="lastname" id="lastname" value="<%=ticket.customer.lastname%>">			
 			<input type="hidden" name="phone" id="phone" value="<%=ticket.customer.phone%>">			
 			<input type="hidden" name="email" id="email" value="<%=ticket.customer.email%>">			
-			<input type="hidden" name="linkedTicket" id="linkedTicket" value="<%=ticketID%>">			
-			<input type="hidden" name="customerDataExists" id="customerDataExists" value="true">			
+			<input type="hidden" name="linkedTicket" id="linked_ticket" value="<%=ticketID%>">			
+			<input type="hidden" name="customerDataExists" id="customer_data_exists" value="true">			
 		</form>
 		
 	</main>

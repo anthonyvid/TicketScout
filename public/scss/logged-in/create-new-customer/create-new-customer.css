@@ -126,7 +126,7 @@
 
 .new-customer-container .content-container form .info-container .buttons-wrap button {
   height: 50px;
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   border-radius: 5px;
   border: 0;
   background-color: black;
@@ -147,7 +147,7 @@
   transition: 0.3s ease-in-out;
 }
 
-.new-customer-container .content-container form .info-container .buttons-wrap #ct {
+.new-customer-container .content-container form .info-container .buttons-wrap button:first-child {
   background-color: #5bb0ff;
 }
 

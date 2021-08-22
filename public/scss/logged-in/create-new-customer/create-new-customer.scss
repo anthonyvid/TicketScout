@@ -108,7 +108,7 @@ $bluetext: #0d2238;
 
 					button {
 						height: 50px;
-						padding: 5px;
+						padding: 5px 10px 5px 10px;
 						border-radius: 5px;
 						border: 0;
 						background-color: black;
@@ -123,10 +123,10 @@ $bluetext: #0d2238;
 							transform: scale(1.05);
 							transition: 0.3s ease-in-out;
 						}
-					}
 
-					#ct {
-						background-color: #5bb0ff;
+						&:first-child {
+							background-color: #5bb0ff;
+						}
 					}
 				}
 			}

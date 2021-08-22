@@ -63,18 +63,6 @@ const paymentBtnTransition = () => {
 };
 
 /**
- * Given a select element, find the current value
- * @param {element} element to get value from
- * @returns currently selected value
- */
-const getSelectTagCurrentValue = (element) => {
-	return Array.from(
-		element.selectedOptions,
-		({ textContent }) => textContent
-	)[0].trim();
-};
-
-/**
  * Validates a single order item
  * @returns true if valid, false if not
  */
@@ -264,7 +252,7 @@ completePaymentBtn.addEventListener("click", () => {
 });
 
 taxOption.addEventListener("input", () => {
-	if (getSelectTagCurrentValue(taxOption) === "No") {
+	if (helper.getSelectTagCurrentValue(taxOption) === "No") {
 		taxPercent.value = "0%";
 		calculateItemAmount();
 	} else {
@@ -289,7 +277,9 @@ addToOrderBtn.addEventListener("click", () => {
 	const taxDollarValue = Number(taxDollar.value);
 	const totalAfterTax = Number(itemTotalAfterTax.value);
 
-	let categoryText = getSelectTagCurrentValue(categorySelect);
+	let categoryText = helper.getSelectTagCurrentValue(
+		document.getElementById("category_select")
+	);
 
 	if (categoryText === "Choose Category") {
 		categoryText = "No Category";

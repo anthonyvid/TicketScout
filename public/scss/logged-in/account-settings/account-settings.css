@@ -688,7 +688,7 @@
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
-.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .button-wrap #delete-ticket-status-settings {
+.account-settings-container .section-content #tickets .ticket-settings .left-container .statuses-wrap .add-remove-status .button-wrap #delete_ticket_status_settings {
   background-color: lightcoral;
   color: white;
 }

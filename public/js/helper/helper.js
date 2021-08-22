@@ -31,3 +31,15 @@ export const addCellToRow = (row, cellData) => {
 	const content = document.createTextNode(cellData);
 	tableData.appendChild(content);
 };
+
+/**
+ * Given a select element, find the current value
+ * @param {element} element to get value from
+ * @returns currently selected value
+ */
+export const getSelectTagCurrentValue = (element) => {
+	return Array.from(
+		element.selectedOptions,
+		({ textContent }) => textContent
+	)[0].trim();
+};

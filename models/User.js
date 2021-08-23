@@ -695,11 +695,13 @@ class User {
 
 	async trackShipment(ticketID, storename) {
 		const store = await storesCollection.findOne({ storename: storename });
+		const storeTickets = store.storedata.tickets;
 
-		if (!Object.keys(store.storedata.tickets).includes(ticketID))
+		if (!Object.keys(storeTickets).includes(ticketID))
 			return { tracking_error: "Tracking Info Invalid" };
 
-		console.log("valid");
+		if (!storeTickets[ticketID].shipping.tracking.length)
+			return { tracking_error: "Tracking Info Invalid" };
 
 		const { tracking, carrier } =
 			store.storedata.tickets[ticketID].shipping;
@@ -721,13 +723,12 @@ class User {
 
 		// //TODO: when JSON OBJECT IS DONE THEN WE CAN GET MOST RECENT ADDRESS AND USE FOR GEOLOCATOPN API
 
-		// //TODO: Return any required information needed, for now just everything
 		return {
 			from: json.address_from,
 			to: json.address_to,
 			eta: json.eta,
 			status: json.tracking_status.status,
-			location: json.tracking_history.location,
+			location: json.tracking_history[0].location,
 		};
 	}
 
@@ -1245,17 +1246,6 @@ class User {
 				clockHistory: [],
 			},
 		};
-
-		//TODO:DO I even need employees array??
-		// //add user into stores collection under the store they signed up for
-		// storesCollection.updateOne(
-		// 	{ signUpCode: this.data.signUpCode },
-		// 	{
-		// 		$push: {
-		// 			employees: employee,
-		// 		},
-		// 	}
-		// );
 
 		//add user into users collection
 		usersCollection.insertOne(employee);

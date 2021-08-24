@@ -187,7 +187,7 @@ for (const btn of clockBtns) {
 				})();
 			} else {
 				(async () => {
-					await helperpostReq("/clock-out", {
+					await helper.postReq("/clock-out", {
 						clockOutTime: Date.now(),
 					});
 					location.reload();

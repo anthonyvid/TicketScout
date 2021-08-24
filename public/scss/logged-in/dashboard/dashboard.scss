@@ -99,7 +99,7 @@ input:focus {
 	h1 {
 		color: #000;
 		margin-bottom: 5px;
-		font-family: "Inter";
+		// font-family: "Fira Sans" !important;
 		font-weight: 600;
 	}
 
@@ -162,14 +162,14 @@ input:focus {
 				gap: 7px;
 
 				p {
-					font-family: "Inter";
+					// font-family: "Inter";
 					font-size: 14px;
 					font-weight: 600;
 					color: rgba($swatch_5, 0.7);
 				}
 
 				h4 {
-					font-family: "Inter";
+					// font-family: "Inter";
 					font-size: 26px;
 					font-weight: 700;
 				}
@@ -231,7 +231,7 @@ input:focus {
 			}
 
 			table {
-				font-family: "Inter";
+				// font-family: "Inter";
 				border-collapse: collapse;
 				width: 100%;
 				height: 100%;
@@ -329,10 +329,7 @@ input:focus {
 			width: 100%;
 			border-top-left-radius: 10px;
 			border-top-right-radius: 10px;
-			background-image: url("https://st4.depositphotos.com/31006582/39493/v/380/depositphotos_394936532-stock-illustration-lodz-city-map-poster-map.jpg");
-			// background-size: 100% 100%;
-			// background: url("https://svgshare.com/s/_Sp") no-repeat center
-			// center fixed;
+			background-image: url("https://img.freepik.com/free-vector/city-map-background-blue-tone_99087-101.jpg?size=626&ext=jpg");
 		}
 
 		.tracking-settings {
@@ -362,6 +359,7 @@ input:focus {
 
 					input {
 						width: 75%;
+						height: 50px;
 						border-radius: 5px;
 						border-top-right-radius: 0;
 						border-bottom-right-radius: 0;
@@ -389,8 +387,21 @@ input:focus {
 					flex-direction: column;
 					height: 100%;
 					width: 100%;
-					// border: 1px solid red;
-					// border: 2px solid $swatch_1;
+					padding: 0 50px 0 50px;
+					gap: 15px;
+
+					.text-wrap {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-between;
+
+						p:first-child {
+							text-transform: uppercase;
+							font-weight: 600;
+							color: $swatch_5;
+						}
+					}
 				}
 			}
 		}

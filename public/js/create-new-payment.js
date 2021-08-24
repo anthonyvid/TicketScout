@@ -249,7 +249,7 @@ completePaymentBtn.addEventListener(
 		const form = createForm("POST", "/create-new-payment");
 		createInputForForm(form, "input", "customer", JSON.stringify(customer));
 		createInputForForm(form, "input", "order", JSON.stringify(orderItems));
-		createInputForForm(form, "input", "payment", paymentType);
+		createInputForForm(form, "input", "paymentMethod", paymentType);
 		createInputForForm(
 			form,
 			"input",

@@ -544,6 +544,7 @@ export const createNewCustomer = async function (req, res) {
 };
 
 export const createNewPayment = async function (req, res) {
+	console.log(req.body);
 	const user = new User();
 
 	if (req.body.customerDataExists == "true") {

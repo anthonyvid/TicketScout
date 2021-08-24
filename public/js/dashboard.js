@@ -69,11 +69,10 @@ const showTrackingDetails = async (trackingObj) => {
 
 	await getLatLngByZipcode(location.zip);
 
-	document.getElementById("status").textContent += status;
-	document.getElementById("from").textContent += from;
-	document.getElementById("to").textContent += to.city;
-	document.getElementById("location").textContent += location.city;
-	document.getElementById("eta").textContent += eta;
+	document.getElementById("status_text").textContent = status;
+	document.getElementById("location_text").textContent = location.city;
+	document.getElementById("eta_text").textContent = eta;
+	document.getElementById("from_text").textContent = to.city;
 };
 
 ticketIDInput.addEventListener("click", () => {

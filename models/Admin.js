@@ -56,9 +56,12 @@ class Admin extends User {
 			twilioAccount = await this.createTwilioSubaccount(
 				this.data.storename
 			);
+			
 		} catch (error) {
 			console.log(error);
 		}
+
+
 
 		console.log(twilioAccount);
 

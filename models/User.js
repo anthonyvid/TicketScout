@@ -13,9 +13,14 @@ class User {
 		this.errors = {};
 	}
 
-	hashPrivateInfo(info) {
+	/**
+	 * Given a string, function will hash it using bcrypt
+	 * @param {string} str
+	 * @returns hashed data
+	 */
+	hashPrivateInfo(str) {
 		let salt = bcrypt.genSaltSync(10);
-		const hashedData = bcrypt.hashSync(info, salt);
+		const hashedData = bcrypt.hashSync(str, salt);
 		return hashedData;
 	}
 
@@ -37,14 +42,20 @@ class User {
 		});
 	}
 
+	/**
+	 * Updates an accounts contact information
+	 * @param {string} oldEmail the users old email address
+	 * @param {Object} newInfo object containing the new info
+	 * @returns
+	 */
 	async updateAccountInfo(oldEmail, newInfo) {
-		console.log(newInfo);
 		let { firstname, lastname, email } = newInfo;
 
-		//validate email
+		// Validate email
 		if (!validator.isEmail(email))
 			return { emailError: "Not a valid email" };
 
+		// Validate name
 		if (firstname.length == 0 || lastname.length == 0)
 			return { emailError: "Invalid firstname or lastname" };
 
@@ -55,7 +66,7 @@ class User {
 
 		email = email.trim().toLowerCase();
 
-		//update db
+		// Update users name and email in database
 		await usersCollection.updateOne(
 			{ email: oldEmail },
 			{
@@ -69,11 +80,18 @@ class User {
 		return {};
 	}
 
+	/**
+	 * Function will find the total tickets marked with the given status
+	 * @param {string} storename name of store
+	 * @param {string} status name of status to search for
+	 * @returns total of all tickets with given status for the store
+	 */
 	async getTotalTicketsForStatus(storename, status) {
 		const store = await storesCollection.findOne({ storename: storename });
 		const storeTickets = Object.values(store.storedata.tickets);
 		let total = 0;
 
+		// For reach ticket in the store if it has the given status tally it
 		storeTickets.forEach((item) => {
 			if (item.status === status) total++;
 		});
@@ -81,52 +99,59 @@ class User {
 		return total;
 	}
 
+	/**
+	 * Function will search database for the stores payment settings
+	 * @param {string} storename name of store
+	 * @returns the payment settings of the store
+	 */
 	async getPaymentSettings(storename) {
 		const store = await storesCollection.findOne({ storename: storename });
 		return store.storeSettings.payments;
 	}
 
+	/**
+	 * Given a storename will search and get store from database
+	 * @param {string} storename store to get
+	 * @returns object of store from database
+	 */
+	async getStore(storename) {
+		return await storesCollection.findOne({ storename: storename });
+	}
+
+	/**
+	 * Will get the largest number in the array,
+	 * if array is empty will return the given start number
+	 * @param {array} array an array of numbers
+	 * @param {number} start number returned if array is empty
+	 * @returns largest number in array, or start number if array is empty
+	 */
+	getLargestNum(array, start) {
+		if (!array.length) return start;
+		return Math.max(...array.map((i) => parseInt(i)));
+	}
+
 	async createNewpayment(formData, storename) {
 		const customer = JSON.parse(formData.customer);
 		const order = JSON.parse(formData.order);
-		const paymentMethod = formData.payment;
-		const orderTotal = formData.orderTotal;
-		const linkedTicket = formData.linkedTicket;
+		const { paymentMethod, orderTotal, linkedTicket } = formData;
+		const store = await this.getStore(storename);
+		const storeCustomers = store.storedata.customers;
+		const storePayments = store.storedata.payments;
 
 		console.log(linkedTicket);
 
-		const store = await storesCollection.findOne({ storename: storename });
-
-		//if there is a number validate it
-		if (customer.phone.length > 0) {
+		// If phone present, validate it
+		if (customer.phone.length) {
 			if (!this.isValidPhone(customer.phone))
 				return { phoneError: "Invalid Phone Number" };
-
 			//see if that number is in store
-			if (
-				!Object.keys(store.storedata.customers).includes(
-					customer.phone.trim()
-				)
-			)
+			if (!Object.keys(storeCustomers).includes(customer.phone.trim()))
 				return { phoneError: "Phone number not registered" };
 		}
 
-		let mostRecentPaymentID;
-
-		//see if any previous payments are in store, if not start at 99
-		if (Object.keys(store.storedata.payments).length == 0) {
-			mostRecentPaymentID = 99;
-		} else {
-			//gert most recent number
-			mostRecentPaymentID =
-				Math.max(
-					...Object.keys(store.storedata.payments).map((i) =>
-						parseInt(i)
-					)
-				) + 1;
-		}
-
-		console.log(mostRecentPaymentID);
+		// Get most recent payment number, increment by 1 to keep order
+		const mostRecentPaymentID =
+			this.getLargestNum(Object.keys(storePayments), 99) + 1;
 
 		const payment = {
 			customer: {
@@ -143,8 +168,7 @@ class User {
 			date: new Date().toDateString(),
 		};
 
-		if (customer.phone.length > 0) {
-			console.log("yaa");
+		if (customer.phone.length) {
 			await storesCollection.updateOne(
 				{ storename: storename },
 				{
@@ -158,7 +182,6 @@ class User {
 		}
 
 		if (linkedTicket.length > 3) {
-			console.log("yada");
 			await storesCollection.updateOne(
 				{ storename: storename },
 				{
@@ -180,12 +203,11 @@ class User {
 			}
 		);
 
-		console.log("wow");
 		return {};
 	}
 
 	async liveSearchResults(storename, search) {
-		const store = await storesCollection.findOne({ storename: storename });
+		const store = this.getStore(Storename);
 
 		search = search.trim();
 

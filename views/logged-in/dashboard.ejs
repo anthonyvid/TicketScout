@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/scss/logged-in/dashboard/dashboard.css" />
-<script defer type="module" src="/js/dashboard.js"></script>
+<script type="module" src="/js/dashboard.js"></script>
 <body>
 	<div class="main-content">
 		<main>
@@ -117,7 +117,9 @@
 					<div class="changeMyName-layout">1</div>
 				</div>
 				<div class="cards-master-right">
-					<div class="map-layout" id="map"></div>
+					<div class="map-layout" id="map">
+						<img src="/assets/cityMap2.svg" alt="">
+					</div>
 					<div class="tracking-settings">
 						<div class="search-wrap">
 							<div class="input-wrap">
@@ -129,6 +131,14 @@
 									id="ticket_ID_input"
 								/>
 								<button id="track_btn" type="submit">Track</button>
+							</div>
+							<div class="tracking-placeholder">
+								<p>Get instant tracking results</p>
+								<img src="/assets/tracking.svg" width="300px" height="150px" alt="">							
+								<small>powered by scoutTracker</small>
+							</div>
+							<div id="tracking-animation">
+								<img src="/assets/trackingAnimation.gif" width="150px" height="150px" alt="">
 							</div>
 							<div class="tracking-results">
 								<div class="text-wrap">

@@ -49,7 +49,19 @@ const showMap = (lat, lng) => {
 	});
 };
 
-async function getLatLngByZipcode(address) {
+const trackingLoadingAnimation = async () => {
+	document.querySelector(".tracking-results").style.display = "none";
+	document.getElementById("tracking-animation").style.display = "flex";
+	return new Promise((resolve) =>
+		setTimeout(() => {
+			document.getElementById("tracking-animation").style.display =
+				"none";
+			resolve();
+		}, 2000)
+	);
+};
+
+const getLatLngByZipcode = async (address) => {
 	let geocoder = new google.maps.Geocoder();
 
 	await geocoder.geocode({ address: address }, (results, status) => {
@@ -62,22 +74,32 @@ async function getLatLngByZipcode(address) {
 			console.log("Error: " + status);
 		}
 	});
-}
-
-const showTrackingDetails = async (trackingObj) => {
-	const { eta, from, status, to, location } = trackingObj;
-
-	await getLatLngByZipcode(location.zip);
-
-	document.getElementById("status_text").textContent = status;
-	document.getElementById("location_text").textContent = location.city;
-	document.getElementById("eta_text").textContent = eta;
-	document.getElementById("from_text").textContent = to.city;
 };
 
-ticketIDInput.addEventListener("click", () => {
-	showMap(defaultLat, defaultLng);
-});
+const showTrackingDetails = async (trackingObj) => {
+	document.getElementById("tracking-animation").style.display = "none";
+	document.querySelector(".tracking-results").style.display = "flex";
+
+	const { eta, from, status, to, location } = trackingObj;
+	await getLatLngByZipcode(location.zip);
+
+	document.getElementById("status_text").textContent =
+		status !== null ? status : "Unavailable";
+	document.getElementById("location_text").textContent =
+		location !== null ? location.city : "Unavailable";
+	document.getElementById("eta_text").textContent =
+		eta !== null ? new Date(eta).toLocaleDateString() : "Unavailable";
+	document.getElementById("from_text").textContent =
+		from !== null ? from.city : "Unavailable";
+};
+
+ticketIDInput.addEventListener(
+	"click",
+	() => {
+		showMap(defaultLat, defaultLng);
+	},
+	{ once: true }
+);
 
 trackBtn.addEventListener("click", async () => {
 	if (ticketIDInput.value.length < 4 || !/^\d+$/.test(ticketIDInput.value)) {
@@ -92,7 +114,12 @@ trackBtn.addEventListener("click", async () => {
 		helper.showInvalidColour(ticketIDInput);
 		return;
 	}
-	//Loading animation//?
 
-	showTrackingDetails(data.result);
+	// Hide placeholder photo
+	document.querySelector(".tracking-placeholder").style.display = "none";
+
+	// Show loading animation
+	await trackingLoadingAnimation();
+	// Display tracking details
+	await showTrackingDetails(data.result);
 });

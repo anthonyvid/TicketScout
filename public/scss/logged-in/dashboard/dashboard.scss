@@ -329,7 +329,14 @@ input:focus {
 			width: 100%;
 			border-top-left-radius: 10px;
 			border-top-right-radius: 10px;
-			background-image: url("https://img.freepik.com/free-vector/city-map-background-blue-tone_99087-101.jpg?size=626&ext=jpg");
+			border: 1px solid red;
+
+			img {
+				// border-top-left-radius: 10px;
+				// border-top-right-radius: 10px;
+				max-width: 100%;
+				max-height: 100%;
+			}
 		}
 
 		.tracking-settings {
@@ -355,11 +362,11 @@ input:focus {
 					display: flex;
 					flex-direction: row;
 					width: 300px;
-					height: 70px;
+					min-height: 50px;
 
 					input {
 						width: 75%;
-						height: 50px;
+						height: 100%;
 						border-radius: 5px;
 						border-top-right-radius: 0;
 						border-bottom-right-radius: 0;
@@ -371,6 +378,7 @@ input:focus {
 
 					button {
 						width: 25%;
+						height: 100%;
 						border-radius: 5px;
 						border-top-left-radius: 0;
 						border-bottom-left-radius: 0;
@@ -382,8 +390,32 @@ input:focus {
 					}
 				}
 
+				.tracking-placeholder {
+					width: 100%;
+					height: 70%;
+					text-align: center;
+					margin-top: -5px;
+					p {
+						font-weight: 500;
+					}
+
+					img {
+						width: 100%;
+						height: 90%;
+						margin-bottom: -3px;
+					}
+
+					small {
+						color: $swatch_5;
+					}
+				}
+
+				#tracking-animation {
+					display: none;
+				}
+
 				.tracking-results {
-					display: flex;
+					display: none;
 					flex-direction: column;
 					height: 100%;
 					width: 100%;

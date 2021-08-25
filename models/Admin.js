@@ -44,6 +44,7 @@ class Admin extends User {
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
 			admin: true,
+			isVerified: false,
 			timeClock: {
 				clockInTime: null,
 				clockOutTime: null,
@@ -52,33 +53,27 @@ class Admin extends User {
 		};
 		let twilioAccount = null;
 
-		try {
-			twilioAccount = await this.createTwilioSubaccount(
-				this.data.storename
-			);
-			
-		} catch (error) {
-			console.log(error);
-		}
-
-
-
-		console.log(twilioAccount);
+		// try {
+		// 	twilioAccount = await this.createTwilioSubaccount(
+		// 		this.data.storename
+		// 	);
+		// } catch (error) {
+		// 	console.log(error);
+		// }
 
 		try {
 			storesCollection.insertOne({
 				storename: this.data.storename,
 				signUpCode: "12345", //need to auto generate this
 				admin: user,
-				employees: [],
 				storedata: {
 					tickets: {},
 					customers: {},
 					payments: {},
 					api: {
 						twilio: {
-							authToken: twilioAccount.authToken,
-							sid: twilioAccount.sid,
+							// authToken: twilioAccount.authToken,
+							// sid: twilioAccount.sid,
 							numSmsSent: 0,
 							numSmsReceived: 0,
 						},
@@ -97,8 +92,13 @@ class Admin extends User {
 					payments: {
 						categories: [],
 						taxRate: "13",
+						address: {
+							primary: "",
+							city: "",
+							province: "",
+							postal: "",
+						},
 					},
-					payPeriod: "Bi-weekly",
 				},
 			});
 			usersCollection.insertOne(user);
@@ -111,9 +111,8 @@ class Admin extends User {
 		// this.clearDatabase();
 	}
 
-	async inviteEmployee(data) {
-		console.log("In INVITE");
-		const email = data.email;
+	async inviteEmployee(email) {
+		if (!this.isValidEmail(email)) return false;
 
 		const msg = {
 			to: `${email}`, // list of receivers
@@ -124,6 +123,32 @@ class Admin extends User {
 		};
 
 		await this.sendEmail(msg);
+		return true;
+	}
+
+	async removeEmployee(storename, email) {
+		if (!this.isValidEmail(email)) return false;
+
+		const user = await usersCollection.findOne({ email: email });
+
+		if (!user || storename !== user.storename || user.admin) return false;
+
+		await usersCollection.deleteOne({ email: email });
+		return true;
+	}
+
+	async toggleAdminPermission(storename, email) {
+		if (!this.isValidEmail(email)) return false;
+
+		const user = await usersCollection.findOne({ email: email });
+
+		if (!user || storename !== user.storename) return false;
+
+		await usersCollection.updateOne(
+			{ email: email },
+			{ $set: { admin: !user.admin } }
+		);
+		return true;
 	}
 }
 

@@ -671,6 +671,61 @@ $bluetext: #0d2238;
 			}
 		}
 
+		#employees {
+			h2 {
+				margin-bottom: 5px;
+			}
+
+			.employee-content {
+				display: flex;
+				flex-direction: row;
+				height: 100%;
+				width: 100%;
+				padding-top: 25px;
+
+				.left-container {
+					height: 100%;
+					width: 50%;
+					display: flex;
+					flex-direction: column;
+					gap: 30px;
+
+					.input-wrap {
+						display: flex;
+						flex-direction: column;
+						gap: 5px;
+
+						label {
+							text-transform: uppercase;
+							color: $swatch_5;
+							font-size: 13px;
+							font-weight: 500;
+							font-family: "Padauk" bold;
+						}
+
+						input {
+							height: 40px;
+							width: 250px;
+							border: 1px solid $swatch_1;
+							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							text-indent: 10px;
+						}
+
+						button {
+							width: 250px;
+							height: 40px;
+							transition: 0.3s ease-in-out;
+							background-color: darken(#f9fbfc, 2%);
+							border: 1px solid $swatch_1;
+							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						}
+					}
+				}
+			}
+		}
+
 		#deletedata {
 			h2 {
 				margin-bottom: 5px;

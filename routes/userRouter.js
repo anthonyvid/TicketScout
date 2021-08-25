@@ -39,6 +39,8 @@ router.get(
 	ensureAuthenticated,
 	userController.renderStorePayments
 );
+
+router.get("/reset-password", userController.renderResetPassword);
 // Customers Page
 // router.get("/customers", userController.renderCustomers);
 // Track a shipment Handle
@@ -186,5 +188,7 @@ router.post(
 	ensureAuthenticated,
 	userController.deleteCustomer
 );
+
+router.get("/verify-email/:id", userController.verifyEmail);
 
 export default router;

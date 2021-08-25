@@ -92,17 +92,17 @@
 								<% for(let i=0; i<tickets.slice(0,5).length; i++) { %> 
 							<tr id="table_row">
 								<td class="ticket-id">
-									<a class="ticket_link" id="ticket" href="/tickets/"
+									<a id="ticket" href=<%=`/tickets/${tickets[i][0]}`%>
 										><%=tickets[i][0]%></a
 									>
 								</td>
 								<td class="customer">
-									<a href="/customers/" class="customer_link"
+									<a href=<%=`/customers/${tickets[i][1].customer.phone}`%>
 										><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
 									>
 								</td>
 								<td class="subject">
-									<a class="subject_link" href="/tickets/"
+									<a href=<%=`/tickets/${tickets[i][0]}`%>
 										> <%= tickets[i][1].subject %> </a
 									>
 								</td>

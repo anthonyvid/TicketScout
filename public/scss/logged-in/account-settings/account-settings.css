@@ -855,6 +855,75 @@
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
+.account-settings-container .section-content #employees h2 {
+  margin-bottom: 5px;
+}
+
+.account-settings-container .section-content #employees .employee-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 100%;
+  width: 100%;
+  padding-top: 25px;
+}
+
+.account-settings-container .section-content #employees .employee-content .left-container {
+  height: 100%;
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 30px;
+}
+
+.account-settings-container .section-content #employees .employee-content .left-container .input-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+
+.account-settings-container .section-content #employees .employee-content .left-container .input-wrap label {
+  text-transform: uppercase;
+  color: #717987;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Padauk" bold;
+}
+
+.account-settings-container .section-content #employees .employee-content .left-container .input-wrap input {
+  height: 40px;
+  width: 250px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  text-indent: 10px;
+}
+
+.account-settings-container .section-content #employees .employee-content .left-container .input-wrap button {
+  width: 250px;
+  height: 40px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background-color: #f2f6f9;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
 .account-settings-container .section-content #deletedata h2 {
   margin-bottom: 5px;
 }

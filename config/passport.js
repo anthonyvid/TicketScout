@@ -1,4 +1,4 @@
-import {db} from "../db.js";
+import { db } from "../db.js";
 import bcrypt from "bcryptjs";
 import mongodb from "mongodb";
 import passportLocal from "passport-local";
@@ -13,10 +13,17 @@ export default function (passport) {
 			{ usernameField: "email" },
 			(email, password, done) => {
 				//Find User in Database
+
 				usersCollection.findOne({ email: email }).then((user) => {
 					if (!user) {
 						return done(null, false, {
 							message: "Incorrect login information",
+						});
+					}
+
+					if (!user.isVerified) {
+						return done(null, false, {
+							message: "Please validate your email address",
 						});
 					}
 
@@ -48,4 +55,4 @@ export default function (passport) {
 			done(null, user);
 		});
 	});
-};
+}

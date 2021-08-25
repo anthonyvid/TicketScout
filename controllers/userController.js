@@ -1,6 +1,18 @@
 import User from "../models/User.js";
 import passport from "passport";
 
+export const verifyEmail = async function (req, res) {
+	const user = new User();
+	const verified = await user.verifyEmail(req.params.id);
+
+	if (!verified) {
+		res.send("Not authorized");
+	} else {
+		req.flash("success_msg", "You are now verified and can log in");
+		res.redirect("/");
+	}
+};
+
 // Login Page
 export const renderLogin = function (req, res) {
 	res.render("logged-out/login", { layout: "layouts/logged-out-layout" });
@@ -33,6 +45,12 @@ export const liveSearchResults = async function (req, res) {
 	res.json({ results });
 };
 
+export const renderResetPassword = function (req, res) {
+	res.render("logged-out/resetPassword", {
+		layout: "layouts/logged-out-layout",
+	});
+};
+
 // Employee Register Page
 export const renderEmployeeRegister = function (req, res) {
 	res.render("logged-out/employeeRegister", {
@@ -46,7 +64,7 @@ export const employeeRegister = async function (req, res) {
 
 	// No errors means passed registration
 	if (!result) {
-		req.flash("success_msg", "You are now registered and can log in");
+		req.flash("success_msg", "Please verify your email address");
 		res.redirect("/");
 	} else {
 		const [registrationErrors, data] = result;
@@ -570,8 +588,8 @@ export const createNewPayment = async function (req, res) {
 
 	const result = await user.createNewpayment(req.body, req.user.storename);
 
-	if (Object.keys(result).length == 0) {
-		console.log("no errors");
+	if (!result.hasOwnProperty("phoneError")) {
+		res.redirect(`/payments/${result.mostRecentPaymentID}`);
 	} else {
 		console.log("errors");
 

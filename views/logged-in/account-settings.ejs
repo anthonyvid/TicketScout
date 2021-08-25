@@ -37,6 +37,9 @@
 					<a href="#tickets" class="menu-item"
 						><i class="fas fa-ticket-alt"></i>Tickets</a
 					>
+					<a href="#employees" class="menu-item"
+						><i class="fas fa-users-cog"></i>Employees</a
+					>
 					<a href="#deletedata" class="menu-item"
 						><i class="fas fa-comment-dots"></i>Delete Data</a
 					>
@@ -288,6 +291,33 @@
 									<input type="text" id="issue_input" placeholder="Issue name...">
 								</div>
 							</div>
+						</div>
+					</div>
+					<div id="employees" class="section">
+						<h2>Employee Settings</h2>
+						<small>View and edit employee settings</small>
+						<div class="employee-content">
+							<div class="left-container">
+								<div class="input-wrap">
+									<h4>Invite Employee</h4>
+									<small>add a new employee by sending an invite link</small>
+									<input class="employee-email-input" id="invite_employee_input" type="text" placeholder="Email address">
+									<button id="invite_employee_btn">Invite</button>
+								</div>
+								<div class="input-wrap">
+									<h4>Remove Employee from store</h4>
+									<small>This action cannot be undone</small>
+									<input class="employee-email-input" id="remove_employee_input" type="text" placeholder="Email address">
+									<button id="remove_employee_btn">Delete</button>
+								</div>
+								<div class="input-wrap">
+									<h4>Give admin persmissions</h4>
+									<small>Store managers are recommended to have admin persmissions</small>
+									<input class="employee-email-input" id="employee_permission_input" type="text" placeholder="Email address">
+									<button id="toggle_employee_permission_btn">Toggle admin access</button>
+								</div>
+							</div>
+							<div class="right-container"> </div>
 						</div>
 					</div>
 					<div id="deletedata" class="section">

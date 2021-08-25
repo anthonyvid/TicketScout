@@ -11,46 +11,55 @@ export const renderRegister = function (req, res) {
 export const register = async function (req, res) {
 	let admin = new Admin(req.body);
 	const result = await admin.register();
-
+	admin.sendEmailVerification(req.body.email);
 	// No errors means passed registration
 	if (!result) {
-		req.flash("success_msg", "You are now registered and can log in");
+		req.flash("success_msg", "Please verify your email address");
 		res.redirect("/");
 	} else {
-		const [registrationErrors, data] = result;
+		const [errors, data] = result;
 		let { fullname, email, storename, password, passwordConfirm } = data;
-
-		if (registrationErrors.hasOwnProperty("fullname")) {
-			fullname = undefined;
-		}
-		if (registrationErrors.hasOwnProperty("email")) {
-			email = undefined;
-		}
-		if (registrationErrors.hasOwnProperty("storename")) {
-			storename = undefined;
-		}
-		if (registrationErrors.hasOwnProperty("password")) {
-			password = undefined;
-		}
-		if (registrationErrors.hasOwnProperty("passwordConfirm")) {
-			passwordConfirm = undefined;
-		}
 
 		res.render("logged-out/adminRegister", {
 			layout: "layouts/logged-out-layout",
-			errors: Object.values(registrationErrors),
-			fullname,
-			email,
-			storename,
-			password,
-			passwordConfirm,
+			errors: Object.values(errors),
+			fullname: !errors.fullname ? fullname : undefined,
+			email: !errors.email ? email : undefined,
+			storename: !errors.storename ? storename : undefined,
+			password: !errors.password ? password : undefined,
+			passwordConfirm: !errors.passwordConfirm
+				? passwordConfirm
+				: undefined,
 		});
 	}
 };
 
-// const inviteEmployee = async function (req, res) {
-// 	console.log(req.body);
-// 	let admin = new Admin(req.body);
-// 	await admin.inviteEmployee(req.body);
-// };
+export const inviteEmployee = async function (req, res) {
+	const admin = new Admin();
+	const result = await admin.inviteEmployee(req.body.email);
 
+	if (!result) res.json({ emailError: "Invalid Email" });
+	else res.json({});
+};
+
+export const removeEmployee = async function (req, res) {
+	const admin = new Admin();
+	const result = await admin.removeEmployee(
+		req.user.storename,
+		req.body.email
+	);
+
+	if (!result) res.json({ emailError: "Invalid Email" });
+	else res.json({});
+};
+
+export const toggleAdminPermission = async function (req, res) {
+	const admin = new Admin();
+	const result = await admin.toggleAdminPermission(
+		req.user.storename,
+		req.body.email
+	);
+
+	if (!result) res.json({ emailError: "Invalid Email" });
+	else res.json({});
+};

@@ -4,6 +4,8 @@ import { db } from "../db.js";
 import nodemailer from "nodemailer";
 import fetch from "node-fetch";
 import client from "twilio";
+import mongoClient from "mongodb";
+const { ObjectId } = mongoClient;
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
@@ -203,7 +205,7 @@ class User {
 			}
 		);
 
-		return {};
+		return { mostRecentPaymentID };
 	}
 
 	async liveSearchResults(storename, search) {
@@ -754,6 +756,20 @@ class User {
 		};
 	}
 
+	async inviteEmployee(data) {
+		const email = data.email;
+
+		const msg = {
+			to: `${email}`, // list of receivers
+			subject: `Register Your Account`, // Subject line
+			html: {
+				path: "./views/emailTemplates/confirmationEmail.html",
+			},
+		};
+
+		await this.sendEmail(msg);
+	}
+
 	async updateTicketShippingInfo(info, storename) {
 		const { trackingNumber, carrier, ticketID, phone } = info;
 
@@ -843,12 +859,8 @@ class User {
 
 	async forgotPassword(data) {
 		//validate email
-		if (!validator.isEmail(data.email))
-			this.errors["error"] = "Not a valid email";
-
-		if (Object.keys(this.errors).length > 0) {
-			return this.errors;
-		}
+		if (!this.isValidEmail(data.email))
+			return { error: "Not a valid email" };
 
 		const user = await usersCollection.findOne({
 			email: data.email,
@@ -866,10 +878,19 @@ class User {
 				},
 			};
 
-			this.sendEmail(msg);
+			// this.sendEmail(msg);
 
-			return user;
+			// return user;
 		}
+		const msg = {
+			to: `${user.email}`, // list of receivers
+			subject: `Reset Your Password`, // Subject line
+			html: {
+				path: "./views/emailTemplates/recoverPasswordEmail.html",
+			},
+		};
+		this.sendEmail(msg);
+		return user;
 	}
 
 	clearDatabase() {
@@ -1238,6 +1259,37 @@ class User {
 		});
 	}
 
+	async verifyEmail(id) {
+		const user = await usersCollection.findOne({
+			_id: ObjectId(id),
+		});
+
+		if (!user) return false;
+
+		await usersCollection.updateOne(
+			{ _id: ObjectId(id) },
+			{
+				$set: { isVerified: true },
+			}
+		);
+
+		return true;
+	}
+
+	async sendEmailVerification(email) {
+		const user = await usersCollection.findOne({ email: email });
+		const msg = {
+			to: `${email}`, // list of receivers
+			subject: `ticketScout - Verify your email`, // Subject line
+			text: `
+			Hello, thanks for registering.
+			Please click the link below to verify your account.
+			http://localhost:3000/verify-email/${user._id}
+			`,
+		};
+		this.sendEmail(msg);
+	}
+
 	async employeeRegister() {
 		this.cleanUp(this.data);
 		await this.validate(this.data);
@@ -1262,6 +1314,7 @@ class User {
 			password: this.data.password,
 			passwordConfirm: this.data.passwordConfirm,
 			admin: false,
+			isVerified: false,
 			timeClock: {
 				clockInTime: null,
 				clockOutTime: null,
@@ -1271,7 +1324,7 @@ class User {
 
 		//add user into users collection
 		usersCollection.insertOne(employee);
-
+		this.sendEmailVerification(employee.email);
 		console.log("employee successfully joined store");
 	}
 }

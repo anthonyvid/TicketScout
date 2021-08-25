@@ -457,6 +457,82 @@ deleteIssueBtn.addEventListener(
 );
 
 ////////////////////////////////
+/* ACCOUNT SETTINGS: Tickets */
+////////////////////////////////
+const inviteEmployeeInput = document.getElementById("invite_employee_input");
+const inviteEmployeeBtn = document.getElementById("invite_employee_btn");
+const removeEmployeeInput = document.getElementById("remove_employee_input");
+const removeEmployeeBtn = document.getElementById("remove_employee_btn");
+const employeePermissionInput = document.getElementById(
+	"employee_permission_input"
+);
+const toggleEmployeePermissionBtn = document.getElementById(
+	"toggle_employee_permission_btn"
+);
+
+inviteEmployeeBtn.addEventListener("click", async () => {
+	if (
+		!inviteEmployeeInput.value ||
+		!helper.isValidEmail(inviteEmployeeInput.value)
+	) {
+		helper.showInvalidColour(inviteEmployeeInput);
+		return;
+	}
+
+	const data = await helper.postReq("/admin/invite-employee", {
+		email: inviteEmployeeInput.value.toLowerCase(),
+	});
+
+	if (Object.keys(data).length) {
+		helper.showInvalidColour(inviteEmployeeInput);
+		return;
+	}
+	helper.showValidColour(inviteEmployeeBtn);
+});
+
+removeEmployeeBtn.addEventListener("click", async () => {
+	if (
+		!removeEmployeeInput.value ||
+		!helper.isValidEmail(removeEmployeeInput.value)
+	) {
+		helper.showInvalidColour(removeEmployeeInput);
+		return;
+	}
+
+	const data = await helper.postReq("/admin/remove-employee", {
+		email: removeEmployeeInput.value.toLowerCase(),
+	});
+
+	if (Object.keys(data).length) {
+		helper.showInvalidColour(removeEmployeeInput);
+		return;
+	}
+	helper.showValidColour(removeEmployeeInput);
+});
+
+toggleEmployeePermissionBtn.addEventListener("click", async () => {
+	if (
+		!employeePermissionInput.value ||
+		!helper.isValidEmail(employeePermissionInput.value)
+	) {
+		helper.showInvalidColour(employeePermissionInput);
+		return;
+	}
+
+	const data = await helper.postReq("/admin/toggle-admin-permissions", {
+		email: employeePermissionInput.value.toLowerCase(),
+	});
+
+	console.log(data);
+
+	if (Object.keys(data).length) {
+		helper.showInvalidColour(employeePermissionInput);
+		return;
+	}
+	helper.showValidColour(toggleEmployeePermissionBtn);
+});
+
+////////////////////////////////
 /* ACCOUNT SETTINGS: Delete Data */
 ////////////////////////////////
 const deleteStoreDataBtns = document.querySelectorAll(".delete-store-data");

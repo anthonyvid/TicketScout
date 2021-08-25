@@ -8,6 +8,20 @@ router.get("/register", checkNotAuthenticated, adminController.renderRegister);
 // Admin Register handle
 router.post("/register", adminController.register);
 
-// router.post("/invite-employee", adminController.inviteEmployee);
+router.post(
+	"/invite-employee",
+	ensureAuthenticated,
+	adminController.inviteEmployee
+);
+router.post(
+	"/remove-employee",
+	ensureAuthenticated,
+	adminController.removeEmployee
+);
+router.post(
+	"/toggle-admin-permissions",
+	ensureAuthenticated,
+	adminController.toggleAdminPermission
+);
 
 export default router;

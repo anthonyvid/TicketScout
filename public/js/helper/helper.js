@@ -1,6 +1,3 @@
-
-
-
 "use strict";
 
 /**
@@ -30,6 +27,12 @@ export const showInvalidColour = (element) => {
 		element.style.backgroundColor = "#fff";
 	}, 500);
 };
+export const showValidColour = (element) => {
+	element.style.backgroundColor = "lightgreen";
+	setTimeout(() => {
+		element.style.backgroundColor = "#fff";
+	}, 1500);
+};
 
 export const addCellToRow = (row, cellData) => {
 	const tableData = row.insertCell();
@@ -47,4 +50,10 @@ export const getSelectTagCurrentValue = (element) => {
 		element.selectedOptions,
 		({ textContent }) => textContent
 	)[0].trim();
+};
+
+export const isValidEmail = (email) => {
+	const re =
+		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(String(email).toLowerCase());
 };

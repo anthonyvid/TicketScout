@@ -332,8 +332,9 @@ input:focus {
 			border: 1px solid red;
 
 			img {
-				// border-top-left-radius: 10px;
-				// border-top-right-radius: 10px;
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+				object-fit: fill;
 				max-width: 100%;
 				max-height: 100%;
 			}

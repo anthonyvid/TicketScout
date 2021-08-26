@@ -48,10 +48,7 @@
 					width: 100%;
 					height: 100%;
 					border-radius: 5px;
-					text-indent: 10px;
-					border: 0;
-					box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-						rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+					@include simpleInputStyle;
 				}
 			}
 		}
@@ -67,14 +64,11 @@
 			form button {
 				height: 40px;
 				width: 140px;
-				border-radius: 5px;
-				border: 0;
 				background-color: black;
 				color: white;
-				box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
-					rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 				transition: 0.2s ease-in-out;
 				transform: scale(1);
+				@include buttonBoxShadow1;
 			}
 
 			form button:hover {

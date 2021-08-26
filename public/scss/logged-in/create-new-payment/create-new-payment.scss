@@ -79,11 +79,7 @@
 						}
 
 						label {
-							text-transform: uppercase;
-							color: $swatch_5;
-							font-size: 13px;
-							font-weight: 500;
-							font-family: "Padauk" bold;
+							@include inputLabel;
 						}
 
 						input {
@@ -379,17 +375,13 @@
 						border: none;
 
 						.type-wrap {
-							display: flex;
+							@include centerFlexChild;
 							flex-direction: row;
 							gap: 10px;
-							justify-content: center;
-							align-items: center;
 
 							.card,
 							.cash {
-								display: flex;
-								justify-content: center;
-								align-items: center;
+								@include centerFlexChild;
 								gap: 5px;
 								width: 50%;
 								height: 60px;
@@ -435,9 +427,7 @@
 									border-radius: 3px;
 									font-weight: 600;
 									transition: 0.3s ease-in-out;
-									display: flex;
-									justify-content: center;
-									align-items: center;
+									@include centerFlexChild;
 
 									&:hover {
 										cursor: pointer;

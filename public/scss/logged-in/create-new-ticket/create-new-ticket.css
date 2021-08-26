@@ -80,12 +80,12 @@ a:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 10px;
   margin-top: 20px;
   gap: 30px;
@@ -159,11 +159,11 @@ a:hover {
 }
 
 .new-ticket-container .content-container form .info-container .input-wrap label {
-  text-transform: uppercase;
-  color: #717987;
-  font-size: 13px;
-  font-weight: 500;
   font-family: "Padauk" bold;
+  font-weight: 500;
+  font-size: 13px;
+  color: #717987;
+  text-transform: uppercase;
 }
 
 .new-ticket-container .content-container form .info-container .input-wrap input,

@@ -869,6 +869,8 @@ a:hover {
   margin-top: 15px;
   height: 40px;
   width: 250px;
+  outline: none;
+  text-indent: 10px;
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -952,10 +954,11 @@ a:hover {
 .account-settings-container .section-content #employees .employee-content .left-container .input-wrap input {
   height: 40px;
   width: 250px;
+  outline: none;
+  text-indent: 10px;
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  text-indent: 10px;
 }
 
 .account-settings-container .section-content #employees .employee-content .left-container .input-wrap button {
@@ -964,6 +967,7 @@ a:hover {
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   background-color: #f2f6f9;
+  outline: none;
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -1006,10 +1010,11 @@ a:hover {
 .account-settings-container .section-content #deletedata .options .remove-wrap input {
   height: 40px;
   width: 250px;
+  outline: none;
+  text-indent: 10px;
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  text-indent: 10px;
 }
 
 .account-settings-container .section-content #deletedata .options .remove-wrap div {
@@ -1025,6 +1030,7 @@ a:hover {
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   background-color: #f2f6f9;
+  outline: none;
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;

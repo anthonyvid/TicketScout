@@ -13,20 +13,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-*,
-*:before,
-*:after {
+* {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Fira Sans";
+}
+
+input[type="search"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input[type="search"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+button:hover,
+a:hover,
+input:hover {
+  cursor: pointer;
+}
+
+input:focus {
+  cursor: text;
+  outline: none;
 }
 
 a,
-a:visited,
-a:focus,
-a:hover,
-a:active {
+a:hover {
   text-decoration: none;
-  color: #7e8082 !important;
+  color: #000;
+}
+
+.hidden {
+  display: none;
 }
 
 div {
@@ -119,12 +153,12 @@ div::-webkit-scrollbar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -158,20 +192,20 @@ div::-webkit-scrollbar {
 }
 
 .customer-content .left-container .table-style .table-title {
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   padding: 10px;
   border: 1px solid #e8edf5;
   border-top-right-radius: 10px;
@@ -189,35 +223,59 @@ div::-webkit-scrollbar {
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #e8edf5;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
   display: table;
-  text-align: left;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
 }
 
+.customer-content .left-container .table-style table td {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #7e8082 !important;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 20%;
+          flex: 1 1 20%;
+  padding-left: 3rem;
+}
+
 .customer-content .left-container .table-style table a:hover {
-  cursor: pointer;
   text-decoration: underline;
 }
 
 .customer-content .left-container .table-style table thead tr {
-  background-color: #f9fbfc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   border: 1px solid #e8edf5;
+  background-color: #f9fbfc;
 }
 
 .customer-content .left-container .table-style table thead td {
   font-weight: 800;
   font-size: 14px;
-  color: #7e8082 !important;
-  padding: 10px;
+  padding: 18px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding-left: 3rem;
+  color: #7e8082 !important;
 }
 
 .customer-content .left-container .table-style table tbody tr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 18px 0;
   border: 1px solid #e8edf5;
   background: white;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .customer-content .left-container .table-style table tbody tr:hover {
@@ -229,10 +287,14 @@ div::-webkit-scrollbar {
   color: #575758 !important;
 }
 
-.customer-content .left-container .table-style table tbody tr td {
-  padding: 5px 5px 5px 10px;
-  color: #7e8082 !important;
-  padding-left: 3rem;
+.customer-content .left-container .table-style table thead td {
+  padding: 10px !important;
+  padding-left: 3rem !important;
+}
+
+.customer-content .left-container .table-style table tbody td {
+  padding: 0px !important;
+  padding-left: 3rem !important;
 }
 
 .customer-content .right-container {

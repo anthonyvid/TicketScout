@@ -69,15 +69,15 @@ a:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 10px;
   margin-top: 20px;
-  background-color: #fff;
+  background-color: white;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
   padding: 20px 45px 20px 45px;
@@ -147,11 +147,11 @@ a:hover {
 }
 
 .new-customer-container .content-container form .info-container .input-wrap label {
-  text-transform: uppercase;
-  color: #717987;
-  font-size: 13px;
-  font-weight: 500;
   font-family: "Padauk" bold;
+  font-weight: 500;
+  font-size: 13px;
+  color: #717987;
+  text-transform: uppercase;
 }
 
 .new-customer-container .content-container form .info-container .input-wrap input {

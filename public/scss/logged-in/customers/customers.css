@@ -141,10 +141,11 @@ a:hover {
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  outline: none;
   text-indent: 10px;
-  border: 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .header-wrap .ticket-action-container .new-customer-wrap {
@@ -165,16 +166,17 @@ a:hover {
 .header-wrap .ticket-action-container .new-customer-wrap form button {
   height: 40px;
   width: 140px;
-  border-radius: 5px;
-  border: 0;
   background-color: black;
   color: white;
-  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
-          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
   -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
   -webkit-transform: scale(1);
           transform: scale(1);
+  outline: none;
+  border-radius: 5px;
+  border: 0;
+  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .header-wrap .ticket-action-container .new-customer-wrap form button:hover {

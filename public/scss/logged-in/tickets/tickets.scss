@@ -56,10 +56,8 @@
 			}
 
 			.checkbox-wrap {
-				display: flex;
-				flex-direction: row;
+				@include centerFlexChild;
 				gap: 5px;
-				align-items: center;
 				color: #7e8082 !important;
 			}
 		}
@@ -108,6 +106,8 @@
 			cursor: pointer;
 			text-indent: 0 !important;
 			padding: 7px 40px 7px 12px;
+			color: #7e8082;
+			font-size: 0.9rem;
 			@include simpleInputStyle;
 		}
 

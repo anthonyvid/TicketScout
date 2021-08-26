@@ -210,7 +210,7 @@ for (const option of issueOptions) {
 
 // If a status is changed, send post request to sort and update table, then refresh page
 for (const select of statusSelects) {
-	select.addEventListener("change", (e) => {
+	select.addEventListener("change", async (e) => {
 		const id =
 			select.parentElement.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
@@ -218,20 +218,18 @@ for (const select of statusSelects) {
 		const phone = document.getElementById("phone").value.replace(/\D/g, "");
 
 		// Post request to update ticket status for updated ticket, and also update/sort table order
-		(async () => {
-			await helper.postReq("/update-ticket-status", {
-				selection,
-				id,
-				phone,
-			});
-			location.reload();
-		})();
+		await helper.postReq("/tickets/update-ticket-status", {
+			selection,
+			id,
+			phone,
+		});
+		location.reload();
 	});
 }
 
 // If an issue is changed, send post request to sort and update table, then refresh page
 for (const select of issueSelects) {
-	select.addEventListener("change", (e) => {
+	select.addEventListener("change", async (e) => {
 		const id =
 			select.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
@@ -239,13 +237,11 @@ for (const select of issueSelects) {
 		const phone = document.getElementById("phone").value.replace(/\D/g, "");
 
 		// Post request to update ticket issue for updated ticket, and also update/sort table order
-		(async () => {
-			await helper.postReq("/update-ticket-issue", {
-				selection,
-				id,
-				phone,
-			});
-			location.reload();
-		})();
+		await helper.postReq("/tickets/update-ticket-issue", {
+			selection,
+			id,
+			phone,
+		});
+		location.reload();
 	});
 }

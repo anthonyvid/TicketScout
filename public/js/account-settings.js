@@ -141,7 +141,7 @@ filterDateBtn.addEventListener(
 
 employeeTotalCheckbox.addEventListener(
 	"click",
-	() => {
+	async () => {
 		if (!employeeTotalCheckbox.checked) {
 			userClockTable.style.display = "table";
 			hoursWorkedText.style.display = "flex";
@@ -162,25 +162,24 @@ employeeTotalCheckbox.addEventListener(
 			userClockTable.style.display = "none";
 			hoursWorkedText.style.display = "none";
 			document.querySelector(".admin-table").classList.remove("hide");
-			(async () => {
-				const data = await helper.postReq(
-					"/get-employees-timeclock-history",
-					{
-						fromDate: fromDateFilter.value,
-						toDate: toDateFilter.value,
-					}
-				);
-				// Display each employees time clock history for selected period
-				for (let i = 0; i < data.employeesClockHistory.length; i++) {
-					const newRow = adminTableBodyRef.insertRow();
-					newRow.classList.add("table-row");
-					helper.addCellToRow(newRow, data.employeesClockHistory[i][0]);
-					helper.addCellToRow(
-						newRow,
-						data.employeesClockHistory[i][1].toFixed(3)
-					);
+
+			const data = await helper.postReq(
+				"/admin/get-employees-timeclock-history",
+				{
+					fromDate: fromDateFilter.value,
+					toDate: toDateFilter.value,
 				}
-			})();
+			);
+			// Display each employees time clock history for selected period
+			for (let i = 0; i < data.employeesClockHistory.length; i++) {
+				const newRow = adminTableBodyRef.insertRow();
+				newRow.classList.add("table-row");
+				helper.addCellToRow(newRow, data.employeesClockHistory[i][0]);
+				helper.addCellToRow(
+					newRow,
+					data.employeesClockHistory[i][1].toFixed(3)
+				);
+			}
 		}
 	},
 	{ passive: true }
@@ -201,7 +200,7 @@ const addressInputs = document.querySelectorAll(".address-input");
 
 createCategoryBtn.addEventListener(
 	"click",
-	() => {
+	async () => {
 		// Show Input with animation
 		removeCategoryBtn.style.display = "none";
 		categoryInput.style.display = "flex";
@@ -212,19 +211,17 @@ createCategoryBtn.addEventListener(
 			return;
 		}
 		// send post and add category
-		(async () => {
-			await helper.postReq("/add-category", {
-				category: categoryInput.value,
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/add-category", {
+			category: categoryInput.value,
+		});
+		document.location.reload();
 	},
 	{ passive: true }
 );
 
 removeCategoryBtn.addEventListener(
 	"click",
-	() => {
+	async () => {
 		// Show Input with animation
 		createCategoryBtn.style.display = "none";
 		categoryInput.style.display = "flex";
@@ -235,37 +232,33 @@ removeCategoryBtn.addEventListener(
 			return;
 		}
 		// Send post and remove category
-		(async () => {
-			await helper.postReq("/remove-category", {
-				category: categoryInput.value,
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/remove-category", {
+			category: categoryInput.value,
+		});
+		document.location.reload();
 	},
 	{ passive: true }
 );
 
 document.getElementById("tax_rate_btn").addEventListener(
 	"click",
-	() => {
+	async () => {
 		if (!taxRateInput.value || !/^\d+$/.test(taxRateInput.value)) {
 			helper.showInvalidColour(taxRateInput);
 			return;
 		}
 		// Send post request to add new tax rate
-		(async () => {
-			await helper.postReq("/update-store-taxRate", {
-				taxRate: taxRateInput.value,
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/update-store-taxRate", {
+			taxRate: taxRateInput.value,
+		});
+		document.location.reload();
 	},
 	{ passive: true }
 );
 
 document
 	.getElementById("update_address_button")
-	.addEventListener("click", () => {
+	.addEventListener("click", async () => {
 		for (const input of addressInputs) {
 			if (!input.value) {
 				helper.showInvalidColour(input);
@@ -274,15 +267,13 @@ document
 		}
 
 		// Send post request to update store address
-		(async () => {
-			await helper.postReq("/update-store-address", {
-				primary: primaryAddress.value,
-				city: city.value,
-				province: province.value,
-				postalCode: postalCode.value,
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/update-store-address", {
+			primary: primaryAddress.value,
+			city: city.value,
+			province: province.value,
+			postalCode: postalCode.value,
+		});
+		document.location.reload();
 	});
 
 ////////////////////////////////
@@ -329,7 +320,7 @@ for (const status of ticketStatuses) {
 	);
 }
 
-addOrUpdateStatusBtn.addEventListener("click", () => {
+addOrUpdateStatusBtn.addEventListener("click", async () => {
 	if (!statusNameInput.value) {
 		helper.showInvalidColour(statusNameInput);
 		return;
@@ -352,18 +343,16 @@ addOrUpdateStatusBtn.addEventListener("click", () => {
 	}
 
 	// Send post request to add a ticket status
-	(async () => {
-		await helper.postReq("/update-ticket-status-settings", {
-			statusName: statusNameInput.value.trim(),
-			statusColor: statusColorInput.value.trim().substring(1),
-		});
-		document.location.reload();
-	})();
+	await helper.postReq("/admin/update-ticket-status-settings", {
+		statusName: statusNameInput.value.trim(),
+		statusColor: statusColorInput.value.trim().substring(1),
+	});
+	document.location.reload();
 });
 
 deleteTicketStatusBtn.addEventListener(
 	"click",
-	() => {
+	async () => {
 		if (!statusNameInput.value) {
 			helper.showInvalidColour(statusNameInput);
 			return;
@@ -384,13 +373,11 @@ deleteTicketStatusBtn.addEventListener(
 		}
 
 		// Send post request to delete a ticket status
-		(async () => {
-			await helper.postReq("/delete-ticket-status-settings", {
-				statusName: statusNameInput.value.trim(),
-				statusColor: statusColorInput.value.trim().substring(1),
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/delete-ticket-status-settings", {
+			statusName: statusNameInput.value.trim(),
+			statusColor: statusColorInput.value.trim().substring(1),
+		});
+		document.location.reload();
 	},
 	{ passive: true }
 );
@@ -411,7 +398,7 @@ for (const color of colorCopy) {
 
 createIssueBtn.addEventListener(
 	"click",
-	() => {
+	async () => {
 		// Show input with animation
 		deleteIssueBtn.style.display = "none";
 		issueInput.style.display = "flex";
@@ -422,19 +409,17 @@ createIssueBtn.addEventListener(
 			return;
 		}
 		// Send post request to add issue to settings
-		(async () => {
-			await helper.postReq("/add-issue", {
-				issue: issueInput.value.trim().toLowerCase(),
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/add-issue", {
+			issue: issueInput.value.trim().toLowerCase(),
+		});
+		document.location.reload();
 	},
 	{ passive: true }
 );
 
 deleteIssueBtn.addEventListener(
 	"click",
-	() => {
+	async () => {
 		// Show input with animation
 		createIssueBtn.style.display = "none";
 		issueInput.style.display = "flex";
@@ -446,12 +431,10 @@ deleteIssueBtn.addEventListener(
 		}
 
 		// Send post request to remove issue from settings
-		(async () => {
-			await helper.postReq("/remove-issue", {
-				issue: issueInput.value.trim().toLowerCase(),
-			});
-			document.location.reload();
-		})();
+		await helper.postReq("/admin/remove-issue", {
+			issue: issueInput.value.trim().toLowerCase(),
+		});
+		document.location.reload();
 	},
 	{ passive: true }
 );
@@ -523,8 +506,6 @@ toggleEmployeePermissionBtn.addEventListener("click", async () => {
 		email: employeePermissionInput.value.toLowerCase(),
 	});
 
-	console.log(data);
-
 	if (Object.keys(data).length) {
 		helper.showInvalidColour(employeePermissionInput);
 		return;
@@ -560,7 +541,7 @@ for (const btn of deleteStoreDataBtns) {
 for (const btn of confirmRemovalBtns) {
 	btn.addEventListener(
 		"click",
-		() => {
+		async () => {
 			if (btn.parentElement.previousElementSibling.value < 2) {
 				helper.showInvalidColour(
 					btn.parentElement.previousElementSibling
@@ -583,12 +564,10 @@ for (const btn of confirmRemovalBtns) {
 			}
 
 			// Send post request to delete data
-			(async () => {
-				await helper.postReq(`/delete-${url}`, {
-					item: deletionItem,
-				});
-				document.location.reload();
-			})();
+			await helper.postReq(`/${url}s/delete-${url}`, {
+				item: deletionItem,
+			});
+			document.location.reload();
 		},
 		{ passive: true }
 	);

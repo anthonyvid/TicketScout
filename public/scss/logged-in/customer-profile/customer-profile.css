@@ -4,7 +4,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
@@ -20,6 +19,9 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: "Fira Sans";
 }
 
@@ -229,6 +231,7 @@ div::-webkit-scrollbar {
 }
 
 .customer-content .left-container .table-style table td {
+  font-family: "Inter";
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   color: #7e8082 !important;
@@ -236,6 +239,10 @@ div::-webkit-scrollbar {
       -ms-flex: 1 1 20%;
           flex: 1 1 20%;
   padding-left: 3rem;
+}
+
+.customer-content .left-container .table-style table a {
+  color: #7e8082 !important;
 }
 
 .customer-content .left-container .table-style table a:hover {

@@ -24,4 +24,54 @@ router.post(
 	adminController.toggleAdminPermission
 );
 
+router.post(
+	"/delete-ticket",
+	ensureAuthenticated,
+	adminController.deleteTicket
+);
+
+router.post(
+	"/delete-payment",
+	ensureAuthenticated,
+	adminController.deletePayment
+);
+
+router.post(
+	"/get-employees-timeclock-history",
+	adminController.getEmployeesTimeclockHistory
+);
+
+router.post("/add-category", ensureAuthenticated, adminController.addCategory);
+router.post(
+	"/remove-category",
+	ensureAuthenticated,
+	adminController.removeCategory
+);
+
+router.post(
+	"/update-store-taxRate",
+	ensureAuthenticated,
+	adminController.updateStoreTaxRate
+);
+
+router.post(
+	"/update-store-address",
+	ensureAuthenticated,
+	adminController.updateStoreAddress
+);
+
+router.post(
+	"/update-ticket-status-settings",
+	ensureAuthenticated,
+	adminController.updateTicketStatusSettings
+);
+router.post(
+	"/delete-ticket-status-settings",
+	ensureAuthenticated,
+	adminController.deleteTicketStatusSettings
+);
+
+router.post("/add-issue", ensureAuthenticated, adminController.addIssue);
+router.post("/remove-issue", ensureAuthenticated, adminController.removeIssue);
+
 export default router;

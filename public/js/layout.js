@@ -96,20 +96,18 @@ const showSearchResults = (results) => {
  * @param {EventListenerObject}
  * @returns none
  */
-const liveSearch = (e) => {
+const liveSearch = async (e) => {
 	if (e.target.value.length < 2) {
 		resultDropdown.style.display = "none";
 		return;
 	}
-	(async () => {
-		const data = await helper.postReq("/live-search-results", {
-			search: e.target.value,
-		});
-		while (resultDropdown.firstChild) {
-			resultDropdown.removeChild(resultDropdown.lastChild);
-		}
-		showSearchResults(data.results);
-	})();
+	const data = await helper.postReq("/live-search-results", {
+		search: e.target.value,
+	});
+	while (resultDropdown.firstChild) {
+		resultDropdown.removeChild(resultDropdown.lastChild);
+	}
+	showSearchResults(data.results);
 };
 
 searchInput.addEventListener("input", liveSearch, { passive: true });
@@ -177,21 +175,17 @@ timeClock.addEventListener(
 for (const btn of clockBtns) {
 	btn.addEventListener(
 		"click",
-		() => {
+		async () => {
 			if (btn.classList.contains("clock-in-btn")) {
-				(async () => {
-					await helper.postReq("/clock-in", {
-						clockInTime: Date.now(),
-					});
-					location.reload();
-				})();
+				await helper.postReq("/clock-in", {
+					clockInTime: Date.now(),
+				});
+				location.reload();
 			} else {
-				(async () => {
-					await helper.postReq("/clock-out", {
-						clockOutTime: Date.now(),
-					});
-					location.reload();
-				})();
+				await helper.postReq("/clock-out", {
+					clockOutTime: Date.now(),
+				});
+				location.reload();
 			}
 
 			btn.classList.remove("show-time-clock-btn");
@@ -209,7 +203,9 @@ for (const btn of newBtns) {
 			form.setAttribute("method", "post");
 			form.setAttribute(
 				"action",
-				`/new-${btn.textContent.trim().toLowerCase()}`
+				`/${btn.textContent.trim().toLowerCase()}s/new-${btn.textContent
+					.trim()
+					.toLowerCase()}`
 			);
 
 			var rx = /^\d{3}\-?\d{3}\-?\d{4}$/;

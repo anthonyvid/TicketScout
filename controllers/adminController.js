@@ -7,6 +7,12 @@ export const renderRegister = function (req, res) {
 	});
 };
 
+export const deleteTicket = async function (req, res) {
+	const admin = new Admin();
+	await admin.deleteTicket(req.user.storename, req.body.item);
+	res.status(204).send();
+};
+
 // Admin Register Handle
 export const register = async function (req, res) {
 	let admin = new Admin(req.body);
@@ -62,4 +68,74 @@ export const toggleAdminPermission = async function (req, res) {
 
 	if (!result) res.json({ emailError: "Invalid Email" });
 	else res.json({});
+};
+
+export const getEmployeesTimeclockHistory = async function (req, res) {
+	const admin = new Admin();
+	const { employeesClockHistory, payPeriod } =
+		await admin.getEmployeesTimeclockHistory(
+			req.user.storename,
+			req.body.fromDate,
+			req.body.toDate
+		);
+
+	res.json({ employeesClockHistory, payPeriod });
+};
+
+export const addCategory = async function (req, res) {
+	const admin = new Admin();
+	await admin.addCategory(req.user.storename, req.body.category);
+	res.status(204).send();
+};
+
+export const removeCategory = async function (req, res) {
+	const admin = new Admin();
+	await admin.removeCategory(req.user.storename, req.body.category);
+	res.status(204).send();
+};
+
+export const updateStoreTaxRate = async function (req, res) {
+	const admin = new Admin();
+	await admin.updateStoreTaxRate(req.user.storename, req.body.taxRate);
+	res.status(204).send();
+};
+
+export const updateStoreAddress = async function (req, res) {
+	const admin = new Admin();
+	await admin.updateStoreAddress(req.user.storename, req.body);
+	res.status(204).send();
+};
+
+export const updateTicketStatusSettings = async function (req, res) {
+	const admin = new Admin();
+	await admin.updateTicketStatusSettings(req.user.storename, req.body);
+	res.status(204).send();
+};
+export const deleteTicketStatusSettings = async function (req, res) {
+	const admin = new Admin();
+	await admin.deleteTicketStatusSettings(req.user.storename, req.body);
+	res.status(204).send();
+};
+
+export const addIssue = async function (req, res) {
+	const admin = new Admin();
+	await admin.addIssue(req.user.storename, req.body.issue);
+	res.status(204).send();
+};
+export const removeIssue = async function (req, res) {
+	const admin = new Admin();
+	await admin.removeIssue(req.user.storename, req.body.issue);
+	res.status(204).send();
+};
+
+export const deletePayment = async function (req, res) {
+	const admin = new Admin();
+	await admin.deletePayment(req.user.storename, req.body.item);
+	res.status(204).send();
+};
+
+export const deleteCustomer = async function (req, res) {
+	const admin = new Admin();
+	await admin.deleteCustomer(req.user.storename, req.body.item);
+	res.status(204).send();
 };

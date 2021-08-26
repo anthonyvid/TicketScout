@@ -54,9 +54,14 @@ app.set("view engine", "ejs");
 //Routes
 import userRouter from "./routes/userRouter.js";
 import adminRouter from "./routes/adminRouter.js";
+import ticketRouter from "./routes/ticketRouter.js";
+import customerRouter from "./routes/customerRouter.js";
+import paymentRouter from "./routes/paymentRouter.js";
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
-
+app.use("/tickets", ticketRouter);
+app.use("/customers", customerRouter);
+app.use("/payments", paymentRouter);
 
 app.listen(process.env.PORT);
 

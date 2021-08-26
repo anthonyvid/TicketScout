@@ -107,7 +107,7 @@ trackBtn.addEventListener("click", async () => {
 		return;
 	}
 
-	const data = await helper.postReq("/track-shipment", {
+	const data = await helper.postReq("/tickets/track-shipment", {
 		ticketID: ticketIDInput.value,
 	});
 	if (data.result.hasOwnProperty("tracking_error")) {

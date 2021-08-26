@@ -4,7 +4,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
@@ -20,6 +19,9 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: "Fira Sans";
 }
 
@@ -155,14 +157,13 @@ a:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  gap: 5px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 5px;
   color: #7e8082 !important;
 }
 
@@ -220,6 +221,7 @@ a:hover {
 }
 
 .card-scroll-box table td {
+  font-family: "Inter";
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   color: #7e8082 !important;
@@ -227,6 +229,10 @@ a:hover {
       -ms-flex: 1 1 20%;
           flex: 1 1 20%;
   padding-left: 3rem;
+}
+
+.card-scroll-box table a {
+  color: #7e8082 !important;
 }
 
 .card-scroll-box table a:hover {
@@ -285,6 +291,8 @@ a:hover {
   cursor: pointer;
   text-indent: 0 !important;
   padding: 7px 40px 7px 12px;
+  color: #7e8082;
+  font-size: 0.9rem;
   outline: none;
   text-indent: 10px;
   border: 1px solid #e8edf5;

@@ -4,7 +4,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
@@ -13,30 +12,63 @@
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-*,
-*:before,
-*:after {
+* {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Fira Sans";
+}
+
+input[type="search"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input[type="search"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+button:hover,
+a:hover,
+input:hover {
+  cursor: pointer;
+}
+
+input:focus {
+  cursor: text;
+  outline: none;
 }
 
 a,
-a:visited,
-a:focus,
-a:hover,
-a:active {
+a:hover {
   text-decoration: none;
-  color: #7e8082 !important;
+  color: #000;
+}
+
+.hidden {
+  display: none;
 }
 
 .header-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -48,26 +80,23 @@ a:active {
 .header-wrap .title-wrap {
   width: auto;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   gap: 25px;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  -ms-flex-direction: column;
-      flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .header-wrap .title-wrap h1 {
-  color: #000;
-  font-family: "Inter";
+  color: black;
+  font-family: "Fira sans";
   font-weight: 600;
 }
 
@@ -81,9 +110,6 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   gap: 15px;
   -webkit-box-align: end;
       -ms-flex-align: end;
@@ -116,10 +142,6 @@ a:active {
 
 .header-wrap .actions-wrap .document-btn {
   width: 50px;
-}
-
-.hidden {
-  display: none;
 }
 
 .customer-content {
@@ -216,12 +238,12 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 20px;
 }
 
@@ -233,16 +255,16 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .customer-content .left-container .chat-box .chat-send-wrap .chat-send-content textarea {
@@ -254,6 +276,7 @@ a:active {
   border-top-left-radius: 10px;
   outline: none;
   padding: 10px;
+  font-family: "Inter";
 }
 
 .customer-content .left-container .chat-box .chat-send-wrap .chat-send-content div {
@@ -288,12 +311,12 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 7px;
   border-radius: 5px;
   border: none;
@@ -329,7 +352,6 @@ a:active {
 .customer-content .right-container .heading {
   width: 100%;
   height: 40px;
-  margin-bottom: -4%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -358,8 +380,11 @@ a:active {
 .customer-content .right-container .edit-field {
   border-radius: 5px;
   height: 25px;
-  border: 1px solid #95a9c6;
+  outline: none;
   text-indent: 10px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .customer-content .right-container .edit-field::-webkit-input-placeholder {
@@ -394,10 +419,6 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -472,28 +493,27 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  gap: 10px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10px;
 }
 
-.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add_tracking_info {
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .add-tracking-info {
   height: 30px;
   width: 150px;
-  border-radius: 5px;
   background-color: #f2f6f9;
+  outline: none;
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  padding: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -505,7 +525,7 @@ a:active {
       justify-content: space-around;
 }
 
-.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #add_tracking_info:hover {
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .add-tracking-info:hover {
   cursor: pointer;
 }
 
@@ -525,6 +545,24 @@ a:active {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .tracking-field button {
+  background-color: #f2f6f9;
+  outline: none;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .tracking-field input,
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style .tracking-field select {
+  outline: none;
+  text-indent: 10px;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  text-indent: 0;
 }
 
 .customer-content .right-container .contact-info-wrap {
@@ -595,6 +633,11 @@ a:active {
   padding: 5px 10px;
   border: 0;
   border-radius: 3px;
+  background-color: #f2f6f9;
+  outline: none;
+  border: 1px solid #e8edf5;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .customer-content .right-container .edit-info-btn-wrap button:first-child {

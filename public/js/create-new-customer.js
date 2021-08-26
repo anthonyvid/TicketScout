@@ -3,12 +3,13 @@
 const ticketAndCustomerBtn = document.getElementById(
 	"create_customer_and_ticket"
 );
+const newCustomerForm = document.getElementById("create_new_customer_form");
 
 ticketAndCustomerBtn.addEventListener(
 	"click",
 	() => {
-		// Set input value to "true" string, not boolean
-		document.getElementById("customer_data_exists").value = "true";
+		newCustomerForm.action = "/tickets/new-ticket";
+		newCustomerForm.submit();
 	},
 	{ passive: true }
 );

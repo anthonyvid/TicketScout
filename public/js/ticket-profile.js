@@ -3,7 +3,7 @@
 import * as helper from "./helper/helper.js";
 
 const statusSelects = document.querySelectorAll(".status-selects");
-const addTrackingInfo = document.querySelectorAll(".add_tracking_info");
+const addTrackingInfo = document.querySelectorAll(".add-tracking-info");
 const issueSelects = document.querySelectorAll(".issue-selects");
 const statusOptions = document.querySelectorAll(".status-options");
 const issueOptions = document.querySelectorAll(".issue-options");
@@ -11,15 +11,9 @@ const editCustomerInfo = document.getElementById("edit_customer_info");
 const cancelChangeBtn = document.getElementById("cancel_info_change");
 const submitChangeBtn = document.getElementById("submit_info_change");
 const lastUpdated = document.getElementById("last_update_text");
-const name = document.getElementById("name");
 const phone = document.getElementById("customer_phone");
-const email = document.getElementById("email");
 const subject = document.getElementById("subject");
 const description = document.getElementById("description");
-const editFirstnameInput = document.getElementById("edit_firstname_field");
-const editLastnameInput = document.getElementById("edit_lastname_field");
-const editPhoneInput = document.getElementById("edit_phone_field");
-const editEmailInput = document.getElementById("edit_email_field");
 const editSubjectInput = document.getElementById("edit_subject_field");
 const editDescriptionInput = document.getElementById("edit_description_field");
 const ticketID = document.getElementById("ticket_ID");
@@ -55,28 +49,17 @@ $(window).on("load", async () => {
 	}
 });
 
-document.getElementById("submit_info_change").addEventListener(
-	"click",
-	() => {
-		const description = editDescriptionInput.value;
-		const subject = editSubjectInput.value;
-		const id = ticketID.textContent.trim().replace("#", "");
-		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
-
-		// Send post request to update ticket information
-		(async () => {
-			await helper.postReq("/update-ticket-info", {
-				subject,
-				description,
-				ticketID: id,
-				phone: customerPhone,
-			});
-		})();
-
-		document.getElementById("edit_customer_info_form").submit();
-	},
-	{ passive: true }
-);
+const appendTextToChat = (msg) => {
+	const messageBox = document.createElement("div");
+	messageBox.classList.add("message-box");
+	const messageText = document.createElement("p");
+	const text = document.createTextNode(msg);
+	messageText.appendChild(text);
+	messageText.classList.add("reply");
+	messageBox.appendChild(messageText);
+	document.querySelector(".chat-body").prepend(messageBox);
+	chatBoxTextarea.value = "";
+};
 
 /**
  * Prints customer label
@@ -87,19 +70,31 @@ function printCustomerLabel() {
 	console.log("PRINT LABEL");
 }
 
+submitChangeBtn.addEventListener(
+	"click",
+	async () => {
+		const description = editDescriptionInput.value;
+		const subject = editSubjectInput.value;
+		const id = ticketID.textContent.trim().replace("#", "");
+		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
+
+		// Send post request to update ticket information
+		await helper.postReq("/tickets/update-ticket-info", {
+			subject,
+			description,
+			ticketID: id,
+			phone: customerPhone,
+		});
+	},
+	{ passive: true }
+);
+
 editCustomerInfo.addEventListener(
 	"click",
 	() => {
 		editCustomerInfo.classList.add("hidden");
-		name.classList.add("hidden");
-		phone.classList.add("hidden");
-		email.classList.add("hidden");
 		subject.classList.add("hidden");
 		description.classList.add("hidden");
-		editFirstnameInput.classList.remove("hidden");
-		editLastnameInput.classList.remove("hidden");
-		editPhoneInput.classList.remove("hidden");
-		editEmailInput.classList.remove("hidden");
 		editSubjectInput.classList.remove("hidden");
 		editDescriptionInput.classList.remove("hidden");
 		cancelChangeBtn.classList.remove("hidden");
@@ -112,17 +107,10 @@ cancelChangeBtn.addEventListener(
 	"click",
 	() => {
 		editCustomerInfo.classList.remove("hidden");
-		name.classList.remove("hidden");
-		phone.classList.remove("hidden");
-		email.classList.remove("hidden");
 		subject.classList.remove("hidden");
 		description.classList.remove("hidden");
-		editFirstnameInput.classList.add("hidden");
-		editLastnameInput.classList.add("hidden");
-		editPhoneInput.classList.add("hidden");
-		editEmailInput.classList.add("hidden");
 		editSubjectInput.classList.add("hidden");
-		description.classList.add("hidden");
+		editDescriptionInput.classList.add("hidden");
 		cancelChangeBtn.classList.add("hidden");
 		submitChangeBtn.classList.add("hidden");
 	},
@@ -132,20 +120,18 @@ cancelChangeBtn.addEventListener(
 for (const select of statusSelects) {
 	select.addEventListener(
 		"change",
-		(e) => {
+		async (e) => {
 			const id = ticketID.textContent.trim().replace("#", "");
 			const selection = e.target.value;
-			const phone = phone.textContent.trim().replace(/\D/g, "");
+			const customerPhone = phone.textContent.trim().replace(/\D/g, "");
 
 			// Send post request to update ticket status for ticket that was changed
-			(async () => {
-				await helper.postReq("/update-ticket-status", {
-					selection,
-					id,
-					phone,
-				});
-				location.reload();
-			})();
+			await helper.postReq("/tickets/update-ticket-status", {
+				selection,
+				id,
+				phone: customerPhone,
+			});
+			location.reload();
 		},
 		{ passive: true }
 	);
@@ -158,20 +144,18 @@ document.querySelector(".new-payment-btn").addEventListener("click", () => {
 for (const select of issueSelects) {
 	select.addEventListener(
 		"change",
-		(e) => {
+		async (e) => {
 			const id = ticketID.textContent.trim().replace("#", "");
 			const selection = e.target.value;
-			const phone = phone.textContent.trim().replace(/\D/g, "");
+			const customerPhone = phone.textContent.trim().replace(/\D/g, "");
 
 			// Send post request to update ticket issue for ticket that was changed
-			(async () => {
-				await helper.postReq("/update-ticket-issue", {
-					selection,
-					id,
-					phone,
-				});
-				location.reload();
-			})();
+			await helper.postReq("/tickets/update-ticket-issue", {
+				selection,
+				id,
+				phone: customerPhone,
+			});
+			location.reload();
 		},
 		{ passive: true }
 	);
@@ -236,7 +220,7 @@ for (const btn of addTrackingInfo) {
 
 document.getElementById("confirm_tracking_details").addEventListener(
 	"click",
-	() => {
+	async () => {
 		// Validate tracking details
 		if (!trackingNumber.value) {
 			helper.showInvalidColour(trackingNumber);
@@ -254,14 +238,13 @@ document.getElementById("confirm_tracking_details").addEventListener(
 		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
 
 		// Send post request to update tracking details
-		(async () => {
-			await helper.postReq("/update-ticket-shipping-info", {
-				trackingNumber: trackingNumber.value,
-				carrier,
-				ticketID: id,
-				phone: customerPhone,
-			});
-		})();
+		await helper.postReq("/tickets/update-ticket-shipping-info", {
+			trackingNumber: trackingNumber.value,
+			carrier,
+			ticketID: id,
+			phone: customerPhone,
+		});
+
 		location.reload();
 	},
 	{ passive: true }
@@ -269,7 +252,7 @@ document.getElementById("confirm_tracking_details").addEventListener(
 
 sendMsg.addEventListener(
 	"click",
-	() => {
+	async () => {
 		if (!chatBoxTextarea.value) {
 			helper.showInvalidColour(chatBoxTextarea);
 			return;
@@ -280,28 +263,18 @@ sendMsg.addEventListener(
 		const id = ticketID.textContent.trim().replace("#", "");
 
 		// Send post request when message sent to customer
-		(async () => {
-			try {
-				const data = await helper.postReq("/send-sms", {
-					message,
-					toPhone,
-					ticketID: id,
-				});
+		try {
+			const data = await helper.postReq("/tickets/send-sms", {
+				message,
+				toPhone,
+				ticketID: id,
+			});
 
-				// Add message text to chatbox
-				const messageBox = document.createElement("div");
-				messageBox.classList.add("message-box");
-				const messageText = document.createElement("p");
-				const text = document.createTextNode(data.msg);
-				messageText.appendChild(text);
-				messageText.classList.add("reply");
-				messageBox.appendChild(messageText);
-				document.querySelector(".chat-body").prepend(messageBox);
-				chatBoxTextarea.value = "";
-			} catch (error) {
-				console.log(error);
-			}
-		})();
+			// Add message text to chatbox
+			appendTextToChat(data.msg);
+		} catch (error) {
+			console.log(error);
+		}
 	},
 	{ passive: true }
 );

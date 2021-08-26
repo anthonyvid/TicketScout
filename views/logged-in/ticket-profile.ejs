@@ -171,40 +171,14 @@
 							<div class="item-style">
 								<span><i class="fas fa-user"></i></span>
 								<p id="name"><a href=<%=`/customers/${ticket.customer.phone}`%>><%=fullname%></a></p>
-								<div>
-									<input name="newFirstname" form="edit_customer_info_form" class="hidden edit-field" id="edit_firstname_field" type="text" value="<%= ticket.customer.firstname %> ">
-									<input name="newLastname" form="edit_customer_info_form" class="hidden edit-field" id="edit_lastname_field" type="text" value="<%= ticket.customer.lastname %> ">
-								</div>
 							</div>
 							<div class="item-style">
 								<span><i class="fas fa-phone-alt"></i></span>
-								<p id="customer_phone"><a href=<%=`/customers/${ticket.customer.phone}`%>><%=phone%></a></p>
-								<input
-									name="oldPhone"
-									form="edit_customer_info_form"
-									type="hidden"
-									value="<%= phone %>"
-								/>
-								<input
-									name="newPhone"
-									form="edit_customer_info_form"
-									class="hidden edit-field"
-									id="edit_phone_field"
-									type="text"
-									value="<%= ticket.customer.phone %>"
-								/>
+								<p id="customer_phone"><a href=<%=`/customers/${ticket.customer.phone}`%>><%=phone%></a></p>	
 							</div>
 							<div class="item-style">
 								<span><i class="fas fa-envelope"></i></span>
 								<p id="email"><%= ticket.customer.email.length === 0 ? "No Email" : ticket.customer.email%></p>
-								<input
-									name="newEmail"
-									form="edit_customer_info_form"
-									class="hidden edit-field"
-									id="edit_email_field"
-									type="email"
-									value="<%= ticket.customer.email.length === 0 ? "" : ticket.customer.email %>"
-								/>
 							</div>
 						</div>
 						<hr color="#eaeef5" size="1" />
@@ -251,14 +225,14 @@
 									<button type="button" id="confirm_tracking_details">Confirm</button>
 								</div>
 								<% if(ticket.shipping.tracking.length == 0) { %> 
-									<button class="add_tracking_info" type="button">Add tracking info</button>
+									<button class="add-tracking-info" type="button">Add tracking info</button>
 								<% } else {%> 
 									<div id="shipping_details">
 										<span><i class="fas fa-hashtag"></i></span>
 										<p><%= ticket.shipping.tracking %></p>
 										<span><i class="fas fa-shipping-fast"></i></span>
 										<p><%= ticket.shipping.carrier %></p>
-										<button class="add_tracking_info" type="button">edit</button>
+										<button class="add-tracking-info" type="button">edit</button>
 									</div>
 								<% } %> 
 							</div>
@@ -270,13 +244,6 @@
 						<button class="hidden" id="cancel_info_change" type>
 							Cancel
 						</button>
-						<form
-							id="edit_customer_info_form"
-							action="/update-customer-contact-info"
-							method="POST"
-						>
-							<input form="edit_customer_info_form" type="hidden" name="sentFrom" value="<%= `ticket${ticketID}` %>">
-						</form>
 						<button
 								class="hidden"
 								id="submit_info_change"
@@ -288,14 +255,12 @@
 				</div>
 			</div>
 		</div>
-		<form action="/create-new-payment" method="POST" id="create_new_payment_form">
+		<form action="/payments/new-payment" method="POST" id="create_new_payment_form">
 			<input type="hidden" name="firstname" id="firstname" value="<%=ticket.customer.firstname%>">			
 			<input type="hidden" name="lastname" id="lastname" value="<%=ticket.customer.lastname%>">			
 			<input type="hidden" name="phone" id="phone" value="<%=ticket.customer.phone%>">			
 			<input type="hidden" name="email" id="email" value="<%=ticket.customer.email%>">			
 			<input type="hidden" name="linkedTicket" id="linked_ticket" value="<%=ticketID%>">			
-			<input type="hidden" name="customerDataExists" id="customer_data_exists" value="true">			
 		</form>
-		
 	</main>
 </div>

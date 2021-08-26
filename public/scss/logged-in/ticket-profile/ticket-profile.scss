@@ -2,7 +2,6 @@
 
 .header-wrap {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
 	gap: 50px;
 	height: 75px;
@@ -11,8 +10,6 @@
 	.title-wrap {
 		width: auto;
 		height: 100%;
-		display: flex;
-		flex-direction: row;
 		gap: 25px;
 		height: 100%;
 		display: flex;
@@ -20,8 +17,8 @@
 		flex-direction: column;
 
 		h1 {
-			color: #000;
-			font-family: "Inter";
+			color: $black;
+			font-family: $primary;
 			font-weight: 600;
 		}
 
@@ -34,7 +31,6 @@
 		height: 100%;
 		width: auto;
 		display: flex;
-		align-items: center;
 		gap: 15px;
 		align-items: flex-end;
 
@@ -44,8 +40,7 @@
 			border-radius: 5px;
 			background-color: darken(#f9fbfc, 2%);
 			border: 1px solid $swatch_1;
-			box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-				rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+			box-shadow: $simpleBoxShadow;
 			padding: 5px;
 			display: flex;
 			gap: 5px;
@@ -61,9 +56,6 @@
 			width: 50px;
 		}
 	}
-}
-.hidden {
-	display: none;
 }
 
 .customer-content {
@@ -149,6 +141,7 @@
 						border-top-left-radius: 10px;
 						outline: none;
 						padding: 10px;
+						font-family: $secondary;
 					}
 
 					div {
@@ -202,12 +195,11 @@
 		.heading {
 			width: 100%;
 			height: 40px;
-			margin-bottom: -4%;
 			display: flex;
 			justify-content: space-between;
 
 			span {
-				color: $light-grey;
+				color: $grey;
 				transition: 0.3s ease-in-out;
 				transform: scale(1.1);
 
@@ -223,8 +215,7 @@
 		.edit-field {
 			border-radius: 5px;
 			height: 25px;
-			border: 1px solid #95a9c6;
-			text-indent: 10px;
+			@include simpleInputStyle;
 
 			&::placeholder {
 				color: black;
@@ -239,7 +230,6 @@
 
 			div {
 				display: flex;
-				flex-direction: row;
 				align-items: center;
 				justify-content: flex-start;
 				gap: 15px;
@@ -292,15 +282,10 @@
 						gap: 10px;
 					}
 
-					#add_tracking_info {
+					.add-tracking-info {
 						height: 30px;
 						width: 150px;
-						border-radius: 5px;
-						background-color: darken(#f9fbfc, 2%);
-						border: 1px solid $swatch_1;
-						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-						padding: 5px;
+						@include simpleButtonStyle;
 						display: flex;
 						gap: 5px;
 						align-items: center;
@@ -319,6 +304,14 @@
 							display: flex;
 							justify-content: center;
 							flex-direction: column;
+						}
+						button {
+							@include simpleButtonStyle;
+						}
+						input,
+						select {
+							@include simpleInputStyle;
+							text-indent: 0;
 						}
 					}
 				}
@@ -367,9 +360,9 @@
 
 			button {
 				padding: 5px 10px;
-
 				border: 0;
 				border-radius: 3px;
+				@include simpleButtonStyle;
 
 				&:first-child {
 					border: 1px solid lightgrey;

@@ -58,8 +58,7 @@ cancelChangeBtn.addEventListener(
 newTicketBtn.addEventListener(
 	"click",
 	() => {
-		document.getElementById("customer_data_exists").value = "true";
-		createNewForm.action = "/create-new-customer";
+		createNewForm.action = "/tickets/new-ticket";
 		createNewForm.submit();
 	},
 	{ passive: true }
@@ -68,8 +67,7 @@ newTicketBtn.addEventListener(
 newPaymentBtn.addEventListener(
 	"click",
 	() => {
-		document.getElementById("customer_data_exists").value = "true";
-		createNewForm.action = "/create-new-payment";
+		createNewForm.action = "/payments/create-new-payment";
 		createNewForm.submit();
 	},
 	{ passive: true }

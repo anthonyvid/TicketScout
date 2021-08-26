@@ -26,48 +26,10 @@ router.get(
 );
 // Dashboard Page
 router.get("/dashboard", ensureAuthenticated, userController.renderDashboard);
-// Tickets Page
-router.get("/tickets", ensureAuthenticated, userController.renderStoreTickets);
-router.get(
-	"/customers",
-	ensureAuthenticated,
-	userController.renderStoreCustomers
-);
-//payments page
-router.get(
-	"/payments",
-	ensureAuthenticated,
-	userController.renderStorePayments
-);
 
 router.get("/reset-password", userController.renderResetPassword);
 // Customers Page
 // router.get("/customers", userController.renderCustomers);
-// Track a shipment Handle
-router.post(
-	"/track-shipment",
-	ensureAuthenticated,
-	userController.trackShipment
-);
-
-// Create new ticket page
-router.post(
-	"/new-ticket",
-	ensureAuthenticated,
-	userController.renderCreateNewTicket
-);
-// create new customer page
-router.post(
-	"/new-customer",
-	ensureAuthenticated,
-	userController.renderCreateNewCustomer
-);
-//create new payment page
-router.post(
-	"/new-payment",
-	ensureAuthenticated,
-	userController.renderCreateNewPayment
-);
 
 //account settings page
 router.get(
@@ -75,120 +37,16 @@ router.get(
 	ensureAuthenticated,
 	userController.renderAccountSettings
 );
-//create new ticket handle
-router.post(
-	"/create-new-ticket",
-	ensureAuthenticated,
-	userController.createNewTicket
-);
-//create new customer handle
-router.post(
-	"/create-new-customer",
-	ensureAuthenticated,
-	userController.createNewCustomer
-);
-//create new payment handle
-router.post(
-	"/create-new-payment",
-	ensureAuthenticated,
-	userController.createNewPayment
-);
-//dynamic customer page
-router.get(
-	"/customers/:phone",
-	ensureAuthenticated,
-	userController.renderCustomerProfile
-);
-//dynamic ticket page
-router.get(
-	"/tickets/:ticketID",
-	ensureAuthenticated,
-	userController.renderTicketProfile
-);
-//dynamic payments page
-router.get(
-	"/payments/:paymentNumber",
-	ensureAuthenticated,
-	userController.renderPaymentProfile
-);
-router.post("/get-phone", userController.getPhone);
-router.post("/update-ticket-status", userController.updateTicketStatus);
-router.post("/update-ticket-issue", userController.updateTicketIssue);
-router.get("/get-store", userController.getStore);
 
-router.post(
-	"/update-customer-contact-info",
-	ensureAuthenticated,
-	userController.updateCustomerContactInfo
-);
-router.post(
-	"/update-ticket-info",
-	ensureAuthenticated,
-	userController.updateTicketInfo
-);
-router.post(
-	"/update-ticket-shipping-info",
-	ensureAuthenticated,
-	userController.updateTicketShippingInfo
-);
-router.post("/send-sms", ensureAuthenticated, userController.sendSms);
-// router.post("/", (req, res) => {
-// 	console.log(req.body);
-// });
+router.get("/get-store", userController.getStore);
 
 router.post("/clock-in", ensureAuthenticated, userController.clockIn);
 router.post("/clock-out", ensureAuthenticated, userController.clockOut);
 
-router.post("/receive-sms", userController.receiveSms);
 router.post("/live-search-results", userController.liveSearchResults);
 router.post("/update-account-info", userController.updateAccountInfo);
 router.post("/change-account-password", userController.changeAccountPassword);
-router.post(
-	"/get-employees-timeclock-history",
-	userController.getEmployeesTimeclockHistory
-);
-router.post("/add-category", ensureAuthenticated, userController.addCategory);
-router.post(
-	"/remove-category",
-	ensureAuthenticated,
-	userController.removeCategory
-);
-router.post(
-	"/update-store-taxRate",
-	ensureAuthenticated,
-	userController.updateStoreTaxRate
-);
-router.post(
-	"/update-store-address",
-	ensureAuthenticated,
-	userController.updateStoreAddress
-);
 
-router.post(
-	"/update-ticket-status-settings",
-	ensureAuthenticated,
-	userController.updateTicketStatusSettings
-);
-router.post(
-	"/delete-ticket-status-settings",
-	ensureAuthenticated,
-	userController.deleteTicketStatusSettings
-);
-router.post("/add-issue", ensureAuthenticated, userController.addIssue);
-router.post("/remove-issue", ensureAuthenticated, userController.removeIssue);
-
-router.post("/delete-ticket", ensureAuthenticated, userController.deleteTicket);
-router.post(
-	"/delete-payment",
-	ensureAuthenticated,
-	userController.deletePayment
-);
-router.post(
-	"/delete-customer",
-	ensureAuthenticated,
-	userController.deleteCustomer
-);
-
-router.get("/verify-email/:id", userController.verifyEmail);
+router.get("/verify-email/:id", userController.verifyEmailExists);
 
 export default router;

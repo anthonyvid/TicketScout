@@ -1,39 +1,4 @@
-$base-spacing-unit: 24px;
-$half-spacing-unit: $base-spacing-unit / 2;
-$primary-purple: #7470fb;
-$dark-purple: #3d354b;
-$second-dark-purple: #3f3539;
-$white-1: #edf5fc;
-$white-2: #fafafb;
-$light-grey: #b1aec2;
-$card-pool: #e8edf5;
-
-$main-color: #1a202e;
-$color-dark: #1d2231;
-$text-grey: #8390a2;
-
-// Main Color Scheme
-$swatch_1: #e8edf5;
-$swatch_2: #050505;
-$swatch_3: #b4becc;
-$swatch_4: #354250;
-$swatch_5: #717987;
-$bluetext: #0d2238;
-
-*,
-*:before,
-*:after {
-	box-sizing: border-box;
-}
-
-a,
-a:visited,
-a:focus,
-a:hover,
-a:active {
-	text-decoration: none;
-	color: #7e8082 !important;
-}
+@import "../../../helper";
 
 .header-wrap {
 	display: flex;
@@ -75,9 +40,7 @@ a:active {
 			gap: 25px;
 
 			.search-wrap {
-				display: flex;
-				justify-content: center;
-				align-items: center;
+				@include centerFlexChild;
 				height: 35px;
 
 				input {
@@ -141,90 +104,43 @@ a:active {
 	border-radius: 15px;
 
 	table {
-		font-family: "Inter";
-		border-collapse: collapse;
-		width: 100%;
-		border: 1px solid $swatch_1;
-		display: table;
+		@include table-style;
+		@include thead;
+		@include tbody;
 
-		thead tr {
-			display: flex;
-			border: 1px solid $swatch_1;
-			background-color: #f9fbfc;
-		}
-
-		thead td {
-			font-weight: 800;
-			font-size: 14px;
-			padding: ($half-spacing-unit * 1.5) 0;
-			display: flex;
-			align-items: center;
-			padding-left: 3rem;
-			color: #7e8082 !important;
-		}
-
-		tbody tr {
-			display: flex;
-			align-items: center;
-			padding: ($half-spacing-unit * 1.5) 0;
-			border: 1px solid $swatch_1;
+		.issue-selects {
+			// padding: 7px 40px 7px 12px;
+			border: 2px solid #e8eaed;
+			border-radius: 5px;
 			background: white;
-			transition: 0.3s ease-in-out;
+			box-shadow: 0 1px 3px -2px #9098a9;
+			cursor: pointer;
+			outline: none;
+		}
 
+		#icon_color {
+			font-size: 12px;
+		}
+
+		.status-selects {
+			-webkit-appearance: none;
+			border: none;
+			outline: none;
+			background-color: transparent;
+			margin-left: 2px;
+			font-weight: 600;
+			font-size: 14px;
 			&:hover {
-				background-color: #f5f5f5;
-				color: #575758 !important;
-				a {
-					color: #575758 !important;
-				}
-			}
-
-			.issue-selects {
-				// padding: 7px 40px 7px 12px;
-				border: 2px solid #e8eaed;
-				border-radius: 5px;
-				background: white;
-				box-shadow: 0 1px 3px -2px #9098a9;
 				cursor: pointer;
-				outline: none;
-			}
-
-			#icon_color {
-				font-size: 12px;
-			}
-
-			.status-selects {
-				-webkit-appearance: none;
-				border: none;
-				outline: none;
-				background-color: transparent;
-				margin-left: 2px;
-				font-weight: 600;
-				font-size: 14px;
-				&:hover {
-					cursor: pointer;
-				}
-			}
-
-			.status {
-				div {
-					display: flex;
-					align-items: center;
-					gap: 2px;
-				}
 			}
 		}
 
-		td {
-			padding: 0.5rem 1rem;
-			font-size: 0.9rem;
-			color: #7e8082 !important;
-			flex: 1 1 20%;
-			padding-left: 3rem;
-		}
-
-		a:hover {
-			text-decoration: underline;
+		.status {
+			div {
+				display: flex;
+				align-items: center;
+				gap: 2px;
+			}
 		}
 	}
 }

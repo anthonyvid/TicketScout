@@ -1,3 +1,18 @@
+/* scss helper file */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 *,
 *:before,
 *:after {
@@ -14,6 +29,16 @@ a:active {
   color: #7e8082 !important;
 }
 
+div {
+  scroll-behavior: smooth;
+  scrollbar-width: 0px;
+  -ms-overflow-style: none;
+}
+
+div::-webkit-scrollbar {
+  display: none;
+}
+
 .header-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -27,38 +52,28 @@ a:active {
           align-items: center;
   height: 65px;
   width: 100%;
-}
-
-.header-wrap .title-wrap {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
   gap: 25px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
-.header-wrap .title-wrap h1 {
+.header-wrap .info-wrap {
+  width: auto;
+}
+
+.header-wrap .info-wrap h1 {
   color: #000;
   margin-bottom: 5px;
-  font-family: "Inter";
   font-weight: 600;
 }
 
-.header-wrap .title-wrap h1 span {
+.header-wrap .info-wrap h1 span {
   font-size: 20px;
 }
 
-.header-wrap .title-wrap .actions-wrap {
+.header-wrap .actions-wrap {
   height: 100%;
-  width: 30%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -68,7 +83,7 @@ a:active {
   gap: 15px;
 }
 
-.header-wrap .title-wrap .actions-wrap .action-style {
+.header-wrap .actions-wrap .action-style {
   width: auto;
   height: 30px;
   border-radius: 5px;
@@ -88,11 +103,11 @@ a:active {
       justify-content: space-around;
 }
 
-.header-wrap .title-wrap .actions-wrap .action-style:hover {
+.header-wrap .actions-wrap .action-style:hover {
   cursor: pointer;
 }
 
-.header-wrap .title-wrap .actions-wrap .document-btn {
+.header-wrap .actions-wrap .document-btn {
   width: 50px !important;
 }
 
@@ -133,6 +148,7 @@ a:active {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 25px;
+  overflow-y: auto;
 }
 
 .customer-content .left-container .table-style {
@@ -170,13 +186,11 @@ a:active {
 }
 
 .customer-content .left-container .table-style table {
-  font-family: "Inter";
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #e8edf5;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  overflow: hidden;
   display: table;
   text-align: left;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
@@ -235,6 +249,7 @@ a:active {
       -ms-flex-align: center;
           align-items: center;
   background-color: white;
+  overflow-y: auto;
   gap: 25px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
@@ -422,9 +437,18 @@ a:active {
   gap: 20px;
 }
 
-@media only screen and (max-height: 807px) {
-  main {
-    overflow-y: auto;
+@media only screen and (max-width: 1150px) {
+  .customer-content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: auto;
+  }
+  .customer-content .left-container,
+  .customer-content .right-container {
+    width: 100%;
+    overflow-y: none;
   }
 }
 /*# sourceMappingURL=customer-profile.css.map */

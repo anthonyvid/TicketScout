@@ -107,6 +107,7 @@ class User {
 	 * @returns the payment settings of the store
 	 */
 	async getPaymentSettings(storename) {
+		console.log(storename);
 		const store = await storesCollection.findOne({ storename: storename });
 		return store.storeSettings.payments;
 	}
@@ -139,8 +140,6 @@ class User {
 		const store = await this.getStore(storename);
 		const storeCustomers = store.storedata.customers;
 		const storePayments = store.storedata.payments;
-
-		console.log(linkedTicket);
 
 		// If phone present, validate it
 		if (customer.phone.length) {
@@ -177,7 +176,14 @@ class User {
 					$set: {
 						[`storedata.customers.${[customer.phone]}.payments.${[
 							mostRecentPaymentID,
-						]}`]: payment,
+						]}`]: {
+							orderTotal: orderTotal,
+							orderItems: order,
+							paymentMethod: paymentMethod,
+							linkedTicket: linkedTicket,
+							status: "approved",
+							date: new Date().toDateString(),
+						},
 					},
 				}
 			);
@@ -190,7 +196,14 @@ class User {
 					$set: {
 						[`storedata.tickets.${[linkedTicket]}.payments.${[
 							mostRecentPaymentID,
-						]}`]: payment,
+						]}`]: {
+							orderTotal: orderTotal,
+							orderItems: order,
+							paymentMethod: paymentMethod,
+							linkedTicket: linkedTicket,
+							status: "approved",
+							date: new Date().toDateString(),
+						},
 					},
 				}
 			);
@@ -209,8 +222,8 @@ class User {
 	}
 
 	async liveSearchResults(storename, search) {
-		const store = this.getStore(Storename);
-
+		const store = await this.getStore(storename);
+		console.log(store);
 		search = search.trim();
 
 		const storeTickets = Object.keys(store.storedata.tickets);
@@ -290,7 +303,6 @@ class User {
 		return phone;
 	}
 	async updateTicketStatus(selection, ticketID, phone, storename) {
-		console.log(phone);
 		const latestUpdate = new Date().getTime();
 		storesCollection.updateOne(
 			{
@@ -313,7 +325,6 @@ class User {
 		return await this.updateTicketList(storename);
 	}
 	async updateTicketIssue(selection, ticketID, phone, storename) {
-		console.log(phone);
 		const latestUpdate = new Date().getTime();
 		storesCollection.updateOne(
 			{
@@ -517,7 +528,9 @@ class User {
 		return store.storedata.tickets[ticketID];
 	}
 	async getPaymentData(storename, paymentNumber) {
+		console.log(storename, paymentNumber);
 		const store = await storesCollection.findOne({ storename: storename });
+		console.log(store.storedata.payments);
 		return store.storedata.payments[paymentNumber];
 	}
 
@@ -546,7 +559,6 @@ class User {
 
 		//create array sorted by recently updated
 		const customers = store.storedata.customers;
-		console.log(customers);
 
 		const sortedCustomers = [];
 		for (let customer in customers) {
@@ -596,8 +608,6 @@ class User {
 		const newSubject = newInfo.subject;
 		const newDescription = newInfo.description;
 		const ticketID = newInfo.ticketID;
-
-		console.log(newSubject);
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -686,33 +696,49 @@ class User {
 			}
 		);
 
-		//update info in each ticket customer has
-		if (
-			Object.keys(store.storedata.customers[oldPhone]?.tickets).length > 0
-		) {
-			const ticketsToUpdate = Object.keys(
-				store.storedata.customers[oldPhone]?.tickets
+		const ticketsToUpdate = Object.keys(
+			store.storedata.customers[oldPhone]?.tickets
+		);
+
+		for (const ticket of ticketsToUpdate) {
+			await storesCollection.updateOne(
+				{ storename: storename },
+				{
+					$set: {
+						[`storedata.tickets.${[ticket]}.customer.firstname`]:
+							newFirstname,
+						[`storedata.tickets.${[ticket]}.customer.lastname`]:
+							newLastname,
+						[`storedata.tickets.${[ticket]}.customer.phone`]:
+							newPhone,
+						[`storedata.tickets.${[ticket]}.customer.email`]:
+							newEmail,
+					},
+				}
 			);
-			for (const ticket of ticketsToUpdate) {
-				await storesCollection.updateOne(
-					{ storename: storename },
-					{
-						$set: {
-							[`storedata.tickets.${[
-								ticket,
-							]}.customer.firstname`]: newFirstname,
-							[`storedata.tickets.${[ticket]}.customer.lastname`]:
-								newLastname,
-							[`storedata.tickets.${[ticket]}.customer.phone`]:
-								newPhone,
-							[`storedata.tickets.${[ticket]}.customer.email`]:
-								newEmail,
-						},
-					}
-				);
-			}
 		}
-		//TODO: NEED TO UPDATE INFORMATION IN INVOICES AND ESTIMATES AS WELL, AND ANYWHERE ELSE CUSTOMER DATA IS STORED
+
+		const paymentsToUpdate = Object.keys(
+			store.storedata.customers[oldPhone]?.payments
+		);
+
+		for (const payment of paymentsToUpdate) {
+			await storesCollection.updateOne(
+				{ storename: storename },
+				{
+					$set: {
+						[`storedata.payments.${[payment]}.customer.firstname`]:
+							newFirstname,
+						[`storedata.payments.${[payment]}.customer.lastname`]:
+							newLastname,
+						[`storedata.payments.${[payment]}.customer.phone`]:
+							newPhone,
+						[`storedata.payments.${[payment]}.customer.email`]:
+							newEmail,
+					},
+				}
+			);
+		}
 
 		return [{}, newPhone];
 	}
@@ -729,7 +755,6 @@ class User {
 
 		const { tracking, carrier } =
 			store.storedata.tickets[ticketID].shipping;
-		console.log(tracking, carrier);
 
 		// Fetch API Call for tracking and carrier
 		const url = `https://api.goshippo.com/tracks/${carrier}/${tracking}`;
@@ -773,8 +798,6 @@ class User {
 	async updateTicketShippingInfo(info, storename) {
 		const { trackingNumber, carrier, ticketID, phone } = info;
 
-		console.log(trackingNumber);
-
 		await storesCollection.updateOne(
 			{ storename: storename },
 			{
@@ -795,7 +818,6 @@ class User {
 	}
 
 	async receiveSms(smsData) {
-		console.log(smsData);
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
@@ -853,7 +875,6 @@ class User {
 				);
 				return message.body;
 			});
-		console.log(msg);
 		return msg;
 	}
 
@@ -907,7 +928,6 @@ class User {
 
 		//If they are admin cleanup data like below
 		if ("storename" in data) {
-			console.log("in cleanUp: Admin");
 			this.data = {
 				fullname: data.fullname.toLowerCase(),
 				email: data.email.trim().toLowerCase(),
@@ -918,7 +938,6 @@ class User {
 		}
 		//If they are employee cleanup data like below
 		else {
-			console.log("in cleanUp: Employee");
 			this.data = {
 				fullname: data.fullname.toLowerCase(),
 				email: data.email.trim().toLowerCase(),
@@ -930,8 +949,6 @@ class User {
 	}
 
 	async clockIn(user, clockInTime) {
-		console.log("user clock in");
-
 		await usersCollection.updateOne(
 			{ email: user.email },
 			{
@@ -943,8 +960,6 @@ class User {
 		);
 	}
 	async clockOut(user, clockOutTime) {
-		console.log("user clock Out");
-
 		const userData = await usersCollection.findOne({ email: user.email });
 
 		const clockInTime = userData.timeClock.clockInTime;
@@ -1019,7 +1034,6 @@ class User {
 
 	async updateTicketStatusSettings(storename, newData) {
 		let { statusName, statusColor } = newData;
-		console.log(statusColor);
 
 		statusName =
 			statusName.charAt(0).toUpperCase() +
@@ -1040,7 +1054,6 @@ class User {
 		statusName =
 			statusName.charAt(0).toUpperCase() +
 			statusName.substring(1).toLowerCase();
-		console.log(statusName);
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -1060,8 +1073,6 @@ class User {
 			.toArray();
 
 		const employeesClockHistory = [];
-
-		console.log(employees);
 
 		for (let i = 0; i < employees.length; i++) {
 			let totalHours = 0;
@@ -1083,8 +1094,6 @@ class User {
 	}
 
 	async updateStoreTaxRate(storename, taxRate) {
-		console.log(taxRate);
-
 		await storesCollection.updateOne(
 			{ storename: storename },
 			{

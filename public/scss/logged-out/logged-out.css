@@ -26,19 +26,19 @@ button:focus {
 
 a {
   text-decoration: none;
-  color: #3f3539;
+  color: black;
 }
 
 a:hover {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  text-shadow: 0 0 1px rgba(61, 53, 75, 0.7);
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
 }
 
 body {
   margin: 0;
   font-family: "montserrat", sans-serif;
-  background-image: url(/assets/mainBg.svg);
+  background-color: #57b8ff;
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -92,9 +92,7 @@ body.superCenter {
       -ms-flex-align: center;
           align-items: center;
   padding-right: 20px;
-  -webkit-box-flex: 3.5;
-      -ms-flex: 3.5;
-          flex: 3.5;
+  width: 40%;
   overflow: hidden;
 }
 
@@ -148,6 +146,38 @@ body.superCenter {
   font-size: 13px;
 }
 
+.login-box form .password-wrap,
+.sign-up-box form .password-wrap,
+.forgot-psw-box form .password-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 25px;
+}
+
+.login-box form .password-wrap div,
+.sign-up-box form .password-wrap div,
+.forgot-psw-box form .password-wrap div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+}
+
+.login-box form .password-wrap div i,
+.sign-up-box form .password-wrap div i,
+.forgot-psw-box form .password-wrap div i {
+  margin-top: 12px;
+}
+
 .login-box form .input-wrap,
 .sign-up-box form .input-wrap,
 .forgot-psw-box form .input-wrap {
@@ -192,8 +222,8 @@ body.superCenter {
 .forgot-psw-box form .input-wrap input:focus + .fa {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .input-wrap input:focus,
@@ -207,8 +237,8 @@ body.superCenter {
 .forgot-psw-box form .input-wrap input:focus + .fa {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .input-wrap input:focus,
@@ -222,8 +252,8 @@ body.superCenter {
 .forgot-psw-box form .input-wrap input:focus + .fa {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .input-wrap input:focus,
@@ -237,8 +267,8 @@ body.superCenter {
 .forgot-psw-box form .input-wrap input:focus + .fa {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .input-wrap input:valid + .fa,
@@ -247,15 +277,15 @@ body.superCenter {
 .sign-up-box form .input-wrap input:valid,
 .forgot-psw-box form .input-wrap input:valid + .fa,
 .forgot-psw-box form .input-wrap input:valid {
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .input-wrap input:-webkit-autofill:valid,
 .sign-up-box form .input-wrap input:-webkit-autofill:valid,
 .forgot-psw-box form .input-wrap input:-webkit-autofill:valid {
-  color: #7470fb;
-  border-color: #7470fb;
+  color: #57b8ff;
+  border-color: #57b8ff;
 }
 
 .login-box form .selection-box,
@@ -292,8 +322,8 @@ body.superCenter {
 .forgot-psw-box form .selection-box input:focus {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .selection-box input:focus,
@@ -307,8 +337,8 @@ body.superCenter {
 .forgot-psw-box form .selection-box input:focus {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .selection-box input:focus,
@@ -322,8 +352,8 @@ body.superCenter {
 .forgot-psw-box form .selection-box input:focus {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .selection-box input:focus,
@@ -337,8 +367,8 @@ body.superCenter {
 .forgot-psw-box form .selection-box input:focus {
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .selection-box input:valid,
@@ -347,8 +377,8 @@ body.superCenter {
 .sign-up-box form .selection-box input:valid,
 .forgot-psw-box form .selection-box input:valid,
 .forgot-psw-box form .selection-box input:valid {
-  border-color: #7470fb;
-  color: #7470fb;
+  border-color: #57b8ff;
+  color: #57b8ff;
 }
 
 .login-box form .selection-box i,
@@ -426,10 +456,8 @@ body.superCenter {
 }
 
 .graphic-box {
-  -webkit-box-flex: 6;
-      -ms-flex: 6;
-          flex: 6;
-  background-image: url(/assets/graphicBoxBackground.svg);
+  width: 60%;
+  background-color: rgba(87, 184, 255, 0.6);
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -441,28 +469,33 @@ body.superCenter {
   font-family: "exo 2", sans-serif;
 }
 
-.graphic-box h1 {
+.graphic-box .text-wrap h1 {
   color: #edf5fc;
   font-size: clamp(40px, 3vw, 56px);
   font-weight: 500;
 }
 
-.graphic-box h2 {
+.graphic-box .text-wrap h2 {
   color: white;
   font-weight: 300;
   margin-top: -15px;
 }
 
-.graphic-box h1 .first {
-  color: #3f3539;
-  font-size: clamp(40px, 3vw, 56px);
-  font-weight: 600;
+.graphic-box .img-wrap {
+  height: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.graphic-box h1 .second {
-  color: #3f3539;
-  font-size: clamp(40px, 3vw, 56px);
-  font-weight: 600;
+.graphic-box .img-wrap img {
+  width: 70%;
 }
 
 @media (max-height: 900px) {

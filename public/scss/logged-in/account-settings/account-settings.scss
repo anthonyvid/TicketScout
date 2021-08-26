@@ -1,30 +1,9 @@
-$primary-purple: #7470fb;
-$dark-purple: #3d354b;
-$second-dark-purple: #3f3539;
-$white-1: #edf5fc;
-$white-2: #fafafb;
-$light-grey: #b1aec2;
-$card-pool: #e8edf5;
-$base-spacing-unit: 24px;
-$half-spacing-unit: $base-spacing-unit / 2;
-
-$main-color: #1a202e;
-$color-dark: #1d2231;
-$text-grey: #8390a2;
-
-// Main Color Scheme
-$swatch_1: #e8edf5;
-$swatch_2: #050505;
-$swatch_3: #b4becc;
-$swatch_4: #354250;
-$swatch_5: #717987;
-$bluetext: #0d2238;
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import "../../../helper";
 
 .page-header {
 	margin-top: -10px;
 	h1 {
-		color: #000;
+		color: $black;
 		margin-bottom: 5px;
 		font-family: "Inter";
 		font-weight: 600;
@@ -36,31 +15,31 @@ $bluetext: #0d2238;
 }
 
 .account-settings-container {
-	width: 100%;
-	height: calc(100vh - 200px);
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	width: 100%;
+	height: calc(100vh - 200px);
 	border-radius: 10px;
 	margin-top: 10px;
-	background-color: #fff;
+	background-color: $white;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
 
 	.settings-sidebar {
+		display: flex;
+		flex-direction: column;
 		height: 100%;
 		width: 300px;
 		padding-top: 25px;
 		overflow-y: auto;
-		border-right: 1px solid $card-pool;
-		display: flex;
-		flex-direction: column;
+		border-right: 1px solid $cardPool;
 
 		a {
+			display: flex;
+			align-items: center;
+			gap: 20px;
 			width: 100%;
 			height: 50px;
-			display: flex;
-			gap: 20px;
-			align-items: center;
 			padding-left: 40px;
 			font-weight: 500;
 			text-decoration: none;
@@ -69,13 +48,13 @@ $bluetext: #0d2238;
 
 			&:hover {
 				color: black;
-				background-color: #f5f5f5;
+				background-color: $clearGrey;
 			}
 		}
 
 		.color-menu-item {
 			color: black;
-			background-color: #f5f5f5;
+			background-color: $clearGrey;
 			transition: 0.3s ease-in-out;
 		}
 	}
@@ -94,11 +73,11 @@ $bluetext: #0d2238;
 		}
 
 		.section {
+			display: flex;
+			flex-direction: column;
 			width: 100%;
 			height: 100%;
 			margin-bottom: 50px;
-			display: flex;
-			flex-direction: column;
 
 			h2 {
 				margin-top: 50px;
@@ -112,12 +91,12 @@ $bluetext: #0d2238;
 		#account,
 		#password {
 			form {
-				width: 100%;
-				height: 100%;
-				padding: 50px 0 50px 0;
 				display: flex;
 				flex-direction: column;
 				gap: 50px;
+				width: 100%;
+				height: 100%;
+				padding: 50px 0 50px 0;
 
 				div {
 					display: flex;
@@ -125,25 +104,14 @@ $bluetext: #0d2238;
 					gap: 10px;
 
 					label {
-						text-transform: uppercase;
-						color: $swatch_5;
-						font-size: 13px;
-						font-weight: 500;
-						font-family: "Padauk" bold;
+						@include inputLabel;
 					}
 
 					input {
 						height: 50px;
-						// border-radius: 8px;
-						outline: none;
-						text-indent: 25px;
+						text-indent: 25px !important;
 						font-size: 16px;
-						// border: 0;
-						// box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-						// 	rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-						border: 1px solid $swatch_1;
-						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						@include simpleInputStyle;
 					}
 				}
 
@@ -154,19 +122,7 @@ $bluetext: #0d2238;
 					button {
 						width: 15%;
 						height: 50px;
-						border-radius: 5px;
-						border: 0;
-						background-color: black;
-						color: white;
-						box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
-							rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
-						transition: 0.2s ease-in-out;
-						transform: scale(1);
-					}
-
-					button:hover {
-						transition: 0.3s ease-in-out;
-						transform: scale(1.1);
+						@include buttonEnlarge;
 					}
 				}
 			}
@@ -184,7 +140,6 @@ $bluetext: #0d2238;
 			.clock-filters {
 				height: 50px;
 				display: flex;
-				flex-direction: row;
 				align-items: center;
 				gap: 20px;
 
@@ -195,14 +150,10 @@ $bluetext: #0d2238;
 				}
 
 				button {
-					outline: none;
-					border-radius: 5px;
-					border: 0;
 					background-color: black;
 					color: white;
 					padding: 5px 10px;
-					box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
-						rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+					@include buttonBoxShadow1;
 				}
 
 				div {
@@ -213,53 +164,11 @@ $bluetext: #0d2238;
 			}
 
 			table {
-				font-family: "Inter";
-				border-collapse: collapse;
-				width: 100%;
-				border: 1px solid $swatch_1;
-				display: table;
 				overflow-y: auto;
 
-				thead tr {
-					display: flex;
-					border: 1px solid $swatch_1;
-					background-color: #f9fbfc;
-				}
-
-				thead td {
-					font-weight: 800;
-					font-size: 14px;
-					padding: ($half-spacing-unit * 1.5) 0;
-					display: flex;
-					align-items: center;
-					padding-left: 3rem;
-					color: #7e8082 !important;
-				}
-
-				tbody tr {
-					display: flex;
-					align-items: center;
-					padding: ($half-spacing-unit * 1.5) 0;
-					border: 1px solid $swatch_1;
-					background: white;
-					transition: 0.3s ease-in-out;
-
-					&:hover {
-						background-color: #f5f5f5;
-						color: #575758 !important;
-						a {
-							color: #575758 !important;
-						}
-					}
-				}
-
-				td {
-					padding: 0.5rem 1rem;
-					font-size: 0.9rem;
-					color: #7e8082 !important;
-					flex: 1 1 20%;
-					padding-left: 3rem;
-				}
+				@include table-style;
+				@include thead;
+				@include tbody;
 			}
 		}
 
@@ -274,7 +183,6 @@ $bluetext: #0d2238;
 				margin-top: 15px;
 				padding: 35px 0 35px 0;
 				display: flex;
-				flex-direction: row;
 
 				.left-container {
 					display: flex;
@@ -292,9 +200,7 @@ $bluetext: #0d2238;
 							margin-top: 15px;
 							height: 40px;
 							width: 250px;
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							@include simpleInputStyle;
 						}
 
 						div {
@@ -306,21 +212,13 @@ $bluetext: #0d2238;
 							button {
 								width: 50%;
 								transition: 0.3s ease-in-out;
-								background-color: darken(#f9fbfc, 2%);
-								border: 1px solid $swatch_1;
-								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+								@include simpleButtonStyle;
 							}
 
 							input {
 								display: none;
 								width: 100%;
-								outline: none;
-								text-indent: 10px;
-								background-color: darken(#f9fbfc, 2%);
-								border: 1px solid $swatch_1;
-								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+								@include simpleInputStyle;
 							}
 						}
 					}
@@ -335,24 +233,20 @@ $bluetext: #0d2238;
 
 						div {
 							display: flex;
-							flex-direction: row;
 							gap: 5px;
 
-							input,
-							button {
-								border: 1px solid $swatch_1;
-								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							input {
+								@include simpleInputStyle;
 								margin-top: 15px;
 								height: 40px;
 								width: 185px;
-								text-indent: 10px;
 							}
 
 							button {
-								background-color: darken(#f9fbfc, 2%);
+								@include simpleButtonStyle;
+								margin-top: 15px;
+								height: 40px;
 								width: 65px;
-								text-indent: 0;
 							}
 						}
 					}
@@ -372,35 +266,24 @@ $bluetext: #0d2238;
 
 						label {
 							margin-top: 13px;
-							text-transform: uppercase;
-							color: $swatch_5;
-							font-size: 13px;
-							font-weight: 500;
-							font-family: "Padauk" bold;
+							@include inputLabel;
 						}
 
 						input {
 							height: 40px;
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-							text-indent: 15px;
+							@include simpleInputStyle;
 						}
 
 						&:last-child {
 							display: flex;
 							align-items: flex-end;
 							justify-content: center;
+
 							button {
-								background-color: darken(#f9fbfc, 2%);
 								width: 25%;
 								margin-top: 10px;
 								height: 40px;
-								outline: none;
-								text-indent: 0;
-								border: 1px solid $swatch_1;
-								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+								@include simpleButtonStyle;
 							}
 						}
 					}
@@ -419,7 +302,6 @@ $bluetext: #0d2238;
 				margin-top: 15px;
 				padding: 35px 0 35px 0;
 				display: flex;
-				flex-direction: row;
 				gap: 15px;
 
 				.left-container {
@@ -428,7 +310,6 @@ $bluetext: #0d2238;
 
 					.statuses-wrap {
 						display: flex;
-						flex-direction: row;
 						width: 100%;
 						height: 75%;
 						gap: 10px;
@@ -442,12 +323,9 @@ $bluetext: #0d2238;
 							border: 1px solid $swatch_1;
 
 							.status {
-								display: flex;
-								flex-direction: row;
+								@include centerFlexChild;
 								min-height: 50px;
 								width: 100%;
-								align-items: center;
-								justify-content: center;
 								gap: 15px;
 								border: 1px solid $swatch_1;
 								transition: 0.3s ease-in-out;
@@ -464,7 +342,7 @@ $bluetext: #0d2238;
 
 								&:hover {
 									cursor: pointer;
-									background-color: #f5f5f5;
+									background-color: $clearGrey;
 								}
 							}
 						}
@@ -482,20 +360,12 @@ $bluetext: #0d2238;
 								gap: 5px;
 
 								label {
-									text-transform: uppercase;
-									color: $swatch_5;
-									font-size: 13px;
-									font-weight: 500;
-									font-family: "Padauk" bold;
+									@include inputLabel;
 								}
 
 								input {
 									height: 40px;
-									border: 1px solid $swatch_1;
-									box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px
-											0px,
-										rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-									text-indent: 15px;
+									@include simpleInputStyle;
 								}
 
 								div {
@@ -509,13 +379,8 @@ $bluetext: #0d2238;
 									div {
 										height: 40px;
 										width: 30%;
-										border: 1px solid $swatch_1;
-										box-shadow: rgba(0, 0, 0, 0.05) 0px 6px
-												24px 0px,
-											rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-										display: flex;
-										justify-content: center;
-										align-items: center;
+										@include simpleInputStyle;
+										@include centerFlexChild;
 									}
 								}
 							}
@@ -527,16 +392,10 @@ $bluetext: #0d2238;
 								margin-top: 5px;
 
 								button {
-									background-color: darken(#f9fbfc, 2%);
 									width: 50%;
 									margin-top: -10px;
 									height: 40px;
-									outline: none;
-									text-indent: 0;
-									border: 1px solid $swatch_1;
-									box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px
-											0px,
-										rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+									@include simpleButtonStyle;
 								}
 
 								#delete_ticket_status_settings {
@@ -552,22 +411,17 @@ $bluetext: #0d2238;
 
 								.row {
 									display: flex;
-									flex-direction: row;
 									justify-content: space-around;
 									align-items: center;
 									width: 100%;
 								}
 
 								.color-copy {
-									display: flex;
-									justify-content: center;
-									align-items: center;
+									@include centerFlexChild;
 									width: 30px;
 									height: 30px;
 									border: 1px solid $swatch_1;
-									box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px
-											0px,
-										rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+									box-shadow: $simpleBoxShadow;
 
 									span {
 										display: none;
@@ -636,9 +490,7 @@ $bluetext: #0d2238;
 						margin-top: 15px;
 						height: 40px;
 						width: 250px;
-						border: 1px solid $swatch_1;
-						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+						@include simpleInputStyle;
 					}
 
 					div {
@@ -650,21 +502,13 @@ $bluetext: #0d2238;
 						button {
 							width: 50%;
 							transition: 0.3s ease-in-out;
-							background-color: darken(#f9fbfc, 2%);
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							@include simpleButtonStyle;
 						}
 
 						input {
 							display: none;
 							width: 100%;
-							outline: none;
-							text-indent: 10px;
-							background-color: darken(#f9fbfc, 2%);
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							@include simpleInputStyle;
 						}
 					}
 				}
@@ -678,7 +522,6 @@ $bluetext: #0d2238;
 
 			.employee-content {
 				display: flex;
-				flex-direction: row;
 				height: 100%;
 				width: 100%;
 				padding-top: 25px;
@@ -696,30 +539,20 @@ $bluetext: #0d2238;
 						gap: 5px;
 
 						label {
-							text-transform: uppercase;
-							color: $swatch_5;
-							font-size: 13px;
-							font-weight: 500;
-							font-family: "Padauk" bold;
+							@include inputLabel;
 						}
 
 						input {
 							height: 40px;
 							width: 250px;
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-							text-indent: 10px;
+							@include simpleInputStyle;
 						}
 
 						button {
 							width: 250px;
 							height: 40px;
 							transition: 0.3s ease-in-out;
-							background-color: darken(#f9fbfc, 2%);
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							@include simpleButtonStyle;
 						}
 					}
 				}
@@ -733,7 +566,6 @@ $bluetext: #0d2238;
 
 			.options {
 				display: flex;
-				flex-direction: row;
 				width: 100%;
 				height: 100%;
 				margin-top: 50px;
@@ -745,35 +577,24 @@ $bluetext: #0d2238;
 					gap: 5px;
 
 					label {
-						text-transform: uppercase;
-						color: $swatch_5;
-						font-size: 13px;
-						font-weight: 500;
-						font-family: "Padauk" bold;
+						@include inputLabel;
 					}
 
 					input {
 						height: 40px;
 						width: 250px;
-						border: 1px solid $swatch_1;
-						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-							rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-						text-indent: 10px;
+						@include simpleInputStyle;
 					}
 
 					div {
 						display: flex;
-						flex-direction: row;
 						gap: 5px;
 
 						button {
 							width: 100%;
 							height: 40px;
 							transition: 0.3s ease-in-out;
-							background-color: darken(#f9fbfc, 2%);
-							border: 1px solid $swatch_1;
-							box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							@include simpleButtonStyle;
 
 							&:last-child {
 								display: none;

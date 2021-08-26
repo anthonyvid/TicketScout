@@ -64,7 +64,7 @@ export const employeeRegister = async function (req, res) {
 
 	// No errors means passed registration
 	if (!result) {
-		req.flash("success_msg", "Please verify your email address");
+		req.flash("logout_msg", "Please verify your email address");
 		res.redirect("/");
 	} else {
 		const [registrationErrors, data] = result;
@@ -420,7 +420,6 @@ export const renderPaymentProfile = async function (req, res) {
 	);
 
 	const store = await user.getStore(req.user.storename);
-	console.log(result);
 	res.render("logged-in/payment-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
@@ -494,6 +493,7 @@ export const updateTicketInfo = async function (req, res) {
 	await user.updateTicketInfo(req.user.storename, req.body, req.body.phone);
 };
 export const updateCustomerContactInfo = async function (req, res) {
+	console.log(req.body);
 	const user = new User();
 	const [updateErrors, newPhone] = await user.updateCustomerContactInfo(
 		req.user.storename,

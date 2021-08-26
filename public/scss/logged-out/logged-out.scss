@@ -17,12 +17,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
 
 // Custom Variables
-$primary-purple: #7470fb;
 $dark-purple: #3d354b;
 $second-dark-purple: #3f3539;
 $white-1: #edf5fc;
 $white-2: #fafafb;
 $light-grey: #b1aec2;
+$main-blue: #57b8ff;
 
 // General Overrides
 input:hover,
@@ -39,8 +39,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-	box-shadow: 0 0 0 30px $white-2 inset !important;
-	-webkit-box-shadow: 0 0 0 30px $white-2 inset !important;
+	box-shadow: 0 0 0 30px #fafafb inset !important;
+	-webkit-box-shadow: 0 0 0 30px #fafafb inset !important;
 }
 
 button:focus {
@@ -49,19 +49,20 @@ button:focus {
 
 a {
 	text-decoration: none;
-	color: $second-dark-purple;
+	color: black;
 }
 
 a:hover {
 	transition: all 0.2s ease-in-out;
-	text-shadow: 0 0 1px rgba($color: $dark-purple, $alpha: 0.7);
+	text-shadow: 0 0 1px rgba($color: black, $alpha: 0.7);
 }
 
 // Page Layout Styling
 body {
 	margin: 0;
 	font-family: "montserrat", sans-serif;
-	background-image: url(/assets/mainBg.svg);
+	// background-image: url(/assets/mainBg.svg);
+	background-color: rgba($main-blue, $alpha: 1);
 	background-size: 100% 100%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -99,7 +100,8 @@ body.superCenter {
 	justify-content: center;
 	align-items: center;
 	padding-right: 20px;
-	flex: 3.5;
+	// flex: 3.5;
+	width: 40%;
 	overflow: hidden;
 
 	h1, // Dont show some mobile things
@@ -135,6 +137,22 @@ body.superCenter {
 			font-size: 13px;
 		}
 
+		.password-wrap {
+			display: flex;
+			flex-direction: row;
+			gap: 25px;
+
+			div {
+				display: flex;
+				flex-direction: column;
+				width: 50%;
+
+				i {
+					margin-top: 12px;
+				}
+			}
+		}
+
 		.input-wrap {
 			position: relative;
 
@@ -164,19 +182,19 @@ body.superCenter {
 			input:focus::placeholder,
 			input:focus + .fa {
 				transition: 0.3s ease-in;
-				border-color: $primary-purple;
-				color: $primary-purple;
+				border-color: $main-blue;
+				color: $main-blue;
 			}
 
 			input:valid + .fa,
 			input:valid {
-				border-color: $primary-purple;
-				color: $primary-purple;
+				border-color: $main-blue;
+				color: $main-blue;
 			}
 
 			input:-webkit-autofill:valid {
-				color: $primary-purple;
-				border-color: $primary-purple;
+				color: $main-blue;
+				border-color: $main-blue;
 			}
 		}
 
@@ -201,14 +219,14 @@ body.superCenter {
 			input:focus::placeholder,
 			input:focus {
 				transition: 0.3s ease-in;
-				border-color: $primary-purple;
-				color: $primary-purple;
+				border-color: $main-blue;
+				color: $main-blue;
 			}
 
 			input:valid,
 			input:valid {
-				border-color: $primary-purple;
-				color: $primary-purple;
+				border-color: $main-blue;
+				color: $main-blue;
 			}
 
 			i {
@@ -268,8 +286,10 @@ body.superCenter {
 }
 
 .graphic-box {
-	flex: 6;
-	background-image: url(/assets/graphicBoxBackground.svg);
+	// flex: 6;
+	width: 60%;
+	// background-image: url(/assets/graphicBoxBackground.svg);
+	background-color: rgba($main-blue, $alpha: 0.6);
 	background-size: auto 100%;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -278,30 +298,28 @@ body.superCenter {
 		margin-top: 100px;
 		margin-left: 85px;
 		font-family: "exo 2", sans-serif;
-	}
 
-	h1 {
-		color: $white-1;
-		font-size: clamp(40px, 3vw, 56px);
-		font-weight: 500;
-	}
+		h1 {
+			color: $white-1;
+			font-size: clamp(40px, 3vw, 56px);
+			font-weight: 500;
+		}
 
-	h2 {
-		color: white;
-		font-weight: 300;
-		margin-top: -15px;
+		h2 {
+			color: white;
+			font-weight: 300;
+			margin-top: -15px;
+		}
 	}
+	.img-wrap {
+		height: 60%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
-	h1 .first {
-		color: $second-dark-purple;
-		font-size: clamp(40px, 3vw, 56px);
-		font-weight: 600;
-	}
-
-	h1 .second {
-		color: $second-dark-purple;
-		font-size: clamp(40px, 3vw, 56px);
-		font-weight: 600;
+		img {
+			width: 70%;
+		}
 	}
 }
 
@@ -339,7 +357,7 @@ body.superCenter {
 // // Mobile Styling
 // @media (max-width: 1200px) {
 // 	body {
-// 		background: $primary-purple;
+// 		background: $main-blue;
 // 	}
 // 	.container > img,
 // 	#logo-img,
@@ -356,7 +374,7 @@ body.superCenter {
 // 	.container {
 // 		justify-content: center;
 // 		margin-bottom: 0px;
-// 		background-color: $primary-purple;
+// 		background-color: $main-blue;
 // 		border: none;
 // 		box-shadow: none;
 // 		align-items: center;

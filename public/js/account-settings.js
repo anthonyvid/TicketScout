@@ -174,8 +174,8 @@ employeeTotalCheckbox.addEventListener(
 				for (let i = 0; i < data.employeesClockHistory.length; i++) {
 					const newRow = adminTableBodyRef.insertRow();
 					newRow.classList.add("table-row");
-					addCellToRow(newRow, data.employeesClockHistory[i][0]);
-					addCellToRow(
+					helper.addCellToRow(newRow, data.employeesClockHistory[i][0]);
+					helper.addCellToRow(
 						newRow,
 						data.employeesClockHistory[i][1].toFixed(3)
 					);

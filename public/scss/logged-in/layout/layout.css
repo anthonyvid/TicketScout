@@ -1,3 +1,11 @@
+/* scss helper file */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
@@ -6,13 +14,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
-  font-family: "Fira Sans";
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-decoration: none;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  font-family: "Fira Sans";
 }
 
 input[type="search"]::-ms-clear {
@@ -27,7 +35,6 @@ input[type="search"]::-ms-reveal {
   height: 0;
 }
 
-/* clears the 'X' from Chrome */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
@@ -46,8 +53,14 @@ input:focus {
   outline: none;
 }
 
-a {
+a,
+a:hover {
   text-decoration: none;
+  color: #000;
+}
+
+.hidden {
+  display: none;
 }
 
 .sidebar {
@@ -94,7 +107,6 @@ a {
 }
 
 .sidebar-menu #nav_list {
-  background-color: transparent;
   list-style: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -109,14 +121,12 @@ a {
 }
 
 .sidebar-menu .menu-link {
-  color: #7d8a96;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: transparent;
   height: 42px;
   width: 190px;
   border-radius: 5px;
@@ -127,6 +137,7 @@ a {
   text-align: center;
   margin-top: 1.25em;
   font-size: 1rem;
+  color: #7d8a96;
 }
 
 .sidebar-menu .menu-link span {
@@ -164,7 +175,6 @@ a {
 }
 
 .main-content header {
-  height: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -174,6 +184,7 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 70px;
   padding: 1rem 1.5rem;
 }
 
@@ -197,14 +208,12 @@ a {
   text-indent: 35px;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  font-family: "Inter";
 }
 
 .main-content header .search-box span {
   position: absolute;
   margin-left: 7px;
   color: #b1aec2;
-  font-family: "Inter";
 }
 
 .main-content header .search-box .create-new {
@@ -325,18 +334,18 @@ a {
 }
 
 .main-content header .search-box .search-results-dropdown .result {
-  width: 100%;
-  height: 30px;
-  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 30px;
+  background-color: white;
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   font-size: 0.9rem;
@@ -367,19 +376,18 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 10px;
   color: #717987;
 }
 
 .main-content header .date-wrap span {
   color: #2b3154;
-  font-family: "Inter";
   font-weight: 500;
   font-size: 16px;
 }
@@ -519,7 +527,6 @@ a {
 .main-content header .profile-wrap .name-wrap h5 {
   font-size: 15px;
   color: #0d2238;
-  font-family: "Inter";
   font-weight: 600;
 }
 

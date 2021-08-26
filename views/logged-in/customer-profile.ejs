@@ -19,23 +19,21 @@
 		<div class="page-header">
 			<%- include('../partials/messages'); %>
 			<div class="header-wrap">
-				<div class="title-wrap">
-					<div>
-						<h1>
-							<%= fullname %>
-							<span> <%= phone %> </span>
-						</h1>
+				<div class="info-wrap">
+					<h1>
+						<%= fullname %>
+						<span> <%= phone %> </span>
+					</h1>
+				</div>
+				<div class="actions-wrap">
+					<div class="new-ticket-btn action-style ">
+						new ticket<i class="fas fa-ticket-alt"></i>
 					</div>
-					<div class="actions-wrap">
-						<div class="new-ticket-btn action-style ">
-							new ticket<i class="fas fa-ticket-alt"></i>
-						</div>
-						<div class="new-payment-btn action-style ">
-							new payment<i class="fas fa-credit-card"></i>
-						</div>					
-						<div class="document-btn action-style ">
-							<i class="fas fa-file-pdf"></i>
-						</div>
+					<div class="new-payment-btn action-style ">
+						new payment<i class="fas fa-credit-card"></i>
+					</div>					
+					<div class="document-btn action-style ">
+						<i class="fas fa-file-pdf"></i>
 					</div>
 				</div>
 			</div>

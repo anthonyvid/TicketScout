@@ -52,32 +52,33 @@
 			<i class="fa fa-copyright"></i>
 		</div>
 		<br />
-		<label for="sign-up-psw">Password</label>
-		<div class="input-wrap">
-			<input
-				id="sign-up-psw"
-				type="password"
-				name="password"
-				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-				value="<%= typeof password != 'undefined' ? password : '' %>"
-				required
-			/>
-			<i class="fa fa-lock"></i>
+		<div class="password-wrap">
+			<div class="input-wrap">
+				<label for="sign-up-psw">Password</label>
+				<input
+					id="sign-up-psw"
+					type="password"
+					name="password"
+					placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+					value="<%= typeof password != 'undefined' ? password : '' %>"
+					required
+				/>
+				<i class="fa fa-lock"></i>
+			</div>
+			<div class="input-wrap">
+				<label for="sign-up-psw-confirm">Confirm password</label>
+				<input
+					id="sign-up-psw-confirm"
+					type="password"
+					name="passwordConfirm"
+					placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+					value="<%= typeof passwordConfirm != 'undefined' ? passwordConfirm : '' %>"
+					required
+				/>
+				<i class="fa fa-check-circle"></i>
+			</div>
 		</div>
 
-		<br />
-		<label for="sign-up-psw-confirm">Confirm password</label>
-		<div class="input-wrap">
-			<input
-				id="sign-up-psw-confirm"
-				type="password"
-				name="passwordConfirm"
-				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-				value="<%= typeof passwordConfirm != 'undefined' ? passwordConfirm : '' %>"
-				required
-			/>
-			<i class="fa fa-check-circle"></i>
-		</div>
 		<%- include('../partials/messages'); %>
 		<div class="link-wrap">
 			<a href="/recovery" class="forgot-psw-link2">Forgot Password?</a>
@@ -97,4 +98,8 @@
 		</h1>
 		<h2 id="graphic-box-text">Sign in to start your day!</h2>
 	</div>
+	<div class="img-wrap">
+		<img src="/assets/team.svg" alt="" />
+	</div>
+	
 </section>

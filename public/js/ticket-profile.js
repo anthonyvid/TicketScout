@@ -21,6 +21,7 @@ const editLastnameInput = document.getElementById("edit_lastname_field");
 const editPhoneInput = document.getElementById("edit_phone_field");
 const editEmailInput = document.getElementById("edit_email_field");
 const editSubjectInput = document.getElementById("edit_subject_field");
+const editDescriptionInput = document.getElementById("edit_description_field");
 const ticketID = document.getElementById("ticket_ID");
 const documentBtn = document.querySelector(".document-btn");
 const chatBoxTextarea = document.getElementById("chat_msg");
@@ -57,9 +58,7 @@ $(window).on("load", async () => {
 document.getElementById("submit_info_change").addEventListener(
 	"click",
 	() => {
-		const description = document.getElementById(
-			"edit_description_field"
-		).value;
+		const description = editDescriptionInput.value;
 		const subject = editSubjectInput.value;
 		const id = ticketID.textContent.trim().replace("#", "");
 		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
@@ -102,7 +101,7 @@ editCustomerInfo.addEventListener(
 		editPhoneInput.classList.remove("hidden");
 		editEmailInput.classList.remove("hidden");
 		editSubjectInput.classList.remove("hidden");
-		description.classList.remove("hidden");
+		editDescriptionInput.classList.remove("hidden");
 		cancelChangeBtn.classList.remove("hidden");
 		submitChangeBtn.classList.remove("hidden");
 	},

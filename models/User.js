@@ -7,11 +7,6 @@ const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
 class User {
-	constructor(data) {
-		this.data = data;
-		this.errors = {};
-	}
-
 	/**
 	 * Updates an accounts contact information
 	 * @param {string} oldEmail the users old email address
@@ -122,35 +117,24 @@ class User {
 		return user;
 	}
 
-	cleanUp(data) {
-		console.log(data);
+	async cleanUp(data) {
 		if (typeof data.fullname != "string") data.fullname = "";
 		if (typeof data.email != "string") data.email = "";
 		if (typeof data.password != "string") data.password = "";
 		if (typeof data.passwordConfirm != "string") data.passwordConfirm = "";
-
-		//If they are admin cleanup data like below
-		if ("storename" in data) {
-			this.data = {
-				fullname: data.fullname.toLowerCase(),
-				email: data.email.trim().toLowerCase(),
-				storename: data.storename.toLowerCase(),
-				password: data.password,
-				passwordConfirm: data.passwordConfirm,
-			};
+		if (data.signUpCode) {
+			typeof data.signUpCode != "string" ? (data.signUpCode = "") : "";
+			data.signUpCode = data.signUpCode.trim().toLowerCase();
 		}
-		//If they are employee cleanup data like below
-		else {
-			this.data = {
-				fullname: data.fullname.toLowerCase(),
-				email: data.email.trim().toLowerCase(),
-				password: data.password,
-				passwordConfirm: data.passwordConfirm,
-				signUpCode: data.signUpCode,
-			};
+		if (data.storename) {
+			typeof data.storename != "string" ? (data.storename = "") : "";
+			data.storename = data.storename.trim().toLowerCase();
 		}
-		console.log(data);
-		return data
+		data.fullname = data.fullname.trim().toLowerCase();
+		data.email = data.email.trim().toLowerCase();
+		data.password = data.password.trim().toLowerCase();
+		data.passwordConfirm = data.passwordConfirm.trim().toLowerCase();
+		return data;
 	}
 
 	async clockIn(user, clockInTime) {
@@ -193,49 +177,36 @@ class User {
 		);
 	}
 
-	async validate(data) {
+	async isValidSignUpCode(signUpCode) {
+		const store = await storesCollection.findOne({
+			signUpCode: signUpCode,
+		});
+		if (!store) return false;
+		return true;
+	}
+
+	async validate(fullname, email, password, passwordConfirm) {
 		//validate full name
-		if (!/\s/g.test(data.fullname))
-			this.errors["fullname"] = "Not a valid name";
+		if (!/\s/g.test(fullname)) return { fullname: "Not a valid name" };
 
 		//validate email
-		if (!helper.isValidEmail(data.email))
-			this.errors["email"] = "Not a valid email";
+		if (!helper.isValidEmail(email)) return { email: "Not a valid email" };
 
 		//validate if email exists already
-		const emailResult = await usersCollection.findOne({
-			email: data.email,
-		});
-		if (emailResult) this.errors["email"] = "Email already registered";
-
-		//validate if store exists already
-		if ("storename" in data) {
-			const storeResult = await storesCollection.findOne({
-				storename: data.storename,
-			});
-			if (storeResult)
-				this.errors["storename"] = "Store already registered";
-		}
+		const user = await helper.getUser(email);
+		if (user) return { email: "Email already registered" };
 
 		//validate password
-		if (data.password.length < 8)
-			this.errors["password"] = "Password must be at least 8 characters";
+		if (password.length < 8)
+			return { password: "Password must be at least 8 characters" };
 
-		if (data.password.length > 100)
-			this.errors["password"] = "Password cannot exceed 100 characters";
+		if (password.length > 100)
+			return { password: "Password cannot exceed 100 characters" };
 
 		//validate passwordConfirm
-		if (data.passwordConfirm !== data.password)
-			this.errors["passwordConfirm"] = "Passwords do not match";
-
-		// Check if signUpCode is valid
-		if (!("storename" in data)) {
-			const result = await storesCollection.findOne({
-				signUpCode: data.signUpCode,
-			});
-			if (result == null)
-				this.errors["signUpCode"] = "Store you are joining not found";
-		}
+		if (passwordConfirm !== password)
+			return { passwordConfirm: "Passwords do not match" };
+		return {};
 	}
 
 	async changeAccountPassword(actualOldHashedPassword, newInfo) {
@@ -317,37 +288,50 @@ class User {
 	}
 
 	async employeeRegister(data) {
-		// this.cleanUp(this.data);
-		// await this.validate(this.data);
-		let { fullname, email, password, passwordConfirm, signUpCode } = data;
+		let { fullname, email, password, passwordConfirm, signUpCode } =
+			await this.cleanUp(data);
 
-		//hash user passwords
-		// password = helper.hashPrivateInfo(password);
-		// passwordConfirm = password;
+		const errors = await this.validate(
+			fullname,
+			email,
+			password,
+			passwordConfirm
+		);
 
-		// 	const store = await storesCollection.findOne({
-		// 		signUpCode: this.data.signUpCode,
-		// 	});
+		// Check if any errors in validation process
+		if (Object.keys(errors).length) return { errors, data };
+		if (!(await this.isValidSignUpCode(signUpCode)))
+			return { errors: { signUpCode: "Sign Up Code not valid" }, data };
 
-		// 	const employee = {
-		// 		fullname: this.data.fullname.toLowerCase(),
-		// 		email: this.data.email.toLowerCase(),
-		// 		storename: store.storename.toLowerCase(),
-		// 		password: this.data.password,
-		// 		passwordConfirm: this.data.passwordConfirm,
-		// 		admin: false,
-		// 		isVerified: false,
-		// 		timeClock: {
-		// 			clockInTime: null,
-		// 			clockOutTime: null,
-		// 			clockHistory: [],
-		// 		},
-		// 	};
+		// Hash user passwords
+		password = helper.hashPrivateInfo(password);
+		passwordConfirm = password;
 
-		// 	//add user into users collection
-		// 	usersCollection.insertOne(employee);
-		// 	helper.sendEmailVerification(employee.email);
-		// 	console.log("employee successfully joined store");
+		const store = await storesCollection.findOne({
+			signUpCode: signUpCode,
+		});
+
+		const employee = {
+			fullname: fullname.toLowerCase(),
+			email: email.toLowerCase(),
+			storename: store.storename.toLowerCase(),
+			password: password,
+			passwordConfirm: passwordConfirm,
+			admin: false,
+			isVerified: false,
+			timeClock: {
+				clockInTime: null,
+				clockOutTime: null,
+				clockHistory: [],
+			},
+		};
+
+		// Add user into users collection
+		usersCollection.insertOne(employee);
+		// Send email verification
+		this.sendEmailVerification(employee.email);
+
+		return { errors: {}, data };
 	}
 }
 

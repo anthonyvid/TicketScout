@@ -1,4 +1,5 @@
 import Payment from "../models/Payment.js";
+import { getStore } from "../models/Helper.js";
 
 export const renderStorePayments = async function (req, res) {
 	const payment = new Payment();
@@ -63,7 +64,7 @@ export const renderPaymentProfile = async function (req, res) {
 		req.params.paymentNumber
 	);
 
-	const store = await payment.getStore(req.user.storename);
+	const store = await getStore(req.user.storename);
 	res.render("logged-in/payment-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,

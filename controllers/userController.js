@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Ticket from "../models/Ticket.js";
+import { getStore } from "../models/Helper.js";
 import passport from "passport";
 
 export const verifyEmailExists = async function (req, res) {
@@ -64,16 +65,17 @@ export const employeeRegister = async function (req, res) {
 	const result = await user.employeeRegister(req.body);
 
 	// No errors means passed registration
-	if (!result) {
+	if (!Object.keys(result.errors).length) {
 		req.flash("logout_msg", "Please verify your email address");
 		res.redirect("/");
 	} else {
-		const [registrationErrors, data] = result;
+		const { errors, data } = result;
+		console.log(errors, data);
 		let { fullname, email, signUpCode, password, passwordConfirm } = data;
 
 		res.render("logged-out/employeeRegister", {
 			layout: "layouts/logged-out-layout",
-			errors: Object.values(registrationErrors),
+			errors: Object.values(errors),
 			fullname: !errors.fullname ? fullname : undefined,
 			email: !errors.email ? email : undefined,
 			signUpCode: !errors.signUpCode ? signUpCode : undefined,
@@ -111,8 +113,7 @@ export const forgotPassword = async function (req, res) {
 	}
 };
 export const renderAccountSettings = async function (req, res) {
-	const user = new User();
-	const store = await user.getStore(req.user.storename);
+	const store = await getStore(req.user.storename);
 
 	res.render(`logged-in/account-settings`, {
 		layout: "layouts/logged-in-layout",
@@ -129,7 +130,7 @@ export const updateAccountInfo = async function (req, res) {
 		req.flash("success_update", "Successfully Updated Information");
 		res.redirect("/account-settings");
 	} else {
-		const store = user.getStore(req.user.storename);
+		const store = await getStore(req.user.storename);
 
 		res.render("logged-in/account-settings", {
 			layout: "layouts/logged-in-layout",
@@ -177,9 +178,8 @@ export const renderDashboard = async function (req, res) {
 	});
 };
 
-export const getStore = async function (req, res) {
-	const user = new User();
-	const store = await user.getStore(req.user.storename);
+export const getStoreData = async function (req, res) {
+	const store = await getStore(req.user.storename);
 	res.json({ store });
 };
 // Customers Page

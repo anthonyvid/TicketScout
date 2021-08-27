@@ -49,7 +49,9 @@ class Payment {
 
 		// Get most recent payment number, increment by 1 to keep order
 		const mostRecentPaymentID =
-			helper.getLargestNum(Object.keys(storePayments), 99) + 1;
+			await helper.getLargestNum(Object.keys(storePayments), 99) + 1;
+
+		console.log(mostRecentPaymentID);
 
 		const payment = {
 			customer: {

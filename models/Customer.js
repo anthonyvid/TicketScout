@@ -22,9 +22,11 @@ class Customer {
 
 	async createNewCustomer(formData, storename) {
 		//validate phone number
-		if (!helper.isValidPhone(formData.phone)) {
+		if (!helper.isValidPhone(formData.phone))
 			return [{ phoneError: "Invalid phone number" }, formData];
-		}
+
+		if (formData.phone.length !== 9)
+			return [{ phoneError: "Phone number must be 10 digits" }, formData];
 
 		const store = await helper.getStore(storename);
 
@@ -44,22 +46,30 @@ class Customer {
 			dateJoined: new Date().toDateString(),
 		};
 
-		storesCollection.updateOne(
-			{
-				storename: storename,
-			},
-			{
-				$set: {
-					[`storedata.customers.${[formData.phone]}`]: customer,
+		try {
+			await storesCollection.updateOne(
+				{
+					storename: storename,
 				},
-			}
-		);
+				{
+					$set: {
+						[`storedata.customers.${[formData.phone]}`]: customer,
+					},
+				}
+			);
+		} catch (error) {
+			console.error(error);
+			return [
+				{ phoneError: "Error creating customer - contact support" },
+				formData,
+			];
+		}
 
 		return [{}, customer];
 	}
 
 	async getCustomerData(storename, phone) {
-		const store = await helper.getStore(storename);
+		const store = await helper.getStore(storenam);
 		return store.storedata.customers[phone];
 	}
 

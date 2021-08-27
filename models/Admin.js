@@ -2,6 +2,7 @@ import client from "twilio";
 import User from "./User.js";
 import { db } from "../db.js";
 import * as helper from "./Helper.js";
+import uniqueString from "unique-string";
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -9,11 +10,6 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = client(accountSid, authToken);
 
 class Admin extends User {
-	constructor(data) {
-		super();
-		this.data = data;
-	}
-
 	async deleteTicket(storename, ticketID) {
 		const store = await helper.getStore(storename);
 
@@ -52,28 +48,80 @@ class Admin extends User {
 	}
 
 	async createTwilioSubaccount(friendlyName) {
-		//create twilio subaccount
-		return await twilioClient.api.accounts
-			.create({ friendlyName: friendlyName })
-			.then((account) => {
-				return account;
-			});
+		return await twilioClient.api.accounts.create({
+			friendlyName: friendlyName,
+		});
+	}
+	async closeTwilioSubaccount(sid) {
+		try {
+			await twilioClient.api.accounts(sid).update({ status: "closed" });
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
-	async register() {
-		// this.cleanUp(this.data);
-		// await this.validate(this.data);
+	async isValidStorename(storename) {
+		const store = await helper.getStore(storename);
+		if (!store) return true;
+		return false;
+	}
+
+	async generateStoreSignUpCode() {
+		let signUpCode;
+		while (true) {
+			signUpCode = uniqueString();
+			const store = await storesCollection.findOne({
+				signUpCode: signUpCode,
+			});
+			if (!store) break;
+		}
+		return signUpCode;
+	}
+
+	async register(data) {
+		let { fullname, email, storename, password, passwordConfirm } =
+			await this.cleanUp(data);
+
+		const errors = await this.validate(
+			fullname,
+			email,
+			password,
+			passwordConfirm
+		);
+
+		// Check if any errors in validation process
+		if (Object.keys(errors).length) return { errors, data };
+		if (!(await this.isValidStorename(storename)))
+			return {
+				errors: { storename: "Store name already registered" },
+				data,
+			};
+
+		let twilioAccount = null;
+
+		try {
+			twilioAccount = await this.createTwilioSubaccount(storename);
+		} catch (error) {
+			console.error(error);
+			return {
+				errors: {
+					twilioError:
+						"Error creating twilio subaccount - Contact Support",
+				},
+				data,
+			};
+		}
 
 		//hash user passwords
-		this.data.password = helper.hashPrivateInfo(this.data.password);
-		this.data.passwordConfirm = this.data.password;
+		password = helper.hashPrivateInfo(password);
+		passwordConfirm = password;
 
 		const admin = {
-			fullname: this.data.fullname.toLowerCase(),
-			email: this.data.email.toLowerCase(),
-			storename: this.data.storename.toLowerCase(),
-			password: this.data.password,
-			passwordConfirm: this.data.passwordConfirm,
+			fullname,
+			email,
+			storename,
+			password,
+			passwordConfirm,
 			admin: true,
 			isVerified: false,
 			timeClock: {
@@ -82,64 +130,70 @@ class Admin extends User {
 				clockHistory: [],
 			},
 		};
-		let twilioAccount = null;
 
-		// try {
-		// 	twilioAccount = await this.createTwilioSubaccount(
-		// 		this.data.storename
-		// 	);
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		const storeSignUpCode = await this.generateStoreSignUpCode();
+
+		const store = {
+			storename,
+			signUpCode: storeSignUpCode,
+			admin: admin,
+			storedata: {
+				tickets: {},
+				customers: {},
+				payments: {},
+				api: {
+					twilio: {
+						authToken: twilioAccount.authToken,
+						sid: twilioAccount.sid,
+						numSmsSent: 0,
+						numSmsReceived: 0,
+					},
+				},
+			},
+			storeSettings: {
+				tickets: {
+					status: [
+						["New", "36b37e"],
+						["Resolved", "505f79"],
+						["Priority", "ff3838"],
+						["Reply", "ffab00"],
+					],
+					issue: [],
+				},
+				payments: {
+					categories: [],
+					taxRate: "13",
+					address: {
+						primary: "",
+						city: "",
+						province: "",
+						postal: "",
+					},
+				},
+			},
+		};
 
 		try {
-			storesCollection.insertOne({
-				storename: this.data.storename,
-				signUpCode: "12345", //need to auto generate this
-				admin: admin,
-				storedata: {
-					tickets: {},
-					customers: {},
-					payments: {},
-					api: {
-						twilio: {
-							// authToken: twilioAccount.authToken,
-							// sid: twilioAccount.sid,
-							numSmsSent: 0,
-							numSmsReceived: 0,
-						},
-					},
-				},
-				storeSettings: {
-					tickets: {
-						status: [
-							["New", "36b37e"],
-							["Resolved", "505f79"],
-							["Priority", "ff3838"],
-							["Reply", "ffab00"],
-						],
-						issue: [],
-					},
-					payments: {
-						categories: [],
-						taxRate: "13",
-						address: {
-							primary: "",
-							city: "",
-							province: "",
-							postal: "",
-						},
-					},
-				},
-			});
-			usersCollection.insertOne(admin);
+			await storesCollection.insertOne(store);
+			await usersCollection.insertOne(admin);
 			console.log("Successfully registered store");
 		} catch (err) {
 			console.log(`error registering store: ${err}`);
+			return {
+				errors: {
+					mongoError:
+						"Error creating account - Please Contact Support",
+				},
+				data,
+			};
 		}
+		this.closeTwilioSubaccount(twilioAccount.sid); //TODO: REMOVE THIS IS JUST FOR TESTING
+		return { errors: {}, data };
 	}
 
-	async inviteEmployee(email) {
+	async inviteEmployee(email, signUpCode) {
+		console.log("SIGNUPCODE: " + signUpCode);
+
 		if (!helper.isValidEmail(email)) return false;
 
 		const msg = {
@@ -197,7 +251,7 @@ class Admin extends User {
 			}
 		}
 
-		const store = await helper.getStore(store);
+		const store = await helper.getStore(storename);
 		return {
 			employeesClockHistory,
 			payPeriod: store.storeSettings.payPeriod,
@@ -308,7 +362,7 @@ class Admin extends User {
 		);
 	}
 	async deletePayment(storename, paymentNumber) {
-		const store = await helper.getStore(store);
+		const store = await helper.getStore(storename);
 		const storePayments = Object.keys(store.storedata.payments);
 
 		if (!storePayments.includes(paymentNumber)) return;
@@ -316,13 +370,23 @@ class Admin extends User {
 		const phoneOnPayment =
 			store.storedata.payments[paymentNumber].customer.phone;
 
+		if (phoneOnPayment.length) {
+			await storesCollection.updateOne(
+				{ storename: storename },
+				{
+					$unset: {
+						[`storedata.customers.${phoneOnPayment}.payments.${paymentNumber}`]:
+							"",
+					},
+				}
+			);
+		}
+
 		await storesCollection.updateOne(
 			{ storename: storename },
 			{
 				$unset: {
 					[`storedata.payments.${paymentNumber}`]: "",
-					[`storedata.customers.${phoneOnPayment}.payments.${paymentNumber}`]:
-						"",
 				},
 			}
 		);

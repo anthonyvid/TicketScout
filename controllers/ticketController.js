@@ -56,7 +56,7 @@ export const renderTicketProfile = async function (req, res) {
 		req.user.storename,
 		req.params.ticketID
 	);
-	const store = await new getStore(req.user.storename);
+	const store = await getStore(req.user.storename);
 
 	res.render("logged-in/ticket-profile", {
 		layout: "layouts/logged-in-layout",

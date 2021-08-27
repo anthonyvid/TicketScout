@@ -31,7 +31,7 @@ export const createNewCustomer = async function (req, res) {
 	const [ticketError, data] = result;
 
 	// No errors
-	if (Object.keys(ticketError).length == 0) {
+	if (!Object.keys(ticketError).length) {
 		res.redirect(`/customers/${data.phone}`);
 	} else {
 		res.render("logged-in/create-new-customer", {
@@ -48,15 +48,21 @@ export const createNewCustomer = async function (req, res) {
 
 export const renderCustomerProfile = async function (req, res) {
 	const customer = new Customer();
-	const result = await customer.getCustomerData(
-		req.user.storename,
-		req.params.phone
-	);
-	res.render("logged-in/customer-profile", {
-		layout: "layouts/logged-in-layout",
-		user: req.user,
-		customer: result,
-	});
+	try {
+		const result = await customer.getCustomerData(
+			req.user.storename,
+			req.params.phone
+		);
+		res.render("logged-in/customer-profile", {
+			layout: "layouts/logged-in-layout",
+			user: req.user,
+			customer: result,
+		});
+	} catch (error) {
+		res.status(400).send(
+			`Error viewing customer profile - Please Contact Support: ${error}`
+		);
+	}
 };
 
 export const updateCustomerContactInfo = async function (req, res) {

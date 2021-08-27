@@ -38,7 +38,7 @@ router.get(
 	userController.renderAccountSettings
 );
 
-router.get("/get-store", userController.getStore);
+router.get("/get-store", userController.getStoreData);
 
 router.post("/clock-in", ensureAuthenticated, userController.clockIn);
 router.post("/clock-out", ensureAuthenticated, userController.clockOut);

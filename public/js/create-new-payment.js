@@ -246,7 +246,7 @@ completePaymentBtn.addEventListener(
 			email: document.getElementById("email").value,
 		};
 
-		const form = createForm("POST", "/create-new-payment");
+		const form = createForm("POST", "/payments/create-new-payment");
 		createInputForForm(form, "input", "customer", JSON.stringify(customer));
 		createInputForForm(form, "input", "order", JSON.stringify(orderItems));
 		createInputForForm(form, "input", "paymentMethod", paymentType);

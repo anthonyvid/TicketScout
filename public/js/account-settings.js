@@ -434,6 +434,7 @@ deleteIssueBtn.addEventListener(
 		await helper.postReq("/admin/remove-issue", {
 			issue: issueInput.value.trim().toLowerCase(),
 		});
+
 		document.location.reload();
 	},
 	{ passive: true }
@@ -464,6 +465,7 @@ inviteEmployeeBtn.addEventListener("click", async () => {
 
 	const data = await helper.postReq("/admin/invite-employee", {
 		email: inviteEmployeeInput.value.toLowerCase(),
+		signUpCode: document.getElementById("store_signUpCode").value,
 	});
 
 	if (Object.keys(data).length) {
@@ -564,10 +566,22 @@ for (const btn of confirmRemovalBtns) {
 			}
 
 			// Send post request to delete data
-			await helper.postReq(`/${url}s/delete-${url}`, {
+			const data = await helper.postReq(`/admin/delete-${url}`, {
 				item: deletionItem,
 			});
-			document.location.reload();
+
+			if (Object.keys(data).length) {
+				helper.showInvalidColour(
+					btn.parentElement.previousElementSibling
+				);
+				btn.parentElement.previousElementSibling.value = data.error;
+				return;
+			}
+
+			helper.showValidColour(btn.parentElement.previousElementSibling);
+			btn.parentElement.previousElementSibling.value = "";
+			btn.previousElementSibling.style.width = "100%";
+			btn.style.display = "none";
 		},
 		{ passive: true }
 	);

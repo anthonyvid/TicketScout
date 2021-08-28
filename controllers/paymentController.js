@@ -41,12 +41,9 @@ export const createNewPayment = async function (req, res) {
 	if (!result.hasOwnProperty("phoneError")) {
 		res.redirect(`/payments/${result.mostRecentPaymentID}`);
 	} else {
-		console.log("errors");
-
 		const paymentSettings = await payment.getPaymentSettings(
 			req.user.storename
 		);
-
 		res.render("logged-in/create-new-payment", {
 			layout: "layouts/logged-in-layout",
 			user: req.user,

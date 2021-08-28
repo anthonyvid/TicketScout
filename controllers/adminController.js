@@ -36,152 +36,92 @@ export const register = async function (req, res) {
 
 export const inviteEmployee = async function (req, res) {
 	const admin = new Admin();
-	try {
-		const result = await admin.inviteEmployee(
-			req.body.email,
-			req.body.signUpCode
-		);
-
-		if (!result) res.json({ emailError: "Invalid Email" });
-		else res.json({});
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	const result = await admin.inviteEmployee(
+		req.body.email,
+		req.body.signUpCode
+	);
+	if (!result) res.json({ emailError: "Invalid Email" });
+	else res.json({});
 };
 
 export const removeEmployee = async function (req, res) {
 	const admin = new Admin();
-	try {
-		const result = await admin.removeEmployee(
-			req.user.storename,
-			req.body.email
-		);
 
-		if (!result) res.json({ emailError: "Invalid Email" });
-		else res.json({});
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	const result = await admin.removeEmployee(
+		req.user.storename,
+		req.body.email
+	);
+
+	if (!result) res.json({ emailError: "Invalid Email" });
+	else res.json({});
 };
 
 export const toggleAdminPermission = async function (req, res) {
 	const admin = new Admin();
-	try {
-		const result = await admin.toggleAdminPermission(
-			req.user.storename,
-			req.body.email
-		);
-		if (!result) res.json({ emailError: "Invalid Email" });
-		else res.json({});
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+
+	const result = await admin.toggleAdminPermission(
+		req.user.storename,
+		req.body.email
+	);
+	if (!result) res.json({ emailError: "Invalid Email" });
+	else res.json({});
 };
 
 export const getEmployeesTimeclockHistory = async function (req, res) {
 	const admin = new Admin();
-
-	try {
-		const { employeesClockHistory, payPeriod } =
-			await admin.getEmployeesTimeclockHistory(
-				req.user.storename,
-				req.body.fromDate,
-				req.body.toDate
-			);
-		res.status(200).json({ employeesClockHistory, payPeriod });
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	const { employeesClockHistory, payPeriod } =
+		await admin.getEmployeesTimeclockHistory(
+			req.user.storename,
+			req.body.fromDate,
+			req.body.toDate
+		);
+	res.status(200).json({ employeesClockHistory, payPeriod });
 };
 
 export const addCategory = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.addCategory(req.user.storename, req.body.category);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.addCategory(req.user.storename, req.body.category);
+	res.status(200).send();
 };
 
 export const removeCategory = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.removeCategory(req.user.storename, req.body.category);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.removeCategory(req.user.storename, req.body.category);
+	res.status(200).send();
 };
 
 export const updateStoreTaxRate = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.updateStoreTaxRate(req.user.storename, req.body.taxRate);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.updateStoreTaxRate(req.user.storename, req.body.taxRate);
+	res.status(200).send();
 };
 
 export const updateStoreAddress = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.updateStoreAddress(req.user.storename, req.body);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.updateStoreAddress(req.user.storename, req.body);
+	res.status(200).send();
 };
 
 export const updateTicketStatusSettings = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.updateTicketStatusSettings(req.user.storename, req.body);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.updateTicketStatusSettings(req.user.storename, req.body);
+	res.status(200).send();
 };
 export const deleteTicketStatusSettings = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.deleteTicketStatusSettings(req.user.storename, req.body);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.deleteTicketStatusSettings(req.user.storename, req.body);
+	res.status(200).send();
 };
 
 export const addIssue = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.addIssue(req.user.storename, req.body.issue);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.addIssue(req.user.storename, req.body.issue);
+	res.status(200).send();
 };
 export const removeIssue = async function (req, res) {
 	const admin = new Admin();
-	try {
-		await admin.removeIssue(req.user.storename, req.body.issue);
-		res.status(200).send();
-	} catch (error) {
-		console.error(error);
-		res.status(400).send();
-	}
+	await admin.removeIssue(req.user.storename, req.body.issue);
+	res.status(200).send();
 };
 
 export const deletePayment = async function (req, res) {

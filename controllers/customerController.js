@@ -14,7 +14,7 @@ export const renderStoreCustomers = async function (req, res) {
 };
 
 export const renderCreateNewCustomer = function (req, res) {
-	res.render(`logged-in/create-new-customer`, {
+	res.status(200).render(`logged-in/create-new-customer`, {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
 		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
@@ -32,7 +32,7 @@ export const createNewCustomer = async function (req, res) {
 
 	// No errors
 	if (!Object.keys(ticketError).length) {
-		res.redirect(`/customers/${data.phone}`);
+		res.status(200).redirect(`/customers/${data.phone}`);
 	} else {
 		res.render("logged-in/create-new-customer", {
 			layout: "layouts/logged-in-layout",
@@ -48,21 +48,15 @@ export const createNewCustomer = async function (req, res) {
 
 export const renderCustomerProfile = async function (req, res) {
 	const customer = new Customer();
-	try {
-		const result = await customer.getCustomerData(
-			req.user.storename,
-			req.params.phone
-		);
-		res.render("logged-in/customer-profile", {
-			layout: "layouts/logged-in-layout",
-			user: req.user,
-			customer: result,
-		});
-	} catch (error) {
-		res.status(400).send(
-			`Error viewing customer profile - Please Contact Support: ${error}`
-		);
-	}
+	const result = await customer.getCustomerData(
+		req.user.storename,
+		req.params.phone
+	);
+	res.status(200).render("logged-in/customer-profile", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		customer: result,
+	});
 };
 
 export const updateCustomerContactInfo = async function (req, res) {
@@ -76,9 +70,11 @@ export const updateCustomerContactInfo = async function (req, res) {
 	if (Object.keys(updateErrors).length === 0) {
 		req.flash("success_update", "Successfully Updated Information");
 		if (req.body.sentFrom === "customer") {
-			res.redirect(`/customers/${newPhone}`);
+			res.status(200).redirect(`/customers/${newPhone}`);
 		} else {
-			res.redirect(`/tickets/${req.body.sentFrom.replace(/\D/g, "")}`);
+			res.status(200).redirect(
+				`/tickets/${req.body.sentFrom.replace(/\D/g, "")}`
+			);
 		}
 	} else {
 		const previousData = await customer.getCustomerData(

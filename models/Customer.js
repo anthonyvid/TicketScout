@@ -69,7 +69,7 @@ class Customer {
 	}
 
 	async getCustomerData(storename, phone) {
-		const store = await helper.getStore(storenam);
+		const store = await helper.getStore(storename);
 		return store.storedata.customers[phone];
 	}
 

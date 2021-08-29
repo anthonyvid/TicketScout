@@ -1,59 +1,52 @@
 <link rel="stylesheet" href="/messages.css" />
-<section class="login-box">
-	<header>
-		<a href="/">
-			<h1>ticket<span>Scout</span></h1>
-			<img id="logo-img" src="/assets/ticketScoutLogo.svg" alt="" />
-		</a>
-	</header>
-	<form action="/login" method="POST">
-		<label for="email">Email</label>
-		<div class="input-wrap">
-			<input
-				autocomplete="no"
-				id="sign-in-email"
-				type="email"
-				name="email"
-				placeholder="hello@example.com"
-				required
-			/>
-			<i class="fa fa-user"></i>
-		</div>
-		<br />
-		<label for="psw">Password</label>
-		<div class="input-wrap">
-			<input
-				id="sign-in-psw"
-				type="password"
-				name="password"
-				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-				required
-			/>
-			<i class="fa fa-lock"></i>
-		</div>
-		<div class="link-wrap">
-			<a href="/recovery" class="forgot-psw-link1">Forgot Password?</a>
-			<button id="sign-in-btn-desktop" type="submit">Sign In</button>
-		</div>
-		<button id="sign-in-btn-mobile" type="submit">Sign In</button>
-	</form>
-	<%- include('../partials/messages'); %>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-	<div class="sign-up-wrap">
-		<p>
-			Registering a store?<a href="admin/register" id="sign-up-link">
-				Sign Up</a
-			>
-		</p>
+<div class="left-container">
+	<img id="logo" src="" alt="" />
+	<img id="group1" src="/assets/group1.svg" alt="" />
+	<img id="group2" src="/assets/group2.svg" alt="" />
+	<img id="group1" src="/assets/group3.svg" alt="" />
+	<!-- <img id="graphic" src="/assets/" alt="" /> -->
+	<div>
+		<lottie-player
+			src="https://assets3.lottiefiles.com/packages/lf20_03adulip.json"
+			background="transparent"
+			speed="1"
+			loop
+			autoplay
+		></lottie-player>
+		<!-- <h2>SIGN IN TO START YOUR DAY</h2> -->
 	</div>
-</section>
 
-<section class="graphic-box">
-	<div class="text-wrap">
-		<h1>
-			Welcome to <span class="first">ticket</span
-			><span class="second">Scout</span>
-		</h1>
-		<h2 id="graphic-box-text">Sign in to start your day!</h2>
+	<!-- 
+	<lottie-player
+		src="https://assets9.lottiefiles.com/packages/lf20_rycdh53q.json"
+		background="transparent"
+		speed="1"
+		loop
+		autoplay
+	></lottie-player> -->
+</div>
+<div class="right-container">
+	<div class="action-container">
+		<div class="heading">
+			<h2>Login</h2>
+			<small>Welcome back, login to get started</small>
+		</div>
+		<div class="input-wrap">
+			<div>
+				<label>Email address</label>
+				<input type="text" placeholder="example@email.com"/>
+			</div>
+			<div>
+				<label>Password</label>
+				<input type="password" />
+			</div>
+		</div>
 	</div>
-</section>
+</div>
+
+<!-- <form action="/login" method="POST">
+	//name="email"
+	//name="password"
+	</form> -->

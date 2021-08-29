@@ -1,505 +1,107 @@
-//** TicketScout/login_page/login_page.scss
-//** Author: Anthony Vidovic
-//** Email: Anthonyvidovic@gmail.com
+@import "../../helper";
 
-//** Global styles for blocks on login_page.scss
-//## Font Imports
-//## Custom Variables
-//## General Overrides
-//## Page Layout Styling
-//## Desktop Styling
-//## Mobile Styling
-
-// Font Imports
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500&display=swap");
-
-// Custom Variables
-$dark-purple: #3d354b;
-$second-dark-purple: #3f3539;
-$white-1: #edf5fc;
-$white-2: #fafafb;
-$light-grey: #b1aec2;
-$main-blue: #57b8ff;
-
-// General Overrides
-input:hover,
-button:hover {
-	cursor: pointer;
-}
-
-input:focus {
-	cursor: text;
-	outline: none;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-	box-shadow: 0 0 0 30px #fafafb inset !important;
-	-webkit-box-shadow: 0 0 0 30px #fafafb inset !important;
-}
-
-button:focus {
-	outline: none;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-a:hover {
-	transition: all 0.2s ease-in-out;
-	text-shadow: 0 0 1px rgba($color: black, $alpha: 0.7);
-}
-
-// Page Layout Styling
 body {
-	margin: 0;
-	font-family: "montserrat", sans-serif;
-	// background-image: url(/assets/mainBg.svg);
-	background-color: rgba($main-blue, $alpha: 1);
-	background-size: 100% 100%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-body.superCenter {
-	display: grid;
-	place-items: center;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
 	height: 100vh;
 }
 
-.container {
+.left-container {
 	display: flex;
-	flex-direction: row;
-	width: 80vw;
-	height: 75%;
-	background-color: $white-2;
-	margin-bottom: 40px;
-	border-width: 0px;
-	border-radius: 0px;
-	border-style: solid;
-	z-index: 999;
-	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-}
-
-.login-box,
-.sign-up-box,
-.forgot-psw-box {
+	height: 100%;
+	width: 35%;
+	background: linear-gradient(180deg, #384e83 0%, #463b67 100%);
 	position: relative;
-	top: 0;
-	left: 0;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding-right: 20px;
-	// flex: 3.5;
-	width: 40%;
-	overflow: hidden;
+	clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
+	text-align: center;
 
-	h1, // Dont show some mobile things
-		#sign-up-link-mobile,
-		.subheading,
-		#sign-in-btn-mobile {
-		display: none;
-	}
-
-	header #logo-img {
-		background-color: transparent;
+	#group1 {
 		position: absolute;
-		margin: 0;
-		padding: 0;
-		width: 100px;
-		height: 100px;
-		top: 0;
-		left: 0;
+		right: 0;
 	}
-
-	a {
-		text-decoration: none;
-		color: $dark-purple;
-	}
-
-	form {
-		width: 80%;
-
-		label {
-			margin: 0;
-			color: $dark-purple;
-			font-family: "exo 2", sans-serif;
-			font-size: 13px;
-		}
-
-		.password-wrap {
-			display: flex;
-			flex-direction: row;
-			gap: 25px;
-
-			div {
-				display: flex;
-				flex-direction: column;
-				width: 50%;
-
-				i {
-					margin-top: 12px;
-				}
-			}
-		}
-
-		.input-wrap {
-			position: relative;
-
-			i {
-				position: absolute;
-				left: 1em;
-				top: 33%;
-				color: $light-grey;
-			}
-
-			input {
-				width: 100%;
-				margin: 0 auto;
-				padding: 1em 0.5em;
-				border: 0;
-				outline: 0;
-				background-color: transparent;
-				border-bottom: 1px solid $light-grey;
-				font-size: 1em;
-				color: $dark-purple;
-				text-indent: 33px;
-				font-family: "exo 2", sans-serif;
-				transition: 0.3s ease-in;
-			}
-
-			input:focus,
-			input:focus::placeholder,
-			input:focus + .fa {
-				transition: 0.3s ease-in;
-				border-color: $main-blue;
-				color: $main-blue;
-			}
-
-			input:valid + .fa,
-			input:valid {
-				border-color: $main-blue;
-				color: $main-blue;
-			}
-
-			input:-webkit-autofill:valid {
-				color: $main-blue;
-				border-color: $main-blue;
-			}
-		}
-
-		.selection-box {
-			margin-bottom: 1em;
-
-			#storename {
-				display: none;
-				transition: 0.3s ease-in;
-				border: 0;
-				outline: 0;
-				background-color: transparent;
-				border-bottom: 1px solid $light-grey;
-				font-size: 1em;
-				color: $dark-purple;
-				text-indent: 10px;
-				font-family: "exo 2", sans-serif;
-				float: right;
-			}
-
-			input:focus,
-			input:focus::placeholder,
-			input:focus {
-				transition: 0.3s ease-in;
-				border-color: $main-blue;
-				color: $main-blue;
-			}
-
-			input:valid,
-			input:valid {
-				border-color: $main-blue;
-				color: $main-blue;
-			}
-
-			i {
-				float: right;
-				padding-right: -140px;
-			}
-		}
-	}
-
-	.link-wrap {
-		margin-top: 50px;
-		font-size: clamp(8px, 1vw, 16px);
-		width: 100%;
-
-		.forgot-psw-link:hover {
-			transition: all 0.2s ease-in-out;
-			text-shadow: 0 0 1px rgba($color: $dark-purple, $alpha: 0.7);
-		}
-	}
-
-	button {
-		width: 120px;
-		height: 40px;
-		border-radius: 5em;
-		border-width: 0;
-		color: $white-1;
-		font-size: 14px;
-		font-family: "Montserrat", sans-serif;
-		background-color: rgba($color: $dark-purple, $alpha: 1);
-		transition: 0.3s ease-in-out;
-		float: right;
-		margin-top: -15px;
-		margin-right: -20px;
-	}
-
-	button:active,
-	button:focus {
-		outline: none;
-	}
-
-	button:hover {
-		background-color: rgba($color: $dark-purple, $alpha: 0.8);
-		transform: scale(1.01);
-		cursor: pointer;
-	}
-
-	.sign-up-wrap {
+	#group2 {
 		position: absolute;
 		bottom: 0;
-		font-size: clamp(8px, 1vw, 16px);
-		color: rgba($color: $dark-purple, $alpha: 1);
-
-		p {
-			color: rgba($color: $dark-purple, $alpha: 0.8);
-		}
 	}
-}
-
-.graphic-box {
-	// flex: 6;
-	width: 60%;
-	// background-image: url(/assets/graphicBoxBackground.svg);
-	background-color: rgba($main-blue, $alpha: 0.6);
-	background-size: auto 100%;
-	background-repeat: no-repeat;
-	background-size: cover;
-
-	.text-wrap {
-		margin-top: 100px;
-		margin-left: 85px;
-		font-family: "exo 2", sans-serif;
-
-		h1 {
-			color: $white-1;
-			font-size: clamp(40px, 3vw, 56px);
-			font-weight: 500;
+	#group3 {
+		position: absolute;
+		top: 30%;
+	}
+	div {
+		margin: auto;
+		lottie-player {
+			margin: auto;
 		}
 
 		h2 {
 			color: white;
-			font-weight: 300;
-			margin-top: -15px;
+			z-index: 999;
 		}
 	}
-	.img-wrap {
-		height: 60%;
+}
+.right-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 65%;
+	padding: 10% 15% 10% 15%;
+
+	.action-container {
 		display: flex;
-		justify-content: center;
-		align-items: center;
+		flex-direction: column;
+		padding: 15px;
+		font-family: "Inter";
+		gap: 50px;
 
-		img {
-			width: 70%;
+		.heading {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+
+			h2 {
+				font-size: 30px;
+				color: #434649;
+				font-weight: bold;
+			}
+
+			small {
+				font-size: 16px;
+				font-weight: 500;
+				letter-spacing: 0.01em;
+				color: #545454;
+			}
 		}
-	}
-}
 
-@media (max-height: 900px) {
-	.container {
-		width: 90vw;
-		height: 85%;
-	}
-}
-
-@media (max-height: 788px) {
-	.sign-up-box {
 		.input-wrap {
-			margin-bottom: -10px;
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+
+			div {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				align-items: flex-start;
+				padding: 0px;
+
+				label {
+					font-size: 14px;
+					color: #646769;
+				}
+
+				input {
+					width: 100%;
+					height: 64px;
+					border: 1px solid #c4cbd1;
+					border-radius: 6px;
+
+					&::placeholder {
+						color: #787a7c;
+						font-size: 16px;
+					}
+				}
+			}
 		}
 	}
 }
-
-@media (max-height: 720px) {
-	.container {
-		width: 100%;
-		height: 100%;
-	}
-}
-
-//anything under above viewpoint is for mobile
-
-// //ANY CODE BELOW THIS LINE WILL NEED TO BE FIXED, CURRENTLY DOES NOTHING ON DESKTOP
-// @media (max-width: 915px) {
-// 	.sign-up-box form input {
-// 		background-color: #3d354b;
-// 	}
-// }
-
-// // Mobile Styling
-// @media (max-width: 1200px) {
-// 	body {
-// 		background: $main-blue;
-// 	}
-// 	.container > img,
-// 	#logo-img,
-// 	.login-box .sign-up-wrap,
-// 	.graphic-box,
-// 	.login-box label,
-// 	#sign-in-btn-desktop,
-// 	.sign-up-box,
-// 	.forgot-psw-box,
-// 	.forgot-psw-link1 {
-// 		display: none;
-// 	}
-
-// 	.container {
-// 		justify-content: center;
-// 		margin-bottom: 0px;
-// 		background-color: $main-blue;
-// 		border: none;
-// 		box-shadow: none;
-// 		align-items: center;
-// 	}
-
-// 	.login-box {
-// 		header {
-// 			h1 {
-// 				margin: 0;
-// 				font-size: clamp(36px, 3.5vw, 60px);
-// 				font-family: "exo 2", sans-serif;
-// 				text-align: center;
-// 				color: $second-dark-purple;
-// 			}
-
-// 			span {
-// 				color: $white-1;
-// 			}
-
-// 			h2 {
-// 				color: $white-1;
-// 				font-family: "Alegreya sans", sans-serif;
-// 				font-size: clamp(16px, 1.5vw, 32px);
-// 				text-transform: lowercase;
-// 				word-spacing: 0.1em;
-// 				text-align: center;
-// 				margin-bottom: 2em;
-// 			}
-// 		}
-
-// 		form {
-// 			display: grid;
-// 			align-items: center;
-// 			grid-gap: 1.5em 1em;
-
-// 			label {
-// 				margin: 0;
-// 				color: $dark-purple;
-// 				font-family: "exo 2", sans-serif;
-// 				font-size: clamp(1em);
-// 			}
-
-// 			.input-wrap {
-// 				grid-column: 1 / span 2;
-// 				position: relative;
-// 				margin-bottom: -50px;
-
-// 				i {
-// 					position: absolute;
-// 					left: 1em;
-// 					top: 33%;
-// 					color: $dark-purple;
-// 				}
-
-// 				input {
-// 					width: 330px;
-// 					padding: 1em 0.5em;
-// 					border-radius: 25px;
-// 					border: 0.125em $dark-purple solid;
-// 					background-color: transparent;
-// 					font-size: 0.9em;
-// 					color: $white-1;
-// 					text-indent: 33px;
-// 					font-family: "exo 2", sans-serif;
-// 				}
-
-// 				input::placeholder {
-// 					color: $dark-purple;
-// 					opacity: 0.7;
-// 				}
-// 			}
-// 		}
-
-// 		.link-wrap {
-// 			grid-column: 1 / span 2;
-// 			display: flex;
-// 			justify-content: space-evenly;
-// 			margin-top: 20px;
-// 			margin-bottom: 40px;
-// 			font-size: clamp(15px, 2vw, 16px);
-
-// 			#sign-up-link-mobile {
-// 				color: #edf5fc;
-// 			}
-// 		}
-
-// 		button {
-// 			grid-column: 1 / span 2;
-
-// 			width: 250px;
-// 			padding: 1.25em 0;
-// 			border-radius: 1em;
-// 			border-width: 0;
-
-// 			color: $dark-purple;
-// 			font-size: 16px;
-// 			font-weight: bold;
-// 			font-family: "Montserrat", sans-serif;
-// 			background-color: $white-1;
-// 			transition: 0.3s ease-in-out;
-// 			margin: auto;
-// 			display: block;
-// 		}
-
-// 		button:hover {
-// 			background-color: rgba($color: #edf5fc, $alpha: 0.7);
-// 			transform: scale(1.01);
-// 		}
-
-// 		#sign-in-btn-mobile {
-// 			margin-top: -25px;
-// 		}
-// 	}
-
-// 	// For very small mobile devices
-// 	@media (max-width: 399px) {
-// 		.login-box input,
-// 		.login-box button,
-// 		.login-box #sign-up-link-mobile,
-// 		.login-box .forgot-psw-link {
-// 			transform: scale(0.8);
-// 		}
-
-// 		.login-box i {
-// 			margin-left: 30px;
-// 		}
-// 	}
-// }

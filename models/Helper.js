@@ -4,12 +4,20 @@ import { db } from "../db.js";
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
+/**
+ * Checks if a phone is valid according to regex
+ * @param {string} phone
+ * @returns boolean
+ */
 export const isValidPhone = (phone) => {
-	let re =
-		/(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g;
-	return re.test(phone);
+	return /^\d{10}$/.test(phone);
 };
 
+/**
+ * Checks if a email is valid according to regex
+ * @param {string} email
+ * @returns boolean
+ */
 export const isValidEmail = (email) => {
 	let re = /\S+@\S+\.\S+/;
 	return re.test(email);
@@ -26,10 +34,19 @@ export const hashPrivateInfo = (str) => {
 	return hashedData;
 };
 
+/**
+ * gets a user in database
+ * @param {string} email
+ * @returns object
+ */
 export const getUser = async (email) => {
 	return await usersCollection.findOne({ email: email });
 };
 
+/**
+ * Sends an email using nodemailer module
+ * @param {string} msg
+ */
 export const sendEmail = async (msg) => {
 	let transporter = nodemailer.createTransport({
 		service: "gmail",
@@ -69,7 +86,12 @@ export const getLargestNum = async (array, start) => {
 	return Math.max(...array.map((i) => parseInt(i)));
 };
 
+/**
+ * Cleares all fields in database, only used for testing purposes
+ */
+/*
 export const clearDatabase = async () => {
 	await usersCollection.deleteMany({});
 	await storesCollection.deleteMany({});
 };
+*/

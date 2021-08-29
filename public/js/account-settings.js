@@ -231,8 +231,8 @@ removeCategoryBtn.addEventListener(
 			helper.showInvalidColour(categoryInput);
 			return;
 		}
-		// Send post and remove category
-		await helper.postReq("/admin/remove-category", {
+		// Send post and delete category
+		await helper.postReq("/admin/delete-category", {
 			category: categoryInput.value,
 		});
 		document.location.reload();
@@ -430,8 +430,8 @@ deleteIssueBtn.addEventListener(
 			return;
 		}
 
-		// Send post request to remove issue from settings
-		await helper.postReq("/admin/remove-issue", {
+		// Send post request to delete issue from settings
+		await helper.postReq("/admin/delete-issue", {
 			issue: issueInput.value.trim().toLowerCase(),
 		});
 
@@ -484,7 +484,7 @@ removeEmployeeBtn.addEventListener("click", async () => {
 		return;
 	}
 
-	const data = await helper.postReq("/admin/remove-employee", {
+	const data = await helper.postReq("/admin/delete-employee", {
 		email: removeEmployeeInput.value.toLowerCase(),
 	});
 

@@ -10,9 +10,14 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = client(accountSid, authToken);
 
 class Admin extends User {
+	/**
+	 * Deletes a ticket from a store
+	 * @param {string}} storename
+	 * @param {string} ticketID
+	 * @returns none
+	 */
 	async deleteTicket(storename, ticketID) {
 		const store = await helper.getStore(storename);
-
 		const storeTickets = Object.keys(store.storedata.tickets);
 
 		if (!storeTickets.includes(ticketID)) return;
@@ -47,12 +52,22 @@ class Admin extends User {
 		);
 	}
 
+	/**
+	 * Creates a subaccount in master twilio account, for sms services
+	 * @param {string} friendlyName
+	 * @returns object
+	 */
 	async createTwilioSubaccount(friendlyName) {
 		return await twilioClient.api.accounts.create({
 			friendlyName: friendlyName,
 		});
 	}
-	async closeTwilioSubaccount(sid) {
+
+	/**
+	 * Deletes a twilio account
+	 * @param {string} sid
+	 */
+	async deleteTwilioSubaccount(sid) {
 		try {
 			await twilioClient.api.accounts(sid).update({ status: "closed" });
 		} catch (error) {
@@ -60,16 +75,25 @@ class Admin extends User {
 		}
 	}
 
+	/**
+	 * Checks if a store with storename exists
+	 * @param {string} storename
+	 * @returns boolean
+	 */
 	async isValidStorename(storename) {
 		const store = await helper.getStore(storename);
 		if (!store) return true;
 		return false;
 	}
 
+	/**
+	 * Generates a unique signUpCode for a newly registered store
+	 * @returns string
+	 */
 	async generateStoreSignUpCode() {
 		let signUpCode;
 		while (true) {
-			signUpCode = uniqueString();
+			signUpCode = uniqueString(); // Generates string
 			const store = await storesCollection.findOne({
 				signUpCode: signUpCode,
 			});
@@ -78,7 +102,12 @@ class Admin extends User {
 		return signUpCode;
 	}
 
-	async register(data) {
+	/**
+	 * Registers a store into databs
+	 * @param {object} data
+	 * @returns object
+	 */
+	async registerAdmin(data) {
 		let { fullname, email, storename, password, passwordConfirm } =
 			await this.cleanUp(data);
 
@@ -112,7 +141,7 @@ class Admin extends User {
 			};
 		}
 
-		//hash user passwords
+		// Hash user passwords
 		password = helper.hashPrivateInfo(password);
 		passwordConfirm = password;
 
@@ -173,31 +202,26 @@ class Admin extends User {
 			},
 		};
 
-		try {
-			await storesCollection.insertOne(store);
-			await usersCollection.insertOne(admin);
-			console.log("Successfully registered store");
-		} catch (err) {
-			console.log(`error registering store: ${err}`);
-			return {
-				errors: {
-					mongoError:
-						"Error creating account - Please Contact Support",
-				},
-				data,
-			};
-		}
-		this.closeTwilioSubaccount(twilioAccount.sid); //TODO: REMOVE THIS IS JUST FOR TESTING
+		await storesCollection.insertOne(store);
+		await usersCollection.insertOne(admin);
+
+		this.deleteTwilioSubaccount(twilioAccount.sid); //TODO: REMOVE THIS IS JUST FOR TESTING
 		return { errors: {}, data };
 	}
 
+	/**
+	 * Sends email with signup link
+	 * @param {string} email
+	 * @param {string} signUpCode
+	 * @returns boolean
+	 */
 	async inviteEmployee(email, signUpCode) {
 		console.log("SIGNUPCODE: " + signUpCode);
 
 		if (!helper.isValidEmail(email)) return false;
 
 		const msg = {
-			to: `${email}`, // list of receivers
+			to: `${email}`, // List of receivers
 			subject: `Register Your Account`, // Subject line
 			html: {
 				path: "./views/emailTemplates/employeeRegisterEmailTemplate.html",
@@ -208,7 +232,13 @@ class Admin extends User {
 		return true;
 	}
 
-	async removeEmployee(storename, email) {
+	/**
+	 * Deletes an employee from a store
+	 * @param {string} storename
+	 * @param {string} email
+	 * @returns boolean
+	 */
+	async deleteEmployee(storename, email) {
 		if (!helper.isValidEmail(email)) return false;
 
 		const user = await helper.getUser(email);
@@ -218,6 +248,12 @@ class Admin extends User {
 		return true;
 	}
 
+	/**
+	 * Toggles admin permissions to an account
+	 * @param {string} storename
+	 * @param {string} email
+	 * @returns boolean
+	 */
 	async toggleAdminPermission(storename, email) {
 		if (!helper.isValidEmail(email)) return false;
 
@@ -232,6 +268,13 @@ class Admin extends User {
 		return true;
 	}
 
+	/**
+	 * Gets the time clock history of all employees for store in timeframe
+	 * @param {string} storename
+	 * @param {string} fromDate
+	 * @param {string} toDate
+	 * @returns object
+	 */
 	async getEmployeesTimeclockHistory(storename, fromDate, toDate) {
 		const employees = await usersCollection
 			.find({ storename: storename })
@@ -241,6 +284,7 @@ class Admin extends User {
 
 		for (let i = 0; i < employees.length; i++) {
 			let totalHours = 0;
+			// For each employee total up hours worked
 			employees[i].timeClock.clockHistory.forEach((item) => {
 				if (item.date >= fromDate && item.date <= toDate) {
 					totalHours += item.hoursWorked;
@@ -258,6 +302,11 @@ class Admin extends User {
 		};
 	}
 
+	/**
+	 * Adds a category to a stores payment settings
+	 * @param {string} storename
+	 * @param {string} category
+	 */
 	async addCategory(storename, category) {
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -269,7 +318,12 @@ class Admin extends User {
 		);
 	}
 
-	async removeCategory(storename, category) {
+	/**
+	 * Deletes a category to a stores payment settings
+	 * @param {string} storename
+	 * @param {string} category
+	 */
+	async deleteCategory(storename, category) {
 		await storesCollection.updateOne(
 			{ storename: storename },
 			{
@@ -279,6 +333,12 @@ class Admin extends User {
 			}
 		);
 	}
+
+	/**
+	 * Updates a stores address in payment settings
+	 * @param {string} storename
+	 * @param {object} newData
+	 */
 	async updateStoreAddress(storename, newData) {
 		const { primary, city, province, postalCode } = newData;
 		await storesCollection.updateOne(
@@ -294,6 +354,11 @@ class Admin extends User {
 		);
 	}
 
+	/**
+	 * Updates a stores tax rate in payment settings
+	 * @param {string} storename
+	 * @param {string} taxRate
+	 */
 	async updateStoreTaxRate(storename, taxRate) {
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -307,6 +372,12 @@ class Admin extends User {
 			}
 		);
 	}
+
+	/**
+	 * Adds a ticket status to a stores ticket settings
+	 * @param {string} storename
+	 * @param {object} newData
+	 */
 	async updateTicketStatusSettings(storename, newData) {
 		let { statusName, statusColor } = newData;
 
@@ -323,6 +394,12 @@ class Admin extends User {
 			}
 		);
 	}
+
+	/**
+	 * Deletes a ticket status to a stores ticket settings
+	 * @param {string} storename
+	 * @param {object} newData
+	 */
 	async deleteTicketStatusSettings(storename, newData) {
 		let { statusName, statusColor } = newData;
 
@@ -341,6 +418,12 @@ class Admin extends User {
 			}
 		);
 	}
+
+	/**
+	 * Adds an issue to a stores ticket settings
+	 * @param {string} storename
+	 * @param {string} issue
+	 */
 	async addIssue(storename, issue) {
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -351,7 +434,13 @@ class Admin extends User {
 			}
 		);
 	}
-	async removeIssue(storename, issue) {
+
+	/**
+	 * Deletes an issue to a stores ticket settings
+	 * @param {string} storename
+	 * @param {string} issue
+	 */
+	async deleteIssue(storename, issue) {
 		await storesCollection.updateOne(
 			{ storename: storename },
 			{
@@ -361,6 +450,13 @@ class Admin extends User {
 			}
 		);
 	}
+
+	/**
+	 * Deleted a payment from a store
+	 * @param {string} storename
+	 * @param {string} paymentNumber
+	 * @returns none
+	 */
 	async deletePayment(storename, paymentNumber) {
 		const store = await helper.getStore(storename);
 		const storePayments = Object.keys(store.storedata.payments);

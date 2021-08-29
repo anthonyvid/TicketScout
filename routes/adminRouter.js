@@ -4,14 +4,13 @@ import express from "express";
 import { catchError } from "../config/errors.js";
 const router = express.Router();
 
-// Admin Register Page
 router.get(
 	"/register",
 	checkNotAuthenticated,
 	catchError(adminController.renderRegister)
 );
-// Admin Register handle
-router.post("/register", catchError(adminController.register));
+
+router.post("/register", catchError(adminController.registerAdmin));
 
 router.post(
 	"/invite-employee",
@@ -19,9 +18,9 @@ router.post(
 	catchError(adminController.inviteEmployee)
 );
 router.post(
-	"/remove-employee",
+	"/delete-employee",
 	ensureAuthenticated,
-	catchError(adminController.removeEmployee)
+	catchError(adminController.deleteEmployee)
 );
 router.post(
 	"/toggle-admin-permissions",
@@ -52,9 +51,9 @@ router.post(
 	catchError(adminController.addCategory)
 );
 router.post(
-	"/remove-category",
+	"/delete-category",
 	ensureAuthenticated,
-	catchError(adminController.removeCategory)
+	catchError(adminController.deleteCategory)
 );
 
 router.post(
@@ -85,10 +84,11 @@ router.post(
 	ensureAuthenticated,
 	catchError(adminController.addIssue)
 );
+
 router.post(
-	"/remove-issue",
+	"/delete-issue",
 	ensureAuthenticated,
-	catchError(adminController.removeIssue)
+	catchError(adminController.deleteIssue)
 );
 
 export default router;

@@ -13,5 +13,4 @@ const checkNotAuthenticated = (req, res, next) => {
 	next();
 };
 
-
 export { ensureAuthenticated, checkNotAuthenticated };

@@ -3,9 +3,13 @@ import * as helper from "./Helper.js";
 const storesCollection = db.collection("stores");
 
 class Customer {
+	/**
+	 * Updates and sorts store customers in descending order
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async updateCustomerList(storename) {
 		const store = await helper.getStore(storename);
-		//create array sorted by recently updated
 		const customers = store.storedata.customers;
 
 		const sortedCustomers = [];
@@ -20,22 +24,24 @@ class Customer {
 		return [sortedCustomers, store];
 	}
 
+	/**
+	 * Creates a new customer and adds to database
+	 * @param {object} formData
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async createNewCustomer(formData, storename) {
 		//validate phone number
 		if (!helper.isValidPhone(formData.phone))
 			return [{ phoneError: "Invalid phone number" }, formData];
 
-		if (formData.phone.length !== 9)
-			return [{ phoneError: "Phone number must be 10 digits" }, formData];
-
 		const store = await helper.getStore(storename);
 
-		//check if phone number is already registered
+		// Check if phone number is already registered
 		if (store.storedata.customers.hasOwnProperty(formData.phone)) {
 			return [{ phoneError: "Customer already in system" }, formData];
 		}
 
-		//add customer info to store.storedata.customers
 		const customer = {
 			firstname: formData.firstname.trim().toLowerCase(),
 			lastname: formData.lastname.trim().toLowerCase(),
@@ -46,38 +52,43 @@ class Customer {
 			dateJoined: new Date().toDateString(),
 		};
 
-		try {
-			await storesCollection.updateOne(
-				{
-					storename: storename,
+		// Add customer object to store.storedata.customers[customer]
+		await storesCollection.updateOne(
+			{
+				storename: storename,
+			},
+			{
+				$set: {
+					[`storedata.customers.${[formData.phone]}`]: customer,
 				},
-				{
-					$set: {
-						[`storedata.customers.${[formData.phone]}`]: customer,
-					},
-				}
-			);
-		} catch (error) {
-			console.error(error);
-			return [
-				{ phoneError: "Error creating customer - contact support" },
-				formData,
-			];
-		}
+			}
+		);
 
 		return [{}, customer];
 	}
 
+	/**
+	 * gets a customer object from database
+	 * @param {string} storename
+	 * @param {string} phone
+	 * @returns object
+	 */
 	async getCustomerData(storename, phone) {
 		const store = await helper.getStore(storename);
 		return store.storedata.customers[phone];
 	}
 
+	/**
+	 * Updates a customers name, phone, email
+	 * @param {string} storename
+	 * @param {string} newInfo
+	 * @returns array
+	 */
 	async updateCustomerContactInfo(storename, newInfo) {
 		let { newFirstname, newLastname, oldPhone, newPhone, newEmail } =
 			newInfo;
 
-		//New Data to store, not yet validated
+		// Cleanup new data
 		newFirstname = newFirstname.trim().toLowerCase();
 		newLastname = newLastname.trim().toLowerCase();
 		newPhone = newPhone.trim();
@@ -86,7 +97,7 @@ class Customer {
 
 		const store = await helper.getStore(storename);
 
-		//validate newPhone and newEmail
+		// Validate newPhone and newEmail
 		if (newPhone.length > 0) {
 			if (!helper.isValidPhone(newPhone))
 				return [{ phoneError: "Not a valid phone number" }, ""];
@@ -96,14 +107,14 @@ class Customer {
 			if (!helper.isValidEmail(newEmail))
 				return [{ emailError: "Not a valid email" }, ""];
 
-		//see if phone is already in system
+		// See if phone is already in system
 		if (
 			oldPhone !== newPhone &&
 			store.storedata.customers.hasOwnProperty(newPhone)
 		)
 			return [{ phoneError: "Phone already in system" }, ""];
 		else if (oldPhone !== newPhone) {
-			//update customers phone number
+			// Update customers phone number
 			await storesCollection.updateOne(
 				{
 					storename: storename,
@@ -118,7 +129,7 @@ class Customer {
 			);
 		}
 
-		//update info in customers.phone object
+		// Update customer object in database
 		await storesCollection.updateOne(
 			{
 				storename: storename,
@@ -139,6 +150,7 @@ class Customer {
 		);
 
 		for (const ticket of ticketsToUpdate) {
+			// Update ticket object in database
 			await storesCollection.updateOne(
 				{ storename: storename },
 				{
@@ -161,6 +173,7 @@ class Customer {
 		);
 
 		for (const payment of paymentsToUpdate) {
+			// Update payment object in database
 			await storesCollection.updateOne(
 				{ storename: storename },
 				{

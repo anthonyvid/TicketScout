@@ -10,25 +10,22 @@ router.get(
 	catchError(customerController.renderStoreCustomers)
 );
 
-// create new customer page
+router.get(
+	"/:phone",
+	ensureAuthenticated,
+	catchError(customerController.renderCustomerProfile)
+);
+
 router.post(
 	"/new-customer",
 	ensureAuthenticated,
 	catchError(customerController.renderCreateNewCustomer)
 );
 
-//create new customer handle
 router.post(
 	"/create-new-customer",
 	ensureAuthenticated,
 	catchError(customerController.createNewCustomer)
-);
-
-//dynamic customer page
-router.get(
-	"/:phone",
-	ensureAuthenticated,
-	catchError(customerController.renderCustomerProfile)
 );
 
 router.post(

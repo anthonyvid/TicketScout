@@ -1,6 +1,11 @@
 import { db } from "../db.js";
 const errorsCollection = db.collection("errors");
 
+/**
+ * Function will catch all errors if any found in controller, or methods being called from controller
+ * @param {function} fn function from controller passed in
+ * @returns none
+ */
 export const catchError = (fn) => (req, res, next) => {
 	Promise.resolve(fn(req, res, next)).catch(async (error) => {
 		console.error(error);

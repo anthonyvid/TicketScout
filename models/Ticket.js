@@ -2,21 +2,23 @@ import { db } from "../db.js";
 import client from "twilio";
 import fetch from "node-fetch";
 import * as helper from "./Helper.js";
+import Customer from "./Customer.js";
 const storesCollection = db.collection("stores");
 
 class Ticket {
+	/**
+	 * Updates and sorts store tickets in descending order
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async updateTicketList(storename) {
-		//get store we are working with
 		const store = await helper.getStore(storename);
-
-		//create array sorted by recently updated
 		const tickets = store.storedata.tickets;
-
 		const sortedTickets = [];
-		for (let ticket in tickets) {
-			sortedTickets.push([ticket, tickets[ticket]]);
-		}
 
+		for (let ticket in tickets) {
+			sortedTickets.push([ticket, tickets[ticket]]); // ['2000', ticketObject]
+		}
 		sortedTickets.sort((a, b) => {
 			return b[1].lastUpdated - a[1].lastUpdated;
 		});
@@ -24,31 +26,25 @@ class Ticket {
 		return [sortedTickets, store];
 	}
 
+	/**
+	 * Creates new ticket object and adds to necessary parts of database
+	 * @param {object} formData
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async createNewTicket(formData, storename) {
-		//validate phone number
 		if (!helper.isValidPhone(formData.phone)) {
 			return [{ phoneError: "Invalid phone number" }, formData];
 		}
 
-		//Get store we are working with
 		const store = await helper.getStore(storename);
+		const storeCustomers = store.storedata.customers;
+		const storeTickets = store.storedata.tickets;
 
-		let mostRecentTicketNum;
+		const mostRecentTicketNum =
+			(await helper.getLargestNum(Object.keys(storeTickets), 2000)) + 1;
 
-		//If no tickets are in the store (new store) start count at 2000
-		if (Object.keys(store.storedata.tickets).length === 0) {
-			mostRecentTicketNum = 2000;
-		} else {
-			//find most recent ticket# created
-			mostRecentTicketNum =
-				Math.max(
-					...Object.keys(store.storedata.tickets).map((i) =>
-						parseInt(i)
-					)
-				) + 1;
-		}
-
-		//ticket object to add
+		// Ticket object to add
 		const ticket = {
 			customer: {
 				firstname: formData.firstname.trim().toLowerCase(),
@@ -70,32 +66,13 @@ class Ticket {
 			smsData: [],
 		};
 
-		//if customer info put in is not in system, then create new customer also
-		if (!store.storedata.customers.hasOwnProperty(formData.phone)) {
-			const customer = {
-				firstname: formData.firstname.trim().toLowerCase(),
-				lastname: formData.lastname.trim().toLowerCase(),
-				phone: formData.phone.trim(),
-				email: formData.email.trim().toLowerCase(),
-				payments: {},
-				tickets: {},
-				dateJoined: new Date().toDateString(),
-			};
-
-			storesCollection.updateOne(
-				{
-					storename: storename,
-				},
-				{
-					$set: {
-						[`storedata.customers.${[formData.phone]}`]: customer,
-					},
-				}
-			);
+		// If phone is not registered yet, create new customer also
+		if (!storeCustomers.hasOwnProperty(formData.phone)) {
+			await new Customer().createNewCustomer(formData, storename);
 		} else {
 			if (
 				formData.firstname.trim().toLowerCase() !==
-				store.storedata.customers[formData.phone].firstname
+				storeCustomers[formData.phone].firstname
 			) {
 				return [
 					{
@@ -106,7 +83,7 @@ class Ticket {
 				];
 			} else if (
 				formData.lastname.trim().toLowerCase() !==
-				store.storedata.customers[formData.phone].lastname
+				storeCustomers[formData.phone].lastname
 			) {
 				return [
 					{
@@ -117,7 +94,7 @@ class Ticket {
 			}
 		}
 
-		//Add ticket:data pair to storedata.customers
+		// Add ticket database
 		storesCollection.updateOne(
 			{
 				storename: storename,
@@ -139,17 +116,6 @@ class Ticket {
 						lastUpdated: new Date().getTime(),
 						dateCreated: new Date().toDateString(),
 					},
-				},
-			}
-		);
-
-		//Add ticket:data pair to storedata.tickets
-		storesCollection.updateOne(
-			{
-				storename: storename,
-			},
-			{
-				$set: {
 					[`storedata.tickets.${[mostRecentTicketNum]}`]: ticket,
 				},
 			}
@@ -158,11 +124,25 @@ class Ticket {
 		return [{}, ticket, mostRecentTicketNum];
 	}
 
+	/**
+	 * gets ticket object for given ticketId
+	 * @param {string} storename
+	 * @param {string} ticketID
+	 * @returns object
+	 */
 	async getTicketData(storename, ticketID) {
 		const store = await helper.getStore(storename);
 		return store.storedata.tickets[ticketID];
 	}
 
+	/**
+	 * Updates the status of a ticket with the given selected
+	 * @param {string} selection
+	 * @param {string} ticketID
+	 * @param {string} phone
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async updateTicketStatus(selection, ticketID, phone, storename) {
 		const latestUpdate = new Date().getTime();
 		storesCollection.updateOne(
@@ -186,6 +166,14 @@ class Ticket {
 		return await this.updateTicketList(storename);
 	}
 
+	/**
+	 * Updates the issue of a ticket with the given selected
+	 * @param {string} selection
+	 * @param {string} ticketID
+	 * @param {string} phone
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async updateTicketIssue(selection, ticketID, phone, storename) {
 		const latestUpdate = new Date().getTime();
 		storesCollection.updateOne(
@@ -210,6 +198,12 @@ class Ticket {
 		return tickets;
 	}
 
+	/**
+	 * Updates description and subject of a ticket
+	 * @param {string} storename
+	 * @param {object} newInfo
+	 * @param {string} phone
+	 */
 	async updateTicketInfo(storename, newInfo, phone) {
 		const newSubject = newInfo.subject;
 		const newDescription = newInfo.description;
@@ -224,13 +218,6 @@ class Ticket {
 					[`storedata.customers.${[phone]}.tickets.${[
 						ticketID,
 					]}.description`]: newDescription,
-				},
-			}
-		);
-		await storesCollection.updateOne(
-			{ storename: storename },
-			{
-				$set: {
 					[`storedata.tickets.${[ticketID]}.subject`]: newSubject,
 					[`storedata.customers.${[phone]}.tickets.${[
 						ticketID,
@@ -240,8 +227,13 @@ class Ticket {
 		);
 	}
 
-	async updateTicketShippingInfo(info, storename) {
-		const { trackingNumber, carrier, ticketID, phone } = info;
+	/**
+	 * Updates shipping info of a ticket
+	 * @param {object} shippingInfo
+	 * @param {string} storename
+	 */
+	async updateTicketShippingInfo(shippingInfo, storename) {
+		const { trackingNumber, carrier, ticketID, phone } = shippingInfo;
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -262,6 +254,14 @@ class Ticket {
 		);
 	}
 
+	/**
+	 * Sends a text message to toPhone using Twilio api
+	 * @param {string} storename
+	 * @param {string} ticketID
+	 * @param {string} toPhone
+	 * @param {string} message
+	 * @returns the message that was sent out to number
+	 */
 	async sendSms(storename, ticketID, toPhone, message) {
 		const store = await helper.getStore(storename);
 
@@ -272,13 +272,9 @@ class Ticket {
 
 		let subAccount = null;
 
-		try {
-			subAccount = await twilioClient.incomingPhoneNumbers.list({
-				limit: 20,
-			});
-		} catch (error) {
-			console.log(error);
-		}
+		subAccount = await twilioClient.incomingPhoneNumbers.list({
+			limit: 20,
+		});
 
 		const msg = await twilioClient.messages
 			.create({
@@ -309,6 +305,10 @@ class Ticket {
 		return msg;
 	}
 
+	/**
+	 * Method called for when an incoming request is made to twilio webhook
+	 * @param {object} smsData
+	 */
 	async receiveSms(smsData) {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
@@ -323,6 +323,12 @@ class Ticket {
 		//maybe setup socket.io connection here to display msg if user is on that page
 	}
 
+	/**
+	 * Tracks a shipment with tracking # and carrier using Goshippo api
+	 * @param {string} ticketID
+	 * @param {string} storename
+	 * @returns object
+	 */
 	async trackShipment(ticketID, storename) {
 		const store = await helper.getStore(storename);
 		const storeTickets = store.storedata.tickets;

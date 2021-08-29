@@ -2,32 +2,32 @@ import * as ticketController from "../controllers/ticketController.js";
 import { ensureAuthenticated, checkNotAuthenticated } from "../config/auth.js";
 import express from "express";
 import { catchError } from "../config/errors.js";
+
+// Handles requests made to /routes/ticketRouter
 const router = express.Router();
 
-// Tickets Page
 router.get(
 	"/",
 	ensureAuthenticated,
 	catchError(ticketController.renderStoreTickets)
 );
-// Create new ticket page
+
+router.get(
+	"/:ticketID",
+	ensureAuthenticated,
+	catchError(ticketController.renderTicketProfile)
+);
+
 router.post(
 	"/new-ticket",
 	ensureAuthenticated,
 	catchError(ticketController.renderCreateNewTicket)
 );
-//create new ticket handle
+
 router.post(
 	"/create-new-ticket",
 	ensureAuthenticated,
 	catchError(ticketController.createNewTicket)
-);
-
-//dynamic ticket page
-router.get(
-	"/:ticketID",
-	ensureAuthenticated,
-	catchError(ticketController.renderTicketProfile)
 );
 
 router.post(
@@ -51,7 +51,6 @@ router.post(
 	catchError(ticketController.updateTicketShippingInfo)
 );
 
-// Track a shipment Handle
 router.post(
 	"/track-shipment",
 	ensureAuthenticated,
@@ -64,4 +63,5 @@ router.post(
 	catchError(ticketController.sendSms)
 );
 router.post("/receive-sms", catchError(ticketController.receiveSms));
+
 export default router;

@@ -1,6 +1,6 @@
 import Ticket from "../models/Ticket.js";
 import { getStore } from "../models/Helper.js";
-// Tickets Page
+
 export const renderStoreTickets = async function (req, res) {
 	const ticket = new Ticket();
 	const [result, store] = await ticket.updateTicketList(req.user.storename);
@@ -11,43 +11,6 @@ export const renderStoreTickets = async function (req, res) {
 		tickets: result,
 		store: store,
 	});
-};
-
-export const renderCreateNewTicket = function (req, res) {
-	res.render(`logged-in/create-new-ticket`, {
-		layout: "layouts/logged-in-layout",
-		user: req.user,
-		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
-		firstname:
-			typeof req.body.firstname !== "undefined" ? req.body.firstname : "",
-		lastname:
-			typeof req.body.lastname !== "undefined" ? req.body.lastname : "",
-	});
-};
-
-//Create new ticket handle
-export const createNewTicket = async function (req, res, next) {
-	const ticket = new Ticket();
-	const result = await ticket.createNewTicket(req.body, req.user.storename);
-	const [ticketError, data, ticketID] = result;
-
-	// No errors
-	if (Object.keys(ticketError).length === 0) {
-		res.redirect(`/tickets/${ticketID}`);
-	} else {
-		console.log("failed");
-		res.render("logged-in/create-new-ticket", {
-			layout: "layouts/logged-in-layout",
-			user: req.user,
-			ticketError: Object.values(ticketError),
-			firstname: data.firstname,
-			lastname: data.lastname,
-			phone: undefined,
-			email: data.email,
-			subject: data.subject,
-			description: data.description,
-		});
-	}
 };
 
 export const renderTicketProfile = async function (req, res) {
@@ -65,6 +28,40 @@ export const renderTicketProfile = async function (req, res) {
 		ticketID: req.params.ticketID,
 		store: store,
 	});
+};
+
+export const renderCreateNewTicket = function (req, res) {
+	res.render(`logged-in/create-new-ticket`, {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
+		firstname:
+			typeof req.body.firstname !== "undefined" ? req.body.firstname : "",
+		lastname:
+			typeof req.body.lastname !== "undefined" ? req.body.lastname : "",
+	});
+};
+
+export const createNewTicket = async function (req, res, next) {
+	const ticket = new Ticket();
+	const result = await ticket.createNewTicket(req.body, req.user.storename);
+	const [ticketError, data, ticketID] = result;
+
+	if (Object.keys(ticketError).length === 0) {
+		res.redirect(`/tickets/${ticketID}`);
+	} else {
+		res.render("logged-in/create-new-ticket", {
+			layout: "layouts/logged-in-layout",
+			user: req.user,
+			ticketError: Object.values(ticketError),
+			firstname: data.firstname,
+			lastname: data.lastname,
+			phone: undefined,
+			email: data.email,
+			subject: data.subject,
+			description: data.description,
+		});
+	}
 };
 
 export const updateTicketStatus = async function (req, res) {
@@ -102,6 +99,15 @@ export const updateTicketShippingInfo = async function (req, res) {
 	res.json({});
 };
 
+export const trackShipment = async function (req, res) {
+	const ticket = new Ticket();
+	const result = await ticket.trackShipment(
+		req.body.ticketID,
+		req.user.storename
+	);
+	res.json({ result });
+};
+
 export const sendSms = async function (req, res) {
 	const ticket = new Ticket();
 	const msg = await ticket.sendSms(
@@ -115,17 +121,6 @@ export const sendSms = async function (req, res) {
 
 export const receiveSms = async function (req, res) {
 	const ticket = new Ticket();
-	console.log(req.client);
 	await ticket.receiveSms(req.body);
 	res.status(204).send();
-};
-
-// Track shipment handle
-export const trackShipment = async function (req, res) {
-	const ticket = new Ticket();
-	const result = await ticket.trackShipment(
-		req.body.ticketID,
-		req.user.storename
-	);
-	res.json({ result });
 };

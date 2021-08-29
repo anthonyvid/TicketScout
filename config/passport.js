@@ -12,7 +12,7 @@ export default function (passport) {
 		new LocalStrategy(
 			{ usernameField: "email" },
 			(email, password, done) => {
-				//Find User in Database
+				// Find User in Database
 
 				usersCollection.findOne({ email: email }).then((user) => {
 					if (!user) {
@@ -27,7 +27,7 @@ export default function (passport) {
 						});
 					}
 
-					//Check if passwords match
+					// Check if passwords match
 					bcrypt.compare(password, user.password, (err, isMatch) => {
 						if (err) throw err;
 						// If passwords match

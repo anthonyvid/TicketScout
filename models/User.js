@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import * as helper from "./Helper.js";
 import { db } from "../db.js";
 import mongoClient from "mongodb";
+
 const { ObjectId } = mongoClient;
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
@@ -24,6 +25,7 @@ class User {
 		if (firstname.length == 0 || lastname.length == 0)
 			return { emailError: "Invalid firstname or lastname" };
 
+		// Format fullname
 		const fullname =
 			firstname.trim().toLowerCase() +
 			" " +
@@ -42,7 +44,7 @@ class User {
 			}
 		);
 
-		return {};
+		return {}; // Empty object means no errors
 	}
 
 	/**
@@ -64,50 +66,50 @@ class User {
 		return total;
 	}
 
+	/**
+	 * Searches databse to see if the search matches any tickets, customers, or payment
+	 * @param {string} storename
+	 * @param {string} search gets send in fetch from input onkeyup
+	 * @returns object containing any data found
+	 */
 	async liveSearchResults(storename, search) {
 		const store = await helper.getStore(storename);
-		console.log(store);
+
 		search = search.trim();
 
 		const storeTickets = Object.keys(store.storedata.tickets);
 		const storeCustomers = Object.keys(store.storedata.customers);
 		const storePayments = Object.keys(store.storedata.payments);
-		let resultsFound = {
-			tickets: [],
-			customers: [],
-			payments: [],
-		};
 
-		for (let i = 0; i < storeTickets.length; i++) {
-			if (storeTickets[i].indexOf(search) > -1) {
-				resultsFound.tickets.push(storeTickets[i]);
-			}
-		}
-		for (let i = 0; i < storeCustomers.length; i++) {
-			if (storeCustomers[i].indexOf(search) > -1) {
-				resultsFound.customers.push(storeCustomers[i]);
-			}
-		}
-		for (let i = 0; i < storePayments.length; i++) {
-			if (storePayments[i].indexOf(search) > -1) {
-				resultsFound.payments.push(storePayments[i]);
-			}
-		}
+		const [tickets, customers, payments] = [
+			storeTickets,
+			storeCustomers,
+			storePayments,
+		].map((arr) => arr.filter((word) => word.includes(search)));
+
+		const resultsFound = {
+			tickets,
+			customers,
+			payments,
+		};
 		return resultsFound;
 	}
 
-	async forgotPassword(data) {
-		//validate email
-		if (!this.isValidEmail(data.email))
-			return { error: "Not a valid email" };
+	/**
+	 * send an email to recover password if account is valid
+	 * @param {string} email
+	 * @returns object
+	 */
+	async forgotPassword(email) {
+		// Validate email
+		if (!this.isValidEmail(email)) return { error: "Not a valid email" };
 
 		const user = await helper.getUser(email);
 
-		// if no user found
 		if (!user) return;
 
 		const msg = {
-			to: `${user.email}`, // list of receivers
+			to: `${user.email}`, // List of receivers
 			subject: `Reset Your Password`, // Subject line
 			html: {
 				path: "./views/emailTemplates/recoverPasswordEmail.html",
@@ -117,6 +119,11 @@ class User {
 		return user;
 	}
 
+	/**
+	 * Given an object it will clean up all neccessary data
+	 * @param {object} data
+	 * @returns object
+	 */
 	async cleanUp(data) {
 		if (typeof data.fullname != "string") data.fullname = "";
 		if (typeof data.email != "string") data.email = "";
@@ -137,6 +144,11 @@ class User {
 		return data;
 	}
 
+	/**
+	 * sets the users clock in time to the number provided
+	 * @param {object} user
+	 * @param {number} clockInTime
+	 */
 	async clockIn(user, clockInTime) {
 		await usersCollection.updateOne(
 			{ email: user.email },
@@ -149,13 +161,15 @@ class User {
 		);
 	}
 
+	/**
+	 * sets the users clock out time to the number provided
+	 * @param {object} user
+	 * @param {number} clockInTime
+	 */
 	async clockOut(user, clockOutTime) {
 		const userData = await usersCollection.findOne({ email: user.email });
-
 		const clockInTime = userData.timeClock.clockInTime;
-
 		const timeClockedIn = clockOutTime - userData.timeClock.clockInTime;
-
 		let hours = timeClockedIn / (1000 * 60 * 60);
 
 		await usersCollection.updateOne(
@@ -177,6 +191,11 @@ class User {
 		);
 	}
 
+	/**
+	 * Checks if signUpCode is associated with a store
+	 * @param {string} signUpCode
+	 * @returns false if store not found, true if found
+	 */
 	async isValidSignUpCode(signUpCode) {
 		const store = await storesCollection.findOne({
 			signUpCode: signUpCode,
@@ -185,6 +204,14 @@ class User {
 		return true;
 	}
 
+	/**
+	 * Validates the provided data
+	 * @param {string} fullname
+	 * @param {string} email
+	 * @param {string} password
+	 * @param {string} passwordConfirm
+	 * @returns error object if any error found along the way, empty object if no errors
+	 */
 	async validate(fullname, email, password, passwordConfirm) {
 		//validate full name
 		if (!/\s/g.test(fullname)) return { fullname: "Not a valid name" };
@@ -209,6 +236,12 @@ class User {
 		return {};
 	}
 
+	/**
+	 * Changes a users password if no errors
+	 * @param {string} actualOldHashedPassword
+	 * @param {object} newInfo
+	 * @returns object error if error found, empty object if no errors
+	 */
 	async changeAccountPassword(actualOldHashedPassword, newInfo) {
 		const { oldPlainTextPassword, newPassword, confirmNewPassword } =
 			newInfo;
@@ -244,6 +277,12 @@ class User {
 		return {};
 	}
 
+	/**
+	 * Compares hashed data to regular data
+	 * @param {string} param1
+	 * @param {string} param2
+	 * @returns promise
+	 */
 	async compareAsync(param1, param2) {
 		return new Promise(function (resolve, reject) {
 			bcrypt.compare(param1, param2, function (err, res) {
@@ -256,7 +295,12 @@ class User {
 		});
 	}
 
-	async verifyEmailExists(id) {
+	/**
+	 * Verifies if a user exists with a valid Mongo ObjectId
+	 * @param {string} id
+	 * @returns false if no user found, true if found
+	 */
+	async verifyUserExists(id) {
 		const user = await usersCollection.findOne({
 			_id: ObjectId(id),
 		});
@@ -269,10 +313,13 @@ class User {
 				$set: { isVerified: true },
 			}
 		);
-
 		return true;
 	}
 
+	/**
+	 * Sends a verification email after sign up to provided email
+	 * @param {string} email
+	 */
 	async sendEmailVerification(email) {
 		const user = await helper.getUser(email);
 		const msg = {
@@ -287,6 +334,11 @@ class User {
 		helper.sendEmail(msg);
 	}
 
+	/**
+	 * registers an employee into a store
+	 * @param {object} data
+	 * @returns object
+	 */
 	async employeeRegister(data) {
 		let { fullname, email, password, passwordConfirm, signUpCode } =
 			await this.cleanUp(data);

@@ -1,18 +1,15 @@
 import Admin from "../models/Admin.js";
 
-// Admin Register Page
 export const renderRegister = function (req, res) {
 	res.render("logged-out/adminRegister", {
 		layout: "layouts/logged-out-layout",
 	});
 };
 
-// Admin Register Handle
-export const register = async function (req, res) {
+export const registerAdmin = async function (req, res) {
 	let admin = new Admin();
-	const result = await admin.register(req.body);
+	const result = await admin.registerAdmin(req.body);
 
-	// No errors means passed registration
 	if (!Object.keys(result.errors).length) {
 		req.flash("logout_msg", "Please verify your email address");
 		res.redirect("/");
@@ -44,10 +41,10 @@ export const inviteEmployee = async function (req, res) {
 	else res.json({});
 };
 
-export const removeEmployee = async function (req, res) {
+export const deleteEmployee = async function (req, res) {
 	const admin = new Admin();
 
-	const result = await admin.removeEmployee(
+	const result = await admin.deleteEmployee(
 		req.user.storename,
 		req.body.email
 	);
@@ -67,6 +64,30 @@ export const toggleAdminPermission = async function (req, res) {
 	else res.json({});
 };
 
+export const deletePayment = async function (req, res) {
+	const admin = new Admin();
+	try {
+		await admin.deletePayment(req.user.storename, req.body.item);
+		res.status(200).json({});
+	} catch (error) {
+		res.status(400).json({
+			error: "Error deleting payment - contact support",
+		});
+	}
+};
+
+export const deleteTicket = async function (req, res) {
+	const admin = new Admin();
+	try {
+		await admin.deleteTicket(req.user.storename, req.body.item);
+		res.status(200).json({});
+	} catch (error) {
+		res.status(400).json({
+			error: "Error deleting ticket - contact support",
+		});
+	}
+};
+
 export const getEmployeesTimeclockHistory = async function (req, res) {
 	const admin = new Admin();
 	const { employeesClockHistory, payPeriod } =
@@ -84,9 +105,9 @@ export const addCategory = async function (req, res) {
 	res.status(200).send();
 };
 
-export const removeCategory = async function (req, res) {
+export const deleteCategory = async function (req, res) {
 	const admin = new Admin();
-	await admin.removeCategory(req.user.storename, req.body.category);
+	await admin.deleteCategory(req.user.storename, req.body.category);
 	res.status(200).send();
 };
 
@@ -118,32 +139,8 @@ export const addIssue = async function (req, res) {
 	await admin.addIssue(req.user.storename, req.body.issue);
 	res.status(200).send();
 };
-export const removeIssue = async function (req, res) {
+export const deleteIssue = async function (req, res) {
 	const admin = new Admin();
-	await admin.removeIssue(req.user.storename, req.body.issue);
+	await admin.deleteIssue(req.user.storename, req.body.issue);
 	res.status(200).send();
-};
-
-export const deletePayment = async function (req, res) {
-	const admin = new Admin();
-	try {
-		await admin.deletePayment(req.user.storename, req.body.item);
-		res.status(200).json({});
-	} catch (error) {
-		res.status(400).json({
-			error: "Error deleting payment - contact support",
-		});
-	}
-};
-
-export const deleteTicket = async function (req, res) {
-	const admin = new Admin();
-	try {
-		await admin.deleteTicket(req.user.storename, req.body.item);
-		res.status(200).json({});
-	} catch (error) {
-		res.status(400).json({
-			error: "Error deleting ticket - contact support",
-		});
-	}
 };

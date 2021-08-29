@@ -85,6 +85,7 @@ submitChangeBtn.addEventListener(
 			ticketID: id,
 			phone: customerPhone,
 		});
+		location.reload();
 	},
 	{ passive: true }
 );

@@ -14,6 +14,23 @@ export const renderStorePayments = async function (req, res) {
 	});
 };
 
+export const renderPaymentProfile = async function (req, res) {
+	const payment = new Payment();
+	const result = await payment.getPaymentData(
+		req.user.storename,
+		req.params.paymentNumber
+	);
+
+	const store = await getStore(req.user.storename);
+	res.render("logged-in/payment-profile", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		payment: result,
+		paymentNumber: req.params.paymentNumber,
+		store: store,
+	});
+};
+
 export const renderCreateNewPayment = async function (req, res) {
 	const payment = new Payment();
 	const paymentSettings = await payment.getPaymentSettings(
@@ -35,7 +52,6 @@ export const renderCreateNewPayment = async function (req, res) {
 
 export const createNewPayment = async function (req, res) {
 	const payment = new Payment();
-
 	const result = await payment.createNewpayment(req.body, req.user.storename);
 
 	if (!result.hasOwnProperty("phoneError")) {
@@ -52,21 +68,4 @@ export const createNewPayment = async function (req, res) {
 			payments: paymentSettings,
 		});
 	}
-};
-
-export const renderPaymentProfile = async function (req, res) {
-	const payment = new Payment();
-	const result = await payment.getPaymentData(
-		req.user.storename,
-		req.params.paymentNumber
-	);
-
-	const store = await getStore(req.user.storename);
-	res.render("logged-in/payment-profile", {
-		layout: "layouts/logged-in-layout",
-		user: req.user,
-		payment: result,
-		paymentNumber: req.params.paymentNumber,
-		store: store,
-	});
 };

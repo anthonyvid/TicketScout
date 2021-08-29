@@ -3,10 +3,13 @@ import * as helper from "./Helper.js";
 const storesCollection = db.collection("stores");
 
 class Payment {
+	/**
+	 * Updates and sorts store tickets in descending order
+	 * @param {string} storename
+	 * @returns array
+	 */
 	async updatePaymentsList(storename) {
 		const store = await helper.getStore(storename);
-
-		//create array sorted by recently updated
 		const payments = store.storedata.payments;
 
 		const sortedPayments = [];
@@ -30,6 +33,12 @@ class Payment {
 		return store.storeSettings.payments;
 	}
 
+	/**
+	 * Creates a new payment and adds to database
+	 * @param {object} formData
+	 * @param {string} storename
+	 * @returns object
+	 */
 	async createNewpayment(formData, storename) {
 		const customer = JSON.parse(formData.customer);
 		const order = JSON.parse(formData.order);
@@ -42,16 +51,14 @@ class Payment {
 		if (customer.phone.length) {
 			if (!helper.isValidPhone(customer.phone))
 				return { phoneError: "Invalid Phone Number" };
-			//see if that number is in store
+			// See if that number is in store
 			if (!Object.keys(storeCustomers).includes(customer.phone.trim()))
 				return { phoneError: "Phone number not registered" };
 		}
 
 		// Get most recent payment number, increment by 1 to keep order
 		const mostRecentPaymentID =
-			await helper.getLargestNum(Object.keys(storePayments), 99) + 1;
-
-		console.log(mostRecentPaymentID);
+			(await helper.getLargestNum(Object.keys(storePayments), 99)) + 1;
 
 		const payment = {
 			customer: {
@@ -119,6 +126,13 @@ class Payment {
 
 		return { mostRecentPaymentID };
 	}
+
+	/**
+	 * Gets payment object
+	 * @param {string} storename
+	 * @param {string} paymentNumber
+	 * @returns object
+	 */
 	async getPaymentData(storename, paymentNumber) {
 		const store = await helper.getStore(storename);
 		return store.storedata.payments[paymentNumber];

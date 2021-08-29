@@ -13,6 +13,19 @@ export const renderStoreCustomers = async function (req, res) {
 	});
 };
 
+export const renderCustomerProfile = async function (req, res) {
+	const customer = new Customer();
+	const result = await customer.getCustomerData(
+		req.user.storename,
+		req.params.phone
+	);
+	res.status(200).render("logged-in/customer-profile", {
+		layout: "layouts/logged-in-layout",
+		user: req.user,
+		customer: result,
+	});
+};
+
 export const renderCreateNewCustomer = function (req, res) {
 	res.status(200).render(`logged-in/create-new-customer`, {
 		layout: "layouts/logged-in-layout",
@@ -21,7 +34,6 @@ export const renderCreateNewCustomer = function (req, res) {
 	});
 };
 
-//Create new customer handle
 export const createNewCustomer = async function (req, res) {
 	const customer = new Customer();
 	const result = await customer.createNewCustomer(
@@ -30,7 +42,6 @@ export const createNewCustomer = async function (req, res) {
 	);
 	const [ticketError, data] = result;
 
-	// No errors
 	if (!Object.keys(ticketError).length) {
 		res.status(200).redirect(`/customers/${data.phone}`);
 	} else {
@@ -46,19 +57,6 @@ export const createNewCustomer = async function (req, res) {
 	}
 };
 
-export const renderCustomerProfile = async function (req, res) {
-	const customer = new Customer();
-	const result = await customer.getCustomerData(
-		req.user.storename,
-		req.params.phone
-	);
-	res.status(200).render("logged-in/customer-profile", {
-		layout: "layouts/logged-in-layout",
-		user: req.user,
-		customer: result,
-	});
-};
-
 export const updateCustomerContactInfo = async function (req, res) {
 	const customer = new Customer();
 	const [updateErrors, newPhone] = await customer.updateCustomerContactInfo(
@@ -66,8 +64,7 @@ export const updateCustomerContactInfo = async function (req, res) {
 		req.body
 	);
 
-	// No errors
-	if (Object.keys(updateErrors).length === 0) {
+	if (!Object.keys(updateErrors).length) {
 		req.flash("success_update", "Successfully Updated Information");
 		if (req.body.sentFrom === "customer") {
 			res.status(200).redirect(`/customers/${newPhone}`);

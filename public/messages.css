@@ -39,17 +39,13 @@
 }
 
 .dont_fade {
-	width: 75%;
-	position: absolute;
-	bottom: 0;
-	margin-bottom: 75px;
+	width: 90%;
+	height: 40px;
 }
 
 .fade_out {
-	width: 75%;
-	position: absolute;
-	bottom: 0;
-	margin-bottom: 75px;
+	width: 90%;
+	height: 40px;
 	-webkit-animation: fadeOut 6s;
 	animation: fadeOut 6s;
 	animation-fill-mode: forwards;

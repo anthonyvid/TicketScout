@@ -1,21 +1,29 @@
 "use strict";
 import * as helper from "./helper/helper.js";
 
-const viewPasssword = document.getElementById("eye_icon");
 const passwordInput = document.getElementById("password");
 const emailInput = document.getElementById("email");
 const loginBtn = document.getElementById("login_button");
-
-viewPasssword.addEventListener("mousedown", () => {
-	passwordInput.type = "text";
-});
-viewPasssword.addEventListener("mouseup", () => {
-	passwordInput.type = "password";
-});
+const primaryLottie = document.getElementById("primary_lottie");
+const passwordLottie = document.getElementById("password_lottie");
 
 loginBtn.addEventListener("click", () => {
-	if (!emailInput.value) helper.showInvalidColour(emailInput);
-	if (!passwordInput.value) helper.showInvalidColour(emailInput);
+	if (!emailInput.value) {
+		helper.showInvalidColour(emailInput);
+		return;
+	}
+	if (!passwordInput.value) {
+		helper.showInvalidColour(emailInput);
+		return;
+	}
+
+	primaryLottie.classList.add("hidden");
+	passwordLottie.classList.remove("hidden");
+
+	setInterval(() => {
+		document.getElementById("login_form").submit();
+		return;
+	}, 1000);
 });
 
 emailInput.addEventListener("input", () => {

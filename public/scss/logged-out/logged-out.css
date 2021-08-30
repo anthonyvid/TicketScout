@@ -65,6 +65,98 @@ a:hover {
   display: none;
 }
 
+@-webkit-keyframes fadeOutLeft {
+  0% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 1;
+  }
+  25% {
+    -webkit-transform: translateX(-10%);
+            transform: translateX(-10%);
+    opacity: 0.9;
+  }
+  50% {
+    -webkit-transform: translateX(-20%);
+            transform: translateX(-20%);
+    opacity: 0.6;
+  }
+  75% {
+    -webkit-transform: translateX(-30%);
+            transform: translateX(-30%);
+    opacity: 0.3;
+  }
+  100% {
+    -webkit-transform: translateX(-40%);
+            transform: translateX(-40%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutLeft {
+  0% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+    opacity: 1;
+  }
+  25% {
+    -webkit-transform: translateX(-10%);
+            transform: translateX(-10%);
+    opacity: 0.9;
+  }
+  50% {
+    -webkit-transform: translateX(-20%);
+            transform: translateX(-20%);
+    opacity: 0.6;
+  }
+  75% {
+    -webkit-transform: translateX(-30%);
+            transform: translateX(-30%);
+    opacity: 0.3;
+  }
+  100% {
+    -webkit-transform: translateX(-40%);
+            transform: translateX(-40%);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -76,6 +168,37 @@ body {
   width: 100%;
   height: 100vh;
   overflow: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.fadeLeftAnimation {
+  -webkit-animation-name: fadeOutLeft;
+          animation-name: fadeOutLeft;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.fadeInAnimation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
 }
 
 .left-container {
@@ -90,6 +213,7 @@ body {
   -webkit-clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
           clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
   text-align: center;
+  overflow: none;
 }
 
 .left-container #logo {
@@ -140,6 +264,45 @@ body {
   height: 100%;
   width: 65%;
   padding: 10% 15% 10% 15%;
+  overflow: none;
+}
+
+.right-container .loading-animation {
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 0;
+  position: relative;
+}
+
+.right-container .loading-animation h3 {
+  position: absolute;
+  top: 0px;
+}
+
+.right-container .error-msg-wrap {
+  width: 100%;
+  height: 50px;
+  background-color: #ffcccc;
+  border-radius: 6px;
+  border-color: #cc0000;
+  text-align: center;
+  padding: 10px;
+}
+
+.right-container .error-msg-wrap h3 {
+  color: #990000;
 }
 
 .right-container .action-container {
@@ -163,7 +326,8 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: -15px;
 }
 
 .right-container .action-container .heading h2 {
@@ -256,7 +420,8 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.right-container .action-container .inputs .input-wrap div #password {
+.right-container .action-container .inputs .input-wrap div #password,
+.right-container .action-container .inputs .input-wrap div #passwordConfirm {
   font-size: 20px;
 }
 
@@ -275,6 +440,10 @@ body {
   cursor: pointer;
 }
 
+.right-container .action-container .admin-register {
+  gap: 25px;
+}
+
 .right-container .action-container .link-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -283,13 +452,17 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-top: -35px;
-  text-decoration: underline;
   padding: 0 5px 0 5px;
 }
 
 .right-container .action-container .link-wrap a {
   color: #6fb7f9;
+  text-decoration: underline;
   font-weight: 600;
+}
+
+.right-container .action-container .link-wrap #back_arrow {
+  cursor: pointer;
 }
 
 .right-container .action-container button {
@@ -306,5 +479,9 @@ body {
   color: white;
   font-size: 16px;
   font-weight: 600;
+}
+
+.right-container .action-container #next_Btn {
+  margin-top: -25px;
 }
 /*# sourceMappingURL=logged-out.css.map */

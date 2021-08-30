@@ -1,13 +1,5 @@
 <link rel="stylesheet" href="/messages.css" />
 
-<!-- <form action="register" method="POST" id="signUpForm">
-name="fullname"
-name="email"
-	name="storename"
-name="password"
-	name="storename"
-</form>  -->
-
 <link rel="stylesheet" href="/messages.css" />
 <link
 	rel="stylesheet"
@@ -22,70 +14,156 @@ name="password"
 	<img id="group1" src="/assets/group3.svg" alt="" />
 	<div>
 		<lottie-player
+			id="primary_lottie"
 			src="https://assets3.lottiefiles.com/packages/lf20_03adulip.json"
 			background="transparent"
 			speed="1"
 			autoplay
 		></lottie-player>
+		<lottie-player
+			class="hidden"
+			id="password_lottie"
+			src="https://assets3.lottiefiles.com/packages/lf20_z3pnisgt.json"
+			background="transparent"
+			speed="1"
+			autoplay
+			loop
+		></lottie-player>
 	</div>
 </div>
 <div class="right-container">
-	<%- include('../partials/messages'); %>
-	<div class="action-container">
-		<div class="heading">
-			<h2>Register Your Store</h2>
-			<small
-				>Enter in the required info below to register your store</small
-			>
-		</div>
-
-		<form id="login_form" class="inputs" action="/login" method="POST">
-			<div class="input-wrap">
-				<label>Full name</label>
-				<div>
-					<span><i class="fi-rr-user"></i></span>
-					<input
-						id="fullname"
-						type="text"
-						placeholder="John Doe"
-						name="fullname"
-						required
-					/>
-				</div>
-			</div>
-			<div class="input-wrap">
-				<label>Email address</label>
-				<div>
-					<span><i class="fi-rr-envelope icon"></i></span>
-					<input
-						id="email"
-						type="password"
-						placeholder="example@email.com"
-						name="email"
-						required
-					/>
-				</div>
-			</div>
-			<div class="input-wrap">
-				<label>Name of store</label>
-				<div>
-					<span><i class="fi-rr-shop"></i></span>
-					<input
-						id="storename"
-						type="password"
-						placeholder="storename"
-						name="storename"
-						required
-					/>
-				</div>
-			</div>
-		</form>
-		<div class="link-wrap">
-			<a href="/admin/register"> Sign up</a>
-			<a href="/recovery">Forgot password?</a>
-		</div>
-		<button id="register_button" form="login_form" type="submit">
-			Login
-		</button>
+	<div class="error-msg-wrap hidden">
+		<h3 id="err_msg_text"></h3>
 	</div>
+	<form action="/admin/register" method="POST" id="adminRegister_form">
+		<div class="action-container store-info-container">
+			<div class="heading">
+				<h2>Register Your Store</h2>
+				<small
+					>Enter in the required info below to register your
+					store</small
+				>
+			</div>
+
+			<div class="inputs admin-register">
+				<div class="input-wrap">
+					<label>Full name</label>
+					<div>
+						<span><i class="fi-rr-user"></i></span>
+						<input
+							class="input-1"
+							id="fullname"
+							type="text"
+							placeholder="John Doe"
+							name="fullname"
+							required
+							novalidate
+							autocomplete="nope"
+							value="<%=typeof fullname != undefined ? fullname : ''%>"
+						/>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<label>Email address</label>
+					<div>
+						<span><i class="fi-rr-envelope icon"></i></span>
+						<input
+							class="input-1"
+							id="email"
+							type="email"
+							placeholder="example@email.com"
+							name="email"
+							required
+							novalidate
+							value="<%=typeof email != undefined ? email : ''%>"
+						/>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<label>Name of store</label>
+					<div>
+						<span><i class="fi-rr-shop"></i></span>
+						<input
+							class="input-1"
+							id="storename"
+							type="text"
+							placeholder="storename"
+							name="storename"
+							required
+							novalidate
+							autocomplete="no"
+							value="<%=typeof storename != undefined ? storename : ''%>"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="link-wrap x">
+				<a></a>
+				<a href="/"> Login</a>
+			</div>
+			<button id="next_Btn" form="adminRegister_form" type="button">
+				Next
+			</button>
+		</div>
+		<div class="action-container password-container hidden">
+			<div class="heading">
+				<h2>Create an account password</h2>
+				<small>Come up with a secure password for your account</small>
+			</div>
+			<div class="inputs" id="adminRegister_form">
+				<div class="input-wrap">
+					<label>Password</label>
+					<div>
+						<span><i class="fi-rr-lock icon"></i></span>
+						<input
+							class="input-2"
+							id="password"
+							type="password"
+							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+							name="password"
+							novalidate
+							required
+							value="<%=typeof password != undefined ? password : ''%>"
+						/>
+						<span><i class="fi-rr-eye eye_icon"></i></span>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<label>Confirm your Password</label>
+					<div>
+						<span><i class="fi-rr-lock icon"></i></span>
+						<input
+							class="input-2"
+							id="passwordConfirm"
+							type="password"
+							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+							name="passwordConfirm"
+							novalidate
+							required
+							value="<%=typeof passwordConfirm != undefined ? passwordConfirm : ''%>"
+						/>
+						<span><i class="fi-rr-eye eye_icon"></i></span>
+					</div>
+				</div>
+			</div>
+			<div class="link-wrap">
+				<span><i id="back_arrow" class="fi-rr-arrow-left"></i></span>
+				<a href="/"> Login</a>
+			</div>
+			<button id="register_Btn" form="adminRegister_form" type="button">
+				Register Store
+			</button>
+		</div>
+		<div class="loading-animation hidden">
+			<h3 class="success-msg"></h3>qq
+			<lottie-player
+				src="https://assets5.lottiefiles.com/packages/lf20_5nLqa4.json"
+				background="transparent"
+				speed="1"
+				style="width: 300px; height: 300px"
+				loop
+				autoplay
+			></lottie-player>
+		</div>
+	</form>
 </div>

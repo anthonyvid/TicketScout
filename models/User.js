@@ -102,7 +102,7 @@ class User {
 	 */
 	async forgotPassword(email) {
 		// Validate email
-		if (!this.isValidEmail(email)) return { error: "Not a valid email" };
+		if (!helper.isValidEmail(email)) return { error: "Not a valid email" };
 
 		const user = await helper.getUser(email);
 

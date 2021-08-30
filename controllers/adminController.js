@@ -3,32 +3,22 @@ import Admin from "../models/Admin.js";
 export const renderRegister = function (req, res) {
 	res.render("logged-out/adminRegister", {
 		layout: "layouts/logged-out-layout",
+		fullname: undefined,
+		email: undefined,
+		storename: undefined,
+		password: undefined,
+		passwordConfirm: undefined,
 	});
 };
 
 export const registerAdmin = async function (req, res) {
 	let admin = new Admin();
-	const result = await admin.registerAdmin(req.body);
+	const { errors, data } = await admin.registerAdmin(req.body);
+	let { fullname, email, storename, password, passwordConfirm } = data;
 
-	if (!Object.keys(result.errors).length) {
-		req.flash("logout_msg", "Please verify your email address");
-		res.redirect("/");
-	} else {
-		const { errors, data } = result;
-		let { fullname, email, signUpCode, password, passwordConfirm } = data;
-
-		res.render("logged-out/adminRegister", {
-			layout: "layouts/logged-out-layout",
-			errors: Object.values(errors),
-			fullname: !errors.fullname ? fullname : undefined,
-			email: !errors.email ? email : undefined,
-			signUpCode: !errors.signUpCode ? signUpCode : undefined,
-			password: !errors.password ? password : undefined,
-			passwordConfirm: !errors.passwordConfirm
-				? passwordConfirm
-				: undefined,
-		});
-	}
+	res.json({
+		errors: Object.values(errors),
+	});
 };
 
 export const inviteEmployee = async function (req, res) {

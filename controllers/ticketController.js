@@ -110,13 +110,14 @@ export const trackShipment = async function (req, res) {
 
 export const sendSms = async function (req, res) {
 	const ticket = new Ticket();
-	const msg = await ticket.sendSms(
-		req.user.storename,
+	const [msg, timeSent] = await ticket.sendSms(
+		req.user,
 		req.body.ticketID,
 		req.body.toPhone,
 		req.body.message
 	);
-	res.json({ msg: msg });
+
+	res.json({ msg: msg, user: req.user, timeSent });
 };
 
 export const receiveSms = async function (req, res) {

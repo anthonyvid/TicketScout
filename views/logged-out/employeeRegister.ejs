@@ -1,98 +1,172 @@
-<!-- <link rel="stylesheet" href="/messages.css" />
-<section class="sign-up-box">
-	<header>
-		<a href="/">
-			<h1>ticket<span>Scout</span></h1>
-			<img id="logo-img" src="/assets/ticketScoutLogo.svg" alt="" />
-		</a>
-	</header>
-	<form action="/employee-register" method="POST">
-		<label for="sign-up-fullname">Full name</label>
-		<div class="input-wrap">
-			<input
-				autocomplete="no"
-				id="sign-up-fullname"
-				type="fullname"
-				name="fullname"
-				placeholder="John Smith"
-				value="<%= //typeof fullname != 'undefined' ? fullname : '' %>"
-				required
-			/>
-			<i class="fa fa-user"></i>
-		</div>
-		<br />
-		<label for="sign-up-email">Email</label>
-		<div class="input-wrap">
-			<input
-				autocomplete="no"
-				id="sign-up-email"
-				type="email"
-				name="email"
-				placeholder="hello@example.com"
-				value="<%= //typeof email != 'undefined' ? email : '' %>"
-				required
-			/>
-			<i class="fa fa-mail-forward"></i>
-		</div>
-		<br />
-		<label for="sign-up-psw">Password</label>
-		<div class="input-wrap">
-			<input
-				id="sign-up-psw"
-				type="password"
-				name="password"
-				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-				value="<%=// typeof password != 'undefined' ? password : '' %>"
-				required
-			/>
-			<i class="fa fa-lock"></i>
-		</div>
-		<br />
-		<label for="sign-up-psw-confirm">Confirm password</label>
-		<div class="input-wrap">
-			<input
-				id="sign-up-psw-confirm"
-				type="password"
-				name="passwordConfirm"
-				placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-				value="<%=// typeof passwordConfirm != 'undefined' ? passwordConfirm : '' %>"
-				required
-			/>
-			<i class="fa fa-check-circle"></i>
-		</div>
-		<br />
-		<label for="sign-up-code">Sign Up Code</label>
-		<div class="input-wrap">
-			<input
-				id="sign-up-code"
-				type="text"
-				name="signUpCode"
-				placeholder="paste code here"
-				value="<%= //typeof signUpCode != 'undefined' ? signUpCode : '' %>"
-				required
-			/>
-			<i class="fas fa-fingerprint"></i>
-		</div>
-		<div style="margin-top: 10px">
-			<%- //include('../partials/messages'); %>
-		</div>
-		<div class="link-wrap">
-			<button
-				id="sign-up-btn"
-				type="submit"
-				style="margin-bottom: -100px"
-			>
-				Sign Up
+<link rel="stylesheet" href="/messages.css" />
+<link
+	rel="stylesheet"
+	href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+/>
+<script type="module" src="/js/employeeRegister.js"></script>
+
+<div class="left-container">
+	<img id="logo" src="/assets/logo.svg" alt="" />
+	<img id="group1" src="/assets/group1.svg" alt="" />
+	<img id="group2" src="/assets/group2.svg" alt="" />
+	<img id="group1" src="/assets/group3.svg" alt="" />
+	<div>
+		<lottie-player
+			id="primary_lottie"
+			src="https://assets7.lottiefiles.com/packages/lf20_mragdxra.json"
+			background="transparent"
+			speed="1"
+			loop
+			autoplay
+		></lottie-player>
+		<lottie-player
+			class="hidden"
+			id="password_lottie"
+			src="https://assets3.lottiefiles.com/packages/lf20_z3pnisgt.json"
+			background="transparent"
+			speed="1"
+			autoplay
+			loop
+		></lottie-player>
+	</div>
+</div>
+<div class="right-container">
+	<div class="error-msg-wrap hidden">
+		<h3 id="err_msg_text"></h3>
+	</div>
+	<form id="employeeRegister_form">
+		<div class="action-container store-info-container">
+			<div class="heading">
+				<h2>Join a store</h2>
+				<small
+					>Enter in the required info to complete your
+					registration</small
+				>
+			</div>
+
+			<div class="inputs employee-register">
+				<div class="input-wrap">
+					<label>Full name</label>
+					<div>
+						<span><i class="fi-rr-user"></i></span>
+						<input
+							class="input-1"
+							id="fullname"
+							type="text"
+							placeholder="John Doe"
+							name="fullname"
+							required
+							novalidate
+							autocomplete="nope"
+							value="<%=typeof fullname != undefined ? fullname : ''%>"
+						/>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<label>Email address</label>
+					<div>
+						<span><i class="fi-rr-envelope icon"></i></span>
+						<input
+							class="input-1"
+							id="email"
+							type="email"
+							placeholder="example@email.com"
+							name="email"
+							required
+							novalidate
+							value="<%=typeof email != undefined ? email : ''%>"
+						/>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<label>Store sign up code</label>
+					<div>
+						<span><i class="fi-rr-shop"></i></span>
+						<input
+							class="input-1"
+							id="signUpCode"
+							type="text"
+							placeholder="Paste code"
+							name="signUpCode"
+							required
+							novalidate
+							autocomplete="no"
+							value="<%=typeof signUpCode != undefined ? signUpCode : ''%>"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="link-wrap x">
+				<a></a>
+				<a href="/"> Login</a>
+			</div>
+			<button id="next_Btn" form="employeeRegister_form" type="button">
+				Next
 			</button>
 		</div>
+		<div class="action-container password-container hidden">
+			<div class="heading">
+				<h2>Create an account password</h2>
+				<small>Come up with a secure password for your account</small>
+			</div>
+			<div class="inputs" id="employeeRegister_form">
+				<div class="input-wrap">
+					<label>Password</label>
+					<div>
+						<span><i class="fi-rr-lock icon"></i></span>
+						<input
+							class="input-2"
+							id="password"
+							type="password"
+							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+							name="password"
+							novalidate
+							required
+							value="<%=typeof password != undefined ? password : ''%>"
+						/>
+						<span><i class="fi-rr-eye eye_icon"></i></span>
+					</div>
+				</div>
+				<div class="input-wrap">
+					<label>Confirm your Password</label>
+					<div>
+						<span><i class="fi-rr-lock icon"></i></span>
+						<input
+							class="input-2"
+							id="passwordConfirm"
+							type="password"
+							placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+							name="passwordConfirm"
+							novalidate
+							required
+							value="<%=typeof passwordConfirm != undefined ? passwordConfirm : ''%>"
+						/>
+						<span><i class="fi-rr-eye eye_icon"></i></span>
+					</div>
+				</div>
+			</div>
+			<div class="link-wrap">
+				<span><i id="back_arrow" class="fi-rr-arrow-left"></i></span>
+				<a href="/"> Login</a>
+			</div>
+			<button
+				id="register_Btn"
+				form="employeeRegister_form"
+				type="button"
+			>
+				Join Store
+			</button>
+		</div>
+		<div class="loading-animation hidden">
+			<h3 class="success-msg"></h3>
+			<lottie-player
+				src="https://assets5.lottiefiles.com/packages/lf20_5nLqa4.json"
+				background="transparent"
+				speed="1"
+				style="width: 300px; height: 300px"
+				loop
+				autoplay
+			></lottie-player>
+		</div>
 	</form>
-</section>
-<section class="graphic-box">
-	<div class="text-wrap">
-		<h1>
-			Welcome to <span class="first">ticket</span
-			><span class="second">Scout</span>
-		</h1>
-		<h2 id="graphic-box-text">Enter in your details to start your day!</h2>
-	</div>
-</section> -->
+</div>

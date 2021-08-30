@@ -262,7 +262,8 @@ class Ticket {
 	 * @param {string} message
 	 * @returns the message that was sent out to number
 	 */
-	async sendSms(storename, ticketID, toPhone, message) {
+	async sendSms(user, ticketID, toPhone, message) {
+		const { storename, fullname } = user;
 		const store = await helper.getStore(storename);
 
 		const subAccountSid = store.storedata.api.twilio.sid;
@@ -271,6 +272,7 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
+		const timestamp = new Date().toLocaleString();
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,
@@ -290,19 +292,23 @@ class Ticket {
 							[`storedata.tickets.${[ticketID]}.smsData`]: {
 								$each: [
 									{
-										timestamp: Date.now(),
+										timestamp,
 										from: "store",
+										user: fullname,
 										message: message.body,
 									},
 								],
-								$position: -1,
 							},
 						},
 					}
 				);
 				return message.body;
+			})
+			.catch((err) => {
+				return err;
 			});
-		return msg;
+
+		return [msg, timestamp];
 	}
 
 	/**

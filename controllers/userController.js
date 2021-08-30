@@ -20,6 +20,11 @@ export const renderRecovery = function (req, res) {
 export const renderEmployeeRegister = function (req, res) {
 	res.render("logged-out/employeeRegister", {
 		layout: "layouts/logged-out-layout",
+		fullname: undefined,
+		email: undefined,
+		signUpCode: undefined,
+		password: undefined,
+		passwordConfirm: undefined,
 	});
 };
 
@@ -95,28 +100,18 @@ export const login = async function (req, res, next) {
 
 export const employeeRegister = async function (req, res) {
 	const user = new User();
-	const result = await user.employeeRegister(req.body);
+	const { errors, data } = await user.employeeRegister(req.body);
 
-	// No errors means passed registration
-	if (!Object.keys(result.errors).length) {
-		req.flash("logout_msg", "Please verify your email address");
-		res.redirect("/");
-	} else {
-		const { errors, data } = result;
-		let { fullname, email, signUpCode, password, passwordConfirm } = data;
+	let { fullname, email, signUpCode, password, passwordConfirm } = data;
 
-		res.render("logged-out/employeeRegister", {
-			layout: "layouts/logged-out-layout",
-			errors: Object.values(errors),
-			fullname: !errors.fullname ? fullname : undefined,
-			email: !errors.email ? email : undefined,
-			signUpCode: !errors.signUpCode ? signUpCode : undefined,
-			password: !errors.password ? password : undefined,
-			passwordConfirm: !errors.passwordConfirm
-				? passwordConfirm
-				: undefined,
-		});
-	}
+	res.json({
+		errors: Object.values(errors),
+		fullname: !errors.fullname ? fullname : undefined,
+		email: !errors.email ? email : undefined,
+		signUpCode: !errors.signUpCode ? signUpCode : undefined,
+		password: !errors.password ? password : undefined,
+		passwordConfirm: !errors.passwordConfirm ? passwordConfirm : undefined,
+	});
 };
 
 export const forgotPassword = async function (req, res) {

@@ -440,7 +440,8 @@ body {
   cursor: pointer;
 }
 
-.right-container .action-container .admin-register {
+.right-container .action-container .admin-register,
+.right-container .action-container .employee-register {
   gap: 25px;
 }
 

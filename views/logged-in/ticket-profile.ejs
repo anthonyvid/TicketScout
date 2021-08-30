@@ -35,14 +35,23 @@
 				<div class="left-container">
 					<div class="chat-box">
 						<div class="chat-body">
-							<% for (let i = 0; i < ticket.smsData.length; i++) { %>
+							<% for (let i = ticket.smsData.length - 1; i > -1; i--) { %>
 								<% if(ticket.smsData[i].from === "store") {%>
 									<div class="message-box">
-										<p class="reply"><%= ticket.smsData[i].message %> </p>
+										<p class="reply">	
+											<%= ticket.smsData[i].message %> 
+										</p>
+										<div class="msg-details">	
+											<small><%= ticket.smsData[i].user %> </small>
+											<small><%= ticket.smsData[i].timestamp %> </small>
+										</div>
 									</div>
 								<% } else if(ticket.smsData[i].from === "client") {%>
 									<div class="message-box">
 										<p class="received"><%= ticket.smsData[i].message %> </p>
+										<div class="msg-details">	
+											<small><%= ticket.smsData[i].timestamp %> </small>
+										</div>
 									</div>
 								<% } %> 
 							<% } %>

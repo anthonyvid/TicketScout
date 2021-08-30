@@ -49,7 +49,9 @@ $(window).on("load", async () => {
 	}
 });
 
-const appendTextToChat = (msg) => {
+const appendTextToChat = (data) => {
+	const { msg, user, timeSent } = data;
+
 	const messageBox = document.createElement("div");
 	messageBox.classList.add("message-box");
 	const messageText = document.createElement("p");
@@ -59,6 +61,18 @@ const appendTextToChat = (msg) => {
 	messageBox.appendChild(messageText);
 	document.querySelector(".chat-body").prepend(messageBox);
 	chatBoxTextarea.value = "";
+
+	const messageDetails = document.createElement("div");
+	messageDetails.classList.add("msg-details");
+	const userText = document.createElement("small");
+	const userName = document.createTextNode(user.fullname);
+	userText.appendChild(userName);
+	const timestamp = document.createElement("small");
+	const timestampText = document.createTextNode(timeSent);
+	timestamp.appendChild(timestampText);
+	messageDetails.appendChild(userText);
+	messageDetails.appendChild(timestamp);
+	document.querySelector(".message-box").appendChild(messageDetails);
 };
 
 /**
@@ -264,18 +278,23 @@ sendMsg.addEventListener(
 		const id = ticketID.textContent.trim().replace("#", "");
 
 		// Send post request when message sent to customer
-		try {
-			const data = await helper.postReq("/tickets/send-sms", {
-				message,
-				toPhone,
-				ticketID: id,
-			});
 
-			// Add message text to chatbox
-			appendTextToChat(data.msg);
-		} catch (error) {
-			console.log(error);
+		const data = await helper.postReq("/tickets/send-sms", {
+			message,
+			toPhone,
+			ticketID: id,
+		});
+		console.log(data);
+		// Invalid customr phone number
+		if (data.msg.code == 21211 || data.msg.status == 400) {
+			appendTextToChat(
+				"*Customers phone number is invalid* Please change"
+			);
+			return;
 		}
+
+		// Add message text to chatbox
+		appendTextToChat(data);
 	},
 	{ passive: true }
 );

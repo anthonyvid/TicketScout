@@ -13,7 +13,6 @@ export default function (passport) {
 			{ usernameField: "email" },
 			(email, password, done) => {
 				// Find User in Database
-
 				usersCollection.findOne({ email: email }).then((user) => {
 					if (!user) {
 						return done(null, false, {
@@ -23,7 +22,7 @@ export default function (passport) {
 
 					if (!user.isVerified) {
 						return done(null, false, {
-							message: "Please validate your email address",
+							message: "Please verify your email address",
 						});
 					}
 

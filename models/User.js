@@ -335,6 +335,24 @@ class User {
 	}
 
 	/**
+	 *  Sends an email to a so called "store owner"
+	 * @param {string} email
+	 * @param {string} employeeName
+	 */
+	async sendOwnerNotification(email, employeeName, employeeEmail) {
+		const msg = {
+			to: `${email}`, // list of receivers
+			subject: `ticketScout - Someone just joined your store`, // Subject line
+			text: `
+			Hello, someone named ${employeeName} - ${employeeEmail}, recently used your sign up code to join your store.
+			If you did not authorize this action please visit the settings page in your ticketScout account
+			and remove them under the employees tab.
+			`,
+		};
+		helper.sendEmail(msg);
+	}
+
+	/**
 	 * registers an employee into a store
 	 * @param {object} data
 	 * @returns object
@@ -382,6 +400,12 @@ class User {
 		usersCollection.insertOne(employee);
 		// Send email verification
 		this.sendEmailVerification(employee.email);
+		// Send admin email notification
+		this.sendOwnerNotification(
+			store.admin.email,
+			employee.fullname,
+			employee.email
+		);
 
 		return { errors: {}, data };
 	}

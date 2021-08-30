@@ -108,104 +108,106 @@ class Admin extends User {
 	 * @returns object
 	 */
 	async registerAdmin(data) {
-		// let { fullname, email, storename, password, passwordConfirm } =
-		// 	await this.cleanUp(data);
+		let { fullname, email, storename, password, passwordConfirm } =
+			await this.cleanUp(data);
 
-		// const errors = await this.validate(
-		// 	fullname,
-		// 	email,
-		// 	password,
-		// 	passwordConfirm
-		// );
+		const errors = await this.validate(
+			fullname,
+			email,
+			password,
+			passwordConfirm
+		);
 
-		// // Check if any errors in validation process
-		// if (Object.keys(errors).length) return { errors, data };
-		// if (!(await this.isValidStorename(storename)))
-		// 	return {
-		// 		errors: { storename: "Store name already registered" },
-		// 		data,
-		// 	};
+		// Check if any errors in validation process
+		if (Object.keys(errors).length) return { errors, data };
+		if (!(await this.isValidStorename(storename)))
+			return {
+				errors: { storename: "Store name already registered" },
+				data,
+			};
 
-		// let twilioAccount = null;
+		let twilioAccount = null;
 
-		// try {
-		// 	twilioAccount = await this.createTwilioSubaccount(storename);
-		// } catch (error) {
-		// 	console.error(error);
-		// 	return {
-		// 		errors: {
-		// 			twilioError:
-		// 				"Error creating twilio subaccount - Contact Support",
-		// 		},
-		// 		data,
-		// 	};
-		// }
+		try {
+			twilioAccount = await this.createTwilioSubaccount(storename);
+		} catch (error) {
+			console.error(error);
+			return {
+				errors: {
+					twilioError:
+						"Error creating twilio subaccount - Contact Support",
+				},
+				data,
+			};
+		}
 
-		// // Hash user passwords
-		// password = helper.hashPrivateInfo(password);
-		// passwordConfirm = password;
+		// Hash user passwords
+		password = helper.hashPrivateInfo(password);
+		passwordConfirm = password;
 
-		// const admin = {
-		// 	fullname,
-		// 	email,
-		// 	storename,
-		// 	password,
-		// 	passwordConfirm,
-		// 	admin: true,
-		// 	isVerified: false,
-		// 	timeClock: {
-		// 		clockInTime: null,
-		// 		clockOutTime: null,
-		// 		clockHistory: [],
-		// 	},
-		// };
+		const admin = {
+			fullname,
+			email,
+			storename,
+			password,
+			passwordConfirm,
+			admin: true,
+			isVerified: false,
+			timeClock: {
+				clockInTime: null,
+				clockOutTime: null,
+				clockHistory: [],
+			},
+		};
 
-		// const storeSignUpCode = await this.generateStoreSignUpCode();
+		const storeSignUpCode = await this.generateStoreSignUpCode();
 
-		// const store = {
-		// 	storename,
-		// 	signUpCode: storeSignUpCode,
-		// 	admin: admin,
-		// 	storedata: {
-		// 		tickets: {},
-		// 		customers: {},
-		// 		payments: {},
-		// 		api: {
-		// 			twilio: {
-		// 				authToken: twilioAccount.authToken,
-		// 				sid: twilioAccount.sid,
-		// 				numSmsSent: 0,
-		// 				numSmsReceived: 0,
-		// 			},
-		// 		},
-		// 	},
-		// 	storeSettings: {
-		// 		tickets: {
-		// 			status: [
-		// 				["New", "36b37e"],
-		// 				["Resolved", "505f79"],
-		// 				["Priority", "ff3838"],
-		// 				["Reply", "ffab00"],
-		// 			],
-		// 			issue: [],
-		// 		},
-		// 		payments: {
-		// 			categories: [],
-		// 			taxRate: "13",
-		// 			address: {
-		// 				primary: "",
-		// 				city: "",
-		// 				province: "",
-		// 				postal: "",
-		// 			},
-		// 		},
-		// 	},
-		// };
+		const store = {
+			storename,
+			signUpCode: storeSignUpCode,
+			admin: admin,
+			storedata: {
+				tickets: {},
+				customers: {},
+				payments: {},
+				api: {
+					twilio: {
+						authToken: twilioAccount.authToken,
+						sid: twilioAccount.sid,
+						numSmsSent: 0,
+						numSmsReceived: 0,
+					},
+				},
+			},
+			storeSettings: {
+				tickets: {
+					status: [
+						["New", "36b37e"],
+						["Resolved", "505f79"],
+						["Priority", "ff3838"],
+						["Reply", "ffab00"],
+					],
+					issue: [],
+				},
+				payments: {
+					categories: [],
+					taxRate: "13",
+					address: {
+						primary: "",
+						city: "",
+						province: "",
+						postal: "",
+					},
+				},
+			},
+		};
 
-		// await storesCollection.insertOne(store);
-		// await usersCollection.insertOne(admin);
+		await storesCollection.insertOne(store);
+		await usersCollection.insertOne(admin);
 
-		// this.deleteTwilioSubaccount(twilioAccount.sid); //TODO: REMOVE THIS IS JUST FOR TESTING
+		this.sendEmailVerification(admin.email);
+
+		this.deleteTwilioSubaccount(twilioAccount.sid); //TODO: REMOVE THIS IS JUST FOR TESTING
 		return { errors: {}, data };
 	}
 

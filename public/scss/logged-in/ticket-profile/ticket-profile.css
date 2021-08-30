@@ -195,6 +195,30 @@ a:hover {
 .customer-content .left-container .chat-box .chat-body .message-box {
   width: 100%;
   height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.customer-content .left-container .chat-box .chat-body .msg-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  color: grey;
 }
 
 .customer-content .left-container .chat-box .chat-body .reply {
@@ -208,7 +232,8 @@ a:hover {
   height: auto;
   width: auto;
   max-width: 600px;
-  background-color: lightcoral;
+  background-color: #6fb7f9;
+  color: white;
   padding: 13px 20px 13px 20px;
   border-radius: 20px 5px 20px 20px;
   word-break: break-word;
@@ -225,8 +250,8 @@ a:hover {
   height: auto;
   width: auto;
   max-width: 600px;
-  background-color: #0d2238;
-  color: white;
+  background-color: #f6f7fb;
+  color: black;
   padding: 13px 20px 13px 20px;
   border-radius: 5px 20px 20px 20px;
   word-break: break-word;

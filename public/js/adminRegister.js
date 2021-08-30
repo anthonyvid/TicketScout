@@ -32,10 +32,6 @@ const transitionToPasswordPage = async () => {
 
 	primaryLottie.classList.add("hidden");
 	passwordLottie.classList.remove("hidden");
-
-	for (const input of inputs2) {
-		input.style.borderColor = "#c4cbd1";
-	}
 };
 
 const transitionToStoreInfoPage = () => {

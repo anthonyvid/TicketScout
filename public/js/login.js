@@ -23,7 +23,7 @@ loginBtn.addEventListener("click", () => {
 	setInterval(() => {
 		document.getElementById("login_form").submit();
 		return;
-	}, 1000);
+	}, 1400);
 });
 
 emailInput.addEventListener("input", () => {

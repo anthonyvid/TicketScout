@@ -7,3 +7,85 @@ name="email"
 name="password"
 	name="storename"
 </form>  -->
+
+<link rel="stylesheet" href="/messages.css" />
+<link
+	rel="stylesheet"
+	href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+/>
+<script type="module" src="/js/adminRegister.js"></script>
+
+<div class="left-container">
+	<img id="logo" src="/assets/logo1.svg" alt="" />
+	<img id="group1" src="/assets/group1.svg" alt="" />
+	<img id="group2" src="/assets/group2.svg" alt="" />
+	<img id="group1" src="/assets/group3.svg" alt="" />
+	<div>
+		<lottie-player
+			src="https://assets3.lottiefiles.com/packages/lf20_03adulip.json"
+			background="transparent"
+			speed="1"
+			autoplay
+		></lottie-player>
+	</div>
+</div>
+<div class="right-container">
+	<%- include('../partials/messages'); %>
+	<div class="action-container">
+		<div class="heading">
+			<h2>Register Your Store</h2>
+			<small
+				>Enter in the required info below to register your store</small
+			>
+		</div>
+
+		<form id="login_form" class="inputs" action="/login" method="POST">
+			<div class="input-wrap">
+				<label>Full name</label>
+				<div>
+					<span><i class="fi-rr-user"></i></span>
+					<input
+						id="fullname"
+						type="text"
+						placeholder="John Doe"
+						name="fullname"
+						required
+					/>
+				</div>
+			</div>
+			<div class="input-wrap">
+				<label>Email address</label>
+				<div>
+					<span><i class="fi-rr-envelope icon"></i></span>
+					<input
+						id="email"
+						type="password"
+						placeholder="example@email.com"
+						name="email"
+						required
+					/>
+				</div>
+			</div>
+			<div class="input-wrap">
+				<label>Name of store</label>
+				<div>
+					<span><i class="fi-rr-shop"></i></span>
+					<input
+						id="storename"
+						type="password"
+						placeholder="storename"
+						name="storename"
+						required
+					/>
+				</div>
+			</div>
+		</form>
+		<div class="link-wrap">
+			<a href="/admin/register"> Sign up</a>
+			<a href="/recovery">Forgot password?</a>
+		</div>
+		<button id="register_button" form="login_form" type="submit">
+			Login
+		</button>
+	</div>
+</div>

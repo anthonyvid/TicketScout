@@ -27,6 +27,7 @@ export const showInvalidColour = (element) => {
 		element.style.backgroundColor = "#fff";
 	}, 500);
 };
+
 export const showValidColour = (element) => {
 	element.style.backgroundColor = "lightgreen";
 	setTimeout(() => {

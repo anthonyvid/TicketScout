@@ -1,52 +1,65 @@
 <link rel="stylesheet" href="/messages.css" />
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<link
+	rel="stylesheet"
+	href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+/>
+<script type="module" src="/js/login.js"></script>
 
 <div class="left-container">
-	<img id="logo" src="" alt="" />
+	<img id="logo" src="/assets/logo1.svg" alt="" />
 	<img id="group1" src="/assets/group1.svg" alt="" />
 	<img id="group2" src="/assets/group2.svg" alt="" />
 	<img id="group1" src="/assets/group3.svg" alt="" />
-	<!-- <img id="graphic" src="/assets/" alt="" /> -->
 	<div>
 		<lottie-player
 			src="https://assets3.lottiefiles.com/packages/lf20_03adulip.json"
 			background="transparent"
 			speed="1"
-			loop
 			autoplay
 		></lottie-player>
-		<!-- <h2>SIGN IN TO START YOUR DAY</h2> -->
 	</div>
-
-	<!-- 
-	<lottie-player
-		src="https://assets9.lottiefiles.com/packages/lf20_rycdh53q.json"
-		background="transparent"
-		speed="1"
-		loop
-		autoplay
-	></lottie-player> -->
 </div>
 <div class="right-container">
+	<%- include('../partials/messages'); %>
 	<div class="action-container">
 		<div class="heading">
 			<h2>Login</h2>
 			<small>Welcome back, login to get started</small>
 		</div>
-		<div class="input-wrap">
-			<div>
+
+		<form id="login_form" class="inputs" action="/login" method="POST">
+			<div class="input-wrap">
 				<label>Email address</label>
-				<input type="text" placeholder="example@email.com"/>
+				<div>
+					<span><i class="fi-rr-envelope icon"></i></span>
+					<input
+						id="email"
+						type="text"
+						placeholder="example@email.com"
+						name="email"
+						required
+					/>
+				</div>
 			</div>
-			<div>
+			<div class="input-wrap">
 				<label>Password</label>
-				<input type="password" />
+				<div>
+					<span><i class="fi-rr-lock icon"></i></span>
+					<input
+						id="password"
+						type="password"
+						placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+						name="password"
+						required
+					/>
+					<span><i id="eye_icon" class="fi-rr-eye"></i></span>
+				</div>
 			</div>
+		</form>
+		<div class="link-wrap">
+			<a href="/admin/register"> Sign up</a>
+			<a href="/recovery">Forgot password?</a>
 		</div>
+		<button id="login_button" form="login_form" type="submit">Login</button>
 	</div>
 </div>
-
-<!-- <form action="/login" method="POST">
-	//name="email"
-	//name="password"
-	</form> -->

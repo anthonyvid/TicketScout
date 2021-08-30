@@ -75,6 +75,7 @@ body {
           flex-direction: row;
   width: 100%;
   height: 100vh;
+  overflow: none;
 }
 
 .left-container {
@@ -89,6 +90,12 @@ body {
   -webkit-clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
           clip-path: polygon(0 0, 100% 0, 93% 100%, 0 100%);
   text-align: center;
+}
+
+.left-container #logo {
+  position: absolute;
+  width: 100px;
+  height: 100px;
 }
 
 .left-container #group1 {
@@ -127,6 +134,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: 100%;
   width: 65%;
   padding: 10% 15% 10% 15%;
@@ -169,7 +179,7 @@ body {
   color: #545454;
 }
 
-.right-container .action-container .input-wrap {
+.right-container .action-container .inputs {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -180,7 +190,7 @@ body {
   gap: 40px;
 }
 
-.right-container .action-container .input-wrap div {
+.right-container .action-container .inputs .input-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -195,35 +205,106 @@ body {
   padding: 0px;
 }
 
-.right-container .action-container .input-wrap div label {
+.right-container .action-container .inputs .input-wrap label {
   font-size: 14px;
   color: #646769;
 }
 
-.right-container .action-container .input-wrap div input {
+.right-container .action-container .inputs .input-wrap div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.right-container .action-container .inputs .input-wrap div input {
   width: 100%;
   height: 64px;
+  line-height: 64px;
   border: 1px solid #c4cbd1;
   border-radius: 6px;
+  text-indent: 40px;
+  font-size: 16px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
-.right-container .action-container .input-wrap div input::-webkit-input-placeholder {
+.right-container .action-container .inputs .input-wrap div input::-webkit-input-placeholder {
   color: #787a7c;
   font-size: 16px;
 }
 
-.right-container .action-container .input-wrap div input:-ms-input-placeholder {
+.right-container .action-container .inputs .input-wrap div input:-ms-input-placeholder {
   color: #787a7c;
   font-size: 16px;
 }
 
-.right-container .action-container .input-wrap div input::-ms-input-placeholder {
+.right-container .action-container .inputs .input-wrap div input::-ms-input-placeholder {
   color: #787a7c;
   font-size: 16px;
 }
 
-.right-container .action-container .input-wrap div input::placeholder {
+.right-container .action-container .inputs .input-wrap div input::placeholder {
   color: #787a7c;
   font-size: 16px;
+}
+
+.right-container .action-container .inputs .input-wrap div input:valid {
+  border-color: #6fb7f9;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.right-container .action-container .inputs .input-wrap div #password {
+  font-size: 20px;
+}
+
+.right-container .action-container .inputs .input-wrap div span {
+  position: absolute;
+  top: 24px;
+  left: 15px;
+}
+
+.right-container .action-container .inputs .input-wrap div span:last-child {
+  top: 24px;
+  left: calc(100% - 35px);
+}
+
+.right-container .action-container .inputs .input-wrap div span:last-child:hover {
+  cursor: pointer;
+}
+
+.right-container .action-container .link-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: -35px;
+  text-decoration: underline;
+  padding: 0 5px 0 5px;
+}
+
+.right-container .action-container .link-wrap a {
+  color: #6fb7f9;
+  font-weight: 600;
+}
+
+.right-container .action-container button {
+  background-color: #8fccff;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  height: 68px;
+  width: 100%;
+  border-radius: 6px;
+  -webkit-box-shadow: 0px 8px 21px rgba(111, 183, 249, 0.22);
+          box-shadow: 0px 8px 21px rgba(111, 183, 249, 0.22);
+  outline: none;
+  border: 0;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
 }
 /*# sourceMappingURL=logged-out.css.map */

@@ -1,43 +1,58 @@
-<!-- <link rel="stylesheet" href="/messages.css" />
-<section class="forgot-psw-box">
-	<header>
-		<a href="/">
-			<h1>ticket<span>Scout</span></h1>
-			<img id="logo-img" src="/assets/ticketScoutLogo.svg" alt=""/>
-		</a>
-	</header>
-	<form action="/forgot-password" method="POST">
-		<h2 style="text-align: center;">Account Recovery</h5>
-		<p style="text-align: center;">Recover your TicketScout account</p>
-		<label for="email">Email</label>
-		<div class="input-wrap">
-			<input
-			autocomplete="no"
-			id="forgot-psw-email"
-			type="email"
-			name="email"
-			placeholder="hello@example.com"
-			required
-			/>
-			<i class="fa fa-mail-forward"></i>
-		</div>
-		<br />
-		<div class="link-wrap">
-			<button id="forgot-psw-submit-btn" type="submit">Submit</button>
-		</div>
-	</form>
-	
-	<div class="sign-up-wrap">
-		<p>Have an account?<a class="sign-in-link2" href="/"> Sign In</a></p>
-	</div>
-</section>
+<link rel="stylesheet" href="/messages.css" />
+<link
+	rel="stylesheet"
+	href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+/>
+<script type="module" src="/js/recovery.js"></script>
 
-<section class="graphic-box">
-	<div class="text-wrap">
-		<h1>
-		Welcome to <span class="first">ticket</span
-			><span class="second">Scout</span>
-		</h1>
-		<h2 id="graphic-box-text">Sign in to start your day!</h2>
+<div class="left-container">
+	<img id="logo" src="/assets/logo1.svg" alt="" />
+	<img id="group1" src="/assets/group1.svg" alt="" />
+	<img id="group2" src="/assets/group2.svg" alt="" />
+	<img id="group1" src="/assets/group3.svg" alt="" />
+	<div>
+		<lottie-player
+			src="https://assets3.lottiefiles.com/packages/lf20_03adulip.json"
+			background="transparent"
+			speed="1"
+			autoplay
+		></lottie-player>
 	</div>
-</section> -->
+</div>
+<div class="right-container">
+	<%- include('../partials/messages'); %>
+	<div class="action-container">
+		<div class="heading">
+			<h2>Password Recovery</h2>
+			<small>Enter in your email address to recover your password</small>
+		</div>
+
+		<form
+			id="recovery_form"
+			class="inputs"
+			action="/forgot-password"
+			method="POST"
+		>
+			<div class="input-wrap">
+				<label>Email address</label>
+				<div>
+					<span><i class="fi-rr-envelope icon"></i></span>
+					<input
+						id="pass_recovery"
+						type="text"
+						placeholder="example@email.com"
+						name="email"
+						required
+					/>
+				</div>
+			</div>
+		</form>
+		<div class="link-wrap">
+			<a href="/"> Login</a>
+			<a href="/admin/register">Sign up</a>
+		</div>
+		<button id="recovery_button" form="recovery_form" type="submit">
+			Recover Password
+		</button>
+	</div>
+</div>

@@ -17,6 +17,11 @@ router.get(
 );
 
 router.get(
+	"/password-recovery",
+	catchError(userController.renderPasswordRecovery)
+);
+
+router.get(
 	"/employee-register",
 	checkNotAuthenticated,
 	catchError(userController.renderEmployeeRegister)
@@ -39,6 +44,8 @@ router.get(
 router.get("/get-store", catchError(userController.getStoreData));
 
 router.get("/verify-email/:id", catchError(userController.verifyUserExists));
+
+router.post("/recover-password", catchError(userController.recoverPassword));
 
 router.post("/login", catchError(userController.login));
 

@@ -17,6 +17,12 @@ export const renderRecovery = function (req, res) {
 	res.render("logged-out/recovery", { layout: "layouts/logged-out-layout" });
 };
 
+export const renderPasswordRecovery = function (req, res) {
+	res.render("logged-out/passwordRecovery", {
+		layout: "layouts/logged-out-layout",
+	});
+};
+
 export const renderEmployeeRegister = function (req, res) {
 	res.render("logged-out/employeeRegister", {
 		layout: "layouts/logged-out-layout",
@@ -87,6 +93,25 @@ export const verifyUserExists = async function (req, res) {
 	} else {
 		req.flash("success_msg", "You are now verified and can log in");
 		res.redirect("/");
+	}
+};
+
+export const recoverPassword = async function (req, res) {
+	const user = new User();
+	const result = await user.recoverPassword(
+		req.body.email,
+		req.body.password,
+		req.body.passwordConfirm
+	);
+
+	if (!Object.keys(result).length) {
+		req.flash("success_msg", "Password successfully changed");
+		res.redirect("/");
+	} else {
+		res.render("logged-out/passwordRecovery", {
+			layout: "layouts/logged-out-layout",
+			errors: Object.values(result),
+		});
 	}
 };
 

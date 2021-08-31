@@ -18,12 +18,13 @@ loginBtn.addEventListener("click", () => {
 	}
 
 	primaryLottie.classList.add("hidden");
+
 	passwordLottie.classList.remove("hidden");
 
 	setInterval(() => {
 		document.getElementById("login_form").submit();
 		return;
-	}, 1400);
+	}, 2000);
 });
 
 emailInput.addEventListener("input", () => {

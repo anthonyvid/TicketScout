@@ -316,6 +316,33 @@ class User {
 		return true;
 	}
 
+	async recoverPassword(email, newPass, newPassConfirm) {
+		const user = await helper.getUser(email);
+
+		if (!user) return { error: "Invalid Email" };
+
+		if (newPass.length < 8 || newPassConfirm.length < 8)
+			return { error: "Password must be at least 8 characters" };
+
+		if (newPass !== newPassConfirm)
+			return { error: "passwords do not match" };
+
+		// Hash user passwords
+		newPass = helper.hashPrivateInfo(newPass);
+
+		// Update database
+		await usersCollection.updateOne(
+			{ email: email },
+			{
+				$set: {
+					password: newPass,
+					passwordConfirm: newPass,
+				},
+			}
+		);
+		return {};
+	}
+
 	/**
 	 * Sends a verification email after sign up to provided email
 	 * @param {string} email

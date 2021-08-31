@@ -4,28 +4,24 @@
 
 @import "../../../helper";
 
-.menu-toggle label {
-	height: 60px;
-	width: 60px;
-	display: grid;
-	place-items: center;
-	font-size: 1.5rem;
-	border-radius: 50%;
-}
-
-.menu-toggle label:hover {
-	background: #efefef;
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 2rem 3rem 0 3rem !important;
 }
 
 .page-header {
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
+	gap: 5px;
+	padding-left: 5px;
+	transform: translateY(-15px);
 
 	h1 {
 		color: #000;
-		margin-bottom: 5px;
-		// font-family: "Fira Sans" !important;
 		font-weight: 600;
 	}
 
@@ -34,356 +30,138 @@
 	}
 }
 
-.header-actions button span {
-	font-size: 1.2rem;
-	margin-right: 0.6rem;
-}
-.cards-master-layout {
+.master-card-layout {
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	height: calc(100vh - 200px);
-	gap: 30px;
-	padding-top: 25px;
+	flex-direction: column;
+	width: 100%;
+	height: calc(100vh - 100px);
+	gap: 10px;
+}
 
-	.cards-master-left {
+.top-cards-layout {
+	display: flex;
+	width: 100%;
+	height: 68%;
+	gap: 20px;
+
+	.action-card-stack {
 		display: flex;
 		flex-direction: column;
-		width: 65%;
+		gap: 13px;
+		min-width: 250px;
 		height: 100%;
-		gap: 25px;
 
-		.top-cards-layout {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
+		div {
 			width: 100%;
-			height: 130px;
-
-			.top-card-style {
-				width: 30%;
-				height: 100%;
-				border-radius: 10px;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-				background-color: #fff;
-				gap: 20px;
-				box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
-				transform: scale(1);
-				transition: 0.3s ease-in-out;
-			}
-
-			.top-card-style:hover {
-				transform: scale(1.06);
-				transition: 0.3s ease-in-out;
-			}
-
-			.info-wrap {
-				display: flex;
-				flex-direction: column;
-				gap: 7px;
-
-				p {
-					// font-family: "Inter";
-					font-size: 14px;
-					font-weight: 600;
-					color: rgba($swatch_5, 0.7);
-				}
-
-				h4 {
-					// font-family: "Inter";
-					font-size: 26px;
-					font-weight: 700;
-				}
-			}
-
-			.card1 {
-				background-color: rgba(#b8d9f5, 0.4);
-				svg {
-					border-bottom-left-radius: 5px;
-					border-bottom-right-radius: 5px;
-				}
-			}
-			.card2 {
-				background-color: rgba(#90c1bb, 0.4);
-
-				svg {
-					border-bottom-left-radius: 5px;
-					border-bottom-right-radius: 5px;
-				}
-			}
-			.card3 {
-				background-color: rgba(#ff0000, 0.6);
-				color: white;
-				font-size: 64px;
-				p {
-					color: white;
-				}
-
-				span {
-					margin-right: -10px;
-				}
-			}
-		}
-
-		.recent-tickets-layout {
-			width: 100%;
-			height: 55%;
+			height: 33%;
 			border-radius: 10px;
-			background-color: #fff;
-			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
 
-			.table-title {
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-				padding: 10px;
-				border: 1px solid $swatch_1;
-				border-top-right-radius: 10px;
-				border-top-left-radius: 10px;
-				background-color: darken(#f9fbfc, 2%);
-
-				p {
-					font-weight: 800;
-					font-size: 20px;
-					color: darken(#7e8082, 5%) !important;
-				}
+			&:first-child {
+				background: linear-gradient(
+					104.14deg,
+					#f3c7ad 1.03%,
+					#eeafa1 100%
+				);
 			}
-
-			table {
-				// font-family: "Inter";
-				border-collapse: collapse;
-				width: 100%;
-				height: 100%;
-				border: 1px solid $swatch_1;
-				display: table;
-
-				thead tr {
-					display: flex;
-					border: 1px solid $swatch_1;
-					background-color: #f9fbfc;
-				}
-
-				thead td {
-					font-weight: 800;
-					font-size: 14px;
-
-					display: flex;
-					align-items: center;
-					padding-left: 3rem;
-					color: #7e8082 !important;
-				}
-
-				tbody tr {
-					display: flex;
-					align-items: center;
-					border: 1px solid $swatch_1;
-					background: white;
-					transition: 0.3s ease-in-out;
-					min-height: auto;
-
-					&:hover {
-						background-color: #f5f5f5;
-						color: #575758 !important;
-						a {
-							color: #575758 !important;
-						}
-					}
-				}
-
-				td {
-					padding: 0.5rem 1rem;
-					font-size: 0.9rem;
-					color: #7e8082 !important;
-					flex: 1 1 20%;
-					padding-left: 3rem;
-				}
-
-				a:hover {
-					text-decoration: underline;
-				}
+			&:nth-child(2) {
+				background: linear-gradient(
+					105.38deg,
+					#c4b7ea 0.74%,
+					#adbbea 101.51%
+				);
 			}
-		}
-
-		.changeMyName-layout {
-			width: 100%;
-			height: 21%;
-			border-radius: 10px;
-			background-color: #fff;
-			box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+			&:last-child {
+				background: linear-gradient(
+					285.38deg,
+					#b0a6ea -0.77%,
+					#9da3d9 100%
+				);
+			}
 		}
 	}
 
-	.cards-master-right {
+	.map {
+		width: 75%;
+		height: 100%;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+}
+
+.bottom-cards-layout {
+	display: flex;
+	width: 100%;
+	height: 32%;
+	gap: 50px;
+
+	.recent-tickets {
 		display: flex;
 		flex-direction: column;
-		width: 35%;
+		justify-content: space-between;
+		width: 45%;
 		height: 100%;
-		border-radius: 10px;
-		box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 40px;
+		gap: 8px;
 
-		.map-layout {
-			height: 60%;
-			width: 100%;
+		.heading {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			height: 17%;
+			padding: 0 10px 0 10px;
+
+			h3 {
+				color: #646769;
+				font-weight: 700;
+				font-size: 20px;
+			}
+
+			button {
+				padding: 5px 10px 5px 10px;
+				outline: none;
+				border: 0;
+				box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+				border-radius: 4px;
+				color: #6fb7f9;
+				font-weight: 600;
+				font-size: 16px;
+				background-color: #fff;
+			}
+		}
+
+		table {
+			height: 83%;
+			background-color: white;
 			border-top-left-radius: 10px;
 			border-top-right-radius: 10px;
+		}
+	}
 
+	.tracking {
+		display: flex;
+		width: 55%;
+		height: 100%;
+		background-color: white;
+		box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+		border-top-right-radius: 10px;
+		border-top-left-radius: 10px;
+
+		.tracking-area {
+			width: 65%;
+		}
+
+		.tracking-map {
+			width: 35%;
+			height: 100%
+			@include centerFlexChild;
 			img {
-				border-top-left-radius: 10px;
-				border-top-right-radius: 10px;
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
 			}
 		}
-
-		.tracking-settings {
-			border-radius: 10px;
-			display: flex;
-			flex-direction: column;
-			height: 40%;
-			width: 100%;
-			background-color: white;
-
-			.search-wrap {
-				width: 100%;
-				height: 100%;
-				border-top-left-radius: 10px;
-				border-top-right-radius: 10px;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				padding: 40px;
-				gap: 25px;
-
-				.input-wrap {
-					display: flex;
-					flex-direction: row;
-					width: 300px;
-					min-height: 50px;
-
-					input {
-						width: 75%;
-						height: 100%;
-						border-radius: 5px;
-						border-top-right-radius: 0;
-						border-bottom-right-radius: 0;
-						text-indent: 20px;
-						border: 0;
-						box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
-							rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
-					}
-
-					button {
-						width: 25%;
-						height: 100%;
-						border-radius: 5px;
-						border-top-left-radius: 0;
-						border-bottom-left-radius: 0;
-						border: 0;
-						background-color: black;
-						color: white;
-						box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
-							rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
-					}
-				}
-
-				.tracking-placeholder {
-					width: 100%;
-					height: 70%;
-					text-align: center;
-					margin-top: -5px;
-					p {
-						font-weight: 500;
-					}
-
-					img {
-						width: 100%;
-						height: 90%;
-						margin-bottom: -3px;
-					}
-
-					small {
-						color: $swatch_5;
-					}
-				}
-
-				#tracking-animation {
-					display: none;
-				}
-
-				.tracking-results {
-					display: none;
-					flex-direction: column;
-					height: 100%;
-					width: 100%;
-					padding: 0 50px 0 50px;
-					gap: 15px;
-
-					.text-wrap {
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-						justify-content: space-between;
-
-						p:first-child {
-							text-transform: uppercase;
-							font-weight: 600;
-							color: $swatch_5;
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-//Change layout of dashboard cards
-@media only screen and (max-width: 1150px) {
-	.main-content header {
-		//TODO: Maybe I should make header sticky here??
-	}
-	.cards-master-layout {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		height: auto;
-		padding-top: 25px;
-
-		.cards-master-left {
-			width: 100%;
-
-			.recent-tickets-layout {
-				height: 275px;
-			}
-
-			.changeMyName-layout {
-				height: 220px;
-			}
-		}
-
-		.cards-master-right {
-			flex-direction: row;
-			width: 100%;
-
-			.c-m-innerLayout {
-				height: 220px;
-			}
-		}
-	}
-}
-//Shorten Table to fit all content nicely
-@media only screen and (max-width: 1370px) {
-	.issue {
-		visibility: hidden;
-		display: none;
 	}
 }

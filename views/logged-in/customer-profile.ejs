@@ -114,7 +114,7 @@
 				</div>
 				<div class="quick-info-wrap">
 					<div class="name">
-						<img src="/assets/customer-profile-userIcon.svg" width="40px"/>
+						<img src="/assets/customer-profile/userIcon.svg" width="40px"/>
 						<p id="name"><%= fullname %></p>
 						<div>
 							<input name="newFirstname" form="edit_customer_info_form" class="hidden edit-field" id="edit_firstname_field" type="text" value="<%= customer.firstname %> ">
@@ -124,7 +124,7 @@
 					</div>
 					<hr color="#eaeef5" size="1" />
 					<div class="date-joined">
-						<img src="/assets/customer-profile-dateJoinedIcon.svg" width="40px"/>
+						<img src="/assets/customer-profile/dateJoinedIcon.svg" width="40px"/>
 						<p>Joined on <b><%= customer.dateJoined %></b></p>
 					</div>
 					<hr color="#eaeef5" size="1" />
@@ -152,7 +152,7 @@
 				
 				<div class="account-stats">
 					<div class="tickets">
-						<img src="/assets/customer-profile-ticketsIcon.svg" width="40px"/>
+						<img src="/assets/customer-profile/ticketsIcon.svg" width="40px"/>
 						<% if(Object.keys(customer.tickets).length === 0) { %>
 							<%= "No Tickets" %> 
 						<% } else if(Object.keys(customer.tickets).length === 1) { %>
@@ -163,7 +163,7 @@
 					</div>
 					<hr color="#eaeef5" size="1" />
 					<div class="payments">
-						<img src="/assets/customer-profile-invoiceIcon.svg" width="40px"/>
+						<img src="/assets/customer-profile/invoiceIcon.svg" width="40px"/>
 						<% if(Object.keys(customer.payments).length === 0) { %>
 							<%= "No Payments" %> 
 						<% } else if(Object.keys(customer.payments).length === 1) { %>
@@ -174,7 +174,7 @@
 					</div>
 					<hr color="#eaeef5" size="1" />
 					<div class="spent">
-						<img src="/assets/money.svg" width="40px"/>
+						<img src="/assets/customer-profile/money.svg" width="40px"/>
 						<% let total = 0; %> 
 						<% for(const payment in customer.payments) {%>
 							<% total += parseFloat(customer.payments[payment].orderTotal) %> 

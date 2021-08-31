@@ -4,160 +4,34 @@
 	<div class="main-content">
 		<main>
 			<div class="page-header">
-				<div>
-					<h1 id="greeting">
-						<%= user.fullname.split(" ")[0].charAt(0).toUpperCase()+user.fullname.split(" ")[0].substring(1)%>
-					</h1>
-					<small
-						>See whats happening in your account
-						today</small
-					>
-				</div>
+				<h1 id="greeting">
+					<%= user.fullname.split(" ")[0].charAt(0).toUpperCase()+user.fullname.split(" ")[0].substring(1)%>
+				</h1>
+				<small>See whats happening in your account today</small>
 			</div>
-
-			<div class="cards-master-layout">
-				<div class="cards-master-left">
-					<div class="top-cards-layout">
-						<div class="card1 top-card-style">
-							<!-- <span><i class="fas fa-ticket-alt fa-3x"></i></span> -->
-							<svg
-								width="48"
-								height="48"
-								viewBox="0 0 48 48"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M20.5 13C8 13 10 34 0 34V48H48V28C33 28 33 13 20.5 13Z"
-									fill="#B8D9F5"
-								/>
-								<path
-									d="M0 34C10 34 8 13 20.5 13C33 13 33 28 48 28"
-									stroke="#1C77C3"
-								/>
-							</svg>
-
-							<div class="info-wrap">
-								<p>NEW TICKETS</p>
-								<h4><%=totalNewTickets%></h4>
-							</div>
-						</div>
-						<div class="card2 top-card-style">
-							<!-- <span><i class="fas fa-comments fa-3x"></i></span> -->
-							<svg
-								width="48"
-								height="48"
-								viewBox="0 0 48 48"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M0 6.5C8 6.5 5.5 26 20 26C32.5 26 34.5 8.5 40.5 8.5C45 8.5 44.5 11 48 11L48 48L0 48L0 7Z"
-									fill="#90c1bb"
-								/>
-								<path
-									d="M48 11C44.5 11 44 8.5 40.5 8.5C34.5 8.5 34.5 26 19 26C5.5 26 8 6.5 0 6.5"
-									stroke="#1b998b"
-								/>
-							</svg>
-							<div class="info-wrap">
-								<p>REPLIES</p>
-								<h4><%=totalReplyTickets%></h4>
-							</div>
-						</div>
-						<div class="card3 top-card-style">
-							<span>
-								<i class="las la-exclamation-circle"></i>
-							</span>
-							<div class="info-wrap">
-								<p>PRIORITY</p>
-								<h4><%=totalPriorityTickets%></h4>
-							</div>
-						</div>
+			<div class="master-card-layout">
+				<div class="top-cards-layout">
+					<div class="action-card-stack">
+						<div></div>
+						<div></div>
+						<div></div>
 					</div>
-					<div class="recent-tickets-layout">
-						<div class="table-title">
-							<p>RECENT TICKETS</p>
-						</div>
-						<table>
-							<thead>
-								<tr>
-									<td class="ticket-id">Ticket ID</td>
-									<td class="customer">Customer</td>
-									<td class="subject">Subject</td>
-									<td class="status">Status</td>
-								</tr>
-							</thead>
-							<tbody>
-								<% for(let i=0; i<tickets.slice(0,5).length; i++) { %> 
-							<tr id="table_row">
-								<td class="ticket-id">
-									<a id="ticket" href=<%=`/tickets/${tickets[i][0]}`%>
-										><%=tickets[i][0]%></a
-									>
-								</td>
-								<td class="customer">
-									<a href=<%=`/customers/${tickets[i][1].customer.phone}`%>
-										><%=tickets[i][1].customer.firstname.charAt(0).toUpperCase()+tickets[i][1].customer.firstname.slice(1) + " " + tickets[i][1].customer.lastname.charAt(0).toUpperCase()+tickets[i][1].customer.lastname.slice(1)%></a
-									>
-								</td>
-								<td class="subject">
-									<a href=<%=`/tickets/${tickets[i][0]}`%>
-										> <%= tickets[i][1].subject %> </a
-									>
-								</td>
-								<td class="status">
-									<%= tickets[i][1].status %>
-								</td>								
-							</tr>
-						<% } %> 
-							</tbody>
-						</table>
+					<div class="map">
+						<img src="/assets/dashboard/map.svg" alt="">
 					</div>
-					<div class="changeMyName-layout">1</div>
 				</div>
-				<div class="cards-master-right">
-					<div class="map-layout" id="map">
-						<img src="/assets/cityMap2.svg" alt="">
+				<div class="bottom-cards-layout">
+					<div class="recent-tickets">
+						<div class="heading">
+							<h3>Recent Tickets</h3>
+							<button>view all</button>
+						</div>
+						<table></table>
 					</div>
-					<div class="tracking-settings">
-						<div class="search-wrap">
-							<div class="input-wrap">
-								<input
-									type="text"
-									placeholder="Ticket ID"
-									required
-									name="ticketID"
-									id="ticket_ID_input"
-								/>
-								<button id="track_btn" type="submit">Track</button>
-							</div>
-							<div class="tracking-placeholder">
-								<p>Get instant tracking results</p>
-								<img src="/assets/tracking.svg" width="300px" height="150px" alt="">							
-								<small>powered by scoutTracker</small>
-							</div>
-							<div id="tracking-animation">
-								<img src="/assets/trackingAnimation.gif" width="150px" height="150px" alt="">
-							</div>
-							<div class="tracking-results">
-								<div class="text-wrap">
-									<p>status :</p>
-									<p id="status_text"></p>
-								</div>
-								<div class="text-wrap">
-									<p>location :</p>
-									<p id="location_text"></p>
-								</div>
-								<div class="text-wrap">
-									<p>eta :</p>
-									<p id="eta_text"></p>
-								</div>
-								<div class="text-wrap">
-									<p>from :</p>
-									<p id="from_text"></p>
-								</div>
-							</div>
+					<div class="tracking">
+						<div class="tracking-area"></div>
+						<div class="tracking-map">
+							<img src="/assets/dashboard/trackingIllustration.svg" alt="">
 						</div>
 					</div>
 				</div>

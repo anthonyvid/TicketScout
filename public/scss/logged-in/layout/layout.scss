@@ -7,7 +7,12 @@
 	top: 0;
 	height: 100%;
 	padding: 1rem 1.5rem;
-	background-color: $white;
+	// background-color: $white;
+	background: linear-gradient(
+		177.33deg,
+		#ffffff 0%,
+		rgba(255, 255, 255, 0.5) 106.55%
+	);
 }
 
 .sidebar-brand {
@@ -77,7 +82,7 @@
 .main-content {
 	margin-left: 220px;
 	padding: 0 10px 0 10px;
-	background-color: $cardPool;
+	background-color: #f4f1f1 !important;
 
 	header {
 		display: flex;
@@ -401,8 +406,7 @@
 
 main {
 	padding: 2rem;
-	background: $cardPool;
-	min-height: calc(100vh - 70px);
+	height: calc(100vh - 70px);
 }
 
 //Remove "Today 'date'" at top of screen

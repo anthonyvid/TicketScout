@@ -325,10 +325,10 @@ class Ticket {
 			"storedata.api.twilio.sid": subAccountSid,
 		});
 
-		let tickets = store.storedata.customers[fromNumber].tickets;
-
-		tickets = Object.values(tickets).forEach((ticket) => {
-			if (ticket.status != "Resolved") return ticket;
+		let customerTickets = store.storedata.customers[fromNumber].tickets;
+		let ticketForMsg = null;
+		Object.values(customerTickets).forEach((ticket) => {
+			if (ticket.status != "Resolved") ticketForMsg.push(ticket);
 		});
 
 		console.log(tickets);

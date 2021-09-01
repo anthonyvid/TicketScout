@@ -223,7 +223,13 @@ for (const select of statusSelects) {
 			select.parentElement.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
 		const selection = e.target.value;
-		const phone = document.getElementById("phone").value.replace(/\D/g, "");
+		let result =
+			select.parentElement.parentElement.previousElementSibling.previousElementSibling.firstElementChild.href.split(
+				"/"
+			);
+		const phone = result[result.length - 1];
+
+		console.log(phone);
 
 		// Post request to update ticket status for updated ticket, and also update/sort table order
 		await helper.postReq("/tickets/update-ticket-status", {
@@ -241,8 +247,13 @@ for (const select of issueSelects) {
 			select.parentElement.parentElement.firstElementChild
 				.firstElementChild.textContent;
 		const selection = e.target.value;
-		const phone = document.getElementById("phone").value.replace(/\D/g, "");
+		let result =
+			select.parentElement.parentElement.firstElementChild.nextElementSibling.firstElementChild.href.split(
+				"/"
+			);
+		const phone = result[result.length - 1];
 
+		console.log(phone);
 		// Post request to update ticket issue for updated ticket, and also update/sort table order
 		await helper.postReq("/tickets/update-ticket-issue", {
 			selection,

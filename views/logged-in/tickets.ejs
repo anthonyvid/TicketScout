@@ -54,7 +54,6 @@
                             <tr><td style="margin-left: 2rem;">No Tickets</td></tr>
                         <% } else { %> 
 							<% for(let i=0; i<tickets.length; i++) { %> 
-								<input type="hidden" id="phone" value=<%= `${tickets[i][1].customer.phone}` %>>
 								<tr id="table_row">
 									<td class="ticket-id">
 										<a id="ticket" href=<%=`/tickets/${tickets[i][0]}`%>

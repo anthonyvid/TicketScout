@@ -20,7 +20,7 @@ var pusher = new Pusher("e28b6821911a7e16e187", {
 });
 var channel = pusher.subscribe("ticket-channel");
 channel.bind("dashboard-table-update", (data) => {
-	let recentTickets = data.sortedTickets;
+	let recentTickets = data.recentTickets;
 
 	recentTickets = recentTickets.filter(
 		(ticket) => ticket[1].status != "Resolved"

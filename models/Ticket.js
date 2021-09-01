@@ -31,11 +31,6 @@ class Ticket {
 			return b[1].lastUpdated - a[1].lastUpdated;
 		});
 
-		// Trigger update event for dashboard ticket tables
-		pusher.trigger("ticket-channel", "dashboard-table-update", {
-			sortedTickets,
-		});
-
 		return [sortedTickets, store];
 	}
 
@@ -181,7 +176,12 @@ class Ticket {
 		pusher.trigger("ticket-channel", "ticket-table-update", {
 			message: ".",
 		});
-		return await this.updateTicketList(storename);
+		const [tickets, store] = await this.updateTicketList(storename);
+		// Trigger update event for dashboard ticket tables
+		pusher.trigger("ticket-channel", "dashboard-table-update", {
+			recentTickets: tickets,
+		});
+		return [tickets, store];
 	}
 
 	/**
@@ -217,6 +217,10 @@ class Ticket {
 			message: ".",
 		});
 		const [tickets, store] = await this.updateTicketList(storename);
+		// Trigger update event for dashboard ticket tables
+		pusher.trigger("ticket-channel", "dashboard-table-update", {
+			recentTickets: tickets,
+		});
 		return tickets;
 	}
 
@@ -423,8 +427,6 @@ class Ticket {
 			},
 		});
 		const json = await response.json();
-
-		console.log(json);
 
 		// If tracking is invalid return with errors
 		if (!json.tracking_status) {

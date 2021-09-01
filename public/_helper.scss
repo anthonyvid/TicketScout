@@ -55,10 +55,12 @@ $half-spacing-unit: $base-spacing-unit / 2;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	
 }
 
 body {
 	font-family: "Inter";
+	overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {

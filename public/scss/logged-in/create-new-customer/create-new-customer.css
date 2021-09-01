@@ -23,6 +23,7 @@
 
 body {
   font-family: "Inter";
+  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {

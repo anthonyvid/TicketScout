@@ -33,8 +33,8 @@ var pusher = new Pusher("e28b6821911a7e16e187", {
 	cluster: "us2",
 });
 
-var channel = pusher.subscribe("my-channel");
-channel.bind("my-event", function (data) {
+var channel = pusher.subscribe("sms-channel");
+channel.bind("1", function (data) {
 	alert(JSON.stringify(data));
 });
 

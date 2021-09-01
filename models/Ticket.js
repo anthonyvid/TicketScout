@@ -364,11 +364,10 @@ class Ticket {
 				fromNumber,
 				storename
 			);
+			pusher.trigger("sms-channel", "test", {
+				message: "hello world",
+			});
 		}
-
-		pusher.trigger("my-channel", "my-event", {
-			message: "hello world",
-		});
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page

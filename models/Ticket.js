@@ -320,6 +320,7 @@ class Ticket {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
+		const timestamp = new Date().toLocaleString();
 		const pusher = new Pusher({
 			appId: "1259577",
 			key: "e28b6821911a7e16e187",
@@ -350,7 +351,7 @@ class Ticket {
 				{
 					$push: {
 						[`storedata.tickets.${ticket}.smsData`]: {
-							timestamp: new Date().toLocaleString(),
+							timestamp: timestamp,
 							from: "client",
 							user: fromNumber,
 							message: message,
@@ -364,8 +365,9 @@ class Ticket {
 				fromNumber,
 				storename
 			);
-			pusher.trigger("sms-channel", "test", {
-				message: "hello world",
+			pusher.trigger("sms-channel", ticket, {
+				message: message,
+				timestamp: timestamp,
 			});
 		}
 

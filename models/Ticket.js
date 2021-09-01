@@ -319,7 +319,6 @@ class Ticket {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
-		console.log(smsData);
 
 		//find subaccount to add msg to
 		const store = await storesCollection.updateOne({

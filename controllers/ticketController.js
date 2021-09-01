@@ -122,7 +122,6 @@ export const sendSms = async function (req, res) {
 };
 
 export const receiveSms = async function (req, res) {
-	console.log(req.body);
 	const ticket = new Ticket();
 	await ticket.receiveSms(req.body);
 	res.status(204).send();

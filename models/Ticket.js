@@ -350,7 +350,12 @@ class Ticket {
 					},
 				}
 			);
-			updateTicketStatus("Reply", ticket, fromNumber, storename);
+			await this.updateTicketStatus(
+				"Reply",
+				ticket,
+				fromNumber,
+				storename
+			);
 		}
 
 		//also update the status of the ticket to CUSTOMER_REPLY

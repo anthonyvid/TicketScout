@@ -326,14 +326,32 @@ class Ticket {
 		});
 
 		let customerTickets = store.storedata.customers[fromNumber].tickets;
-		console.log(customerTickets);
 
-		let ticketForMsg = [];
-		Object.values(customerTickets).forEach((ticket) => {
-			if (ticket.status != "Resolved") ticketForMsg.push(ticket);
+		let ticketsForMsg = [];
+		Object.keys(customerTickets).forEach((ticketID) => {
+			if (customerTickets[ticketID].status != "Resolved")
+				ticketsForMsg.push(ticketID);
 		});
 
-		console.log(ticketForMsg);
+		console.log(ticketsForMsg);
+
+		for (const ticket of ticketsForMsg) {
+			await storesCollection.updateOne(
+				{
+					"storedata.api.twilio.sid": subAccountSid,
+				},
+				{
+					$push: {
+						[`storedata.tickets.${ticket}.smsData`]: {
+							timestamp: new Date().toLocaleString(),
+							from: "client",
+							user: fromNumber,
+							message: message,
+						},
+					},
+				}
+			);
+		}
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page

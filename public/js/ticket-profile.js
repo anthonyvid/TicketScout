@@ -35,7 +35,7 @@ var pusher = new Pusher("e28b6821911a7e16e187", {
 
 console.log(ticketID.textContent.trim());
 
-var channel = pusher.subscribe("sms-channel");
+var channel = pusher.subscribe(ticketID.textContent.trim());
 channel.bind("my-event", function (data) {
 	// alert(JSON.stringify(data) + "Reload page to view msg");
 	console.log("DATA: " + JSON.stringify(data));

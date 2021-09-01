@@ -321,7 +321,7 @@ class Ticket {
 		const fromNumber = smsData.From.substring(2);
 
 		//find subaccount to add msg to
-		const store = await storesCollection.updateOne({
+		const store = await storesCollection.findOne({
 			"storedata.api.twilio.sid": subAccountSid,
 		});
 

@@ -105,6 +105,7 @@ export const trackShipment = async function (req, res) {
 		req.body.ticketID,
 		req.user.storename
 	);
+	console.log(result);
 	res.json({ result });
 };
 

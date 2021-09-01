@@ -7,7 +7,6 @@
 	top: 0;
 	height: 100%;
 	padding: 1rem 1.5rem;
-	// background-color: $white;
 	background: linear-gradient(
 		177.33deg,
 		#ffffff 0%,
@@ -82,7 +81,8 @@
 .main-content {
 	margin-left: 220px;
 	padding: 0 10px 0 10px;
-	background-color: #f4f1f1 !important;
+	// background-color: #f4f1f1 !important;
+	background-color: $cardPool;
 
 	header {
 		display: flex;
@@ -96,15 +96,16 @@
 			align-items: center;
 
 			input {
-				height: 35px;
+				height: 45px;
 				width: 190px;
-				border: 0;
-				border-bottom: 1px solid lightgray;
-				outline: 0;
-				background-color: transparent;
+				background: #ffffff;
+				box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+				border-radius: 10px;
+				border: none;
 				font-size: 0.9em;
 				text-indent: 35px;
 				transition: 0.3s ease-in;
+				color: rgba(143, 143, 143, 0.75);
 			}
 
 			span {
@@ -231,7 +232,7 @@
 			color: $swatch_5;
 
 			span {
-				color: #2b3154;
+				color: #434649;
 				font-weight: 500;
 				font-size: 16px;
 			}
@@ -322,12 +323,12 @@
 
 				h5 {
 					font-size: 15px;
-					color: $bluetext;
+					color: #434649;
 					font-weight: 600;
 				}
 				small {
 					font-size: 11px;
-					color: $swatch_5;
+					color: #737374;
 				}
 			}
 

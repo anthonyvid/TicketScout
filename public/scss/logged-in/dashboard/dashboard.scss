@@ -9,6 +9,11 @@ main {
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 2rem 3rem 0 3rem !important;
+	overflow-y: none !important;
+}
+
+.main-content {
+	background-color: #f4f1f1 !important;
 }
 
 .page-header {
@@ -21,13 +26,19 @@ main {
 	transform: translateY(-15px);
 
 	h1 {
-		color: #000;
+		color: #434649;
+		letter-spacing: 0.01em;
 		font-weight: 600;
 	}
 
 	small {
-		color: $swatch_5;
+		color: #646769;
+		font-weight: 600;
 	}
+}
+
+.hidden {
+	display: none !important;
 }
 
 .master-card-layout {
@@ -41,7 +52,7 @@ main {
 .top-cards-layout {
 	display: flex;
 	width: 100%;
-	height: 68%;
+	height: 60%;
 	gap: 20px;
 
 	.action-card-stack {
@@ -49,12 +60,28 @@ main {
 		flex-direction: column;
 		gap: 13px;
 		min-width: 250px;
+		width: 25%;
 		height: 100%;
+		z-index: 10;
 
 		div {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			justify-content: center;
 			width: 100%;
 			height: 33%;
 			border-radius: 10px;
+			padding: 15px 25px 15px 25px;
+			color: #646769;
+
+			h5 {
+				font-size: 15px;
+			}
+
+			h2 {
+				font-size: 48px;
+			}
 
 			&:first-child {
 				background: linear-gradient(
@@ -79,15 +106,18 @@ main {
 			}
 		}
 	}
-
-	.map {
+	.map-wrap {
 		width: 75%;
 		height: 100%;
+		position: relative;
 
 		img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
+			position: absolute;
+			max-width: 100%;
+			max-height: 100%;
+			top: 5%;
+			left: 10%;
+			transform: scale(1.3);
 		}
 	}
 }
@@ -95,7 +125,7 @@ main {
 .bottom-cards-layout {
 	display: flex;
 	width: 100%;
-	height: 32%;
+	height: 40%;
 	gap: 50px;
 
 	.recent-tickets {
@@ -105,29 +135,30 @@ main {
 		width: 45%;
 		height: 100%;
 		gap: 8px;
+		z-index: 10;
 
 		.heading {
 			display: flex;
 			justify-content: space-between;
-			align-items: flex-end;
+			align-items: center;
 			height: 17%;
 			padding: 0 10px 0 10px;
 
 			h3 {
 				color: #646769;
 				font-weight: 700;
-				font-size: 20px;
+				font-size: 18px;
 			}
 
-			button {
-				padding: 5px 10px 5px 10px;
+			a {
+				padding: 5px 7px 5px 7px;
 				outline: none;
 				border: 0;
 				box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 				border-radius: 4px;
 				color: #6fb7f9;
 				font-weight: 600;
-				font-size: 16px;
+				font-size: 14px;
 				background-color: #fff;
 			}
 		}
@@ -137,6 +168,42 @@ main {
 			background-color: white;
 			border-top-left-radius: 10px;
 			border-top-right-radius: 10px;
+			display: table;
+			color: #646769 !important;
+			box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+			border-collapse: collapse;
+
+			thead {
+				tr {
+					text-align: center;
+				}
+
+				td {
+					font-weight: 600;
+					padding: 10px 15px 10px 15px;
+				}
+			}
+
+			tbody {
+				tr {
+					border-top: 2px solid white;
+					border-bottom: 2px solid white;
+
+					td {
+						padding-left: 30px;
+						font-weight: 500;
+						font-size: 14px;
+
+						a:hover {
+							text-decoration: underline;
+						}
+					}
+
+					&:nth-of-type(odd) {
+						background: rgba(243, 235, 255, 0.65);
+					}
+				}
+			}
 		}
 	}
 
@@ -148,20 +215,96 @@ main {
 		box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
 		border-top-right-radius: 10px;
 		border-top-left-radius: 10px;
+		z-index: 10;
 
 		.tracking-area {
-			width: 65%;
+			width: 60%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			padding: 30px;
+
+			h5 {
+				font-weight: bold;
+				font-size: 18px;
+				color: #646769;
+			}
+
+			p {
+				color: #646769;
+				font-weight: 500;
+				font-size: 14px;
+			}
+
+			div {
+				position: relative;
+
+				input {
+					margin-top: 15px;
+					height: 65px;
+					width: 100%;
+					border: 2px solid #efefef;
+					box-shadow: 2px 4px 188px rgba(53, 83, 111, 0.2);
+					border-radius: 8px;
+					text-indent: 20px;
+					color: #8f8f8f;
+					font-weight: 600;
+					font-size: 13px;
+
+					&::placeholder {
+						color: #8f8f8f;
+						font-weight: 600;
+					}
+				}
+
+				button {
+					position: absolute;
+					top: 28px;
+					right: 10px;
+					background: #6fb7f9;
+					border-radius: 8px;
+					padding: 13px;
+					border: 0;
+					color: white;
+				}
+			}
+
+			.map-animation {
+				width: 100%;
+				height: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				lottie-player {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.tracking-info {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+
+				div {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
 		}
 
 		.tracking-map {
-			width: 35%;
-			height: 100%
-			@include centerFlexChild;
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
+			width: 40%;
+			height: 100%;
+			overflow: hidden;
+			background-image: url(/assets/dashboard/trackingIllustration.svg);
+			background-size: 100% 100%;
+			border-top-right-radius: 10px;
 		}
 	}
 }

@@ -357,8 +357,10 @@ class Ticket {
 		});
 		const json = await response.json();
 
+		console.log(json);
+
 		// If tracking is invalid return with errors
-		if (json.servicelevel.token == null) {
+		if (!json.tracking_status) {
 			return { tracking_error: "Tracking Info Invalid" };
 		}
 
@@ -367,7 +369,7 @@ class Ticket {
 			to: json.address_to,
 			eta: json.eta,
 			status: json.tracking_status.status,
-			location: json.tracking_history[0].location,
+			location: json.tracking_status.location,
 		};
 	}
 }

@@ -58,7 +58,7 @@ input:focus {
 a,
 a:hover {
   text-decoration: none;
-  color: #000;
+  color: #646769;
 }
 
 .hidden {
@@ -173,7 +173,7 @@ a:hover {
 .main-content {
   margin-left: 220px;
   padding: 0 10px 0 10px;
-  background-color: #f4f1f1 !important;
+  background-color: #f6f8fa;
 }
 
 .main-content header {
@@ -200,16 +200,18 @@ a:hover {
 }
 
 .main-content header .search-box input {
-  height: 35px;
+  height: 45px;
   width: 190px;
-  border: 0;
-  border-bottom: 1px solid lightgray;
-  outline: 0;
-  background-color: transparent;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+          box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+  border-radius: 10px;
+  border: none;
   font-size: 0.9em;
   text-indent: 35px;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
+  color: rgba(143, 143, 143, 0.75);
 }
 
 .main-content header .search-box span {
@@ -389,7 +391,7 @@ a:hover {
 }
 
 .main-content header .date-wrap span {
-  color: #2b3154;
+  color: #434649;
   font-weight: 500;
   font-size: 16px;
 }
@@ -528,13 +530,13 @@ a:hover {
 
 .main-content header .profile-wrap .name-wrap h5 {
   font-size: 15px;
-  color: #0d2238;
+  color: #434649;
   font-weight: 600;
 }
 
 .main-content header .profile-wrap .name-wrap small {
   font-size: 11px;
-  color: #717987;
+  color: #737374;
 }
 
 .main-content header .profile-wrap .icon-wrap {

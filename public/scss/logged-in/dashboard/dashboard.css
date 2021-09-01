@@ -58,7 +58,7 @@ input:focus {
 a,
 a:hover {
   text-decoration: none;
-  color: #000;
+  color: #646769;
 }
 
 .hidden {
@@ -77,6 +77,11 @@ main {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 2rem 3rem 0 3rem !important;
+  overflow-y: none !important;
+}
+
+.main-content {
+  background-color: #f4f1f1 !important;
 }
 
 .page-header {
@@ -100,12 +105,18 @@ main {
 }
 
 .page-header h1 {
-  color: #000;
+  color: #434649;
+  letter-spacing: 0.01em;
   font-weight: 600;
 }
 
 .page-header small {
-  color: #717987;
+  color: #646769;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .master-card-layout {
@@ -126,7 +137,7 @@ main {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  height: 68%;
+  height: 60%;
   gap: 20px;
 }
 
@@ -140,13 +151,38 @@ main {
           flex-direction: column;
   gap: 13px;
   min-width: 250px;
+  width: 25%;
   height: 100%;
+  z-index: 10;
 }
 
 .top-cards-layout .action-card-stack div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 100%;
   height: 33%;
   border-radius: 10px;
+  padding: 15px 25px 15px 25px;
+  color: #646769;
+}
+
+.top-cards-layout .action-card-stack div h5 {
+  font-size: 15px;
+}
+
+.top-cards-layout .action-card-stack div h2 {
+  font-size: 48px;
 }
 
 .top-cards-layout .action-card-stack div:first-child {
@@ -161,16 +197,20 @@ main {
   background: linear-gradient(285.38deg, #b0a6ea -0.77%, #9da3d9 100%);
 }
 
-.top-cards-layout .map {
+.top-cards-layout .map-wrap {
   width: 75%;
   height: 100%;
+  position: relative;
 }
 
-.top-cards-layout .map img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+.top-cards-layout .map-wrap img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  top: 5%;
+  left: 10%;
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
 }
 
 .bottom-cards-layout {
@@ -178,7 +218,7 @@ main {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  height: 32%;
+  height: 40%;
   gap: 50px;
 }
 
@@ -196,6 +236,7 @@ main {
   width: 45%;
   height: 100%;
   gap: 8px;
+  z-index: 10;
 }
 
 .bottom-cards-layout .recent-tickets .heading {
@@ -205,9 +246,9 @@ main {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 17%;
   padding: 0 10px 0 10px;
 }
@@ -215,11 +256,11 @@ main {
 .bottom-cards-layout .recent-tickets .heading h3 {
   color: #646769;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
 }
 
-.bottom-cards-layout .recent-tickets .heading button {
-  padding: 5px 10px 5px 10px;
+.bottom-cards-layout .recent-tickets .heading a {
+  padding: 5px 7px 5px 7px;
   outline: none;
   border: 0;
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
@@ -227,7 +268,7 @@ main {
   border-radius: 4px;
   color: #6fb7f9;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   background-color: #fff;
 }
 
@@ -236,6 +277,39 @@ main {
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  display: table;
+  color: #646769 !important;
+  -webkit-box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+          box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
+  border-collapse: collapse;
+}
+
+.bottom-cards-layout .recent-tickets table thead tr {
+  text-align: center;
+}
+
+.bottom-cards-layout .recent-tickets table thead td {
+  font-weight: 600;
+  padding: 10px 15px 10px 15px;
+}
+
+.bottom-cards-layout .recent-tickets table tbody tr {
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+.bottom-cards-layout .recent-tickets table tbody tr td {
+  padding-left: 30px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.bottom-cards-layout .recent-tickets table tbody tr td a:hover {
+  text-decoration: underline;
+}
+
+.bottom-cards-layout .recent-tickets table tbody tr:nth-of-type(odd) {
+  background: rgba(243, 235, 255, 0.65);
 }
 
 .bottom-cards-layout .tracking {
@@ -249,14 +323,87 @@ main {
           box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  z-index: 10;
 }
 
 .bottom-cards-layout .tracking .tracking-area {
-  width: 65%;
+  width: 60%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+  padding: 30px;
 }
 
-.bottom-cards-layout .tracking .tracking-map {
-  width: 35%;
+.bottom-cards-layout .tracking .tracking-area h5 {
+  font-weight: bold;
+  font-size: 18px;
+  color: #646769;
+}
+
+.bottom-cards-layout .tracking .tracking-area p {
+  color: #646769;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.bottom-cards-layout .tracking .tracking-area div {
+  position: relative;
+}
+
+.bottom-cards-layout .tracking .tracking-area div input {
+  margin-top: 15px;
+  height: 65px;
+  width: 100%;
+  border: 2px solid #efefef;
+  -webkit-box-shadow: 2px 4px 188px rgba(53, 83, 111, 0.2);
+          box-shadow: 2px 4px 188px rgba(53, 83, 111, 0.2);
+  border-radius: 8px;
+  text-indent: 20px;
+  color: #8f8f8f;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.bottom-cards-layout .tracking .tracking-area div input::-webkit-input-placeholder {
+  color: #8f8f8f;
+  font-weight: 600;
+}
+
+.bottom-cards-layout .tracking .tracking-area div input:-ms-input-placeholder {
+  color: #8f8f8f;
+  font-weight: 600;
+}
+
+.bottom-cards-layout .tracking .tracking-area div input::-ms-input-placeholder {
+  color: #8f8f8f;
+  font-weight: 600;
+}
+
+.bottom-cards-layout .tracking .tracking-area div input::placeholder {
+  color: #8f8f8f;
+  font-weight: 600;
+}
+
+.bottom-cards-layout .tracking .tracking-area div button {
+  position: absolute;
+  top: 28px;
+  right: 10px;
+  background: #6fb7f9;
+  border-radius: 8px;
+  padding: 13px;
+  border: 0;
+  color: white;
+}
+
+.bottom-cards-layout .tracking .tracking-area .map-animation {
+  width: 100%;
+  height: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -268,10 +415,42 @@ main {
           align-items: center;
 }
 
-.bottom-cards-layout .tracking .tracking-map img {
+.bottom-cards-layout .tracking .tracking-area .map-animation lottie-player {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+}
+
+.bottom-cards-layout .tracking .tracking-area .tracking-info {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4px;
+}
+
+.bottom-cards-layout .tracking .tracking-area .tracking-info div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bottom-cards-layout .tracking .tracking-map {
+  width: 40%;
+  height: 100%;
+  overflow: hidden;
+  background-image: url(/assets/dashboard/trackingIllustration.svg);
+  background-size: 100% 100%;
+  border-top-right-radius: 10px;
 }
 /*# sourceMappingURL=dashboard.css.map */

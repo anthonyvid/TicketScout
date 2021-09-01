@@ -58,7 +58,7 @@ input:focus {
 a,
 a:hover {
   text-decoration: none;
-  color: #000;
+  color: #646769;
 }
 
 .hidden {
@@ -270,6 +270,7 @@ a:hover {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 10px;
+  height: auto;
 }
 
 .account-settings-container .section-content #timeclock .hide {

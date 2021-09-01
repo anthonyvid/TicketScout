@@ -1,38 +1,122 @@
+<% const fullname = user.fullname.split("")[0].charAt(0).toUpperCase() +user.fullname.split(" ")[0].substring(1) + " " +user.fullname.split(" ")[1].charAt(0).toUpperCase()+ user.fullname.split(" ")[1].substring(1) %> 
+
 <link rel="stylesheet" href="/scss/logged-in/dashboard/dashboard.css" />
 <script type="module" src="/js/dashboard.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <body>
 	<div class="main-content">
 		<main>
 			<div class="page-header">
 				<h1 id="greeting">
-					<%= user.fullname.split(" ")[0].charAt(0).toUpperCase()+user.fullname.split(" ")[0].substring(1)%>
+					<%=fullname%>
 				</h1>
 				<small>See whats happening in your account today</small>
 			</div>
 			<div class="master-card-layout">
 				<div class="top-cards-layout">
 					<div class="action-card-stack">
-						<div></div>
-						<div></div>
-						<div></div>
+						<div>
+							<h5>New Tickets</h5>
+							<h2><%=totalNewTickets%></h2>
+						</div>
+						<div>
+							<h5>Ticket Replies</h5>
+							<h2><%=totalReplyTickets%></h2>
+						</div>
+						<div>
+							<h5>Priority Tickets</h5>
+							<h2><%=totalPriorityTickets%></h2>
+						</div>
 					</div>
-					<div class="map">
-						<img src="/assets/dashboard/map.svg" alt="">
+					<div class="map-wrap">
+						<img src="/assets/dashboard/map.svg" alt="World Map" />
 					</div>
 				</div>
 				<div class="bottom-cards-layout">
 					<div class="recent-tickets">
 						<div class="heading">
 							<h3>Recent Tickets</h3>
-							<button>view all</button>
+							<a href="/tickets/">view all</a>
 						</div>
-						<table></table>
+						<table>
+							<thead>
+								<tr>
+									<td>Ticket ID</td>
+									<td>Customer</td>
+									<td>Subject</td>
+									<td>Status</td>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(let i=0; i < 3; i++) { %>
+								<tr>
+									<td>
+										<a
+											href="<%=`/tickets/${tickets[i][0]}`%>"
+											><%=tickets[i][0]%></a
+										>
+									</td>
+									<td>
+										<a
+											href="<%=`/customers/${tickets[i][1].customer.phone}`%>"
+											><%=`${tickets[i][1].customer.firstname}
+											${tickets[i][1].customer.lastname}`%></a
+										>
+									</td>
+									<td>
+										<a
+											href="<%=`/tickets/${tickets[i][0]}`%>"
+											><%=tickets[i][1].subject%></a
+										>
+									</td>
+									<td><%=tickets[i][1].status%></td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
 					</div>
 					<div class="tracking">
-						<div class="tracking-area"></div>
-						<div class="tracking-map">
-							<img src="/assets/dashboard/trackingIllustration.svg" alt="">
+						<div class="tracking-area">
+							<h5>Track a Ticket</h5>
+							<p>Get instant tracking results</p>
+							<div>
+								<input
+									type="text"
+									placeholder="Input Ticket ID"
+									id="ticket_ID_input"
+								/>
+								<button id="track_btn">Track ID</button>
+							</div>
+							<div class="map-animation hidden">
+								<lottie-player
+									class="hidden lottie-animation"
+									src="https://assets5.lottiefiles.com/packages/lf20_nh2kkxv7.json"
+									background="transparent"
+									speed="1"
+									autoplay
+									loop
+								></lottie-player>
+							</div>
+							<div class="tracking-info hidden">
+								<div>
+									<p>STATUS:</p>
+									<p id="status_text"></p>
+								</div>
+								<div>
+									<p>LOCATION:</p>
+									<p id="location_text"></p>
+								</div>
+								<div>
+									<p>ETA:</p>
+									<p id="eta_text"></p>
+								</div>
+								<div>
+									<p>FROM:</p>
+									<p id="from_text"></p>
+								</div>
+							</div>
 						</div>
+						<div class="tracking-map" id="map"></div>
 					</div>
 				</div>
 			</div>

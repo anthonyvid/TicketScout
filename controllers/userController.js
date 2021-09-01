@@ -51,7 +51,6 @@ export const renderDashboard = async function (req, res) {
 	const [result, store] = await new Ticket().updateTicketList(
 		req.user.storename
 	);
-
 	res.render("logged-in/dashboard", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,

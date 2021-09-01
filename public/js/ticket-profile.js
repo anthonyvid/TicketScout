@@ -248,7 +248,10 @@ document.getElementById("confirm_tracking_details").addEventListener(
 			return;
 		}
 
-		const carrier = helper.getSelectTagCurrentValue(carrierSelect);
+		const carrier = Array.from(
+			carrierSelect.selectedOptions,
+			({ value }) => value
+		)[0].trim();
 		const id = ticketID.textContent.trim().replace("#", "");
 		const customerPhone = phone.textContent.trim().replace(/\D/g, "");
 

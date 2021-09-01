@@ -9,7 +9,6 @@ const loader = new Loader({
 });
 
 const greeting = document.getElementById("greeting");
-const trackingCover = document.getElementById("tracking_cover");
 const ticketIDInput = document.getElementById("ticket_ID_input");
 const trackBtn = document.getElementById("track_btn");
 let greet = new Date();
@@ -39,25 +38,20 @@ const showMap = (lat, lng) => {
 			var marker = new google.maps.Marker({
 				map: map,
 				position: new google.maps.LatLng(lat, lng),
-				label: {
-					text: "Package Location",
-					fontWeight: "bold",
-					fontSize: "18px",
-				},
 			});
 		}
 	});
 };
 
 const trackingLoadingAnimation = async () => {
-	document.querySelector(".tracking-results").style.display = "none";
-	document.getElementById("tracking-animation").style.display = "flex";
+	document.querySelector(".tracking-info").classList.add("hidden");
+	document.querySelector(".map-animation").classList.remove("hidden");
+	document.querySelector(".lottie-animation").classList.remove("hidden");
 	return new Promise((resolve) =>
 		setTimeout(() => {
-			document.getElementById("tracking-animation").style.display =
-				"none";
+			document.querySelector(".map-animation").classList.add("hidden");
 			resolve();
-		}, 2000)
+		}, 3000)
 	);
 };
 
@@ -77,11 +71,18 @@ const getLatLngByZipcode = async (address) => {
 };
 
 const showTrackingDetails = async (trackingObj) => {
-	document.getElementById("tracking-animation").style.display = "none";
-	document.querySelector(".tracking-results").style.display = "flex";
+	document.querySelector(".map-animation").classList.add("hidden");
+	document.querySelector(".lottie-animation").classList.add("hidden");
+	document.querySelector(".tracking-info").classList.remove("hidden");
 
 	const { eta, from, status, to, location } = trackingObj;
-	await getLatLngByZipcode(location.zip);
+
+	const zip = typeof location.zip != "undefined" ? location.zip : "";
+	const city = typeof location.city != "undefined" ? location.city : "";
+	const country =
+		typeof location.country != "undefined" ? location.country : "";
+
+	await getLatLngByZipcode(`${city} ${zip} ${country}`);
 
 	document.getElementById("status_text").textContent =
 		status !== null ? status : "Unavailable";
@@ -114,9 +115,6 @@ trackBtn.addEventListener("click", async () => {
 		helper.showInvalidColour(ticketIDInput);
 		return;
 	}
-
-	// Hide placeholder photo
-	document.querySelector(".tracking-placeholder").style.display = "none";
 
 	// Show loading animation
 	await trackingLoadingAnimation();

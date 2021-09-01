@@ -1,4 +1,4 @@
-<% const fullname = user.fullname.split("")[0].charAt(0).toUpperCase() +user.fullname.split(" ")[0].substring(1) + " " +user.fullname.split(" ")[1].charAt(0).toUpperCase()+ user.fullname.split(" ")[1].substring(1) %> 
+<% const fullname = user.fullname.split("")[0].charAt(0).toUpperCase()+user.fullname.split(" ")[0].substring(1) + " " +user.fullname.split("")[1].charAt(0).toUpperCase()+ user.fullname.split(" ")[1].substring(1) %>
 
 <link rel="stylesheet" href="/scss/logged-in/dashboard/dashboard.css" />
 <script type="module" src="/js/dashboard.js"></script>
@@ -7,9 +7,7 @@
 	<div class="main-content">
 		<main>
 			<div class="page-header">
-				<h1 id="greeting">
-					<%=fullname%>
-				</h1>
+				<h1 id="greeting"><%=fullname%></h1>
 				<small>See whats happening in your account today</small>
 			</div>
 			<div class="master-card-layout">
@@ -48,29 +46,29 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% for(let i=0; i < 3; i++) { %>
-								<tr>
-									<td>
-										<a
-											href="<%=`/tickets/${tickets[i][0]}`%>"
-											><%=tickets[i][0]%></a
-										>
-									</td>
-									<td>
-										<a
-											href="<%=`/customers/${tickets[i][1].customer.phone}`%>"
-											><%=`${tickets[i][1].customer.firstname}
-											${tickets[i][1].customer.lastname}`%></a
-										>
-									</td>
-									<td>
-										<a
-											href="<%=`/tickets/${tickets[i][0]}`%>"
-											><%=tickets[i][1].subject%></a
-										>
-									</td>
-									<td><%=tickets[i][1].status%></td>
-								</tr>
+								<% for(let i=0; i < tickets.length; i++) { %> 
+									<tr id="table_row">
+										<td>
+											<a
+												href="<%=`/tickets/${tickets[i][0]}`%>"
+												><%=tickets[i][0]%></a
+											>
+										</td>
+										<td>
+											<a
+												href="<%=`/customers/${tickets[i][1].customer.phone}`%>"
+												><%=`${tickets[i][1].customer.firstname}
+												${tickets[i][1].customer.lastname}`%></a
+											>
+										</td>
+										<td>
+											<a
+												href="<%=`/tickets/${tickets[i][0]}`%>"
+												><%=tickets[i][1].subject%></a
+											>
+										</td>
+										<td><%=tickets[i][1].status%></td>
+									</tr>
 								<% } %>
 							</tbody>
 						</table>

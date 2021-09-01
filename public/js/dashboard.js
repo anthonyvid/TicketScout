@@ -8,10 +8,30 @@ const loader = new Loader({
 	version: "weekly",
 });
 
+const tableRows = document.querySelectorAll("#table_row");
 const greeting = document.getElementById("greeting");
 const ticketIDInput = document.getElementById("ticket_ID_input");
 const trackBtn = document.getElementById("track_btn");
 let greet = new Date();
+
+/**
+ * Will hide all tickets with status as "Resolved"
+ */
+const clearResolvedTickets = () => {
+	let rows = 0;
+	for (const row of tableRows) {
+		const status =
+			row.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.textContent.trim();
+		if (status == "Resolved") {
+			row.style.display = "none";
+			continue;
+		} else {
+			rows++;
+		}
+		if (rows > 3) row.style.display = "none";
+	}
+};
+clearResolvedTickets(); // Run asap
 
 if (greet.getHours() >= 0 && greet.getHours() < 12) {
 	greeting.insertAdjacentHTML("afterbegin", `Good morning, `);

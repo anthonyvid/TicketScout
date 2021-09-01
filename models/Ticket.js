@@ -3,6 +3,7 @@ import client from "twilio";
 import fetch from "node-fetch";
 import * as helper from "./Helper.js";
 import Customer from "./Customer.js";
+import Pusher from "pusher";
 const storesCollection = db.collection("stores");
 
 class Ticket {
@@ -319,6 +320,13 @@ class Ticket {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
+		const pusher = new Pusher({
+			appId: "1259577",
+			key: "e28b6821911a7e16e187",
+			secret: "798adaa7d81ff3ecc1bc",
+			cluster: "us2",
+			useTLS: true,
+		});
 
 		//find subaccount to add msg to
 		const store = await storesCollection.findOne({
@@ -357,6 +365,10 @@ class Ticket {
 				storename
 			);
 		}
+
+		pusher.trigger("my-channel", "my-event", {
+			message: "hello world",
+		});
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page

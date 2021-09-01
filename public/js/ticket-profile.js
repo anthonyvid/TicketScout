@@ -61,7 +61,7 @@ const receivedMsgView = () => {
 };
 channel.bind(ticketID.textContent.trim().substring(1), receivedMsgView);
 
-msgPreview.addEventListener("click", () => {
+incomingMsgCover.addEventListener("click", () => {
 	incomingMsgCover.classList.add("hidden");
 });
 

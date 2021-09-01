@@ -22,6 +22,7 @@ const chatBoxTextarea = document.getElementById("chat_msg");
 const sendMsg = document.getElementById("send_msg");
 const trackingNumber = document.getElementById("tracking_number");
 const carrierSelect = document.getElementById("carrier_select");
+const incomingMsgCover = document.querySelector(".incoming-msg-cover");
 
 const currentTime = new Date().getTime();
 const lastUpdateTime = Number(lastUpdated.textContent.replace(/\D/g, ""));
@@ -32,14 +33,7 @@ const timeDiffInMonths = timeDiffInDays * 30.417;
 var pusher = new Pusher("e28b6821911a7e16e187", {
 	cluster: "us2",
 });
-
-console.log(ticketID.textContent.trim().substring(1));
-
 var channel = pusher.subscribe("sms-channel");
-channel.bind(ticketID.textContent.trim().substring(1), function (data) {
-	// alert(JSON.stringify(data) + "Reload page to view msg");
-	console.log("DATA: " + JSON.stringify(data));
-});
 
 // Sets status colour after page loads
 $(window).on("load", async () => {
@@ -59,6 +53,15 @@ $(window).on("load", async () => {
 	} catch (error) {
 		console.log(error);
 	}
+});
+
+const receivedMsgView = () => {
+	incomingMsgCover.classList.remove("hidden");
+};
+channel.bind(ticketID.textContent.trim().substring(1), receivedMsgView);
+
+msgPreview.addEventListener("click", () => {
+	incomingMsgCover.classList.add("hidden");
 });
 
 const appendTextToChat = (data) => {

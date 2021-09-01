@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/scss/logged-in/layout/layout.css" />
 <script type="module" src="/js/ticket-profile.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -35,6 +36,18 @@
 			<div class="customer-content">
 				<div class="left-container">
 					<div class="chat-box">
+						<div class="incoming-msg-cover hidden">
+							<lottie-player 
+								src="https://assets8.lottiefiles.com/packages/lf20_ovt1xnbq.json"  
+								background="transparent"  
+								speed="1"  
+								style="width: 100px; height: 100px;"  
+								loop  
+								autoplay
+							>
+							</lottie-player>
+							<h3>New message, click to view.</h3>
+						</div>
 						<div class="chat-body">
 							<% for (let i = ticket.smsData.length - 1; i > -1; i--) { %>
 								<% if(ticket.smsData[i].from === "store") {%>

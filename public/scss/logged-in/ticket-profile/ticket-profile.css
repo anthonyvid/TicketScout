@@ -173,10 +173,42 @@ a:hover {
   border-radius: 10px;
 }
 
+.customer-content .left-container .incoming-msg-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgba(165, 148, 148, 0.15);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .customer-content .left-container .chat-box {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  position: relative;
+}
+
+.customer-content .left-container .chat-box .hidden {
+  display: none;
 }
 
 .customer-content .left-container .chat-box .chat-body {

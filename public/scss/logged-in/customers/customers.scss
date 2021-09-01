@@ -12,14 +12,14 @@
 		height: 100%;
 
 		h1 {
-			color: #000;
+			color: $primaryTextGrey;
 			margin-bottom: 5px;
 			font-family: "Inter";
 			font-weight: 600;
 		}
 
 		small {
-			color: $swatch_5;
+			color: $secondarySmallTextGrey;
 		}
 	}
 

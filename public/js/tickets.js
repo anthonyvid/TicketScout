@@ -15,6 +15,14 @@ const statusSearchBox = document.getElementById("search_status");
 const lastUpdatedHeader = document.getElementById("last_updated_header");
 const hideResolvedTickets = document.getElementById("hide_resolved_tickets");
 
+var pusher = new Pusher("e28b6821911a7e16e187", {
+	cluster: "us2",
+});
+var channel = pusher.subscribe("ticket-channel");
+
+channel.bind("ticket-table-update", () => {
+	location.reload();
+});
 /**
  * Will hide all tickets with status as "Resolved"
  */
@@ -223,7 +231,6 @@ for (const select of statusSelects) {
 			id,
 			phone,
 		});
-		location.reload();
 	});
 }
 

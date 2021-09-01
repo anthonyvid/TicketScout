@@ -4,6 +4,16 @@
 
 @import "../../../helper";
 
+@keyframes blinker {
+	50% {
+		background-color: #c4b7ea;
+	}
+}
+
+.updated-row {
+	animation: blinker 1s linear;
+}
+
 main {
 	display: flex;
 	flex-direction: column;
@@ -26,13 +36,13 @@ main {
 	transform: translateY(-15px);
 
 	h1 {
-		color: #434649;
+		color: $primaryTextGrey;
 		letter-spacing: 0.01em;
 		font-weight: 600;
 	}
 
 	small {
-		color: #646769;
+		color: $secondarySmallTextGrey;
 		font-weight: 600;
 	}
 }

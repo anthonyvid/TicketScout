@@ -212,7 +212,7 @@ a:hover {
   text-indent: 35px;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
-  color: rgba(143, 143, 143, 0.75);
+  color: #434649;
 }
 
 .main-content header .search-box span {

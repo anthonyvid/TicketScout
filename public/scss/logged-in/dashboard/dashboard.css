@@ -66,6 +66,23 @@ a:hover {
   display: none;
 }
 
+@-webkit-keyframes blinker {
+  50% {
+    background-color: #c4b7ea;
+  }
+}
+
+@keyframes blinker {
+  50% {
+    background-color: #c4b7ea;
+  }
+}
+
+.updated-row {
+  -webkit-animation: blinker 1s linear;
+          animation: blinker 1s linear;
+}
+
 main {
   display: -webkit-box;
   display: -ms-flexbox;

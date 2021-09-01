@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/scss/logged-in/tickets/tickets.css" />
 <script type="module" defer src="/js/tickets.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <div class="main-content">
 	<main>
 		<div class="page-header">
@@ -48,7 +49,7 @@
 							<td class="issue">Issue</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tbody">
 						<% if(tickets.length === 0) {%>
                             <tr><td style="margin-left: 2rem;">No Tickets</td></tr>
                         <% } else { %> 

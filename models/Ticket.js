@@ -5,6 +5,13 @@ import * as helper from "./Helper.js";
 import Customer from "./Customer.js";
 import Pusher from "pusher";
 const storesCollection = db.collection("stores");
+const pusher = new Pusher({
+	appId: "1259577",
+	key: "e28b6821911a7e16e187",
+	secret: "798adaa7d81ff3ecc1bc",
+	cluster: "us2",
+	useTLS: true,
+});
 
 class Ticket {
 	/**
@@ -22,6 +29,11 @@ class Ticket {
 		}
 		sortedTickets.sort((a, b) => {
 			return b[1].lastUpdated - a[1].lastUpdated;
+		});
+
+		// Trigger update event for dashboard ticket tables
+		pusher.trigger("ticket-channel", "dashboard-table-update", {
+			sortedTickets,
 		});
 
 		return [sortedTickets, store];
@@ -96,7 +108,7 @@ class Ticket {
 		}
 
 		// Add ticket database
-		storesCollection.updateOne(
+		await storesCollection.updateOne(
 			{
 				storename: storename,
 			},
@@ -146,7 +158,7 @@ class Ticket {
 	 */
 	async updateTicketStatus(selection, ticketID, phone, storename) {
 		const latestUpdate = new Date().getTime();
-		storesCollection.updateOne(
+		await storesCollection.updateOne(
 			{
 				storename: storename,
 			},
@@ -164,6 +176,11 @@ class Ticket {
 				},
 			}
 		);
+
+		// Trigger event to reload a users ticket table when theres a change
+		pusher.trigger("ticket-channel", "ticket-table-update", {
+			message: ".",
+		});
 		return await this.updateTicketList(storename);
 	}
 
@@ -177,7 +194,7 @@ class Ticket {
 	 */
 	async updateTicketIssue(selection, ticketID, phone, storename) {
 		const latestUpdate = new Date().getTime();
-		storesCollection.updateOne(
+		await storesCollection.updateOne(
 			{
 				storename: storename,
 			},
@@ -195,6 +212,10 @@ class Ticket {
 				},
 			}
 		);
+		// Trigger event to reload a users ticket table when theres a change
+		pusher.trigger("ticket-channel", "ticket-table-update", {
+			message: ".",
+		});
 		const [tickets, store] = await this.updateTicketList(storename);
 		return tickets;
 	}
@@ -365,7 +386,6 @@ class Ticket {
 				fromNumber,
 				storename
 			);
-			console.log(ticket);
 			pusher.trigger("sms-channel", ticket, {
 				message: message,
 				timestamp: timestamp,

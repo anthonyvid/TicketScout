@@ -9,10 +9,48 @@ const loader = new Loader({
 });
 
 const tableRows = document.querySelectorAll("#table_row");
+const tbody = document.getElementById("tbody");
 const greeting = document.getElementById("greeting");
 const ticketIDInput = document.getElementById("ticket_ID_input");
 const trackBtn = document.getElementById("track_btn");
 let greet = new Date();
+
+var pusher = new Pusher("e28b6821911a7e16e187", {
+	cluster: "us2",
+});
+var channel = pusher.subscribe("ticket-channel");
+channel.bind("dashboard-table-update", (data) => {
+	let recentTickets = data.sortedTickets;
+
+	recentTickets = recentTickets.filter(
+		(ticket) => ticket[1].status != "Resolved"
+	);
+
+	const recentTicketTrio = recentTickets.slice(0, 3);
+
+	tbody.lastElementChild.remove();
+	tbody.lastElementChild.remove();
+	tbody.lastElementChild.remove();
+
+	addRecentTicketTrio(recentTicketTrio);
+	const firstTableItem = tbody.firstElementChild;
+	helper.showUpdatedRow(firstTableItem, firstTableItem.style.backgroundColor);
+});
+
+/**
+ * Adds a row to items in order table with given data
+ * @param {Object} item row data
+ */
+const addRecentTicketTrio = (trioArray) => {
+	for (let i = 0; i < trioArray.length; i++) {
+		let newRow = tbody.insertRow();
+		const fullname = `${trioArray[i][1].customer.firstname} ${trioArray[i][1].customer.lastname}`;
+		helper.addCellToRow(newRow, trioArray[i][0]);
+		helper.addCellToRow(newRow, fullname);
+		helper.addCellToRow(newRow, trioArray[i][1].description);
+		helper.addCellToRow(newRow, trioArray[i][1].status);
+	}
+};
 
 /**
  * Will hide all tickets with status as "Resolved"
@@ -23,12 +61,12 @@ const clearResolvedTickets = () => {
 		const status =
 			row.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.textContent.trim();
 		if (status == "Resolved") {
-			row.style.display = "none";
+			row.remove();
 			continue;
 		} else {
 			rows++;
 		}
-		if (rows > 3) row.style.display = "none";
+		if (rows > 3) row.remove();
 	}
 };
 clearResolvedTickets(); // Run asap

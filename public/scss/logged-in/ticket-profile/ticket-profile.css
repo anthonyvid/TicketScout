@@ -223,6 +223,7 @@ a:hover {
           flex-direction: column-reverse;
   overflow-y: auto;
   gap: 20px;
+  border-top-left-radius: 10px;
 }
 
 .customer-content .left-container .chat-box .chat-body .reply-message-box {
@@ -238,6 +239,7 @@ a:hover {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  gap: 5px;
 }
 
 .customer-content .left-container .chat-box .chat-body .reply-message-box .reply {
@@ -256,6 +258,8 @@ a:hover {
   padding: 13px 20px 13px 20px;
   border-radius: 20px 5px 20px 20px;
   word-break: break-word;
+  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .customer-content .left-container .chat-box .chat-body .received-message-box {
@@ -271,6 +275,7 @@ a:hover {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  gap: 5px;
 }
 
 .customer-content .left-container .chat-box .chat-body .received-message-box .received {
@@ -289,6 +294,8 @@ a:hover {
   padding: 13px 20px 13px 20px;
   border-radius: 5px 20px 20px 20px;
   word-break: break-word;
+  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .customer-content .left-container .chat-box .chat-body .msg-details {
@@ -318,6 +325,8 @@ a:hover {
       -ms-flex-align: center;
           align-items: center;
   padding: 20px;
+  -webkit-box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+          box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .customer-content .left-container .chat-box .chat-send-wrap .chat-send-content {

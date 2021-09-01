@@ -21,6 +21,13 @@ export const postReq = async (url, body) => {
 	}
 };
 
+export const showUpdatedRow = (row, originalColor) => {
+	row.classList.add("updated-row");
+	setTimeout(() => {
+		row.classList.remove("updated-row");
+	}, 1000);
+};
+
 export const showInvalidColour = (element) => {
 	element.style.backgroundColor = "#FFCCCC";
 	setTimeout(() => {

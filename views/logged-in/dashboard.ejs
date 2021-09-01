@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/scss/logged-in/dashboard/dashboard.css" />
 <script type="module" src="/js/dashboard.js"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <body>
 	<div class="main-content">
 		<main>
@@ -45,7 +46,7 @@
 									<td>Status</td>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="tbody">
 								<% for(let i=0; i < tickets.length; i++) { %> 
 									<tr id="table_row">
 										<td>

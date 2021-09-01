@@ -322,9 +322,17 @@ class Ticket {
 		console.log(smsData);
 
 		//find subaccount to add msg to
-		// const store = await storesCollection.findOne({
-		// 	"storedata.api.twilio.sid": subAccountSid,
-		// });
+		const store = await storesCollection.updateOne({
+			"storedata.api.twilio.sid": subAccountSid,
+		});
+
+		let tickets = store.storedata.customers[fromNumber].tickets;
+
+		tickets = Object.values(tickets).forEach((ticket) => {
+			if (ticket.status != "Resolved") return ticket;
+		});
+
+		console.log(tickets);
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page

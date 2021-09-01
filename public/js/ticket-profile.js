@@ -57,6 +57,7 @@ $(window).on("load", async () => {
 
 const receivedMsgView = () => {
 	incomingMsgCover.classList.remove("hidden");
+	location.reload();
 };
 channel.bind(ticketID.textContent.trim().substring(1), receivedMsgView);
 

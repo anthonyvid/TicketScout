@@ -33,10 +33,10 @@ var pusher = new Pusher("e28b6821911a7e16e187", {
 	cluster: "us2",
 });
 
-console.log(ticketID.textContent.trim());
+console.log(ticketID.textContent.trim().substring(1));
 
 var channel = pusher.subscribe("sms-channel");
-channel.bind(ticketID.textContent.trim(), function (data) {
+channel.bind(ticketID.textContent.trim().substring(1), function (data) {
 	// alert(JSON.stringify(data) + "Reload page to view msg");
 	console.log("DATA: " + JSON.stringify(data));
 });

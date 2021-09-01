@@ -331,7 +331,7 @@ class Ticket {
 			if (ticket.status != "Resolved") ticketForMsg.push(ticket);
 		});
 
-		console.log(tickets);
+		console.log(ticketForMsg);
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page

@@ -326,7 +326,9 @@ class Ticket {
 		});
 
 		let customerTickets = store.storedata.customers[fromNumber].tickets;
-		let ticketForMsg = null;
+		console.log(customerTickets);
+
+		let ticketForMsg = [];
 		Object.values(customerTickets).forEach((ticket) => {
 			if (ticket.status != "Resolved") ticketForMsg.push(ticket);
 		});

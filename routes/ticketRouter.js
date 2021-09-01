@@ -54,7 +54,7 @@ router.post(
 router.post(
 	"/track-shipment",
 	ensureAuthenticated,
-	ticketController.trackShipment
+	catchError(ticketController.trackShipment)
 );
 
 router.post(

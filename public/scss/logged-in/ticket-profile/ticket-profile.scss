@@ -86,46 +86,54 @@
 				overflow-y: auto;
 				gap: 20px;
 
-				.message-box {
+				.reply-message-box {
 					width: 100%;
 					height: auto;
 					display: flex;
 					flex-direction: column;
 					align-items: flex-end;
+
+					.reply {
+						float: right;
+						display: flex;
+						align-items: center;
+						height: auto;
+						width: auto;
+						max-width: 600px;
+						background-color: $activeMenuItem;
+						color: white;
+						padding: 13px 20px 13px 20px;
+						border-radius: 20px 5px 20px 20px;
+						word-break: break-word;
+					}
 				}
 
+				.received-message-box {
+					width: 100%;
+					height: auto;
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+
+					.received {
+						float: left;
+						display: flex;
+						align-items: center;
+						height: auto;
+						width: auto;
+						max-width: 600px;
+						background-color: darken(#f6f7fb, 5%);
+						color: black;
+						padding: 13px 20px 13px 20px;
+						border-radius: 5px 20px 20px 20px;
+						word-break: break-word;
+					}
+				}
 				.msg-details {
 					display: flex;
 					flex-direction: column;
 					align-items: flex-end;
 					color: grey;
-				}
-
-				.reply {
-					float: right;
-					display: flex;
-					align-items: center;
-					height: auto;
-					width: auto;
-					max-width: 600px;
-					background-color: $activeMenuItem;
-					color: white;
-					padding: 13px 20px 13px 20px;
-					border-radius: 20px 5px 20px 20px;
-					word-break: break-word;
-				}
-				.received {
-					float: left;
-					display: flex;
-					align-items: center;
-					height: auto;
-					width: auto;
-					max-width: 600px;
-					background-color: #f6f7fb;
-					color: black;
-					padding: 13px 20px 13px 20px;
-					border-radius: 5px 20px 20px 20px;
-					word-break: break-word;
 				}
 			}
 
@@ -289,8 +297,16 @@
 
 					#shipping_details {
 						@include centerFlexChild;
-						flex-direction: row;
+						flex-direction: column;
 						gap: 10px;
+						align-items: flex-start;
+
+						div {
+							display: flex;
+							gap: 10px;
+							justify-content: flex-start;
+							align-items: center;
+						}
 					}
 
 					.add-tracking-info {

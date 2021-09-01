@@ -53,7 +53,7 @@ const appendTextToChat = (data) => {
 	const { msg, user, timeSent } = data;
 
 	const messageBox = document.createElement("div");
-	messageBox.classList.add("message-box");
+	messageBox.classList.add("reply-message-box");
 	const messageText = document.createElement("p");
 	const text = document.createTextNode(msg);
 	messageText.appendChild(text);
@@ -72,7 +72,7 @@ const appendTextToChat = (data) => {
 	timestamp.appendChild(timestampText);
 	messageDetails.appendChild(userText);
 	messageDetails.appendChild(timestamp);
-	document.querySelector(".message-box").appendChild(messageDetails);
+	document.querySelector(".reply-message-box").appendChild(messageDetails);
 };
 
 /**
@@ -287,7 +287,7 @@ sendMsg.addEventListener(
 			toPhone,
 			ticketID: id,
 		});
-		console.log(data);
+
 		// Invalid customr phone number
 		if (data.msg.code == 21211 || data.msg.status == 400) {
 			appendTextToChat(

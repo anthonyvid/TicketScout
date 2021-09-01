@@ -37,7 +37,7 @@
 						<div class="chat-body">
 							<% for (let i = ticket.smsData.length - 1; i > -1; i--) { %>
 								<% if(ticket.smsData[i].from === "store") {%>
-									<div class="message-box">
+									<div class="reply-message-box">
 										<p class="reply">	
 											<%= ticket.smsData[i].message %> 
 										</p>
@@ -47,7 +47,7 @@
 										</div>
 									</div>
 								<% } else if(ticket.smsData[i].from === "client") {%>
-									<div class="message-box">
+									<div class="received-message-box">
 										<p class="received"><%= ticket.smsData[i].message %> </p>
 										<div class="msg-details">	
 											<small><%= ticket.smsData[i].timestamp %> </small>
@@ -237,10 +237,14 @@
 									<button class="add-tracking-info" type="button">Add tracking info</button>
 								<% } else {%> 
 									<div id="shipping_details">
-										<span><i class="fas fa-hashtag"></i></span>
-										<p><%= ticket.shipping.tracking %></p>
-										<span><i class="fas fa-shipping-fast"></i></span>
-										<p><%= ticket.shipping.carrier %></p>
+										<div>
+											<span><i class="fas fa-hashtag"></i></span>
+											<p><%= ticket.shipping.tracking %></p>
+										</div>
+										<div>
+											<span><i class="fas fa-shipping-fast"></i></span>
+											<p><%= ticket.shipping.carrier %></p>
+										</div>
 										<button class="add-tracking-info" type="button">edit</button>
 									</div>
 								<% } %> 

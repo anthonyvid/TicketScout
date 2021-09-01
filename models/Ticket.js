@@ -324,6 +324,7 @@ class Ticket {
 		const store = await storesCollection.findOne({
 			"storedata.api.twilio.sid": subAccountSid,
 		});
+		const storename = store.storename;
 
 		let customerTickets = store.storedata.customers[fromNumber].tickets;
 
@@ -332,8 +333,6 @@ class Ticket {
 			if (customerTickets[ticketID].status != "Resolved")
 				ticketsForMsg.push(ticketID);
 		});
-
-		console.log(ticketsForMsg);
 
 		for (const ticket of ticketsForMsg) {
 			await storesCollection.updateOne(
@@ -351,6 +350,7 @@ class Ticket {
 					},
 				}
 			);
+			updateTicketStatus("Reply", ticket, fromNumber, storename);
 		}
 
 		//also update the status of the ticket to CUSTOMER_REPLY

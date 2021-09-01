@@ -192,7 +192,7 @@ a:hover {
   gap: 20px;
 }
 
-.customer-content .left-container .chat-box .chat-body .message-box {
+.customer-content .left-container .chat-box .chat-body .reply-message-box {
   width: 100%;
   height: auto;
   display: -webkit-box;
@@ -207,21 +207,7 @@ a:hover {
           align-items: flex-end;
 }
 
-.customer-content .left-container .chat-box .chat-body .msg-details {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  color: grey;
-}
-
-.customer-content .left-container .chat-box .chat-body .reply {
+.customer-content .left-container .chat-box .chat-body .reply-message-box .reply {
   float: right;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -239,7 +225,22 @@ a:hover {
   word-break: break-word;
 }
 
-.customer-content .left-container .chat-box .chat-body .received {
+.customer-content .left-container .chat-box .chat-body .received-message-box {
+  width: 100%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.customer-content .left-container .chat-box .chat-body .received-message-box .received {
   float: left;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -250,11 +251,25 @@ a:hover {
   height: auto;
   width: auto;
   max-width: 600px;
-  background-color: #f6f7fb;
+  background-color: #e4e7f3;
   color: black;
   padding: 13px 20px 13px 20px;
   border-radius: 5px 20px 20px 20px;
   word-break: break-word;
+}
+
+.customer-content .left-container .chat-box .chat-body .msg-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  color: grey;
 }
 
 .customer-content .left-container .chat-box .chat-send-wrap {
@@ -524,11 +539,27 @@ a:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 10px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.customer-content .right-container .ticket-info-wrap .info-wrap .item-style #shipping_details div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .customer-content .right-container .ticket-info-wrap .info-wrap .item-style .add-tracking-info {

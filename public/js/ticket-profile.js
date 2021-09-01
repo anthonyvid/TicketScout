@@ -36,8 +36,9 @@ var pusher = new Pusher("e28b6821911a7e16e187", {
 console.log(ticketID.textContent.trim());
 
 var channel = pusher.subscribe("sms-channel");
-channel.bind(`ticket:${ticketID.textContent.trim()}`, function (data) {
-	alert(JSON.stringify(data) + "Reload page to view msg");
+channel.bind("my-event", function (data) {
+	// alert(JSON.stringify(data) + "Reload page to view msg");
+	console.log("DATA: " + JSON.stringify(data));
 });
 
 // Sets status colour after page loads

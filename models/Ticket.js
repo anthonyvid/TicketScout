@@ -366,7 +366,7 @@ class Ticket {
 				storename
 			);
 			console.log(ticket);
-			pusher.trigger("sms-channel", `ticket:${ticket}`, {
+			pusher.trigger("sms-channel", "my-event", {
 				message: message,
 				timestamp: timestamp,
 			});

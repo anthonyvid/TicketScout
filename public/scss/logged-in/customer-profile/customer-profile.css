@@ -23,7 +23,6 @@
 
 body {
   font-family: "Inter";
-  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {
@@ -142,10 +141,6 @@ div::-webkit-scrollbar {
 
 .header-wrap .actions-wrap .action-style:hover {
   cursor: pointer;
-}
-
-.header-wrap .actions-wrap .document-btn {
-  width: 50px !important;
 }
 
 .hidden {

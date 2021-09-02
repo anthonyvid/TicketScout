@@ -19,6 +19,7 @@ export const renderCustomerProfile = async function (req, res) {
 		req.user.storename,
 		req.params.phone
 	);
+
 	res.status(200).render("logged-in/customer-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,

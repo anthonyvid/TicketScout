@@ -42,9 +42,9 @@ export const renderCreateNewTicket = function (req, res) {
 	});
 };
 
-export const createNewTicket = async function (req, res, next) {
+export const createNewTicket = async function (req, res) {
 	const ticket = new Ticket();
-	const result = await ticket.createNewTicket(req.body, req.user.storename);
+	const result = await ticket.createNewTicket(req.body, req.user);
 	const [ticketError, data, ticketID] = result;
 
 	if (Object.keys(ticketError).length === 0) {

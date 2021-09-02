@@ -21,8 +21,13 @@
 				</div>
 				<div class="actions-wrap">
                     <div class="document-btn action-style ">
-							<i class="fas fa-file-pdf"></i>
+						<i class="fas fa-file-pdf"></i>
 					</div>
+					<% if(payment.linkedTicket.length) {%> 
+						<div class="resolve-ticket action-style">
+							Resolve Ticket
+						</div>
+					<% } %> 
                 </div>
 			</div>
 			<div class="payment-content">
@@ -44,7 +49,7 @@
                         <div class="client-contact-info">
                             <p><b>Client Contact Info:</b></p>
                             <p><%=fullname%></p>
-                            <p><%=phone%></p>
+                            <p id="customer_phone"><%=phone%></p>
                             <p><%=payment.customer.email%></p>
                         </div>
                         <div>
@@ -61,10 +66,10 @@
                         </div>
                         <div>
                             <p><b>Linked Ticket:</b></p>
-							<% if(payment.linkedTicket.length == 0) {%> 
+							<% if(!payment.linkedTicket.length) {%> 
 								<p>No ticket linked</p>
 							<% } else {%>
-								<p><a href="<%=`/tickets/${payment.linkedTicket}`%>"><%="#"+payment.linkedTicket%></a></p>
+								<p><a id="linked_ticket" href="<%=`/tickets/${payment.linkedTicket}`%>"><%="#"+payment.linkedTicket%></a></p>
 							<% } %> 
                         </div>
                     </div>   
@@ -103,4 +108,81 @@
 			</div>
 		</div>
 	</main>
+</div>
+<div id="section-to-print" class="invoice-box">
+	<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td class="title">
+									<h3><%=user.storename%></h3>
+								</td>
+
+								<td>
+									Payment #: <%=paymentNumber%><br />
+									Date: <%=payment.date%><br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td>
+									<%=user.storename%><br />
+									<%=store.storeSettings.payments.address.primary%><br />
+									<%=`${store.storeSettings.payments.address.city}, ${store.storeSettings.payments.address.province} ${store.storeSettings.payments.address.postal} `%>
+								</td>
+
+								<td>
+									<%=fullname%><br />
+									<%=phone%><br />
+									<%=payment.customer.email%>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="heading">
+					<td>Payment Method</td>
+
+					<td></td>
+				</tr>
+
+				<tr class="details">
+					<td><%=payment.paymentMethod%></td>
+
+					<td></td>
+				</tr>
+
+				<tr class="heading">
+					<td>Item</td>
+					<td>Price</td>
+				</tr>
+				<% for(let i=0; i<payment.orderItems.length; i++) { %>
+					<tr class="item">
+					<td><%=payment.orderItems[i].description%></td>
+					<td>$<%=payment.orderItems[i].amount%></td>
+				</tr>
+				<% } %> 
+				
+				<tr class="item last">
+					<td><b>Tax</b></td>
+					<% let taxAmount = 0; %> 
+					<% for(let i=0; i<payment.orderItems.length; i++) { %>
+						<%taxAmount += payment.orderItems[i].taxDollar;%>
+					<% } %> 
+					<td><b>$<%=taxAmount%></b></td>
+				</tr>
+
+				<tr class="total">
+					<td></td>
+					<td>Total: $<%=payment.orderTotal%></td>
+				</tr>
+			</table>
 </div>

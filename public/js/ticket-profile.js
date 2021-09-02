@@ -90,15 +90,6 @@ const appendTextToChat = (data) => {
 	document.querySelector(".reply-message-box").appendChild(messageDetails);
 };
 
-/**
- * Prints customer label
- * TODO: Not setup yet
- */
-function printCustomerLabel() {
-	//need to figure out how im gonna make it print labels
-	console.log("PRINT LABEL");
-}
-
 submitChangeBtn.addEventListener(
 	"click",
 	async () => {
@@ -232,13 +223,7 @@ if (timeDiffInSec < 60) {
 	)} months ago`;
 }
 
-documentBtn.addEventListener(
-	"click",
-	() => {
-		printCustomerLabel();
-	},
-	{ passive: true }
-);
+documentBtn.addEventListener("click", helper.print);
 
 for (const btn of addTrackingInfo) {
 	btn.addEventListener("click", () => {

@@ -6,15 +6,16 @@ const submitChangeBtn = document.getElementById("submit_info_change");
 const createNewForm = document.getElementById("create_new_form");
 const newTicketBtn = document.querySelector(".new-ticket-btn");
 const newPaymentBtn = document.querySelector(".new-payment-btn");
-const documentBtn = document.querySelector(".document-btn");
+const ticketTable = document.getElementById("ticket_table");
+const ticketTableRows = document.querySelectorAll(".ticket-row");
 
-/**
- * Prints a customer label
- * TODO: Not yet setup
- */
-function printCustomerLabel() {
-	//need to figure out how im gonna make it print labels
-	console.log("PRINT LABEL");
+for (const row of ticketTableRows) {
+	const status =
+		row.lastElementChild.previousElementSibling.textContent.trim();
+	if (status == "Resolved") {
+		row.remove();
+		ticketTable.appendChild(row);
+	}
 }
 
 editCustomerInfo.addEventListener(
@@ -67,16 +68,8 @@ newTicketBtn.addEventListener(
 newPaymentBtn.addEventListener(
 	"click",
 	() => {
-		createNewForm.action = "/payments/create-new-payment";
+		createNewForm.action = "/payments/new-payment";
 		createNewForm.submit();
-	},
-	{ passive: true }
-);
-
-documentBtn.addEventListener(
-	"click",
-	() => {
-		printCustomerLabel();
 	},
 	{ passive: true }
 );

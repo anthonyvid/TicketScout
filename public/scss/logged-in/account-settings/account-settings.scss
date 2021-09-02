@@ -517,6 +517,7 @@
 		}
 
 		#employees {
+			border: 1px solid red;
 			h2 {
 				margin-bottom: 5px;
 			}
@@ -561,6 +562,10 @@
 		}
 
 		#deletedata {
+			// height: auto;
+			display: flex;
+			flex-direction: column;
+
 			h2 {
 				margin-bottom: 5px;
 			}

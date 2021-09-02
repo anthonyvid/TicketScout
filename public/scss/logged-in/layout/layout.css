@@ -23,7 +23,6 @@
 
 body {
   font-family: "Inter";
-  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {
@@ -202,7 +201,7 @@ a:hover {
 
 .main-content header .search-box input {
   height: 45px;
-  width: 190px;
+  width: 200px;
   background: #ffffff;
   -webkit-box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
           box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);

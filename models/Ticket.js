@@ -37,14 +37,14 @@ class Ticket {
 	/**
 	 * Creates new ticket object and adds to necessary parts of database
 	 * @param {object} formData
-	 * @param {string} storename
+	 * @param {object} user
 	 * @returns array
 	 */
-	async createNewTicket(formData, storename) {
+	async createNewTicket(formData, user) {
 		if (!helper.isValidPhone(formData.phone)) {
 			return [{ phoneError: "Invalid phone number" }, formData];
 		}
-
+		const { storename, fullname } = user;
 		const store = await helper.getStore(storename);
 		const storeCustomers = store.storedata.customers;
 		const storeTickets = store.storedata.tickets;
@@ -127,6 +127,13 @@ class Ticket {
 					[`storedata.tickets.${[mostRecentTicketNum]}`]: ticket,
 				},
 			}
+		);
+
+		await this.sendSms(
+			user,
+			mostRecentTicketNum,
+			ticket.customer.phone,
+			`Hi there! Welcome to ${storename}. Your ticket number is ${mostRecentTicketNum}, you can reply to this chat at any time if you have any questions while we service your product.`
 		);
 
 		return [{}, ticket, mostRecentTicketNum];
@@ -282,7 +289,7 @@ class Ticket {
 
 	/**
 	 * Sends a text message to toPhone using Twilio api
-	 * @param {string} storename
+	 * @param {object} user
 	 * @param {string} ticketID
 	 * @param {string} toPhone
 	 * @param {string} message
@@ -441,6 +448,8 @@ class Ticket {
 			location: json.tracking_status.location,
 		};
 	}
+
+	async sendDefaultTicketSMS() {}
 }
 
 export default Ticket;

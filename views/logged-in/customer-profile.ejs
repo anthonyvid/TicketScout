@@ -32,9 +32,6 @@
 					<div class="new-payment-btn action-style ">
 						new payment<i class="fas fa-credit-card"></i>
 					</div>					
-					<div class="document-btn action-style ">
-						<i class="fas fa-file-pdf"></i>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -54,14 +51,14 @@
 									<td class="">Date Created</td>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="ticket_table">
 								<% if(Object.keys(customer.tickets).length === 0) { %>
 									<tr>
 										<td>No Tickets</td>
 									</tr>
 								<% } else {%> 
 									<% for(const ticket in customer.tickets) { %>
-										<tr>
+										<tr class="ticket-row">
 											<td class="ticketID"><a href=<%= `/tickets/${ticket}` %>><%= ticket %></a></td>
 											<td class="ticket_subject"><a href=<%= `/tickets/${ticket}`%>><%= customer.tickets[ticket].subject %></a></td>
 											<td class="ticket_status"><%= customer.tickets[ticket].status %></td>
@@ -87,13 +84,13 @@
 									<td class="">Date</td>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody> 
 								<% if(Object.keys(customer.payments).length == 0) {%>
 									<tr>
 										<td>No Payments</td>
 									</tr>
 								<% } else {%> 
-									<% for(let i=0; i<Object.keys(customer.payments).length; i++) {%>
+									<% for(let i=Object.keys(customer.payments).length - 1; i>-1; i--) {%>
 									<tr>
 										<td><a href=<%=`/payments/${Object.keys(customer.payments)[i]}`%>> <%=Object.keys(customer.payments)[i]%></a></td>
 										<td><%= "$"+Object.values(customer.payments)[i].orderTotal %></td>
@@ -196,8 +193,7 @@
 			<input type="hidden" name="firstname" id="firstname" value="<%=customer.firstname%>">			
 			<input type="hidden" name="lastname" id="lastname" value="<%=customer.lastname%>">			
 			<input type="hidden" name="phone" id="phone" value="<%=customer.phone%>">			
-			<input type="hidden" name="email" id="email" value="<%=customer.email%>">			
-			<input type="hidden" name="customerDataExists" id="customer_data_exists" value="">			
+			<input type="hidden" name="email" id="email" value="<%=customer.email%>">					
 		</form>
 	</main>
 </div>

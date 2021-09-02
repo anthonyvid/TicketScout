@@ -23,7 +23,6 @@
 
 body {
   font-family: "Inter";
-  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {
@@ -95,7 +94,7 @@ main {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 2rem 3rem 0 3rem !important;
-  overflow-y: none !important;
+  overflow: hidden !important;
 }
 
 .main-content {

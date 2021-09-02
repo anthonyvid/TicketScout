@@ -89,6 +89,14 @@ const showSearchResults = (results) => {
 		resultBox.appendChild(text);
 		resultDropdown.appendChild(resultBox);
 	}
+
+	window.addEventListener("mouseup", (e) => {
+		var container = $(resultDropdown);
+
+		if (!container.is(e.target) && container.has(e.target).length === 0) {
+			resultDropdown.style.display = "none";
+		}
+	});
 };
 
 /**
@@ -116,9 +124,20 @@ searchInput.addEventListener("input", liveSearch, { passive: true });
 document.querySelector(".icon-wrap").addEventListener(
 	"click",
 	() => {
-		console.log("ya");
 		arrowIcon.classList.toggle("rotate");
 		accountSettingsDropdown.classList.toggle("show-dd");
+
+		window.addEventListener("mouseup", (e) => {
+			var container = $(arrowIcon);
+
+			if (
+				!container.is(e.target) &&
+				container.has(e.target).length === 0
+			) {
+				arrowIcon.classList.remove("rotate");
+				accountSettingsDropdown.classList.remove("show-dd");
+			}
+		});
 	},
 	{ passive: true }
 );
@@ -155,6 +174,18 @@ plusBoxIcon.addEventListener(
 		} else {
 			plusBoxIcon.style.color = "#b1aec2";
 		}
+
+		window.addEventListener("mouseup", (e) => {
+			var container = $(createNewDropdown);
+
+			if (
+				!container.is(e.target) &&
+				container.has(e.target).length === 0
+			) {
+				plusBoxIcon.style.color = "#b1aec2";
+				createNewDropdown.classList.remove("show-create-new-dd");
+			}
+		});
 	},
 	{ passive: true }
 );

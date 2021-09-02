@@ -23,7 +23,6 @@
 
 body {
   font-family: "Inter";
-  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {
@@ -915,6 +914,10 @@ a:hover {
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
+.account-settings-container .section-content #employees {
+  border: 1px solid red;
+}
+
 .account-settings-container .section-content #employees h2 {
   margin-bottom: 5px;
 }
@@ -980,6 +983,16 @@ a:hover {
   border: 1px solid #e8edf5;
   -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
           box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.account-settings-container .section-content #deletedata {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .account-settings-container .section-content #deletedata h2 {

@@ -23,7 +23,6 @@
 
 body {
   font-family: "Inter";
-  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {
@@ -760,6 +759,21 @@ a:hover {
   .customer-content .right-container {
     width: 100%;
     overflow-y: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print,
+  #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }
 /*# sourceMappingURL=ticket-profile.css.map */

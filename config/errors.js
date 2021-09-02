@@ -12,6 +12,7 @@ export const catchError = (fn) => (req, res, next) => {
 
 		// Add error into database for referencing later
 		await errorsCollection.insertOne({
+			date: new Date().toLocaleString,
 			error: error,
 			message: error.message,
 			address: error.address,

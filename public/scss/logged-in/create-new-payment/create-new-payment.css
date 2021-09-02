@@ -23,7 +23,6 @@
 
 body {
   font-family: "Inter";
-  overflow: hidden;
 }
 
 input[type="search"]::-ms-clear {
@@ -77,9 +76,13 @@ a:hover {
   color: #717987;
 }
 
+main {
+  height: auto;
+}
+
 .new-payment-container {
   width: 100%;
-  height: calc(100%);
+  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -22,6 +22,7 @@ export const renderPaymentProfile = async function (req, res) {
 	);
 
 	const store = await getStore(req.user.storename);
+	console.log(result);
 	res.render("logged-in/payment-profile", {
 		layout: "layouts/logged-in-layout",
 		user: req.user,
@@ -47,6 +48,10 @@ export const renderCreateNewPayment = async function (req, res) {
 			typeof req.body.lastname !== "undefined" ? req.body.lastname : "",
 		phone: typeof req.body.phone !== "undefined" ? req.body.phone : "",
 		email: typeof req.body.email !== "undefined" ? req.body.email : "",
+		linkedTicket:
+			typeof req.body.linkedTicket !== "undefined"
+				? req.body.linkedTicket
+				: "",
 	});
 };
 

@@ -517,7 +517,6 @@
 		}
 
 		#employees {
-			border: 1px solid red;
 			h2 {
 				margin-bottom: 5px;
 			}
@@ -557,6 +556,29 @@
 							@include simpleButtonStyle;
 						}
 					}
+				}
+			}
+		}
+
+		#reports {
+			h2 {
+				margin-bottom: 5px;
+			}
+
+			.report-content {
+				display: flex;
+				gap: 15px;
+				height: 100%;
+				width: 100%;
+				padding-top: 25px;
+
+				.left-container,
+				.right-container {
+					display: flex;
+					flex-direction: column;
+					gap: 15px;
+					height: 100%;
+					width: 50%;
 				}
 			}
 		}

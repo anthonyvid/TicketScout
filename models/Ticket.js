@@ -333,6 +333,9 @@ class Ticket {
 								],
 							},
 						},
+						$inc: {
+							"storeSettings.sms.numSent": 1,
+						},
 					}
 				);
 				return message.body;
@@ -402,6 +405,17 @@ class Ticket {
 				timestamp: timestamp,
 			});
 		}
+
+		await storesCollection.updateOne(
+			{
+				"storedata.api.twilio.sid": subAccountSid,
+			},
+			{
+				$inc: {
+					"storeSettings.sms.numReceived": 1,
+				},
+			}
+		);
 
 		//also update the status of the ticket to CUSTOMER_REPLY
 		//maybe setup socket.io connection here to display msg if user is on that page

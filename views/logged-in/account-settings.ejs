@@ -40,6 +40,9 @@
 					<a href="#employees" class="menu-item"
 						><i class="fas fa-users-cog"></i>Employees</a
 					>
+					<a href="#reports" class="menu-item"
+						><i class="fas fa-chart-pie"></i>Reports</a
+					>
 					<a href="#deletedata" class="menu-item"
 						><i class="fas fa-comment-dots"></i>Delete Data</a
 					>
@@ -319,6 +322,74 @@
 								</div>
 							</div>
 							<div class="right-container"> </div>
+						</div>
+					</div>
+					<div id="reports" class="section">
+						<% let date = new Date()%>
+						<% let totalSales = 0%> 
+						<% let totalMonthlySales = 0 %>
+						<% let firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).toLocaleDateString()%> 
+						<% let lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).toLocaleDateString()%> 
+						<% for(const payment of Object.values(store.storedata.payments)) {%>
+							<%totalSales += parseFloat(payment.orderTotal)%>
+							<% const paymentDate = new Date(payment.date).toLocaleDateString() %>
+							<% if(paymentDate >= firstDayOfMonth && paymentDate <= lastDayOfMonth) {%> 
+								<%totalMonthlySales += parseFloat(payment.orderTotal)%>
+							<% } %> 
+						<% } %> 
+
+						<% let totalPayments = Object.keys(store.storedata.payments).length %> 
+						<% let totalTickets = Object.keys(store.storedata.tickets).length %> 
+						<% let totalOpenTickets = 0 %> 
+						<% let totalClosedTickets = 0 %> 
+						<% for(const ticket of Object.values(store.storedata.tickets)) { %>
+							<% if(ticket.status == "Resolved") { %>
+								<% totalClosedTickets++ %> 
+							<% } else {%>
+								<% totalOpenTickets++ %> 
+							<% } %> 
+						<% } %> 
+						<h2>Store Reports</h2>
+						<small>View and edit employee settings</small>
+						<div class="report-content">
+							<div class="left-container">
+								<div>
+									<h4>Total sales:</h4>
+									<small id="total_sales">$<%=totalSales.toFixed(2)%></small>
+								</div>
+								<div>
+									<h4>Total sales this month:</h4>
+									<small id="total_monthly_sales">$<%=totalMonthlySales.toFixed(2)%></small>
+								</div>
+								<div>
+									<h4>Total payments:</h4>
+									<small id="total_payments"><%=totalPayments%></small>
+								</div>
+								<br>
+								<div>
+									<h4>Total tickets:</h4>
+									<small id="total_tickets"><%=totalTickets%></small>
+								</div>
+								<div>
+									<h4>Total open tickets:</h4>
+									<small id="total_open_tickets"><%=totalOpenTickets%></small>
+								</div>
+								<div>
+									<h4>Total resolved tickets:</h4>
+									<small id="total_resolved_tickets"><%=totalClosedTickets%></small>
+								</div>
+							</div>
+							<div class="right-container">
+								<div>
+									<h4>Number of SMS sent:</h4>
+									<small id="total_monthly_sales"><%=store.storeSettings.sms.numSent%></small>
+								</div>
+								<br>
+								<div>
+									<h4>Number of SMS received:</h4>
+									<small id="total_tickets"><%=store.storeSettings.sms.numReceived%></small>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div id="deletedata" class="section">

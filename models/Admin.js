@@ -199,6 +199,10 @@ class Admin extends User {
 						postal: "",
 					},
 				},
+				sms: {
+					numSent: 0,
+					numReceived: 0,
+				},
 			},
 		};
 

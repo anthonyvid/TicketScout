@@ -428,7 +428,6 @@ class Ticket {
 	 * @returns object
 	 */
 	async trackShipment(ticketID, storename) {
-		console.log(ticketID);
 		const store = await helper.getStore(storename);
 		const storeTickets = store.storedata.tickets;
 
@@ -450,10 +449,10 @@ class Ticket {
 		});
 		const json = await response.json();
 
-		// If tracking is invalid return with errors
-		if (!json.tracking_status) {
-			return { tracking_error: "Tracking Info Invalid3" };
-		}
+		// // If tracking is invalid return with errors
+		// if (!json.tracking_status) {
+		// 	return { tracking_error: "Tracking Info Invalid3" };
+		// }
 
 		return {
 			from: json.address_from,

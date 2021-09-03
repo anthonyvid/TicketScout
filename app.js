@@ -3,7 +3,7 @@ import expressLayouts from "express-ejs-layouts";
 import flash from "connect-flash";
 import session from "cookie-session";
 import passport from "passport";
-import { db, configMongoConnection } from "./db.js";
+import { configMongoConnection } from "./db.js";
 const app = express();
 
 //Connect to mongoDB

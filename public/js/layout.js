@@ -11,7 +11,7 @@ const accountSettingsDropdown = document.querySelector(".dropdown");
 const arrowIcon = document.getElementById("arrow");
 const newBtns = document.querySelectorAll(".new-btn");
 const searchInput = document.getElementById("search_for_anything");
-console.log(searchInput);
+let menuLinks = document.querySelectorAll(".menu-link");
 let date = new Date();
 let month = date.getMonth();
 let day = date.getDate();
@@ -42,7 +42,6 @@ document.getElementById("current_date").insertAdjacentHTML("afterbegin", today);
 (() => {
 	var currentUrl = document.URL;
 	var currentUrlEnd = currentUrl.split("/").filter(Boolean).pop();
-	console.log(currentUrlEnd);
 	$("#nav_list li a").each(function () {
 		var thisUrl = $(this).attr("href");
 		var thisUrlEnd = thisUrl.split("/").filter(Boolean).pop();

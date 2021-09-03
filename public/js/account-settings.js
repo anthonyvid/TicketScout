@@ -62,30 +62,34 @@ const employeeTotalCheckbox = document.getElementById(
 
 let totalHoursWorked = 0;
 
-// Add row to table for each of users clock in clock history
-for (const item of userClockHistory) {
+/**
+ * Displays the users timecocks, most recent first
+ */
+for (let i = userClockHistory.length - 1; i > -1; i--) {
 	const newRow = tableBodyRef.insertRow();
 	newRow.classList.add("table-row");
 
 	// Date of clock
-	helper.addCellToRow(newRow, item.date);
+	helper.addCellToRow(newRow, userClockHistory[i].date);
 	// Clock In time of clock
 	helper.addCellToRow(
 		newRow,
-		new Date(item.clockInTime).toLocaleTimeString()
+		new Date(userClockHistory[i].clockInTime).toLocaleTimeString()
 	);
 	// Clock Out time of clock
 	helper.addCellToRow(
 		newRow,
-		new Date(item.clockOutTime).toLocaleTimeString()
+		new Date(userClockHistory[i].clockOutTime).toLocaleTimeString()
 	);
 	// Number of Hours worked for clock
-	helper.addCellToRow(newRow, item.hoursWorked.toFixed(3));
+	helper.addCellToRow(newRow, userClockHistory[i].hoursWorked.toFixed(3));
 
-	totalHoursWorked += Number(item.hoursWorked.toFixed(3));
+	totalHoursWorked += Number(userClockHistory[i].hoursWorked);
 }
 
-hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked}`;
+hoursWorkedText.textContent = `Total hours worked: ${totalHoursWorked.toFixed(
+	2
+)}`;
 
 // Clear from and to date inputs, as well as hours worked for that period
 clearDateBtn.addEventListener(

@@ -428,6 +428,7 @@ class Ticket {
 	 * @returns object
 	 */
 	async trackShipment(ticketID, storename) {
+		console.log(ticktID);
 		const store = await helper.getStore(storename);
 		const storeTickets = store.storedata.tickets;
 

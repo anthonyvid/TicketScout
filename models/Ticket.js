@@ -452,7 +452,7 @@ class Ticket {
 
 		// If tracking is invalid return with errors
 		if (!json.tracking_status) {
-			return { tracking_error: "Tracking Info Invalid2" };
+			return { tracking_error: "Tracking Info Invalid3" };
 		}
 
 		return {

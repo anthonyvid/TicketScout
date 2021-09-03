@@ -426,6 +426,7 @@ main {
           flex-direction: column;
   text-align: left;
   padding: 0px 45px 20px 45px;
+  overflow: auto;
 }
 
 .new-payment-container .content-container form .items-in-order-container h4 {

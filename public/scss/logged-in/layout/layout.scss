@@ -1,5 +1,9 @@
 @import "../../../helper";
 
+body {
+	background-color: $cardPool;
+}
+
 .sidebar {
 	width: 220px;
 	position: fixed;

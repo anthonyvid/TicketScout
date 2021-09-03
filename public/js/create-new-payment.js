@@ -9,6 +9,7 @@ const cash = document.querySelector(".cash");
 const cashInput = document.querySelector(".cash-input");
 const completePaymentBtn = document.getElementById("complete_payment_btn");
 const table = document.getElementById("order_table");
+const tbodyref = document.getElementById("tbodyref");
 const itemsInOrder = document.getElementById("items_in_order");
 const orderTotalBeforeTax = document.getElementById("total_before_tax");
 const orderTaxAmount = document.getElementById("tax_amount");
@@ -116,7 +117,7 @@ const isPaymentMethodSelected = () => {
  * @param {Object} item row data
  */
 const addLineitem = (item) => {
-	let row = table.insertRow();
+	let row = tbodyref.insertRow();
 	helper.addCellToRow(row, item.category);
 	helper.addCellToRow(row, item.description);
 	helper.addCellToRow(row, `$ ${parseFloat(item.amount).toFixed(2)}`);
@@ -323,8 +324,9 @@ addToOrderBtn.addEventListener(
 		orderItems.push(item);
 		addLineitem(item);
 
-		// Remove default table row
-		table.firstElementChild.nextElementSibling.firstElementChild.remove();
+		table.firstElementChild.nextElementSibling.firstElementChild
+			.remove()
+			.one();
 
 		paymentOverviewItemsInOrder += qty;
 		paymentOverviewTotalBeforeTax += amountBeforeTax;

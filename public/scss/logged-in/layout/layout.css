@@ -65,6 +65,10 @@ a:hover {
   display: none;
 }
 
+body {
+  background-color: #f6f8fa;
+}
+
 .sidebar {
   width: 220px;
   position: fixed;

@@ -23,7 +23,7 @@ main {
 }
 
 .main-content {
-	background-color: #f4f1f1 !important;
+	background-color: #f4f1f1;
 }
 
 .page-header {
@@ -247,7 +247,7 @@ main {
 				font-size: 14px;
 			}
 
-			div {
+			.tracking-actions {
 				position: relative;
 
 				input {
@@ -281,8 +281,9 @@ main {
 			}
 
 			.map-animation {
+				margin-top: -20px;
 				width: 100%;
-				height: 50%;
+				height: 100px;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -315,6 +316,48 @@ main {
 			background-image: url(/assets/dashboard/trackingIllustration.svg);
 			background-size: 100% 100%;
 			border-top-right-radius: 10px;
+		}
+	}
+}
+
+@media only screen and (max-height: 735px) {
+	main {
+		overflow-y: auto !important;
+		height: auto !important;
+
+		& {
+			overflow-y: hidden !important;
+		}
+
+		.master-card-layout {
+			.top-cards-layout {
+				height: 50%;
+			}
+			.bottom-cards-layout {
+				height: 50%;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 1270px) {
+	main {
+		overflow-y: auto !important;
+	}
+
+	.master-card-layout .bottom-cards-layout {
+		flex-direction: column;
+
+		.recent-tickets,
+		.tracking {
+			width: 100%;
+			height: 100%;
+		}
+
+		.recent-tickets {
+			table {
+				height: 300px !important;
+			}
 		}
 	}
 }

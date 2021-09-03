@@ -177,6 +177,7 @@ a:hover {
   border: 0;
   height: 50px;
   text-indent: 10px;
+  font-family: "Inter";
 }
 
 .new-ticket-container .content-container form .info-container .input-wrap input:focus, .new-ticket-container .content-container form .info-container .input-wrap input:valid:not(#email),

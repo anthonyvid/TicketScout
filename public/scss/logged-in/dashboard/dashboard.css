@@ -98,7 +98,7 @@ main {
 }
 
 .main-content {
-  background-color: #f4f1f1 !important;
+  background-color: #f4f1f1;
 }
 
 .page-header {
@@ -369,11 +369,11 @@ main {
   font-size: 14px;
 }
 
-.bottom-cards-layout .tracking .tracking-area div {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions {
   position: relative;
 }
 
-.bottom-cards-layout .tracking .tracking-area div input {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions input {
   margin-top: 15px;
   height: 65px;
   width: 100%;
@@ -387,27 +387,27 @@ main {
   font-size: 13px;
 }
 
-.bottom-cards-layout .tracking .tracking-area div input::-webkit-input-placeholder {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions input::-webkit-input-placeholder {
   color: #8f8f8f;
   font-weight: 600;
 }
 
-.bottom-cards-layout .tracking .tracking-area div input:-ms-input-placeholder {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions input:-ms-input-placeholder {
   color: #8f8f8f;
   font-weight: 600;
 }
 
-.bottom-cards-layout .tracking .tracking-area div input::-ms-input-placeholder {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions input::-ms-input-placeholder {
   color: #8f8f8f;
   font-weight: 600;
 }
 
-.bottom-cards-layout .tracking .tracking-area div input::placeholder {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions input::placeholder {
   color: #8f8f8f;
   font-weight: 600;
 }
 
-.bottom-cards-layout .tracking .tracking-area div button {
+.bottom-cards-layout .tracking .tracking-area .tracking-actions button {
   position: absolute;
   top: 28px;
   right: 10px;
@@ -419,8 +419,9 @@ main {
 }
 
 .bottom-cards-layout .tracking .tracking-area .map-animation {
+  margin-top: -20px;
   width: 100%;
-  height: 50%;
+  height: 100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -469,5 +470,41 @@ main {
   background-image: url(/assets/dashboard/trackingIllustration.svg);
   background-size: 100% 100%;
   border-top-right-radius: 10px;
+}
+
+@media only screen and (max-height: 735px) {
+  main {
+    overflow-y: auto !important;
+    height: auto !important;
+  }
+  main {
+    overflow-y: hidden !important;
+  }
+  main .master-card-layout .top-cards-layout {
+    height: 50%;
+  }
+  main .master-card-layout .bottom-cards-layout {
+    height: 50%;
+  }
+}
+
+@media only screen and (max-width: 1270px) {
+  main {
+    overflow-y: auto !important;
+  }
+  .master-card-layout .bottom-cards-layout {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .master-card-layout .bottom-cards-layout .recent-tickets,
+  .master-card-layout .bottom-cards-layout .tracking {
+    width: 100%;
+    height: 100%;
+  }
+  .master-card-layout .bottom-cards-layout .recent-tickets table {
+    height: 300px !important;
+  }
 }
 /*# sourceMappingURL=dashboard.css.map */

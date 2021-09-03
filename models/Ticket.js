@@ -449,11 +449,10 @@ class Ticket {
 		});
 		const json = await response.json();
 
-		// // If tracking is invalid return with errors
-		// if (!json.tracking_status) {
-		// 	return { tracking_error: "Tracking Info Invalid3" };
-		// }
-		console.log(json);
+		// If tracking is invalid return with errors
+		if (!json.tracking_status) {
+			return { tracking_error: "Tracking Info Invalid3" };
+		} 
 
 		return {
 			from: json.address_from,

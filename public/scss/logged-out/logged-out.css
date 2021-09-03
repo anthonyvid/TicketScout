@@ -217,9 +217,11 @@ body {
 }
 
 .left-container #logo {
+  top: 15px;
+  left: 15px;
   position: absolute;
   width: 100px;
-  height: 100px;
+  height: 50px;
 }
 
 .left-container #group1 {

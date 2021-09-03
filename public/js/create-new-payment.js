@@ -324,9 +324,12 @@ addToOrderBtn.addEventListener(
 		orderItems.push(item);
 		addLineitem(item);
 
-		table.firstElementChild.nextElementSibling.firstElementChild
-			.remove()
-			.one();
+		if (
+			tbodyref.firstElementChild.firstElementChild.textContent ==
+			"No Items in Order"
+		) {
+			tbodyref.firstElementChild.remove();
+		}
 
 		paymentOverviewItemsInOrder += qty;
 		paymentOverviewTotalBeforeTax += amountBeforeTax;

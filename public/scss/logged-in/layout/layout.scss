@@ -23,11 +23,9 @@ body {
 	@include centerFlexChild;
 
 	.brand-flex {
-		h2 {
-			color: $swatch_4; //TODO: color choice?
-		}
-		h2 span {
-			color: $swatch_3; //TODO: color choice?
+		img {
+			width: 100px;
+			height: 50px;
 		}
 	}
 }

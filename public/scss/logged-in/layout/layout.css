@@ -92,12 +92,9 @@ body {
           align-items: center;
 }
 
-.sidebar-brand .brand-flex h2 {
-  color: #354250;
-}
-
-.sidebar-brand .brand-flex h2 span {
-  color: #b4becc;
+.sidebar-brand .brand-flex img {
+  width: 100px;
+  height: 50px;
 }
 
 .sidebar-menu {

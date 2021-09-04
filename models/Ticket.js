@@ -305,7 +305,7 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-		const timestamp = new Date().toLocaleString();
+		const timestamp = new Date().toLocaleString("en-CA");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,
@@ -345,6 +345,38 @@ class Ticket {
 			});
 
 		return [msg, timestamp];
+	}
+
+	/**
+	 * adds private msg to smsHistory of users ticket
+	 * @param {object} user 
+	 * @param {string} ticketID 
+	 * @param {string} message 
+	 * @returns string
+	 */
+	async addPrivateNote(user, ticketID, message) {
+		const { storename, fullname } = user;
+		const timestamp = new Date().toLocaleString("en-CA");
+
+		await storesCollection.updateOne(
+			{ storename: storename },
+			{
+				$push: {
+					[`storedata.tickets.${[ticketID]}.smsData`]: {
+						$each: [
+							{
+								timestamp: timestamp + " - private",
+								from: "private",
+								user: fullname,
+								message: message,
+							},
+						],
+					},
+				},
+			}
+		);
+
+		return timestamp;
 	}
 
 	/**
@@ -452,7 +484,7 @@ class Ticket {
 		// If tracking is invalid return with errors
 		if (!json.tracking_status) {
 			return { tracking_error: "Tracking Info Invalid3" };
-		} 
+		}
 
 		return {
 			from: json.address_from,

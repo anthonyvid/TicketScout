@@ -23,6 +23,7 @@ const sendMsg = document.getElementById("send_msg");
 const trackingNumber = document.getElementById("tracking_number");
 const carrierSelect = document.getElementById("carrier_select");
 const incomingMsgCover = document.querySelector(".incoming-msg-cover");
+const addPrivateMsg = document.getElementById("send_private_msg");
 
 const currentTime = new Date().getTime();
 const lastUpdateTime = Number(lastUpdated.textContent.replace(/\D/g, ""));
@@ -55,15 +56,50 @@ $(window).on("load", async () => {
 	}
 });
 
+/**
+ * Shows the incoming msg cover
+ */
 const receivedMsgView = () => {
 	incomingMsgCover.classList.remove("hidden");
 };
 channel.bind(ticketID.textContent.trim().substring(1), receivedMsgView);
 
-incomingMsgCover.addEventListener("click", () => {
-	location.reload();
-});
+/**
+ * Adds a private msg sent to the chat
+ * @param {object} data
+ */
+const addPrivateNote = (data) => {
+	console.log(data);
+	const { msg, user, timeSent } = data;
 
+	const messageBox = document.createElement("div");
+	messageBox.classList.add("reply-message-box");
+	const messageText = document.createElement("p");
+	const text = document.createTextNode(msg);
+	messageText.appendChild(text);
+	messageText.classList.add("reply");
+	messageText.classList.add("private-msg");
+	messageBox.appendChild(messageText);
+	document.querySelector(".chat-body").prepend(messageBox);
+	chatBoxTextarea.value = "";
+
+	const messageDetails = document.createElement("div");
+	messageDetails.classList.add("msg-details");
+	const userText = document.createElement("small");
+	const userName = document.createTextNode(user.fullname);
+	userText.appendChild(userName);
+	const timestamp = document.createElement("small");
+	const timestampText = document.createTextNode(timeSent + " - private");
+	timestamp.appendChild(timestampText);
+	messageDetails.appendChild(userText);
+	messageDetails.appendChild(timestamp);
+	document.querySelector(".reply-message-box").appendChild(messageDetails);
+};
+
+/**
+ * Adds a text msg sent to the chat
+ * @param {object} data
+ */
 const appendTextToChat = (data) => {
 	const { msg, user, timeSent } = data;
 
@@ -89,6 +125,10 @@ const appendTextToChat = (data) => {
 	messageDetails.appendChild(timestamp);
 	document.querySelector(".reply-message-box").appendChild(messageDetails);
 };
+
+incomingMsgCover.addEventListener("click", () => {
+	location.reload();
+});
 
 submitChangeBtn.addEventListener(
 	"click",
@@ -267,6 +307,24 @@ document.getElementById("confirm_tracking_details").addEventListener(
 	},
 	{ passive: true }
 );
+
+addPrivateMsg.addEventListener("click", async () => {
+	if (!chatBoxTextarea.value) {
+		helper.showInvalidColour(chatBoxTextarea);
+		return;
+	}
+
+	const message = chatBoxTextarea.value.trim();
+	const id = ticketID.textContent.trim().replace("#", "");
+
+	const data = await helper.postReq("/tickets/add-private-note", {
+		message,
+		ticketID: id,
+	});
+
+	// Add message text to chatbox
+	addPrivateNote(data);
+});
 
 sendMsg.addEventListener(
 	"click",

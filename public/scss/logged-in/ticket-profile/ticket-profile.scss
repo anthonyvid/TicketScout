@@ -115,7 +115,8 @@
 					align-items: flex-end;
 					gap: 5px;
 
-					.reply {
+					.reply,
+					.private-msg {
 						float: right;
 						display: flex;
 						align-items: center;
@@ -129,6 +130,11 @@
 						word-break: break-word;
 						box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
 							rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+					}
+
+					.private-msg {
+						background-color: #505f79;
+						color: white;
 					}
 				}
 
@@ -152,7 +158,6 @@
 						padding: 13px 20px 13px 20px;
 						border-radius: 5px 20px 20px 20px;
 						word-break: break-word;
-						// box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 						box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
 							rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 					}
@@ -208,7 +213,7 @@
 
 						button {
 							margin: 10px 15px 10px 0;
-							width: 85px;
+							width: 100px;
 							height: 30px;
 							padding: 5px;
 							outline: none;
@@ -221,6 +226,11 @@
 								rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							color: white;
 							font-weight: 600;
+						}
+
+						#send_private_msg {
+							width: 150px;
+							background-color: #505f79;
 						}
 					}
 				}

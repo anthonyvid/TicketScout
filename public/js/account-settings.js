@@ -35,6 +35,11 @@ window.onload = () => {
 	for (let i = 0; i < sections.length; i++) observer.observe(sections[i]);
 };
 
+/**
+ * Converts rbg to hex value
+ * @param {string} rgb 
+ * @returns string  
+ */
 const rgb2hex = (rgb) =>
 	`#${rgb
 		.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)

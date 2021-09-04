@@ -19,6 +19,9 @@ const passwordLottie = document.getElementById("password_lottie");
 const errorMsgBox = document.querySelector(".error-msg-wrap");
 const errorMsgText = document.getElementById("err_msg_text");
 
+/**
+ * Transition animation effect to password section
+ */
 const transitionToPasswordPage = async () => {
 	storeInfoInputWrap.classList.remove("fadeInAnimation");
 	storeInfoInputWrap.classList.add("fadeLeftAnimation");
@@ -34,6 +37,9 @@ const transitionToPasswordPage = async () => {
 	passwordLottie.classList.remove("hidden");
 };
 
+/**
+ * Transition animation effect to store info section
+ */
 const transitionToStoreInfoPage = () => {
 	passwordInfoWrap.classList.remove("fadeInAnimation");
 	passwordInfoWrap.classList.add("fadeLeftAnimation");
@@ -49,6 +55,12 @@ const transitionToStoreInfoPage = () => {
 	primaryLottie.classList.remove("hidden");
 };
 
+/**
+ * Displays a text element for the given length with the given msg
+ * @param {string} msg 
+ * @param {int} length 
+ * @returns Promise
+ */
 const showSuccessMessage = async (msg, length) => {
 	document.querySelector(".success-msg").textContent = msg;
 	return new Promise((resolve, reject) => {
@@ -59,6 +71,10 @@ const showSuccessMessage = async (msg, length) => {
 	});
 };
 
+/**
+ * Loading animation after Admin signup
+ * @returns Promise
+ */
 const showLoadingAnimation = async () => {
 	passwordInfoWrap.classList.add("hidden");
 	storeInfoInputWrap.classList.add("hidden");
@@ -73,6 +89,10 @@ const showLoadingAnimation = async () => {
 	});
 };
 
+/**
+ * shows errorMsgBox and gives it the given msg content
+ * @param {string} msg 
+ */
 const showErrorMsg = (msg) => {
 	errorMsgBox.classList.remove("hidden");
 	errorMsgText.textContent = msg;

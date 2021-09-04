@@ -7,6 +7,7 @@
 	"dependencies": {
 		"@googlemaps/js-api-loader": "^1.12.1",
 		"bcryptjs": "^2.4.3",
+		"compression": "^1.7.4",
 		"connect-flash": "^0.1.1",
 		"connect-mongo": "^4.4.1",
 		"connect-mongodb-session": "^2.4.1",
@@ -37,7 +38,7 @@
 		"nodemon": "^2.0.7"
 	},
 	"scripts": {
-		"start": "node app.js",
+		"start": "NODE_ENV=production node app.js",
 		"devStart": "nodemon -r dotenv/config app.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

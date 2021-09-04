@@ -8,34 +8,18 @@ const loader = new Loader({
 	version: "weekly",
 });
 
+var pusher = new Pusher("e28b6821911a7e16e187", {
+	cluster: "us2",
+});
+
+const defaultLat = 43.687736;
+const defaultLng = -79.46496;
 const tableRows = document.querySelectorAll("#table_row");
 const tbody = document.getElementById("tbody");
 const greeting = document.getElementById("greeting");
 const ticketIDInput = document.getElementById("ticket_ID_input");
 const trackBtn = document.getElementById("track_btn");
 let greet = new Date();
-
-var pusher = new Pusher("e28b6821911a7e16e187", {
-	cluster: "us2",
-});
-var channel = pusher.subscribe("ticket-channel");
-channel.bind("dashboard-table-update", (data) => {
-	let recentTickets = data.recentTickets;
-
-	recentTickets = recentTickets.filter(
-		(ticket) => ticket[1].status != "Resolved"
-	);
-
-	const recentTicketTrio = recentTickets.slice(0, 3);
-
-	tbody.lastElementChild.remove();
-	tbody.lastElementChild.remove();
-	tbody.lastElementChild.remove();
-
-	addRecentTicketTrio(recentTicketTrio);
-	const firstTableItem = tbody.firstElementChild;
-	helper.showUpdatedRow(firstTableItem, firstTableItem.style.backgroundColor);
-});
 
 /**
  * Adds a row to items in order table with given data
@@ -71,17 +55,11 @@ const clearResolvedTickets = () => {
 };
 clearResolvedTickets(); // Run asap
 
-if (greet.getHours() >= 0 && greet.getHours() < 12) {
-	greeting.insertAdjacentHTML("afterbegin", `Good morning, `);
-} else if (greet.getHours() >= 12 && greet.getHours() <= 17) {
-	greeting.insertAdjacentHTML("afterbegin", `Good afternoon, `);
-} else if (greet.getHours() >= 17 && greet.getHours() < 24) {
-	greeting.insertAdjacentHTML("afterbegin", `Good evening, `);
-}
-
-const defaultLat = 43.687736;
-const defaultLng = -79.46496;
-
+/**
+ * Loads in google api map
+ * @param {int} lat
+ * @param {int} lng
+ */
 const showMap = (lat, lng) => {
 	let map;
 
@@ -101,6 +79,10 @@ const showMap = (lat, lng) => {
 	});
 };
 
+/**
+ * Shows the tracking anmation after btn pressed
+ * @returns Promise
+ */
 const trackingLoadingAnimation = async () => {
 	document.querySelector(".tracking-info").classList.add("hidden");
 	document.querySelector(".map-animation").classList.remove("hidden");
@@ -113,6 +95,10 @@ const trackingLoadingAnimation = async () => {
 	);
 };
 
+/**
+ * Will call showMap with lat,lng from given address
+ * @param {string} address
+ */
 const getLatLngByZipcode = async (address) => {
 	let geocoder = new google.maps.Geocoder();
 
@@ -128,6 +114,10 @@ const getLatLngByZipcode = async (address) => {
 	});
 };
 
+/**
+ * Displays tracking details if/when found
+ * @param {object} trackingObj
+ */
 const showTrackingDetails = async (trackingObj) => {
 	document.querySelector(".map-animation").classList.add("hidden");
 	document.querySelector(".lottie-animation").classList.add("hidden");
@@ -151,6 +141,33 @@ const showTrackingDetails = async (trackingObj) => {
 	document.getElementById("from_text").textContent =
 		from !== null ? from.city : "Unavailable";
 };
+
+var channel = pusher.subscribe("ticket-channel");
+channel.bind("dashboard-table-update", (data) => {
+	let recentTickets = data.recentTickets;
+
+	recentTickets = recentTickets.filter(
+		(ticket) => ticket[1].status != "Resolved"
+	);
+
+	const recentTicketTrio = recentTickets.slice(0, 3);
+
+	tbody.lastElementChild.remove();
+	tbody.lastElementChild.remove();
+	tbody.lastElementChild.remove();
+
+	addRecentTicketTrio(recentTicketTrio);
+	const firstTableItem = tbody.firstElementChild;
+	helper.showUpdatedRow(firstTableItem, firstTableItem.style.backgroundColor);
+});
+
+if (greet.getHours() >= 0 && greet.getHours() < 12) {
+	greeting.insertAdjacentHTML("afterbegin", `Good morning, `);
+} else if (greet.getHours() >= 12 && greet.getHours() <= 17) {
+	greeting.insertAdjacentHTML("afterbegin", `Good afternoon, `);
+} else if (greet.getHours() >= 17 && greet.getHours() < 24) {
+	greeting.insertAdjacentHTML("afterbegin", `Good evening, `);
+}
 
 ticketIDInput.addEventListener(
 	"click",

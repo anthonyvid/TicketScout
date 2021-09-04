@@ -21,13 +21,21 @@ export const postReq = async (url, body) => {
 	}
 };
 
-export const showUpdatedRow = (row, originalColor) => {
+/**
+ * Will add updated-row class to a row for a set period of time
+ * @param {element} row 
+ */
+export const showUpdatedRow = (row) => {
 	row.classList.add("updated-row");
 	setTimeout(() => {
 		row.classList.remove("updated-row");
 	}, 1000);
 };
 
+/**
+ * Gives an element a red background colour for set period of time
+ * @param {element} element 
+ */
 export const showInvalidColour = (element) => {
 	element.style.backgroundColor = "#FFCCCC";
 	setTimeout(() => {
@@ -35,6 +43,10 @@ export const showInvalidColour = (element) => {
 	}, 500);
 };
 
+/**
+ * Gives an element a green background colour for set period of time
+ * @param {element} element 
+ */
 export const showValidColour = (element) => {
 	element.style.backgroundColor = "lightgreen";
 	setTimeout(() => {
@@ -42,6 +54,10 @@ export const showValidColour = (element) => {
 	}, 1500);
 };
 
+/**
+ * @param {element} row 
+ * @param {textNode} cellData 
+ */
 export const addCellToRow = (row, cellData) => {
 	const tableData = row.insertCell();
 	const content = document.createTextNode(cellData);
@@ -60,12 +76,20 @@ export const getSelectTagCurrentValue = (element) => {
 	)[0].trim();
 };
 
+/**
+ * Checks if an email address is valid
+ * @param {string} email 
+ * @returns boolean
+ */
 export const isValidEmail = (email) => {
 	const re =
 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(String(email).toLowerCase());
 };
 
+/**
+ * Open print window
+ */
 export const print = () => {
 	window.print();
 };

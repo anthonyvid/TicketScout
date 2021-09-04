@@ -121,6 +121,17 @@ export const sendSms = async function (req, res) {
 	res.json({ msg: msg, user: req.user, timeSent });
 };
 
+export const addPrivateNote = async function (req, res) {
+	const ticket = new Ticket();
+	const timeSent = await ticket.addPrivateNote(
+		req.user,
+		req.body.ticketID,
+		req.body.message
+	);
+
+	res.json({ msg: req.body.message, user: req.user, timeSent });
+};
+
 export const receiveSms = async function (req, res) {
 	const ticket = new Ticket();
 	await ticket.receiveSms(req.body);

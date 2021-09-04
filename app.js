@@ -4,11 +4,13 @@ import flash from "connect-flash";
 import session from "cookie-session";
 import passport from "passport";
 import { configMongoConnection } from "./db.js";
+import compression from "compression";
 const app = express();
 
 //Connect to mongoDB
 configMongoConnection();
 
+app.use(compression());
 app.use(express.json());
 app.use(express.static("public"));
 

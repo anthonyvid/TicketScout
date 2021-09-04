@@ -62,6 +62,13 @@ router.post(
 	ensureAuthenticated,
 	catchError(ticketController.sendSms)
 );
+
+router.post(
+	"/add-private-note",
+	ensureAuthenticated,
+	catchError(ticketController.addPrivateNote)
+);
+
 router.post("/receive-sms", catchError(ticketController.receiveSms));
 
 export default router;

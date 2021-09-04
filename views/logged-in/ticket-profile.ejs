@@ -67,7 +67,15 @@
 											<small><%= ticket.smsData[i].timestamp %> </small>
 										</div>
 									</div>
-								<% } %> 
+								<% } else if(ticket.smsData[i].from === "private") {%>
+									<div class="reply-message-box">
+										<p class="reply private-msg"><%= ticket.smsData[i].message %> </p>
+										<div class="msg-details">	
+											<small><%= ticket.smsData[i].user %> </small>
+											<small><%= ticket.smsData[i].timestamp %> </small>
+										</div>
+									</div>
+								<% } %>  
 							<% } %>
 						</div>
 						<div class="chat-send-wrap">
@@ -75,7 +83,8 @@
 								<textarea name="chatMsg" id="chat_msg" cols="30" rows="10" placeholder="Write a message..."></textarea>
 								<div>
 									<div class="canned-messages"></div>
-									<button type="button" id="send_msg"><i class="fas fa-paper-plane"></i>Send</button>
+									<button type="button" id="send_private_msg">Add Private Note<i class="fas fa-sticky-note"></i></button>
+									<button type="button" id="send_msg">Send SMS<i class="fas fa-paper-plane"></i></button>
 								</div>
 							</div>
 						</div>

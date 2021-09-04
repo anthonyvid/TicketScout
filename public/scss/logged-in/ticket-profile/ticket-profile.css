@@ -777,4 +777,8 @@ a:hover {
     top: 0;
   }
 }
+
+#section-to-print {
+  visibility: hidden;
+}
 /*# sourceMappingURL=ticket-profile.css.map */

@@ -80,11 +80,12 @@ body {
 	overflow: none;
 
 	#logo {
-		top: 15px;
 		left: 15px;
+		top: -10px;
 		position: absolute;
-		width: 100px;
-		height: 50px;
+		width: 250px;
+		height: 100px;
+		z-index: 50;
 	}
 
 	#group1 {

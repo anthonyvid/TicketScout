@@ -19,13 +19,13 @@ body {
 }
 
 .sidebar-brand {
-	height: 100px;
+	height: 70px;
 	@include centerFlexChild;
 
 	.brand-flex {
 		img {
-			width: 100px;
-			height: 50px;
+			width: 180px;
+			height: 100px;
 		}
 	}
 }
@@ -100,13 +100,21 @@ body {
 				height: 45px;
 				width: 200px;
 				background: #ffffff;
-				box-shadow: 0px 1px 244px 10px rgba(65, 66, 115, 0.16);
 				border-radius: 10px;
 				border: none;
 				font-size: 0.9em;
 				text-indent: 35px;
-				transition: 0.3s ease-in;
+				transition: 0.3s ease-in-out;
 				color: $primaryTextGrey;
+
+				&:hover,
+				&:focus,
+				&:active {
+					cursor: auto;
+					border-color: #9ecaed;
+					box-shadow: 0px 0px 4px #4195fc;
+					transition: 0.3s ease-in-out;
+				}
 			}
 
 			span {
@@ -200,7 +208,7 @@ body {
 				.result {
 					@include centerFlexChild;
 					width: 100%;
-					height: 30px;
+					height: 40px;
 					background-color: white;
 					transition: 0.3s ease-in-out;
 					font-size: 0.9rem;

@@ -88,9 +88,9 @@ class User {
 		].map((arr) => arr.filter((word) => word.includes(search)));
 
 		const resultsFound = {
-			tickets,
-			customers,
-			payments,
+			tickets: tickets.slice(0, 5),
+			customers: customers.slice(0, 5),
+			payments: payments.slice(0, 5),
 		};
 		return resultsFound;
 	}

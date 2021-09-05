@@ -2,7 +2,7 @@ import { db } from "../db.js";
 const errorsCollection = db.collection("errors");
 
 /**
- * Function will catch all errors if any found in controller, or methods being called from controller
+ * Function will catch all errors that bubble up to it 
  * @param {function} fn function from controller passed in
  * @returns none
  */

@@ -2,7 +2,7 @@
 
 A Node.js wep application powered by express to track and manage tickets, payments, and customers. Targetted towards small businesses who provide services to their clients.
 
-# Motivation
+## Motivation
 
 After working as a computer technician for over a year and using a similar software to track our repairs, I wanted to create a simplified but effective ready to use web app that other small businesses can use to manage their business.
 

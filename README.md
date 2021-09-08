@@ -13,7 +13,7 @@ After working as a computer technician for over a year and using a similar softw
 
 - Built in SMS messaging system
 - Full CRUD operations
-- Custom ticket status settings
+- Custom store settings
 - Admin and employee permissions
 - User time-clock tracking
 - Built in order tracking system

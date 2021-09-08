@@ -14,6 +14,7 @@ After working as a computer technician for over a year and using a similar softw
 -   Admin and employee permissions
 -   User time-clock tracking
 -   Built in order tracking system
+- User Authentication
 
 ## Tech Stack
 

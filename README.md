@@ -1,12 +1,12 @@
 # Ticket Scout
 
-A Node.js wep application powered by express to track and manage tickets, payments, and customers. Targetted towards small businesses who provide services to their clients.
+A Node.js web application powered by express to track and manage tickets, payments, and customers. Targeted towards small businesses that provide services to their clients.
 
 **View Ticket Scout:** [www.ticketscout.tech](http://www.ticketscout.tech)
 
 ## Motivation
 
-After working as a computer technician for over a year and using a similar software to track our repairs, I wanted to create a simplified but effective ready to use web app that other small businesses can use to manage their business.
+After working as a computer technician for over a year and using similar software to track our repairs, I wanted to create a simplified but effective ready-to-use web app that other small businesses can use to manage their business.
 
 ## Features
 

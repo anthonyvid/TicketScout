@@ -28,7 +28,7 @@ After working as a computer technician for over a year and using a similar softw
 ![](https://i.postimg.cc/288NKYmP/Untitled.jpg)  
 ![](https://i.postimg.cc/Twg5FmjY/Screen-Shot-2021-09-08-at-9-56-34-AM.png)
 ![](https://i.postimg.cc/RVsxrYZq/Untitled-3.jpg)
-![](https://i.postimg.cc/wvdSc804/Screen-Shot-2021-09-07-at-9-35-27-PM.png)
+![](https://i.postimg.cc/cHyBvdXC/Screen-Shot-2021-09-08-at-10-01-53-AM.png)
 ![](https://i.postimg.cc/NjKqQxKD/Untitled-2.jpg)
 
 ## Support

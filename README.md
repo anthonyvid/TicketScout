@@ -21,6 +21,8 @@ After working as a computer technician for over a year and using a similar softw
 
 **Server:** Node, Express
 
+**Database:** MongoDB
+
 **External APIs:** Pusher web sockets, Google maps, Google geolocation, Twilio SMS api, GoShippo tracking api
 
 ## Screenshots
@@ -30,6 +32,10 @@ After working as a computer technician for over a year and using a similar softw
 ![](https://i.postimg.cc/RVsxrYZq/Untitled-3.jpg)
 ![](https://i.postimg.cc/cHyBvdXC/Screen-Shot-2021-09-08-at-10-01-53-AM.png)
 ![](https://i.postimg.cc/NjKqQxKD/Untitled-2.jpg)
+
+## Business Use
+
+If you own a small business and would like to use Ticket Scout, please email me under the support section below.
 
 ## Support
 

@@ -10,12 +10,12 @@ After working as a computer technician for over a year and using similar softwar
 
 ## Features
 
--   Built in SMS messaging system
+-   Built-in SMS messaging system
 -   Full CRUD operations
 -   Custom store settings
 -   Admin and employee permissions
 -   User time-clock tracking
--   Built in order tracking system
+-   Built-in order tracking system
 -   User Authentication
 
 ## Tech Stack

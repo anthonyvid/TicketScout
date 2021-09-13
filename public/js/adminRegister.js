@@ -13,11 +13,12 @@ const passwordConfirmInput = document.getElementById("passwordConfirm");
 const backArrow = document.getElementById("back_arrow");
 const storeInfoInputWrap = document.querySelector(".store-info-container");
 const passwordInfoWrap = document.querySelector(".password-container");
-const viewPassswordIcons = document.querySelectorAll(".eye_icon");
 const primaryLottie = document.getElementById("primary_lottie");
 const passwordLottie = document.getElementById("password_lottie");
 const errorMsgBox = document.querySelector(".error-msg-wrap");
 const errorMsgText = document.getElementById("err_msg_text");
+const passEyeIcon = document.getElementById("pass_eye_icon");
+const passConfEyeIcon = document.getElementById("pass_conf_eye_icon");
 
 /**
  * Transition animation effect to password section
@@ -57,8 +58,8 @@ const transitionToStoreInfoPage = () => {
 
 /**
  * Displays a text element for the given length with the given msg
- * @param {string} msg 
- * @param {int} length 
+ * @param {string} msg
+ * @param {int} length
  * @returns Promise
  */
 const showSuccessMessage = async (msg, length) => {
@@ -91,7 +92,7 @@ const showLoadingAnimation = async () => {
 
 /**
  * shows errorMsgBox and gives it the given msg content
- * @param {string} msg 
+ * @param {string} msg
  */
 const showErrorMsg = (msg) => {
 	errorMsgBox.classList.remove("hidden");
@@ -120,19 +121,30 @@ for (const input of inputs2) {
 	});
 }
 
-for (const icon of viewPassswordIcons) {
-	let passInput = icon.parentElement.previousElementSibling;
-	icon.addEventListener("mousedown", () => {
-		if (passInput.name === "password") passwordInput.type = "text";
-		if (passInput.name === "passwordConfirm")
-			passwordConfirmInput.type = "text";
-	});
-	icon.addEventListener("mouseup", () => {
-		if (passInput.name === "password") passwordInput.type = "password";
-		if (passInput.name === "passwordConfirm")
-			passwordConfirmInput.type = "password";
-	});
-}
+passEyeIcon.addEventListener("mousedown", () => {
+	let passInput = passEyeIcon.previousElementSibling;
+	if (passInput.name === "password") passwordInput.type = "text";
+	if (passInput.name === "passwordConfirm")
+		passwordConfirmInput.type = "text";
+});
+passEyeIcon.addEventListener("mouseup", () => {
+	let passInput = passEyeIcon.previousElementSibling;
+	if (passInput.name === "password") passwordInput.type = "password";
+	if (passInput.name === "passwordConfirm")
+		passwordConfirmInput.type = "password";
+});
+passConfEyeIcon.addEventListener("mousedown", () => {
+	let passInput = passConfEyeIcon.previousElementSibling;
+	if (passInput.name === "password") passwordInput.type = "text";
+	if (passInput.name === "passwordConfirm")
+		passwordConfirmInput.type = "text";
+});
+passConfEyeIcon.addEventListener("mouseup", () => {
+	let passInput = passConfEyeIcon.previousElementSibling;
+	if (passInput.name === "password") passwordInput.type = "password";
+	if (passInput.name === "passwordConfirm")
+		passwordConfirmInput.type = "password";
+});
 
 backArrow.addEventListener("click", () => {
 	transitionToStoreInfoPage();

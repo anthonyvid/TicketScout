@@ -1,8 +1,4 @@
 <link rel="stylesheet" href="/messages.css" />
-<link
-	rel="stylesheet"
-	href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
-/>
 <script type="module" src="/js/adminRegister.js"></script>
 
 <div class="left-container">
@@ -47,7 +43,7 @@
 				<div class="input-wrap">
 					<label>Full name</label>
 					<div>
-						<span><i class="fi-rr-user"></i></span>
+						<span><i class="fas fa-user"></i></span>
 						<input
 							class="input-1"
 							id="fullname"
@@ -64,7 +60,7 @@
 				<div class="input-wrap">
 					<label>Email address</label>
 					<div>
-						<span><i class="fi-rr-envelope icon"></i></span>
+						<span><i class="fas fa-envelope"></i></span>
 						<input
 							class="input-1"
 							id="email"
@@ -80,7 +76,7 @@
 				<div class="input-wrap">
 					<label>Name of store</label>
 					<div>
-						<span><i class="fi-rr-shop"></i></span>
+						<span><i class="fas fa-store"></i></span>
 						<input
 							class="input-1"
 							id="storename"
@@ -112,7 +108,7 @@
 				<div class="input-wrap">
 					<label>Password</label>
 					<div>
-						<span><i class="fi-rr-lock icon"></i></span>
+						<span><i class="fas fa-lock"></i></span>
 						<input
 							class="input-2"
 							id="password"
@@ -123,13 +119,13 @@
 							required
 							value="<%=typeof password != undefined ? password : ''%>"
 						/>
-						<span><i class="fi-rr-eye eye_icon"></i></span>
+						<span id="pass_eye_icon"><i class="fas fa-eye"></i></span>
 					</div>
 				</div>
 				<div class="input-wrap">
 					<label>Confirm your Password</label>
 					<div>
-						<span><i class="fi-rr-lock icon"></i></span>
+						<span><i class="fas fa-lock"></i></span>
 						<input
 							class="input-2"
 							id="passwordConfirm"
@@ -140,7 +136,7 @@
 							required
 							value="<%=typeof passwordConfirm != undefined ? passwordConfirm : ''%>"
 						/>
-						<span><i class="fi-rr-eye eye_icon"></i></span>
+						<span id="pass_conf_eye_icon"><i class="fas fa-eye"></i></span>
 					</div>
 				</div>
 			</div>

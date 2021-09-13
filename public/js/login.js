@@ -6,6 +6,7 @@ const emailInput = document.getElementById("email");
 const loginBtn = document.getElementById("login_button");
 const primaryLottie = document.getElementById("primary_lottie");
 const passwordLottie = document.getElementById("password_lottie");
+const passEyeIcon = document.getElementById("pass_eye_icon")
 
 loginBtn.addEventListener("click", () => {
 	if (!emailInput.value) {
@@ -39,4 +40,18 @@ passwordInput.addEventListener("input", () => {
 	else {
 		loginBtn.style.backgroundColor = "#8fccff";
 	}
+});
+
+
+passEyeIcon.addEventListener("mousedown", () => {
+	let passInput = passEyeIcon.previousElementSibling;
+	if (passInput.name === "password") passwordInput.type = "text";
+	if (passInput.name === "passwordConfirm")
+		passwordConfirmInput.type = "text";
+});
+passEyeIcon.addEventListener("mouseup", () => {
+	let passInput = passEyeIcon.previousElementSibling;
+	if (passInput.name === "password") passwordInput.type = "password";
+	if (passInput.name === "passwordConfirm")
+		passwordConfirmInput.type = "password";
 });

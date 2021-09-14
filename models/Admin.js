@@ -221,8 +221,6 @@ class Admin extends User {
 	 * @returns boolean
 	 */
 	async inviteEmployee(email, signUpCode) {
-		console.log("SIGNUPCODE: " + signUpCode);
-
 		if (!helper.isValidEmail(email)) return false;
 
 		const msg = {
@@ -230,6 +228,11 @@ class Admin extends User {
 			subject: `ticketScout - Register your employee account`, // Subject line
 			text: `
 			Hello, your you've been invited to join a store.
+
+			Copy the sign up code and paste it during the registration process:
+
+			${signUpCode}
+
 			Please click the link below to register your account.
 			http://ticketscout.tech/employee-register
 			`,

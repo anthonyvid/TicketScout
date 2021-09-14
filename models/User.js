@@ -355,7 +355,7 @@ class User {
 			text: `
 			Hello, thanks for registering.
 			Please click the link below to verify your account.
-			http://localhost:3000/verify-email/${user._id}
+			http://ticketscout.tech/verify-email/${user._id}
 			`,
 		};
 		helper.sendEmail(msg);

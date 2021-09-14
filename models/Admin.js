@@ -211,7 +211,6 @@ class Admin extends User {
 
 		this.sendEmailVerification(admin.email);
 
-		this.deleteTwilioSubaccount(twilioAccount.sid); //TODO: REMOVE THIS IS JUST FOR TESTING
 		return { errors: {}, data };
 	}
 

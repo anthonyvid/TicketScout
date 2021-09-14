@@ -226,11 +226,13 @@ class Admin extends User {
 		if (!helper.isValidEmail(email)) return false;
 
 		const msg = {
-			to: `${email}`, // List of receivers
-			subject: `Register Your Account`, // Subject line
-			html: {
-				path: "./views/emailTemplates/employeeRegisterEmailTemplate.html",
-			},
+			to: `${email}`, // list of receivers
+			subject: `ticketScout - Register your employee account`, // Subject line
+			text: `
+			Hello, your you've been invited to join a store.
+			Please click the link below to register your account.
+			http://ticketscout.tech/employee-register
+			`,
 		};
 
 		await helper.sendEmail(msg);

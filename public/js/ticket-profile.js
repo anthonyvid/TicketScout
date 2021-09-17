@@ -31,10 +31,10 @@ const timeDiffInSec = (currentTime - lastUpdateTime) / 1000;
 const timeDiffInDays = timeDiffInSec / 60 / 60 / 24;
 const timeDiffInMonths = timeDiffInDays * 30.417;
 
-var pusher = new Pusher("e28b6821911a7e16e187", {
+let pusher = new Pusher("e28b6821911a7e16e187", {
 	cluster: "us2",
 });
-var channel = pusher.subscribe("sms-channel");
+let channel = pusher.subscribe("sms-channel");
 
 // Sets status colour after page loads
 $(window).on("load", async () => {

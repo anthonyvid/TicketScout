@@ -185,7 +185,7 @@ class Ticket {
 		});
 		const [tickets, store] = await this.updateTicketList(storename);
 		// Trigger update event for dashboard ticket tables
-		pusher.trigger("ticket-channel", "dashboard-table-update", {
+		pusher.trigger("ticket-c", "dashboard-table", {
 			recentTickets: tickets,
 		});
 		return [tickets, store];
@@ -225,7 +225,7 @@ class Ticket {
 		});
 		const [tickets, store] = await this.updateTicketList(storename);
 		// Trigger update event for dashboard ticket tables
-		pusher.trigger("ticket-channel", "dashboard-table-update", {
+		pusher.trigger("ticket-c", "dashboard-table", {
 			recentTickets: tickets,
 		});
 		return tickets;

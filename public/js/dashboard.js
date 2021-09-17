@@ -71,7 +71,7 @@ const showMap = (lat, lng) => {
 			disableDefaultUI: true,
 		});
 		if (lat != defaultLat && lng != defaultLng) {
-			var marker = new google.maps.Marker({
+			let marker = new google.maps.Marker({
 				map: map,
 				position: new google.maps.LatLng(lat, lng),
 			});
@@ -142,8 +142,9 @@ const showTrackingDetails = async (trackingObj) => {
 		from !== null ? from.city : "Unavailable";
 };
 
-var channel = pusher.subscribe("ticket-channel");
-channel.bind("dashboard-table-update", (data) => {
+let channel = pusher.subscribe("ticket-c");
+
+channel.bind("dashboard-table", (data) => {
 	console.log("YAaaaaasasasasasasasasasa");
 	let recentTickets = data.recentTickets;
 

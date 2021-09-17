@@ -226,7 +226,7 @@ class Admin extends User {
 		const msg = {
 			to: `${email}`, // list of receivers
 			subject: `ticketScout - Register your employee account`, // Subject line
-			body: `
+			text: `
 			Hello, your you've been invited to join a store.
 
 			Copy the sign up code and paste it during the registration process:
@@ -235,6 +235,16 @@ class Admin extends User {
 
 			Please click the link below to register your account.
 			http://ticketscout.tech/employee-register
+			`,
+			html: `
+			<h4>Hello, your you've been invited to join a store.</h4>
+
+			<h5>Copy the sign up code and paste it during the registration process:</h5>
+
+			<h5>${signUpCode}</h5>
+
+			<h5>Please click the link below to register your account.</h5>
+			<h5>http://ticketscout.tech/employee-register</h5>
 			`,
 		};
 

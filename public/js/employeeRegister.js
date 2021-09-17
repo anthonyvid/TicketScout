@@ -192,7 +192,7 @@ registerBtn.addEventListener("click", async () => {
 
 	if (!data.errors.length) {
 		await showLoadingAnimation();
-		window.location.replace("http://localhost:3000/");
+		window.location.replace("www.ticketscout/");
 	} else {
 		showErrorMsg(data.errors[0]);
 	}

@@ -243,7 +243,7 @@ class Admin extends User {
 
 			<h5>${signUpCode}</h5>
 
-			<h5>Please click the link below to register your account.</h5>
+			<h5>Please go to the link below to register your account.</h5>
 			<a>http://ticketscout.tech/employee-register</a>
 			`,
 		};

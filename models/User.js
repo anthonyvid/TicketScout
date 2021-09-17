@@ -357,6 +357,11 @@ class User {
 			Please click the link below to verify your account.
 			http://ticketscout.tech/verify-email/${user._id}
 			`,
+			html: `
+			Hello, thanks for registering.
+			Please click the link below to verify your account.
+			http://ticketscout.tech/verify-email/${user._id}
+			`,
 		};
 		helper.sendEmail(msg);
 	}
@@ -371,6 +376,11 @@ class User {
 			to: `${email}`, // list of receivers
 			subject: `ticketScout - Someone just joined your store`, // Subject line
 			text: `
+			Hello, someone named ${employeeName} - ${employeeEmail}, recently used your sign up code to join your store.
+			If you did not authorize this action please visit the settings page in your ticketScout account
+			and remove them under the employees tab.
+			`,
+			html: `
 			Hello, someone named ${employeeName} - ${employeeEmail}, recently used your sign up code to join your store.
 			If you did not authorize this action please visit the settings page in your ticketScout account
 			and remove them under the employees tab.

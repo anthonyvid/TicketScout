@@ -311,6 +311,8 @@ class Ticket {
 			limit: 20,
 		});
 
+		if (!subAccount.length) return ["SMS not activated", timestamp];
+
 		const msg = await twilioClient.messages
 			.create({
 				from: subAccount[0].phoneNumber,
@@ -349,9 +351,9 @@ class Ticket {
 
 	/**
 	 * adds private msg to smsHistory of users ticket
-	 * @param {object} user 
-	 * @param {string} ticketID 
-	 * @param {string} message 
+	 * @param {object} user
+	 * @param {string} ticketID
+	 * @param {string} message
 	 * @returns string
 	 */
 	async addPrivateNote(user, ticketID, message) {

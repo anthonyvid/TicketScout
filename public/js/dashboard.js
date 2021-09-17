@@ -144,6 +144,7 @@ const showTrackingDetails = async (trackingObj) => {
 
 var channel = pusher.subscribe("ticket-channel");
 channel.bind("dashboard-table-update", (data) => {
+	console.log("YAaaaaasasasasasasasasasa");
 	let recentTickets = data.recentTickets;
 
 	recentTickets = recentTickets.filter(

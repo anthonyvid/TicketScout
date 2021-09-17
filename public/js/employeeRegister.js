@@ -62,8 +62,8 @@ const transitionToStoreInfoPage = () => {
 
 /**
  * Displays a text element for the given length with the given msg
- * @param {string} msg 
- * @param {int} length 
+ * @param {string} msg
+ * @param {int} length
  * @returns Promise
  */
 const showSuccessMessage = async (msg, length) => {
@@ -98,7 +98,7 @@ const showLoadingAnimation = async () => {
 
 /**
  * shows errorMsgBox and gives it the given msg content
- * @param {string} msg 
+ * @param {string} msg
  */
 const showErrorMsg = (msg) => {
 	errorMsgBox.classList.remove("hidden");
@@ -192,7 +192,7 @@ registerBtn.addEventListener("click", async () => {
 
 	if (!data.errors.length) {
 		await showLoadingAnimation();
-		window.location.replace("www.ticketscout/");
+		window.location.replace("http://www.ticketscout.tech");
 	} else {
 		showErrorMsg(data.errors[0]);
 	}

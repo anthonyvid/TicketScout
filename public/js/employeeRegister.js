@@ -91,7 +91,7 @@ const showLoadingAnimation = async () => {
 		);
 		await showSuccessMessage("Configuring account settings...", 3000);
 		await showSuccessMessage("Loading in default settings...", 3000);
-		await showSuccessMessage("Success! Email verification sent.", 4000);
+		await showSuccessMessage("Success! Email verification sent. Check Spam!", 4000);
 		resolve();
 	});
 };

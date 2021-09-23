@@ -84,7 +84,7 @@ const showLoadingAnimation = async () => {
 		await showSuccessMessage("Woohoo! Time to get organized.", 3000);
 		await showSuccessMessage("Configuring store settings...", 3000);
 		await showSuccessMessage("Loading in default settings...", 3000);
-		await showSuccessMessage("Success! Email verification sent.", 4000);
+		await showSuccessMessage("Success! Email verification sent. Check Spam!", 4000);
 
 		resolve();
 	});

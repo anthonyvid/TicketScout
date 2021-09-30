@@ -18,7 +18,7 @@ import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
 dayjs.extend(utc);
 dayjs.extend(timezone);
-dayjs.tz.setDefault("America/Toronto");
+// dayjs.tz.setDefault("America/Toronto");
 
 
 
@@ -314,7 +314,7 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-		const timestamp = dayjs().format("DD/MM/YYYY[ - ]hh:mm A");
+		const timestamp = dayjs().tz("America/Toronto").format("DD/MM/YYYY[ - ]hh:mm A");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,

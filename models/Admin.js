@@ -234,7 +234,7 @@ class Admin extends User {
 			${signUpCode}
 
 			Please click the link below to register your account.
-			http://ticketscout.tech/employee-register
+			https://ticketscout.tech/employee-register
 			`,
 			html: `
 			<h4>Hello, your you've been invited to join a store.</h4>
@@ -244,7 +244,7 @@ class Admin extends User {
 			<h5>${signUpCode}</h5>
 
 			<h5>Please go to the link below to register your account.</h5>
-			<a>http://ticketscout.tech/employee-register</a>
+			<a>https://ticketscout.tech/employee-register</a>
 			`,
 		};
 

@@ -355,12 +355,12 @@ class User {
 			text: `
 			Hello, thanks for registering.
 			Please click the link below to verify your account.
-			http://ticketscout.tech/verify-email/${user._id}
+			https//ticketscout.tech/verify-email/${user._id}
 			`,
 			html: `
 			Hello, thanks for registering.
 			Please click the link below to verify your account.
-			http://ticketscout.tech/verify-email/${user._id}
+			https://ticketscout.tech/verify-email/${user._id}
 			`,
 		};
 		helper.sendEmail(msg);

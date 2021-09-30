@@ -309,7 +309,7 @@ class Ticket {
 		// const timestamp = new Date().toLocaleString("en-CA", {
 		// 	timezone: "America/Toronto",
 		// });
-        const timestamp = moment().tz("America/Toronto").format("lll");
+        const timestamp = moment().format("lll");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,

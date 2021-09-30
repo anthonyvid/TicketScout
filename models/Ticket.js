@@ -306,7 +306,9 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-        const timestamp = dayjs().tz("America/Toronto").format("lll");
+		const timestamp = dayjs()
+			.tz("America/Toronto")
+			.format("DD/MM/YYYY[ - ]HH:mm");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,

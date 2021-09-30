@@ -14,6 +14,14 @@ const pusher = new Pusher({
 	useTLS: true,
 });
 
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("America/Toronto");
+
+
+
 class Ticket {
 	/**
 	 * Updates and sorts store tickets in descending order

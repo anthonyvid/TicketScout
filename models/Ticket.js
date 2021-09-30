@@ -306,9 +306,7 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-		const timestamp = dayjs()
-			.tz("America/Toronto")
-			.format("DD/MM/YYYY[ - ]HH:mm");
+		const timestamp = dayjs().format("DD/MM/YYYY[ - ]hh:mm A");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,
@@ -361,7 +359,7 @@ class Ticket {
 	 */
 	async addPrivateNote(user, ticketID, message) {
 		const { storename, fullname } = user;
-		const timestamp = dayjs().tz("America/Toronto").format("lll");
+		const timestamp = dayjs().format("DD/MM/YYYY[ - ]hh:mm A");
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -392,7 +390,7 @@ class Ticket {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
-		const timestamp = dayjs().tz("America/Toronto").format("lll");
+		const timestamp = dayjs().format("DD/MM/YYYY[ - ]hh:mm A");
 
 		const pusher = new Pusher({
 			appId: "1259577",

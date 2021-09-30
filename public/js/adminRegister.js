@@ -186,7 +186,7 @@ registerBtn.addEventListener("click", async () => {
 
 	if (!data.errors.length) {
 		await showLoadingAnimation();
-		window.location.replace("https://ticketscout.tech/");
+		window.location.replace("https://www.ticketscout.tech/");
 	} else {
 		showErrorMsg(data.errors[0]);
 	}

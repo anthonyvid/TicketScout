@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 import * as helper from "./Helper.js";
 import Customer from "./Customer.js";
 import Pusher from "pusher";
-import dayjs from "dayjs";
+import moment from "moment-timezone";
 const storesCollection = db.collection("stores");
 const pusher = new Pusher({
 	appId: "1259577",
@@ -14,11 +14,6 @@ const pusher = new Pusher({
 	useTLS: true,
 });
 
-import utc from "dayjs/plugin/utc.js";
-import timezone from "dayjs/plugin/timezone.js";
-dayjs.extend(utc);
-dayjs.extend(timezone);
-// dayjs.tz.setDefault("America/Toronto");
 
 
 
@@ -314,7 +309,7 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-		const timestamp = dayjs().tz("America/Toronto").format("DD/MM/YYYY[ - ]hh:mm A");
+		const timestamp = moment().tz("America/Toronto").format("lll");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,
@@ -367,7 +362,7 @@ class Ticket {
 	 */
 	async addPrivateNote(user, ticketID, message) {
 		const { storename, fullname } = user;
-		const timestamp = dayjs().format("DD/MM/YYYY[ - ]hh:mm A");
+		const timestamp = moment().tz("America/Toronto").format("lll");
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -398,7 +393,7 @@ class Ticket {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
-		const timestamp = dayjs().format("DD/MM/YYYY[ - ]hh:mm A");
+		const timestamp = moment().tz("America/Toronto").format("lll");
 
 		const pusher = new Pusher({
 			appId: "1259577",

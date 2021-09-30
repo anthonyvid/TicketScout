@@ -305,7 +305,9 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-		const timestamp = new Date().toLocaleString("en-CA");
+		const timestamp = new Date().toLocaleString("en-CA", {
+			timezone: "Canada/Ontario",
+		});
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,
@@ -358,7 +360,9 @@ class Ticket {
 	 */
 	async addPrivateNote(user, ticketID, message) {
 		const { storename, fullname } = user;
-		const timestamp = new Date().toLocaleString("en-CA");
+		const timestamp = new Date().toLocaleString("en-CA", {
+			timezone: "Canada/Ontario",
+		});
 
 		await storesCollection.updateOne(
 			{ storename: storename },
@@ -389,7 +393,9 @@ class Ticket {
 		const subAccountSid = smsData.AccountSid;
 		const message = smsData.Body;
 		const fromNumber = smsData.From.substring(2);
-		const timestamp = new Date().toLocaleString();
+		const timestamp = new Date().toLocaleString("en-CA", {
+			timezone: "Canada/Ontario",
+		});
 		const pusher = new Pusher({
 			appId: "1259577",
 			key: "e28b6821911a7e16e187",

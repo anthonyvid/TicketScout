@@ -23,7 +23,7 @@ if (resolveTicketBtn) {
 				id,
 				phone,
 			});
-			window.location = "http://localhost:3000/tickets/";
+			window.location = "https://www.ticketscout.tech/tickets";
 		},
 		{
 			passive: true,

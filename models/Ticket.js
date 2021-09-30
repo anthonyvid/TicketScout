@@ -13,6 +13,9 @@ const pusher = new Pusher({
 	cluster: "us2",
 	useTLS: true,
 });
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("America/Toronto");
 
 class Ticket {
 	/**

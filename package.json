@@ -19,6 +19,7 @@
 		"express-ejs-layouts": "^2.5.1",
 		"express-session": "^1.17.2",
 		"lottie-web": "^5.7.13",
+		"moment": "^2.29.1",
 		"mongodb": "^3.6.9",
 		"mongoose": "^5.12.15",
 		"node-fetch": "^2.6.1",

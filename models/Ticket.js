@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 import * as helper from "./Helper.js";
 import Customer from "./Customer.js";
 import Pusher from "pusher";
+import moment from "moment";
 const storesCollection = db.collection("stores");
 const pusher = new Pusher({
 	appId: "1259577",
@@ -305,9 +306,10 @@ class Ticket {
 		const twilioClient = client(subAccountSid, subAccountAuthToken);
 
 		let subAccount = null;
-		const timestamp = new Date().toLocaleString("en-CA", {
-			timezone: "America/Toronto",
-		});
+		// const timestamp = new Date().toLocaleString("en-CA", {
+		// 	timezone: "America/Toronto",
+		// });
+        const timestamp = moment().tz("America/Toronto").format("lll");
 
 		subAccount = await twilioClient.incomingPhoneNumbers.list({
 			limit: 20,

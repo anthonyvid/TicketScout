@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 import * as helper from "./Helper.js";
 import Customer from "./Customer.js";
 import Pusher from "pusher";
-import moment from "moment";
+import moment from "moment-timezone";
 const storesCollection = db.collection("stores");
 const pusher = new Pusher({
 	appId: "1259577",

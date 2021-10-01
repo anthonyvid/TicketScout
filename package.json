@@ -19,6 +19,7 @@
 		"express": "^4.17.1",
 		"express-ejs-layouts": "^2.5.1",
 		"express-session": "^1.17.2",
+		"heroku-ssl-redirect": "^0.1.1",
 		"lottie-web": "^5.7.13",
 		"moment-timezone": "^0.5.33",
 		"mongodb": "^3.6.9",

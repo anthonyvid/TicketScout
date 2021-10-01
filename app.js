@@ -5,7 +5,6 @@ import session from "cookie-session";
 import passport from "passport";
 import { configMongoConnection } from "./db.js";
 import compression from "compression";
-import sslRedirect from "heroku-ssl-redirect";
 const app = express();
 
 //Connect to mongoDB
@@ -14,7 +13,6 @@ configMongoConnection();
 app.use(compression());
 app.use(express.json());
 app.use(express.static("public"));
-app.use(sslRedirect())
 
 // Passport Config
 import passportConfig from "./config/passport.js";

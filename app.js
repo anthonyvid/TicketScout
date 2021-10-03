@@ -21,6 +21,15 @@ passportConfig(passport);
 //Bodyparser
 app.use(express.urlencoded({ extended: false }));
 
+// Redirect to secure if request is not secure and not localhost
+if (port == process.env.PORT) {
+	app.enable("trust proxy"); // Enable reverse proxy support
+	app.use((req, res, next) => {
+		if (req.secure) next();
+		else res.redirect(301, `https://${req.headers.host}${req.url}`);
+	});
+}
+
 // Express Session
 app.use(
 	session({

@@ -7,6 +7,12 @@ import { configMongoConnection } from "./db.js";
 import compression from "compression";
 const app = express();
 
+if (process.env.NODE_ENV == "production") {
+	https.createServer(sslOption, expressAPP);
+} else {
+	http.createServer(expressApp);
+}
+
 //Connect to mongoDB
 configMongoConnection();
 
@@ -22,12 +28,11 @@ passportConfig(passport);
 app.use(express.urlencoded({ extended: false }));
 
 // Redirect to secure if request is not secure and not localhost
-
-app.enable("trust proxy"); // Enable reverse proxy support
-app.use((req, res, next) => {
-	if (req.secure) next();
-	else res.redirect(301, `https://${req.headers.host}${req.url}`);
-});
+// app.enable("trust proxy"); // Enable reverse proxy support
+// app.use((req, res, next) => {
+// 	if (req.secure) next();
+// 	else res.redirect(301, `https://${req.headers.host}${req.url}`);
+// });
 
 // Express Session
 app.use(
@@ -46,6 +51,7 @@ app.use(passport.session());
 // Connect Flash
 app.use(flash());
 
+// Flash messages
 app.use((req, res, next) => {
 	res.locals.success_msg = req.flash("success_msg");
 	res.locals.error_msg = req.flash("error_msg");

@@ -69,7 +69,6 @@ channel.bind(ticketID.textContent.trim().substring(1), receivedMsgView);
  * @param {object} data
  */
 const addPrivateNote = (data) => {
-	console.log(data);
 	const { msg, user, timeSent } = data;
 
 	const messageBox = document.createElement("div");

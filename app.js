@@ -7,11 +7,11 @@ import { configMongoConnection } from "./db.js";
 import compression from "compression";
 const app = express();
 
-if (process.env.NODE_ENV == "production") {
-	https.createServer(sslOption, expressAPP);
-} else {
-	http.createServer(expressApp);
-}
+// if (process.env.NODE_ENV == "production") {
+// 	https.createServer(sslOption, expressAPP);
+// } else {
+// 	http.createServer(expressApp);
+// }
 
 //Connect to mongoDB
 configMongoConnection();

@@ -2,7 +2,7 @@
 
 A Node.js web application powered by express to track and manage tickets, payments, and customers. Targeted towards small businesses that provide services to their clients.
 
-**View Ticket Scout:** [www.ticketscout.tech](http://www.ticketscout.tech)
+**View Ticket Scout:** [www.ticketscout.tech](https://ticketscout.herokuapp.com/)
 
 ## Motivation
 

@@ -6,7 +6,11 @@ const emailInput = document.getElementById("email");
 const loginBtn = document.getElementById("login_button");
 const primaryLottie = document.getElementById("primary_lottie");
 const passwordLottie = document.getElementById("password_lottie");
-const passEyeIcon = document.getElementById("pass_eye_icon")
+const passEyeIcon = document.getElementById("pass_eye_icon");
+
+// prefill with guest account
+emailInput.value = "ticketscoutguest@gmail.com";
+passwordInput.value = "guest123";
 
 loginBtn.addEventListener("click", () => {
 	if (!emailInput.value) {
@@ -41,7 +45,6 @@ passwordInput.addEventListener("input", () => {
 		loginBtn.style.backgroundColor = "#8fccff";
 	}
 });
-
 
 passEyeIcon.addEventListener("mousedown", () => {
 	let passInput = passEyeIcon.previousElementSibling;

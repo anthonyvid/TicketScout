@@ -21,6 +21,9 @@ class User {
 		if (!helper.isValidEmail(email))
 			return { emailError: "Not a valid email" };
 
+		if (helper.getUser(email))
+			return { emailError: "Not a valid email, already taken" };
+
 		// Validate name
 		if (firstname.length == 0 || lastname.length == 0)
 			return { emailError: "Invalid firstname or lastname" };

@@ -9,8 +9,8 @@ const passwordLottie = document.getElementById("password_lottie");
 const passEyeIcon = document.getElementById("pass_eye_icon");
 
 // prefill with guest account
-emailInput.value = "ticketscoutguest@gmail.com";
-passwordInput.value = "guest123";
+emailInput.value = "";
+passwordInput.value = "";
 
 loginBtn.addEventListener("click", () => {
 	if (!emailInput.value) {

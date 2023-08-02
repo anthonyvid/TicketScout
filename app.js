@@ -5,13 +5,17 @@ import session from "cookie-session";
 import passport from "passport";
 import { configMongoConnection } from "./db.js";
 import compression from "compression";
+import dotenv from "dotenv";
+
 const app = express();
 
 // if (process.env.NODE_ENV == "production") {
-// 	https.createServer(sslOption, expressAPP);
+//   https.createServer(sslOption, expressAPP);
 // } else {
-// 	http.createServer(expressApp);
+//   http.createServer(expressApp);
 // }
+
+dotenv.config();
 
 //Connect to mongoDB
 configMongoConnection();
@@ -30,18 +34,18 @@ app.use(express.urlencoded({ extended: false }));
 // Redirect to secure if request is not secure and not localhost
 // app.enable("trust proxy"); // Enable reverse proxy support
 // app.use((req, res, next) => {
-// 	if (req.secure) next();
-// 	else res.redirect(301, `https://${req.headers.host}${req.url}`);
+//   if (req.secure) next();
+//   else res.redirect(301, `https://${req.headers.host}${req.url}`);
 // });
 
 // Express Session
 app.use(
-	session({
-		secret: process.env.SESSION_SECRET,
-		resave: true,
-		saveUninitialized: true,
-		cookie: { _expires: 36000000 }, //10 hour cookie
-	})
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie: { _expires: 36000000 }, //10 hour cookie
+  })
 );
 
 // Passport middleware
@@ -53,14 +57,14 @@ app.use(flash());
 
 // Flash messages
 app.use((req, res, next) => {
-	res.locals.success_msg = req.flash("success_msg");
-	res.locals.error_msg = req.flash("error_msg");
-	res.locals.error = req.flash("error");
-	res.locals.logout_msg = req.flash("logout_msg");
-	res.locals.invalid_auth = req.flash("invalid_auth");
-	res.locals.welcome_back = req.flash("welcome_back");
-	res.locals.success_update = req.flash("success_update");
-	next();
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  res.locals.logout_msg = req.flash("logout_msg");
+  res.locals.invalid_auth = req.flash("invalid_auth");
+  res.locals.welcome_back = req.flash("welcome_back");
+  res.locals.success_update = req.flash("success_update");
+  next();
 });
 
 //EJS

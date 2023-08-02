@@ -1,13 +1,13 @@
-import client from "twilio";
+// import client from "twilio";
 import User from "./User.js";
 import { db } from "../db.js";
 import * as helper from "./Helper.js";
 import uniqueString from "unique-string";
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioClient = client(accountSid, authToken);
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const twilioClient = client(accountSid, authToken);
 
 class Admin extends User {
 	/**
@@ -52,28 +52,28 @@ class Admin extends User {
 		);
 	}
 
-	/**
-	 * Creates a subaccount in master twilio account, for sms services
-	 * @param {string} friendlyName
-	 * @returns object
-	 */
-	async createTwilioSubaccount(friendlyName) {
-		return await twilioClient.api.accounts.create({
-			friendlyName: friendlyName,
-		});
-	}
+	// /**
+	//  * Creates a subaccount in master twilio account, for sms services
+	//  * @param {string} friendlyName
+	//  * @returns object
+	//  */
+	// async createTwilioSubaccount(friendlyName) {
+	// 	return await twilioClient.api.accounts.create({
+	// 		friendlyName: friendlyName,
+	// 	});
+	// }
 
-	/**
-	 * Deletes a twilio account
-	 * @param {string} sid
-	 */
-	async deleteTwilioSubaccount(sid) {
-		try {
-			await twilioClient.api.accounts(sid).update({ status: "closed" });
-		} catch (error) {
-			console.error(error);
-		}
-	}
+	// /**
+	//  * Deletes a twilio account
+	//  * @param {string} sid
+	//  */
+	// async deleteTwilioSubaccount(sid) {
+	// 	try {
+	// 		await twilioClient.api.accounts(sid).update({ status: "closed" });
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// }
 
 	/**
 	 * Checks if a store with storename exists
@@ -126,20 +126,20 @@ class Admin extends User {
 				data,
 			};
 
-		let twilioAccount = null;
+		// let twilioAccount = null;
 
-		try {
-			twilioAccount = await this.createTwilioSubaccount(storename);
-		} catch (error) {
-			console.error(error);
-			return {
-				errors: {
-					twilioError:
-						"Error creating twilio subaccount - Contact Support",
-				},
-				data,
-			};
-		}
+		// try {
+		// 	twilioAccount = await this.createTwilioSubaccount(storename);
+		// } catch (error) {
+		// 	console.error(error);
+		// 	return {
+		// 		errors: {
+		// 			twilioError:
+		// 				"Error creating twilio subaccount - Contact Support",
+		// 		},
+		// 		data,
+		// 	};
+		// }
 
 		// Hash user passwords
 		password = helper.hashPrivateInfo(password);
@@ -172,10 +172,10 @@ class Admin extends User {
 				payments: {},
 				api: {
 					twilio: {
-						authToken: twilioAccount.authToken,
-						sid: twilioAccount.sid,
-						numSmsSent: 0,
-						numSmsReceived: 0,
+						// authToken: twilioAccount.authToken,
+						// sid: twilioAccount.sid,
+						// numSmsSent: 0,
+						// numSmsReceived: 0,
 					},
 				},
 			},

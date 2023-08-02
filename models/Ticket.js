@@ -1,5 +1,5 @@
 import { db } from "../db.js";
-import client from "twilio";
+// import client from "twilio";
 import fetch from "node-fetch";
 import * as helper from "./Helper.js";
 import Customer from "./Customer.js";
@@ -133,12 +133,12 @@ class Ticket {
 			}
 		);
 
-		await this.sendSms(
-			user,
-			mostRecentTicketNum,
-			ticket.customer.phone,
-			`Hi there! Welcome to ${storename}. Your ticket number is ${mostRecentTicketNum}, you can reply to this chat at any time if you have any questions while we service your product.`
-		);
+		// await this.sendSms(
+		// 	user,
+		// 	mostRecentTicketNum,
+		// 	ticket.customer.phone,
+		// 	`Hi there! Welcome to ${storename}. Your ticket number is ${mostRecentTicketNum}, you can reply to this chat at any time if you have any questions while we service your product.`
+		// );
 
 		return [{}, ticket, mostRecentTicketNum];
 	}

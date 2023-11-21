@@ -41,7 +41,7 @@
     "start": "NODE_ENV=production node app.js",
     "devStart": "NODE_ENV=development nodemon -r dotenv/config app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production node app.js"
+    "build": "NODE_ENV=production npm install --legacy-peer-deps"
   },
   "keywords": [],
   "author": "",

@@ -186,7 +186,7 @@ registerBtn.addEventListener("click", async () => {
 
 	if (!data.errors.length) {
 		await showLoadingAnimation();
-		window.location.replace("https://ticketscout.herokuapp.com/");
+		window.location.replace("https://ticket-scout.vercel.app/");
 	} else {
 		showErrorMsg(data.errors[0]);
 	}

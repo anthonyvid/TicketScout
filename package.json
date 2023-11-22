@@ -1,5 +1,9 @@
 {
   "name": "ticketscout-app",
+  "engines": {
+    "node": "18.x",
+    "npm": "9.8.1"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "app.js",

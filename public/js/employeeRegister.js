@@ -91,7 +91,10 @@ const showLoadingAnimation = async () => {
 		);
 		await showSuccessMessage("Configuring account settings...", 3000);
 		await showSuccessMessage("Loading in default settings...", 3000);
-		await showSuccessMessage("Success! Email verification sent. Check Spam!", 4000);
+		await showSuccessMessage(
+			"Success! Email verification sent. Check Spam!",
+			4000
+		);
 		resolve();
 	});
 };
@@ -192,7 +195,8 @@ registerBtn.addEventListener("click", async () => {
 
 	if (!data.errors.length) {
 		await showLoadingAnimation();
-		window.location.replace("https://ticketscout.herokuapp.com");
+		const base_url = window.location.origin;
+		window.location.replace(base_url);
 	} else {
 		showErrorMsg(data.errors[0]);
 	}

@@ -222,9 +222,9 @@ class Admin extends User {
     if (!helper.isValidEmail(email)) return false;
 
     const msg = {
-      to: `${email}`, // list of receivers
-      subject: `ticketScout - Register your employee account`, // Subject line
-      text: `
+		to: `${email}`, // list of receivers
+		subject: `ticketScout - Register your employee account`, // Subject line
+		text: `
 			Hello, your you've been invited to join a store.
 
 			Copy the sign up code and paste it during the registration process:
@@ -232,9 +232,9 @@ class Admin extends User {
 			${signUpCode}
 
 			Please click the link below to register your account.
-			https://ticketscout.herokuapp.com/employee-register
+			${helper.BASE_URL}/employee-register
 			`,
-      html: `
+		html: `
 			<h4>Hello, your you've been invited to join a store.</h4>
 
 			<h5>Copy the sign up code and paste it during the registration process:</h5>
@@ -242,9 +242,9 @@ class Admin extends User {
 			<h5>${signUpCode}</h5>
 
 			<h5>Please go to the link below to register your account.</h5>
-			<a>https://ticketscout.herokuapp.com/employee-register</a>
+			<a>${helper.BASE_URL}/employee-register</a>
 			`,
-    };
+	};
 
     await helper.sendEmail(msg);
     return true;

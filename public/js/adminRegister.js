@@ -84,7 +84,10 @@ const showLoadingAnimation = async () => {
 		await showSuccessMessage("Woohoo! Time to get organized.", 3000);
 		await showSuccessMessage("Configuring store settings...", 3000);
 		await showSuccessMessage("Loading in default settings...", 3000);
-		await showSuccessMessage("Success! Email verification sent. Check Spam!", 4000);
+		await showSuccessMessage(
+			"Success! Email verification sent. Check Spam!",
+			4000
+		);
 
 		resolve();
 	});
@@ -186,7 +189,9 @@ registerBtn.addEventListener("click", async () => {
 
 	if (!data.errors.length) {
 		await showLoadingAnimation();
-		window.location.replace("https://ticket-scout.vercel.app/");
+
+		const base_url = window.location.origin;
+		window.location.replace(base_url);
 	} else {
 		showErrorMsg(data.errors[0]);
 	}

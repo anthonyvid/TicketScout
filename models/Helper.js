@@ -4,13 +4,16 @@ import { db } from "../db.js";
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
+export const BASE_URL =
+	process.env.NODE_ENV === "production" ? "" : "http://localhost:3000";
+
 /**
  * Checks if a phone is valid according to regex
  * @param {string} phone
  * @returns boolean
  */
 export const isValidPhone = (phone) => {
-  return /^\d{10}$/.test(phone);
+	return /^\d{10}$/.test(phone);
 };
 
 /**
@@ -19,8 +22,8 @@ export const isValidPhone = (phone) => {
  * @returns boolean
  */
 export const isValidEmail = (email) => {
-  let re = /\S+@\S+\.\S+/;
-  return re.test(email);
+	let re = /\S+@\S+\.\S+/;
+	return re.test(email);
 };
 
 /**
@@ -29,9 +32,9 @@ export const isValidEmail = (email) => {
  * @returns hashed data
  */
 export const hashPrivateInfo = (str) => {
-  let salt = bcrypt.genSaltSync(10);
-  const hashedData = bcrypt.hashSync(str, salt);
-  return hashedData;
+	let salt = bcrypt.genSaltSync(10);
+	const hashedData = bcrypt.hashSync(str, salt);
+	return hashedData;
 };
 
 /**
@@ -40,7 +43,7 @@ export const hashPrivateInfo = (str) => {
  * @returns object
  */
 export const getUser = async (email) => {
-  return await usersCollection.findOne({ email: email });
+	return await usersCollection.findOne({ email: email });
 };
 
 /**
@@ -48,22 +51,22 @@ export const getUser = async (email) => {
  * @param {string} msg
  */
 export const sendEmail = async (msg) => {
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    secure: true,
-    auth: {
-      user: process.env.GMAILUSER,
-      pass: process.env.GMAILPASS,
-    },
-  });
+	let transporter = nodemailer.createTransport({
+		service: "gmail",
+		secure: true,
+		auth: {
+			user: process.env.GMAILUSER,
+			pass: process.env.GMAILPASS,
+		},
+	});
 
-  const info = await transporter.sendMail(msg, (err, data) => {
-    if (err) {
-      console.log("error occured: ", err);
-    } else {
-      console.log("Email sent");
-    }
-  });
+	const info = await transporter.sendMail(msg, (err, data) => {
+		if (err) {
+			console.log("error occured: ", err);
+		} else {
+			console.log("Email sent");
+		}
+	});
 };
 
 /**
@@ -72,7 +75,7 @@ export const sendEmail = async (msg) => {
  * @returns object of store from database
  */
 export const getStore = async (storename) => {
-  return await storesCollection.findOne({ storename: storename });
+	return await storesCollection.findOne({ storename: storename });
 };
 
 /**
@@ -83,8 +86,8 @@ export const getStore = async (storename) => {
  * @returns largest number in array, or start number if array is empty
  */
 export const getLargestNum = async (array, start) => {
-  if (!array.length) return start;
-  return Math.max(...array.map((i) => parseInt(i)));
+	if (!array.length) return start;
+	return Math.max(...array.map((i) => parseInt(i)));
 };
 
 /**

@@ -23,7 +23,8 @@ if (resolveTicketBtn) {
 				id,
 				phone,
 			});
-			window.location = "https://ticketscout.herokuapp.com/tickets";
+			const base_url = window.location.origin;
+			window.location = base_url + "/tickets";
 		},
 		{
 			passive: true,

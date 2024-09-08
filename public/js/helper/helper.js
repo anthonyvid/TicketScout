@@ -23,7 +23,7 @@ export const postReq = async (url, body) => {
 
 /**
  * Will add updated-row class to a row for a set period of time
- * @param {element} row 
+ * @param {element} row
  */
 export const showUpdatedRow = (row) => {
 	row.classList.add("updated-row");
@@ -34,7 +34,7 @@ export const showUpdatedRow = (row) => {
 
 /**
  * Gives an element a red background colour for set period of time
- * @param {element} element 
+ * @param {element} element
  */
 export const showInvalidColour = (element) => {
 	element.style.backgroundColor = "#FFCCCC";
@@ -45,7 +45,7 @@ export const showInvalidColour = (element) => {
 
 /**
  * Gives an element a green background colour for set period of time
- * @param {element} element 
+ * @param {element} element
  */
 export const showValidColour = (element) => {
 	element.style.backgroundColor = "lightgreen";
@@ -55,8 +55,8 @@ export const showValidColour = (element) => {
 };
 
 /**
- * @param {element} row 
- * @param {textNode} cellData 
+ * @param {element} row
+ * @param {textNode} cellData
  */
 export const addCellToRow = (row, cellData) => {
 	const tableData = row.insertCell();
@@ -78,7 +78,7 @@ export const getSelectTagCurrentValue = (element) => {
 
 /**
  * Checks if an email address is valid
- * @param {string} email 
+ * @param {string} email
  * @returns boolean
  */
 export const isValidEmail = (email) => {

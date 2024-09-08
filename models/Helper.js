@@ -5,7 +5,7 @@ const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
 export const BASE_URL =
-	process.env.NODE_ENV === "production" ? "" : "http://localhost:3000";
+	process.env.NODE_ENV === "production" ? process.env.PROD_URL : "http://localhost:3000";
 
 /**
  * Checks if a phone is valid according to regex

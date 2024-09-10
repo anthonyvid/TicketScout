@@ -2,7 +2,9 @@
 
 **TicketScout** is a Node.js web application, powered by Express, designed to help small businesses track and manage tickets, payments, and customers. This streamlined tool allows service providers to efficiently manage their customer interactions and financial transactions, making it ideal for businesses that rely on client services.
 
-**View Ticket Scout:** [www.ticketscout.render.com](https://ticketscout-ji8f.onrender.com)
+**View Ticket Scout:** [www.ticketscout.render.com](https://ticketscout-ji8f.onrender.com) 
+
+**Please Note - Currently hosted on free service, may take long to load**
 
 ## Table of Contents
 - [Motivation](#motivation)

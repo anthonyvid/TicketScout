@@ -1,9 +1,8 @@
 import bcrypt from "bcryptjs";
 import * as helper from "./Helper.js";
 import { db } from "../db.js";
-import mongoClient from "mongodb";
+import { ObjectId } from "mongodb";
 
-const { ObjectId } = mongoClient;
 const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
@@ -305,13 +304,13 @@ class User {
 	 */
 	async verifyUserExists(id) {
 		const user = await usersCollection.findOne({
-			_id: ObjectId(id),
+			_id: new ObjectId(id),
 		});
 
 		if (!user) return false;
 
 		await usersCollection.updateOne(
-			{ _id: ObjectId(id) },
+			{ _id: new ObjectId(id) },
 			{
 				$set: { isVerified: true },
 			}

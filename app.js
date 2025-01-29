@@ -1,7 +1,7 @@
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import flash from "connect-flash";
-import session from "cookie-session";
+import session from "express-session"; // Changed to express-session
 import passport from "passport";
 import { configMongoConnection } from "./db.js";
 import compression from "compression";
@@ -14,13 +14,7 @@ if (process.env.NODE_ENV === "development") {
 
 const app = express();
 
-// if (process.env.NODE_ENV == "production") {
-//   https.createServer(sslOption, expressAPP);
-// } else {
-//   http.createServer(expressApp);
-// }
-
-//Connect to mongoDB
+// Connect to MongoDB
 configMongoConnection();
 
 app.use(compression());
@@ -31,27 +25,20 @@ app.use(express.static("public"));
 import passportConfig from "./config/passport.js";
 passportConfig(passport);
 
-//Bodyparser
+// Bodyparser
 app.use(express.urlencoded({ extended: false }));
 
-// Redirect to secure if request is not secure and not localhost
-// app.enable("trust proxy"); // Enable reverse proxy support
-// app.use((req, res, next) => {
-//   if (req.secure) next();
-//   else res.redirect(301, `https://${req.headers.host}${req.url}`);
-// });
-
-// Express Session
+// Express Session (Changed to express-session)
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
-		resave: true,
-		saveUninitialized: true,
-		cookie: { _expires: 36000000 }, //10 hour cookie
+		resave: false, // Set to false to avoid unnecessary session saving
+		saveUninitialized: false, // Set to false to avoid saving empty sessions
+		cookie: { secure: false, maxAge: 36000000 }, // Make sure the cookie has an expiration
 	})
 );
 
-// `Pass`port middleware
+// `Passport` middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -70,11 +57,11 @@ app.use((req, res, next) => {
 	next();
 });
 
-//EJS
+// EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 
-//Routes
+// Routes
 import userRouter from "./routes/userRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import ticketRouter from "./routes/ticketRouter.js";

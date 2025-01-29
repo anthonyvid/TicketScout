@@ -3,10 +3,14 @@ import Ticket from "../models/Ticket.js";
 import { getStore } from "../models/Helper.js";
 import passport from "passport";
 
-export const logout = async function (req, res) {
-	req.logout();
-	req.flash("logout_msg", "You are logged out");
-	res.redirect("/");
+export const logout = async function (req, res, next) {
+	req.logout((err) => {
+		if (err) {
+			return next(err); // Pass the error to the next middleware or error handler
+		}
+		req.flash("logout_msg", "You are logged out");
+		res.redirect("/"); // Redirect to home or login page
+	});
 };
 
 export const renderLogin = function (req, res) {

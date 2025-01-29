@@ -5,7 +5,9 @@ const usersCollection = db.collection("users");
 const storesCollection = db.collection("stores");
 
 export const BASE_URL =
-	process.env.NODE_ENV === "production" ? process.env.PROD_URL : "http://localhost:3000";
+	process.env.NODE_ENV === "production"
+		? process.env.PROD_URL
+		: "http://localhost:3000";
 
 /**
  * Checks if a phone is valid according to regex
@@ -31,10 +33,13 @@ export const isValidEmail = (email) => {
  * @param {string} str
  * @returns hashed data
  */
+// export const hashPrivateInfo = (str) => {
+// 	let salt = bcrypt.genSaltSync(10);
+// 	const hashedData = bcrypt.hashSync(str, salt);
+// 	return hashedData;
+// };
 export const hashPrivateInfo = (str) => {
-	let salt = bcrypt.genSaltSync(10);
-	const hashedData = bcrypt.hashSync(str, salt);
-	return hashedData;
+	return bcrypt.genSalt(10).then((salt) => bcrypt.hash(str, salt));
 };
 
 /**

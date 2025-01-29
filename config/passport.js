@@ -25,7 +25,7 @@ export default function (passport) {
 							message: "Please verify your email address",
 						});
 					}
-
+					console.log(password, user);
 					// Check if passwords match
 					bcrypt.compare(password, user.password, (err, isMatch) => {
 						if (err) throw err;

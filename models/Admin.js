@@ -140,11 +140,11 @@ class Admin extends User {
 				data,
 			};
 		}
-
+		console.log(password);
 		// Hash user passwords
 		password = await helper.hashPrivateInfo(password);
 		passwordConfirm = password;
-
+		console.log(password, passwordConfirm);
 		const admin = {
 			fullname,
 			email,

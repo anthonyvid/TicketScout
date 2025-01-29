@@ -27,7 +27,6 @@ export default function (passport) {
 					}
 
 					// Check if passwords match
-					console.log(password, user.password);
 					bcrypt.compare(password, user.password, (err, isMatch) => {
 						if (err) throw err;
 						// If passwords match
